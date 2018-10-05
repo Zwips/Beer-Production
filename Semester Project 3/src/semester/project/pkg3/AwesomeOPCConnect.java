@@ -11,4 +11,10 @@ package semester.project.pkg3;
  */
 public class AwesomeOPCConnect {
     
+    public void dosomething(){
+        
+        
+        
+    }
+    
 }
