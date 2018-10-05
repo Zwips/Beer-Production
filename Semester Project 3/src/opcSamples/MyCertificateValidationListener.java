@@ -4,7 +4,7 @@
  * <http://www.prosysopc.com>
  * All rights reserved.
  */
-package com.prosysopc.ua.samples.client;
+package opcSamples;
 
 import java.security.cert.CertificateParsingException;
 import java.util.Date;
