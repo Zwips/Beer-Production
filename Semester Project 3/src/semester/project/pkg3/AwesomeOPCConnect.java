@@ -5,6 +5,8 @@
  */
 package semester.project.pkg3;
 
+import org.opcfoundation.ua.core.Identifiers;
+
 /**
  *
  * @author HCHB
