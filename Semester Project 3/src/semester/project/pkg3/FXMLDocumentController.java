@@ -26,10 +26,10 @@ import javafx.scene.control.Label;
 import opcSamples.SampleConsoleClient;
 import org.opcfoundation.ua.builtintypes.DateTime;
 import org.opcfoundation.ua.builtintypes.LocalizedText;
-import org.opcfoundation.ua.builtintypes.NodeId;
 import org.opcfoundation.ua.core.ApplicationDescription;
 import org.opcfoundation.ua.core.ApplicationType;
 import org.opcfoundation.ua.core.Identifiers;
+import static org.opcfoundation.ua.core.Identifiers.DataValue;
 import org.opcfoundation.ua.core.TimestampsToReturn;
 import org.opcfoundation.ua.transport.security.SecurityMode;
 
@@ -56,16 +56,42 @@ public class FXMLDocumentController implements Initializable {
         SampleConsoleClient console = new SampleConsoleClient();
         this.setupUaClient();
         
-      
-        try {
-            System.out.println(client.getAddressSpace().browseMethods(new NodeId(6, "NS")));
-        } catch (ServiceException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (StatusException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
        
+        
+      
+//        try {
+//            System.out.println(client.getAddressSpace().browseMethods(new NodeId(6, "NS")));
+//        } catch (ServiceException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (StatusException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+       
+//    public StatusCode writeValue(String identifier, Object value) {
+//        NodeId node = new NodeId(6, "::Program:Cube." + identifier);
+//        DataValue dv = new DataValue(new Variant(value), null, null);
+//
+//        try {
+//            return this.client.writeValue(node, dv).get();
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
+
+//    public Object readValue(String identifier) {
+//        try {
+//            DataValue value = this.client.readValue(0, TimestampsToReturn.Both, new NodeId(6, "::Program:Cube."+identifier)).get();
+//            return value.getValue().getValue();
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
     }
+    
     
     private void setupUaClient(){
         try {
@@ -100,6 +126,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (URISyntaxException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     
