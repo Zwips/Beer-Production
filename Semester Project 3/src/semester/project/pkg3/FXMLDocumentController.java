@@ -132,7 +132,8 @@ public class FXMLDocumentController implements Initializable {
     public void writeValue(String identifier, Object value) {
         NodeId node = new NodeId(6, "::Program:Cube." + identifier);
         DataValue dv = new DataValue(new Variant(value));
-
+        
+        float test = 0.0F;
         try {
             System.out.println("**********************************");
             System.out.println("sent command to: " + identifier);

@@ -3,20 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package semester.project.pkg3;
-
-import org.opcfoundation.ua.core.Identifiers;
+package machineConnection.command;
 
 /**
  *
  * @author HCHB
  */
-public class AwesomeOPCConnect {
-    
-    public void dosomething(){
-        
-        
-        
-    }
+public class MachineSpeed {
     
 }
