@@ -11,4 +11,7 @@ package machineConnection.admin;
  */
 public class Admin {
     
+        private String Identifier="s";
+
+    
 }
