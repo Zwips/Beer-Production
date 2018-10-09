@@ -11,4 +11,7 @@ package machineConnection.command;
  */
 public class Command {
     
+        private String Identifier="s";
+
+    
 }

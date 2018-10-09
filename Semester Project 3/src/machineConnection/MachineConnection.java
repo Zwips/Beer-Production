@@ -5,10 +5,15 @@
  */
 package machineConnection;
 
+import Acquantiance.IMachineConnection;
+
 /**
  *
  * @author HCHB
  */
-public class MachineConnection {
+public class MachineConnection implements IMachineConnection {
+    
+    private String Identifier="s";
+    
     
 }

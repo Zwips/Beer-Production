@@ -11,4 +11,7 @@ package machineConnection.status;
  */
 public class Status {
     
+        private String Identifier="s";
+
+    
 }
