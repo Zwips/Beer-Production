@@ -11,4 +11,5 @@ package machineConnection.command;
  */
 public class Control {
     
+    private String identifier = "CntrlCmd";
 }

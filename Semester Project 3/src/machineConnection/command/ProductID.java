@@ -11,4 +11,5 @@ package machineConnection.command;
  */
 public class ProductID {
     
+    private String identifier = "Parameter[1].Value";
 }

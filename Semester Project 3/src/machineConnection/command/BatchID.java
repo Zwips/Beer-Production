@@ -11,4 +11,5 @@ package machineConnection.command;
  */
 public class BatchID {
     
+    private String identifier = "Parameter[0].Value";
 }

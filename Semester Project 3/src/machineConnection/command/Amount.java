@@ -10,5 +10,6 @@ package machineConnection.command;
  * @author HCHB
  */
 public class Amount {
-    
+ 
+    private String identifier = "Parameter[2].Value";
 }

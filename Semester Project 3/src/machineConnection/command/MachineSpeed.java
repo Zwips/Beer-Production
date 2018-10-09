@@ -11,4 +11,5 @@ package machineConnection.command;
  */
 public class MachineSpeed {
     
+    private String identifier = "MachSpeed";
 }
