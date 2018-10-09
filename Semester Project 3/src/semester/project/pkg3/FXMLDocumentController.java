@@ -56,32 +56,30 @@ public class FXMLDocumentController implements Initializable {
         try {
             NodeId node = new NodeId(6, "::Program:Cube.Status.StateCurrent");
             NodeId node2 = new NodeId(6, "::Program:Cube.Status.CurMatchSpeed");
+            NodeId node5 = new NodeId(6, "::Program:Cube.Status.Parameter[1].Value");
             NodeId node3 = new NodeId(6, "::Program:Cube.Admin.ProdProcessedCount");
-            NodeId node4 = new NodeId(6, "::Program:Cube.Command.Parameter[1]");
+            NodeId node4 = new NodeId(6, "::Program:Cube.Command.Parameter[1].Value");
             System.out.println("You clicked me!");
             label.setText("Start");
             writeValue("Command.CntrlCmd", 3);
-            writeValue("Command.CmdChangeRequest", true);
             sleep(2000);
             writeValue("Command.CntrlCmd", 5);
-            writeValue("Command.CmdChangeRequest", true);
             sleep(2000);
             writeValue("Command.CntrlCmd", 1);
-            writeValue("Command.CmdChangeRequest", true);
             sleep(2000);
             writeValue("Command.CntrlCmd", 2);
-            writeValue("Command.CmdChangeRequest", true);
             sleep(1000);
             System.out.println("current type");
 //            System.out.println(client.readValue(node4));
 //            writeValue("Command.MachSpeed", 50);
             sleep(2000);
             System.out.println(client.readValue(node));
-//            System.out.println(client.readValue(node2));
+            System.out.println(client.readValue(node2));
             sleep(5000);
             System.out.println("");
             System.out.print("beers produced: ");
             System.out.println(client.readValue(node3));
+            System.out.println(client.readValue(node5));
         } catch (InterruptedException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServiceException ex) {
@@ -96,18 +94,30 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         SampleConsoleClient console = new SampleConsoleClient();
         this.setupUaClient();
-        try {
-            System.out.println("curr speed");
-            System.out.println(client.readValue(new NodeId(6, "::Program:Cube.Status.CurMachSpeed")));
-            System.out.println("mach speed");
-            System.out.println(client.readValue(new NodeId(6, "::Program:Cube.Status.MachSpeed")));
-        } catch (ServiceException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (StatusException ex) {
+        
+        try{
+            System.out.println("indsætter amount");
+//            System.out.println(client.readValue(new NodeId(6, "::Program:Cube.Command.Parameter[2]")));
+            float i = 100;
+            writeValue("Command.Parameter[2].Value", i);
+        sleep(1000);
+            System.out.println("insætter type");
+        writeValue("Command.Parameter[1].Value", 1f);
+        sleep(1000);
+            System.out.println("indsætter id");
+        writeValue("Command.Parameter[0].Value", 12014f);
+        
+        }catch (InterruptedException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        try {
+//            System.out.println(client.getAddressSpace().browseMethods(new NodeId(6, "NS")));
+//        } catch (ServiceException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (StatusException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
-
         
       
 //        try {
@@ -127,7 +137,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("**********************************");
             System.out.println("sent command to: " + identifier);
             System.out.println(client.writeValue(node, dv));
-      
+            client.writeValue(new NodeId(6, "::Program:Cube.Command.CmdChangeRequest"), new DataValue(new Variant(true)));
             System.out.println(client.readValue(node));
             System.out.println("**********************************");
             System.out.println("");
