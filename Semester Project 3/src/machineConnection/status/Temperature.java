@@ -5,10 +5,27 @@
  */
 package machineConnection.status;
 
+import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.UaClient;
+import org.opcfoundation.ua.builtintypes.DataValue;
+import org.opcfoundation.ua.builtintypes.NodeId;
+
 /**
  *
  * @author HCHB
  */
 public class Temperature {
+    
+    private String identifier = "Parameter[3].Value";
+    
+    float readTemperature(UaClient client, String prefix) throws ServiceException, StatusException{
+        NodeId node = new NodeId(6, prefix+this.identifier);
+        
+        DataValue data = client.readValue(node);
+        float value = data.getValue().floatValue();
+        
+        return value;
+    } 
     
 }
