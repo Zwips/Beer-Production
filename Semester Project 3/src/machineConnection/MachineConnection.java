@@ -13,7 +13,7 @@ import Acquantiance.IMachineConnection;
  */
 public class MachineConnection implements IMachineConnection {
     
-    private String Identifier="s";
+    private String Identifier="::Program:Cube.";
     
     
 }
