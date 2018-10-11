@@ -6,6 +6,7 @@
 package machineConnection;
 
 import Acquantiance.IMachineConnection;
+import com.prosysopc.ua.client.UaClient;
 
 /**
  *
@@ -15,5 +16,10 @@ public class MachineConnection implements IMachineConnection {
     
     private String Identifier="s";
     
+    
+    public UaClient getConnection(){
+        
+        return new UaClient();
+    } 
     
 }
