@@ -14,7 +14,7 @@ import com.prosysopc.ua.client.UaClient;
  */
 public class MachineConnection implements IMachineConnection {
     
-    private String Identifier="s";
+    private String Identifier="::Program:Cube.";
     
     
     public UaClient getConnection(){
