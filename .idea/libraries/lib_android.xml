@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib-android">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Semester Project 3/prosys-opc-ua-java-sdk-3.1.2-488-client-server-evaluation/lib-android/core-1.54.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Semester Project 3/prosys-opc-ua-java-sdk-3.1.2-488-client-server-evaluation/lib-android/pkix-1.54.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Semester Project 3/prosys-opc-ua-java-sdk-3.1.2-488-client-server-evaluation/lib-android/prov-1.54.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
