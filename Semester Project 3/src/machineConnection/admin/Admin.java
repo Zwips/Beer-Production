@@ -10,8 +10,8 @@ package machineConnection.admin;
  * @author HCHB
  */
 public class Admin {
-    
-        private String Identifier="s";
 
-    
+    private String Identifier="Admin.";
+
+
 }
