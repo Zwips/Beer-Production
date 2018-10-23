@@ -27,4 +27,9 @@ public class Control {
 
         return value;
     }
+
+    boolean writePackMLCommand(){
+
+        throw new UnsupportedOperationException();
+    }
 }

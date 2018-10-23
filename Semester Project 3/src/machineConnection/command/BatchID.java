@@ -27,4 +27,9 @@ public class BatchID {
 
         return value;
     }
+
+    boolean writeBatchIDForNextBatch(){
+
+        throw new UnsupportedOperationException();
+    }
 }

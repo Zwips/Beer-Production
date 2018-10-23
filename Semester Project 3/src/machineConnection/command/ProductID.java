@@ -19,12 +19,17 @@ public class ProductID {
     
     private String identifier = "Parameter[1].Value";
 
-    float readproductIDForNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
+    float readProductIDForNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
         NodeId node = new NodeId(6, prefix+this.identifier);
 
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
+    }
+
+    boolean writeProductIDForNextBatch(){
+
+        throw new UnsupportedOperationException();
     }
 }

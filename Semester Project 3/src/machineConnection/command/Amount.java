@@ -19,12 +19,17 @@ public class Amount {
  
     private String identifier = "Parameter[2].Value";
 
-    float readProductsInNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
+    float readAmountOfProductsInNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
         NodeId node = new NodeId(6, prefix+this.identifier);
 
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
+    }
+
+    boolean writeAmountOfProductsInNextBatch(){
+
+        throw new UnsupportedOperationException();
     }
 }

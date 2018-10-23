@@ -26,8 +26,7 @@ import semester.project.pkg3.FXMLDocumentController;
 public class MachineConnection implements IMachineConnection {
     
     private String Identifier="::Program:Cube.";
-    
-    
+
     public UaClient getConnection(String address, String password, String userID){
         UaClient client;
         
