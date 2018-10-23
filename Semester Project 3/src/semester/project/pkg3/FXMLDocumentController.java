@@ -132,13 +132,14 @@ public class FXMLDocumentController implements Initializable {
     public void writeValue(String identifier, Object value) {
         NodeId node = new NodeId(6, "::Program:Cube." + identifier);
         DataValue dv = new DataValue(new Variant(value));
-        
-        float test = 0.0F;
+        DataValue dv1 = new DataValue(new Variant(24.0F));
+
+
         try {
             System.out.println("**********************************");
             System.out.println("sent command to: " + identifier);
             System.out.println(client.writeValue(node, dv));
-            client.writeValue(new NodeId(6, "::Program:Cube.Command.CmdChangeRequest"), new DataValue(new Variant(true)));
+            //client.writeValue(new NodeId(6, "::Program:Cube.Command.CmdChangeRequest"), new DataValue(new Variant(true)));
             System.out.println(client.readValue(node));
             System.out.println("**********************************");
             System.out.println("");

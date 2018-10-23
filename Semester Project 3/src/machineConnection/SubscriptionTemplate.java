@@ -12,14 +12,16 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 import org.opcfoundation.ua.core.Attributes;
 import org.opcfoundation.ua.core.MonitoringMode;
 
-class SubscriptionTemplate
-{
+class SubscriptionTemplate {
 
     private UaClient client;
     MonitoredDataItem item;
     MonitoredDataItemListener dataChangeListener;
     Subscription subscription;
     NodeId node;
+
+    public SubscriptionTemplate() {
+    }
 
     public SubscriptionTemplate(UaClient client, MonitoredDataItem item, MonitoredDataItemListener dataChangeListener, Subscription subscription, NodeId node) {
         this.client = client;
@@ -30,31 +32,38 @@ class SubscriptionTemplate
         setItem();
     }
 
-    public SubscriptionTemplate() {
+
+    private void setItem() {
+        try {
+            subscription.addItem(item);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            client.addSubscription(subscription);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+
+        item.setDataChangeListener(dataChangeListener);
     }
 
-
-        private void setItem()
-        {
-        try {
-        subscription.addItem(item);
-        subscription.getItemCount();
-        } catch (ServiceException e) {
-        e.printStackTrace();
-        } catch (StatusException e) {
-        e.printStackTrace();
-        }
-        try {
-        client.addSubscription(subscription);
-
-        } catch (ServiceException e) {
-        e.printStackTrace();
-        } catch (StatusException e) {
-        e.printStackTrace();
-        }
-        item.setDataChangeListener(dataChangeListener);
-
-        }
+    private void standardSetup() {
+        NodeId node = null; //skal ikke være null
+        MonitoredDataItemListener listener = new MonitoredDataItemListener() {
+            @Override
+            public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValue, DataValue dataValue1) {
+                //stuf stuff
+            }
+        };
+        item = new MonitoredDataItem(node, Attributes.Value, MonitoringMode.Reporting);
+        item.setDataChangeListener(listener);
+    }
 
 
 }
