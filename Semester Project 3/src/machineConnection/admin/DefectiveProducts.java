@@ -5,10 +5,28 @@
  */
 package machineConnection.admin;
 
+import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.UaClient;
+import org.opcfoundation.ua.builtintypes.DataValue;
+import org.opcfoundation.ua.builtintypes.NodeId;
+
 /**
  *
  * @author HCHB
  */
 public class DefectiveProducts {
+
+    private String identifier = "ProdDefectiveCount";
+
+    int readNumberOfDefectiveProducts(UaClient client, String prefix) throws ServiceException, StatusException {
+
+        NodeId node = new NodeId(6, prefix+this.identifier);
+
+        DataValue data = client.readValue(node);
+        int value = data.getValue().intValue();
+
+        return value;
+    }
     
 }
