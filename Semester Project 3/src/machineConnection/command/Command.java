@@ -10,7 +10,7 @@ package machineConnection.command;
  * @author HCHB
  */
 public class Command {
-    
-        private String identifier="Command.";
+
+    private String identifier="Command.";
 
 }

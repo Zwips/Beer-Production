@@ -17,7 +17,7 @@ import org.opcfoundation.ua.builtintypes.Variant;
  * @author HCHB
  */
 public class MachineSpeed {
-    
+
     private String identifier = "MachSpeed";
 
     float writeMachineSpeed(UaClient client, String prefix, Float value) throws ServiceException, StatusException {
@@ -39,11 +39,15 @@ public class MachineSpeed {
         client.writeValue(node, dv);
 
         return value;
+    }
 
+    float readMachineSpeed(UaClient client, String prefix) throws ServiceException, StatusException{
+        NodeId node = new NodeId(6, prefix+this.identifier);
 
+        DataValue data = client.readValue(node);
+        float value = data.getValue().floatValue();
 
-
-
+        return value;
     }
 
 

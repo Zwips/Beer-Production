@@ -5,6 +5,12 @@
  */
 package machineConnection.command;
 
+import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.UaClient;
+import org.opcfoundation.ua.builtintypes.DataValue;
+import org.opcfoundation.ua.builtintypes.NodeId;
+
 /**
  *
  * @author HCHB
@@ -12,4 +18,13 @@ package machineConnection.command;
 public class Control {
     
     private String identifier = "CntrlCmd";
+
+    int readPackMLCommand(UaClient client, String prefix) throws ServiceException, StatusException {
+        NodeId node = new NodeId(6, prefix+this.identifier);
+
+        DataValue data = client.readValue(node);
+        int value = data.getValue().intValue();
+
+        return value;
+    }
 }
