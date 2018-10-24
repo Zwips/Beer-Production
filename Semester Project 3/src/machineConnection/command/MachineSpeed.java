@@ -24,17 +24,19 @@ public class MachineSpeed {
     MachineSpeed(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
+
     public NodeId getNode() {
         return node;
     }
-    float readMachineSpeed(UaClient client, String prefix) throws ServiceException, StatusException {
+
+    public float readMachineSpeed(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
     }
 
-    void setMachineSpeed(UaClient client, float amount) throws ServiceException, StatusException {
+    public void setMachineSpeed(UaClient client, float amount) throws ServiceException, StatusException {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);

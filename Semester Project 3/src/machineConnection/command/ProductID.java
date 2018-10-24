@@ -24,17 +24,19 @@ public class ProductID {
     ProductID(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
+
     public NodeId getNode() {
         return node;
     }
-    float readProductIDForNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
+
+    public float readProductIDForNextBatch(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
     }
 
-    void setProductIDForNextBatch(UaClient client, float amount) throws ServiceException, StatusException {
+    public void setProductIDForNextBatch(UaClient client, float amount) throws ServiceException, StatusException {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);

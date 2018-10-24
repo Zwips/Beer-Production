@@ -31,14 +31,14 @@ public class Amount {
         return node;
     }
 
-    float readAmountInNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
+    public float readAmountInNextBatch(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
     }
 
-    void setAmountInNextBatch(UaClient client, float amount) throws ServiceException, StatusException {
+    public void setAmountInNextBatch(UaClient client, float amount) throws ServiceException, StatusException {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);

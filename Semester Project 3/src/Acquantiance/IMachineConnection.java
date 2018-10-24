@@ -29,11 +29,11 @@ public interface IMachineConnection {
     void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
 
     //set machine commands
-    boolean setAmountInNextBatch(float value);
-    boolean setBatchIDForNextBatch(float value);
-    boolean setControlCommand(int value);
-    boolean setMachineSpeed(float value);
-    boolean setProductIDForNextBatch(float value);
+    boolean setAmountInNextBatch(float value) throws ServiceException, StatusException;
+    boolean setBatchIDForNextBatch(float value) throws ServiceException, StatusException;
+    boolean setControlCommand(int value) throws ServiceException, StatusException;
+    boolean setMachineSpeed(float value) throws ServiceException, StatusException;
+    boolean setProductIDForNextBatch(float value) throws ServiceException, StatusException;
 
     //read status commands
     float readProductsInBatch() throws ServiceException, StatusException;
