@@ -19,7 +19,6 @@ public class Command implements ICommand {
 
     @Override
     public Amount getAmount(String prefix) {
-
         return new Amount(prefix + identifier);
     }
 

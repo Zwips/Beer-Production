@@ -18,10 +18,13 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class DefectiveProducts {
 
     private String identifier = "ProdDefectiveCount";
+    private NodeId node;
 
-    int readNumberOfDefectiveProducts(UaClient client, String prefix) throws ServiceException, StatusException {
+    public DefectiveProducts(String prefix) {
+        this.node = new NodeId(6, prefix+this.identifier);
+    }
 
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    public int readNumberOfDefectiveProducts(UaClient client) throws ServiceException, StatusException {
 
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();

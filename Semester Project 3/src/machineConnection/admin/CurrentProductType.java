@@ -18,11 +18,14 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class CurrentProductType {
 
     private String identifier = "Parameter[0].Value";
+    private NodeId node;
 
-    float readCurrentProductID(UaClient client, String prefix) throws ServiceException, StatusException {
+    public CurrentProductType(String prefix) {
+        this.node = new NodeId(6, prefix+this.identifier);
 
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    }
 
+    public float readCurrentProductID(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 

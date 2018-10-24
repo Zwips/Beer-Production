@@ -8,38 +8,40 @@ package machineConnection.admin;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
+import machineConnection.IAdmin;
 
 /**
  *
  * @author HCHB
  */
-public class Admin {
+public class Admin implements IAdmin {
 
-    private String Identifier="Admin.";
+    private String identifier="Admin.";
 
-    public float readCurrentProductID(UaClient client, String prefix) throws ServiceException, StatusException {
-        CurrentProductType prod = new CurrentProductType();
-        return prod.readCurrentProductID(client, prefix);
+    @Override
+    public CurrentProductType getCurrentProductType(String prefix) {
+
+        return new CurrentProductType(prefix+identifier);
     }
 
-    public int readNumberOfDefectiveProducts(UaClient client, String prefix) throws ServiceException, StatusException {
-        DefectiveProducts prod = new DefectiveProducts();
-        return prod.readNumberOfDefectiveProducts(client, prefix);
+    @Override
+    public DefectiveProducts getDefectiveProducts(String prefix) {
+
+        return new DefectiveProducts(prefix+identifier);
     }
 
-    public int  readNumberOfProducedProducts(UaClient client, String prefix) throws ServiceException, StatusException {
-        ProducedProducts prod = new ProducedProducts();
-        return prod.readNumberOfProducedProducts(client, prefix);
+    @Override
+    public ProducedProducts getProducedProducts(String prefix) {
+        return new ProducedProducts(prefix+identifier);
     }
 
-    public int readStopReasonID(UaClient client, String prefix) throws ServiceException, StatusException {
-        StopReasonID prod = new StopReasonID();
-        return prod.readStopReasonID(client, prefix);
+    @Override
+    public StopReasonID getStopReasonId(String prefix) {
+        return new StopReasonID(prefix+identifier);
     }
 
-    public int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException {
-        StopReasonValue prod = new StopReasonValue();
-        return prod.readStopReasonValue(client, prefix);
+    @Override
+    public StopReasonValue getStopReasonValue(String prefix) {
+        return new StopReasonValue(prefix+identifier);
     }
-
 }

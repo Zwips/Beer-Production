@@ -18,15 +18,22 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class StopReasonID {
 
     private String identifier = "StopReason.ID";
+    private NodeId node;
 
-    int readStopReasonID(UaClient client, String prefix) throws ServiceException, StatusException {
+    public StopReasonID(String prefix) {
+        this.node = new NodeId(6, prefix+this.identifier);
+    }
 
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    public int readStopReasonID(UaClient client) throws ServiceException, StatusException {
 
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();
 
         return value;
+    }
+
+    public NodeId getNode(){
+        return this.node;
     }
 
 }
