@@ -18,9 +18,13 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class ProducedProducts {
 
     private String identifier = "ProdProcessedCount";
+    private NodeId node;
 
-    int readNumberOfProducedProducts(UaClient client, String prefix) throws ServiceException, StatusException {
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    public ProducedProducts(String prefix) {
+        this.node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public int readNumberOfProducedProducts(UaClient client) throws ServiceException, StatusException {
 
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();

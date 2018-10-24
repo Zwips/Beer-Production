@@ -18,12 +18,20 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class CurrentState {
 
     private String identifier = "StateCurrent";
+    private NodeId node;
 
-    float readCurrentState(UaClient client, String prefix) throws ServiceException, StatusException {
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    public CurrentState(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readCurrentState(UaClient client) throws ServiceException, StatusException{
 
         DataValue data = client.readValue(node);
-        int value = data.getValue().intValue();
+        float value = data.getValue().floatValue();
 
         return value;
     }

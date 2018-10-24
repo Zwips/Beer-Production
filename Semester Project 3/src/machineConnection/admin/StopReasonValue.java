@@ -18,11 +18,13 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class StopReasonValue {
 
     private String identifier = "StopReason.Value";
+    private NodeId node;
 
-    private int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException {
+    public StopReasonValue(String prefix) {
+        this.node = new NodeId(6, prefix+this.identifier);
+    }
 
-        NodeId node = new NodeId(6, prefix+this.identifier);
-
+    public int readStopReasonValue(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();
 

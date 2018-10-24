@@ -18,13 +18,21 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class Humidity {
         
     private String identifier = "Parameter[2].Value";
-    
-    float readHumidity(UaClient client, String prefix) throws ServiceException, StatusException{
-        NodeId node = new NodeId(6, prefix+this.identifier);
-        
+    private NodeId node;
+
+    public Humidity(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readHumidity(UaClient client) throws ServiceException, StatusException{
+
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
-        
+
         return value;
-    } 
+    }
 }

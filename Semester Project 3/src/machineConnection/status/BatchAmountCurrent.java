@@ -18,10 +18,19 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class BatchAmountCurrent {
         
     private String identifier = "Parameter[1].Value";
-    
-    float readProductsInBatch(UaClient client, String prefix) throws ServiceException, StatusException{
-        NodeId node = new NodeId(6, prefix+this.identifier);
-        
+    private NodeId node;
+
+
+    public BatchAmountCurrent(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readProductsInBatch(UaClient client) throws ServiceException, StatusException{
+
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
         

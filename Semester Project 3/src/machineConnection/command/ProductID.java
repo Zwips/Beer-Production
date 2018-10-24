@@ -10,6 +10,7 @@ import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
+import org.opcfoundation.ua.builtintypes.Variant;
 
 /**
  *
@@ -18,18 +19,24 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class ProductID {
     
     private String identifier = "Parameter[1].Value";
+    private NodeId node;
 
+    ProductID(String prefix){
+        node = new NodeId(6, prefix + this.identifier);
+    }
+    public NodeId getNode() {
+        return node;
+    }
     float readProductIDForNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
-        NodeId node = new NodeId(6, prefix+this.identifier);
-
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
     }
 
-    boolean writeProductIDForNextBatch(){
+    void setProductIDForNextBatch(UaClient client, float amount) throws ServiceException, StatusException {
+        DataValue dataValue = new DataValue(new Variant(amount));
 
-        throw new UnsupportedOperationException();
+        SendCommand.write(node,dataValue,client);
     }
 }

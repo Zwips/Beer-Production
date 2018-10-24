@@ -18,14 +18,21 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class MachineSpeedNormalized {
 
     private String identifier = "MachSpeed";
+    private NodeId node;
 
-    float readMachineSpeed(UaClient client, String prefix) throws ServiceException, StatusException {
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    public MachineSpeedNormalized(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readMachineSpeedNormalized(UaClient client) throws ServiceException, StatusException{
 
         DataValue data = client.readValue(node);
-        float value = data. getValue().floatValue();
+        float value = data.getValue().floatValue();
 
         return value;
     }
-
 }

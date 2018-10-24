@@ -19,35 +19,25 @@ import org.opcfoundation.ua.builtintypes.Variant;
 public class MachineSpeed {
 
     private String identifier = "MachSpeed";
+    private NodeId node;
 
-    float readMachineSpeed(UaClient client, String prefix) throws ServiceException, StatusException{
-        NodeId node = new NodeId(6, prefix+this.identifier);
-
+    MachineSpeed(String prefix){
+        node = new NodeId(6, prefix + this.identifier);
+    }
+    public NodeId getNode() {
+        return node;
+    }
+    float readMachineSpeed(UaClient client, String prefix) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
 
         return value;
     }
 
-    boolean writeMachineSpeed(UaClient client, String prefix, Float value) throws ServiceException, StatusException {
-        /*switch(PID){
-            case 1: PID = 0;
-            break;
-            case 2: PID = 1;
-            break;
-            case 3: PID = 2;
-            break;
-            case 4: PID = 3;
-            break;
-            case 5: PID = 4;
-        }*/
-        NodeId node = new NodeId(6, prefix + this.identifier);
-        DataValue dv = new DataValue(new Variant(value));
+    void setMachineSpeed(UaClient client, float amount) throws ServiceException, StatusException {
+        DataValue dataValue = new DataValue(new Variant(amount));
 
-
-        client.writeValue(node, dv);
-
-        throw new UnsupportedOperationException();
+        SendCommand.write(node,dataValue,client);
     }
 
 

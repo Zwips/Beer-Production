@@ -18,13 +18,21 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class Vibration {
     
     private String identifier = "Parameter[4].Value";
-    
-    float readVibration(UaClient client, String prefix) throws ServiceException, StatusException{
-        NodeId node = new NodeId(6, prefix+this.identifier);
-        
+    private NodeId node;
+
+    public Vibration(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readVibration(UaClient client) throws ServiceException, StatusException{
+
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
-        
+
         return value;
-    } 
+    }
 }

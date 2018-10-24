@@ -5,13 +5,43 @@
  */
 package machineConnection.admin;
 
+import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.UaClient;
+import machineConnection.IAdmin;
+
 /**
  *
  * @author HCHB
  */
-public class Admin {
+public class Admin implements IAdmin {
 
-    private String Identifier="Admin.";
+    private String identifier="Admin.";
 
+    @Override
+    public CurrentProductType getCurrentProductType(String prefix) {
 
+        return new CurrentProductType(prefix+identifier);
+    }
+
+    @Override
+    public DefectiveProducts getDefectiveProducts(String prefix) {
+
+        return new DefectiveProducts(prefix+identifier);
+    }
+
+    @Override
+    public ProducedProducts getProducedProducts(String prefix) {
+        return new ProducedProducts(prefix+identifier);
+    }
+
+    @Override
+    public StopReasonID getStopReasonId(String prefix) {
+        return new StopReasonID(prefix+identifier);
+    }
+
+    @Override
+    public StopReasonValue getStopReasonValue(String prefix) {
+        return new StopReasonValue(prefix+identifier);
+    }
 }
