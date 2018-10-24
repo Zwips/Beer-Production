@@ -32,8 +32,8 @@ public class MachineConnection implements IMachineConnection {
     private UaClient client;
 
     public MachineConnection(String address, String userID, String password){
-
-        this.client = this.getConnection(address,password,userID);
+        Connection connection = new Connection();
+        this.client = connection.getConnection(address, password, userID);     // getConnection(address,password,userID);
     }
 
     @Override
