@@ -1,3 +1,4 @@
+/*
 package semester.project.pkg3;
 
 import com.prosysopc.ua.ServiceException;
@@ -178,3 +179,4 @@ public class ExperimentalClass {
 
 
 }
+*/
