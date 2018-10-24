@@ -89,7 +89,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int readStopReasonID(UaClient client, String prefix) throws ServiceException, StatusException {
+    public int readStopReasonID(UaClient client) throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         StopReasonID prod = admin.getStopReasonId(identifier);
@@ -97,7 +97,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException {
+    public int readStopReasonValue(UaClient client) throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         StopReasonValue prod = admin.getStopReasonValue(identifier);
