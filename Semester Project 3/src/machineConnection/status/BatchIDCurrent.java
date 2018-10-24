@@ -18,13 +18,22 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class BatchIDCurrent {
         
     private String identifier = "Parameter[0].Value";
-    
-    float readBatchID(UaClient client, String prefix) throws ServiceException, StatusException{
-        NodeId node = new NodeId(6, prefix+this.identifier);
-        
+    private NodeId node;
+
+
+    public BatchIDCurrent(String prefix) {
+        node = new NodeId(6, prefix+this.identifier);
+    }
+
+    public NodeId getNode() {
+        return node;
+    }
+
+    public float readBatchIDCurrent(UaClient client) throws ServiceException, StatusException{
+
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();
-        
+
         return value;
-    } 
+    }
 }
