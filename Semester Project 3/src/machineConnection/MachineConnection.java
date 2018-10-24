@@ -5,22 +5,13 @@
 */
 package machineConnection;
 
+import Acquantiance.IDataChangeCatcher;
 import Acquantiance.IMachineConnection;
 import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.SessionActivationException;
 import com.prosysopc.ua.StatusException;
-import com.prosysopc.ua.UserIdentity;
 import com.prosysopc.ua.client.UaClient;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import machineConnection.admin.*;
-import org.opcfoundation.ua.builtintypes.LocalizedText;
-import org.opcfoundation.ua.core.ApplicationDescription;
-import org.opcfoundation.ua.core.ApplicationType;
-import org.opcfoundation.ua.transport.security.SecurityMode;
-import semester.project.pkg3.FXMLDocumentController;
+import machineConnection.status.Status;
 
 /**
  *
@@ -36,8 +27,9 @@ public class MachineConnection implements IMachineConnection {
         this.client = this.getConnection(address,password,userID);
     }
 
+    //<editor-fold desc="Admin Commands">
     @Override
-    public float readCurrentProductID(UaClient client) throws ServiceException, StatusException {
+    public float readCurrentProductID() throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         CurrentProductType prod = admin.getCurrentProductType(identifier);
@@ -45,7 +37,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int readNumberOfDefectiveProducts(UaClient client) throws ServiceException, StatusException {
+    public int readNumberOfDefectiveProducts() throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         DefectiveProducts prod = admin.getDefectiveProducts(identifier);
@@ -53,7 +45,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int  readNumberOfProducedProducts(UaClient client) throws ServiceException, StatusException {
+    public int  readNumberOfProducedProducts() throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         ProducedProducts prod = admin.getProducedProducts(identifier);
@@ -61,7 +53,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int readStopReasonID(UaClient client) throws ServiceException, StatusException {
+    public int readStopReasonID() throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         StopReasonID prod = admin.getStopReasonId(identifier);
@@ -69,17 +61,105 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public int readStopReasonValue(UaClient client) throws ServiceException, StatusException {
+    public int readStopReasonValue() throws ServiceException, StatusException {
         Admin admin = new Admin();
 
         StopReasonValue prod = admin.getStopReasonValue(identifier);
         return prod.readStopReasonValue(client);
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Subscriptions">
+    @Override
+    public void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) {
+        IStatus status = new Status();
+
+        SubscriptionCreator.createSubscription()
+
+    }
 
     @Override
-    public float readVibration(UaClient client) throws ServiceException, StatusException {
+    public void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher) {
+
+    }
+
+    @Override
+    public void subscribeToVibration(IDataChangeCatcher dataChangeCatcher) {
+
+    }
+
+    @Override
+    public void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher) {
+
+    }
+
+    @Override
+    public void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) {
+
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Machine Commands">
+    @Override
+    public boolean setAmountInNextBatch(float value) {
+        return false;
+    }
+
+    @Override
+    public boolean setBatchIDForNextBatch(float value) {
+        return false;
+    }
+
+    @Override
+    public boolean setControlCommand(int value) {
+        return false;
+    }
+
+    @Override
+    public boolean setMachineSpeed(float value) {
+        return false;
+    }
+
+    @Override
+    public boolean setProductIDForNextBatch(float value) {
+        return false;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Status Commands">
+    @Override
+    public float readProductsInBatch() throws ServiceException, StatusException {
         return 0;
     }
 
+    @Override
+    public float readBatchIDCurrent() throws ServiceException, StatusException {
+        return 0;
+    }
 
+    @Override
+    public float readCurrentState() throws ServiceException, StatusException {
+        return 0;
+    }
+
+    @Override
+    public float readHumidity() throws ServiceException, StatusException {
+        return 0;
+    }
+
+    @Override
+    public float readMachineSpeedCurrent() throws ServiceException, StatusException {
+        return 0;
+    }
+
+    @Override
+    public float readTemperature() throws ServiceException, StatusException {
+        return 0;
+    }
+
+    @Override
+    public float readVibration() throws ServiceException, StatusException {
+        return 0;
+    }
+    //</editor-fold>
 }
