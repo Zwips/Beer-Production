@@ -17,11 +17,11 @@ public class Machine {
         this.address = address;
         this.userID = userID;
         this.password = password;
-        connectToMachine();
+        createMachineConnection();
     }
 
-    private void connectToMachine(){
-        iMachineConnection = new MachineConnection( address, userID, password);
+    private void createMachineConnection(){
+        iMachineConnection = new MachineConnection(address, userID, password);
     };
 
     //skal flyttes til persistens
