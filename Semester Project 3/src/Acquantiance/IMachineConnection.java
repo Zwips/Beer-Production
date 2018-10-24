@@ -14,21 +14,36 @@ import com.prosysopc.ua.client.UaClient;
  * @author HCHB
  */
 public interface IMachineConnection {
+    //read status commands
+    float readCurrentProductID() throws ServiceException, StatusException;
+    int readNumberOfDefectiveProducts() throws ServiceException, StatusException;
+    int  readNumberOfProducedProducts() throws ServiceException, StatusException;
+    int readStopReasonID() throws ServiceException, StatusException;
+    int readStopReasonValue() throws ServiceException, StatusException;
 
-    float readCurrentProductID(UaClient client) throws ServiceException, StatusException;
-    int readNumberOfDefectiveProducts(UaClient client) throws ServiceException, StatusException;
-    int  readNumberOfProducedProducts(UaClient client) throws ServiceException, StatusException;
-    int readStopReasonID(UaClient client, String prefix) throws ServiceException, StatusException;
-    int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException;
+    //subscribe creations
+    void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToVibration(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher);
 
-    float readVibration(UaClient client) throws ServiceException, StatusException;
-    float readBatchIDCurrent(UaClient client) throws ServiceException, StatusException;
-    float readHumidity(UaClient client) throws ServiceException, StatusException;
-    float readMachineSpeedCurrent(UaClient client) throws ServiceException, StatusException;
-    float readCurrentState(UaClient client) throws ServiceException, StatusException;
-    float readTemperature(UaClient client) throws ServiceException, StatusException;
-    float readMachineSpeedNormalized(UaClient client) throws ServiceException, StatusException;
-    float readProductsInBatch(UaClient client) throws ServiceException, StatusException;
+    //set machine commands
+    boolean setAmountInNextBatch(float value);
+    boolean setBatchIDForNextBatch(float value);
+    boolean setControlCommand(int value);
+    boolean setMachineSpeed(float value);
+    boolean setProductIDForNextBatch(float value);
+
+    //read status commands
+    float readProductsInBatch() throws ServiceException, StatusException;
+    float readBatchIDCurrent() throws ServiceException, StatusException;
+    float readCurrentState() throws ServiceException, StatusException;
+    float readHumidity() throws ServiceException, StatusException;
+    float readMachineSpeedCurrent() throws ServiceException, StatusException;
+    float readTemperature() throws ServiceException, StatusException;
+    float readVibration() throws ServiceException, StatusException;
+
 
 
     }
