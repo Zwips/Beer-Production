@@ -19,31 +19,27 @@ public class Command implements ICommand {
 
     @Override
     public Amount getAmount(String prefix) {
-        return null;
+
+        return new Amount(prefix + identifier);
     }
 
     @Override
-    public BatchID getBatchId() {
-        return null;
+    public BatchID getBatchId(String prefix) {
+        return new BatchID(prefix + identifier);
     }
 
     @Override
-    public Control geControl() {
-        return null;
+    public Control geControl(String prefix) {
+        return new Control(prefix + identifier);
     }
 
     @Override
-    public MachineConnection gMachineConnection() {
-        return null;
+    public MachineSpeed gMachineSpeed(String prefix) {
+        return new MachineSpeed(prefix + identifier);
     }
 
     @Override
-    public MachineSpeed gMachineSpeed() {
-        return null;
-    }
-
-    @Override
-    public ProductID getProductId() {
-        return null;
+    public ProductID getProductId(String prefix) {
+        return new ProductID(prefix + identifier);
     }
 }
