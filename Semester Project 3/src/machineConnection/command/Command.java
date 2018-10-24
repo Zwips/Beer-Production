@@ -5,12 +5,41 @@
  */
 package machineConnection.command;
 
+import machineConnection.ICommand;
+import machineConnection.MachineConnection;
+
 /**
  *
  * @author HCHB
  */
-public class Command {
+public class Command implements ICommand {
 
     private String identifier="Command.";
 
+
+    @Override
+    public Amount getAmount(String prefix) {
+
+        return new Amount(prefix + identifier);
+    }
+
+    @Override
+    public BatchID getBatchId(String prefix) {
+        return new BatchID(prefix + identifier);
+    }
+
+    @Override
+    public Control geControl(String prefix) {
+        return new Control(prefix + identifier);
+    }
+
+    @Override
+    public MachineSpeed gMachineSpeed(String prefix) {
+        return new MachineSpeed(prefix + identifier);
+    }
+
+    @Override
+    public ProductID getProductId(String prefix) {
+        return new ProductID(prefix + identifier);
+    }
 }
