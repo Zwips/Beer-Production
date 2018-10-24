@@ -19,7 +19,7 @@ public class StopReasonValue {
 
     private String identifier = "StopReason.Value";
 
-    private int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException {
+    int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException {
 
         NodeId node = new NodeId(6, prefix+this.identifier);
 
