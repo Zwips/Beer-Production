@@ -20,6 +20,7 @@ public interface IMachineConnection {
     int  readNumberOfProducedProducts(UaClient client) throws ServiceException, StatusException;
     int readStopReasonID(UaClient client, String prefix) throws ServiceException, StatusException;
     int readStopReasonValue(UaClient client, String prefix) throws ServiceException, StatusException;
+
     float readVibration(UaClient client) throws ServiceException, StatusException;
     float readBatchIDCurrent(UaClient client) throws ServiceException, StatusException;
     float readHumidity(UaClient client) throws ServiceException, StatusException;
