@@ -1,3 +1,4 @@
+/*
 package machineConnection;
 
 import com.prosysopc.ua.ServiceException;
@@ -160,3 +161,4 @@ public class Test {
     }
 
 }
+*/

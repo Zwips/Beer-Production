@@ -19,12 +19,58 @@
     <children>
         <TabPane layoutX="10.0" layoutY="2.0" prefHeight="600.0" prefWidth="801.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
             <tabs>
-                <Tab text="Opret maskine">
+            <Tab text="Visualization">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+                <Tab text="Add Machine">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="machineNameLabel" layoutX="23.0" layoutY="44.0" text="Machine name">
+                           <font>
+                              <Font name="Bell MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="iPAdressLabel" layoutX="23.0" layoutY="116.0" text="IP address">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="portNumberLabel" layoutX="18.0" layoutY="190.0" text="Port number">
+                           <font>
+                              <Font name="Bell MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="machineNameTextField" layoutX="170.0" layoutY="35.0" prefHeight="35.0" prefWidth="185.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="iPaddressTextField" layoutX="170.0" layoutY="109.0" prefHeight="35.0" prefWidth="185.0" />
+                        <Label fx:id="userNameLabel" layoutX="25.0" layoutY="371.0" text="Username">
+                           <font>
+                              <Font name="Bell MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="passWordLabel" layoutX="23.0" layoutY="440.0" text="Password">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="portNumberTextField" layoutX="170.0" layoutY="181.0" prefHeight="35.0" prefWidth="185.0" />
+                        <TextField fx:id="userNameTextField" layoutX="163.0" layoutY="368.0" prefHeight="35.0" prefWidth="185.0" />
+                        <TextField fx:id="passWordTextField" accessibleRole="IMAGE_VIEW" layoutX="170.0" layoutY="449.0" prefHeight="35.0" prefWidth="185.0" />
+                        <Button fx:id="addMachineBtn" layoutX="618.0" layoutY="499.0" mnemonicParsing="false" onAction="#addMachineActionHandler" text="Add Machine">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Lav ordre">
+                <Tab text="Make Order">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -36,7 +82,7 @@
                               <Font name="Bell MT" size="15.0" />
                            </font>
                         </RadioButton>
-                          <RadioButton fx:id="wheatRadioBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Hvede" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="wheatRadioBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="15.0" />
                            </font></RadioButton>
@@ -48,7 +94,7 @@
                            <font>
                               <Font name="Bell MT" size="15.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="158.0" layoutY="93.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alkholfri" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="158.0" layoutY="93.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="15.0" />
                            </font></RadioButton>
@@ -69,16 +115,16 @@
                                 <RadioButton fx:id="englishRadioButton" layoutX="607.0" layoutY="268.0" mnemonicParsing="false" onAction="#LanguageHandleBtn" text="English" toggleGroup="$LanguageToggleGroup" />
                                 <RadioButton fx:id="germanRadioButton" layoutX="548.0" layoutY="183.0" mnemonicParsing="false" onAction="#LanguageHandleBtn" text="Deutch" toggleGroup="$LanguageToggleGroup" />
                                 <TextField fx:id="orderAmountTextField" layoutX="138.0" layoutY="228.0" prefHeight="25.0" prefWidth="121.0" />
-                                <Label fx:id="orderAmountLabel" layoutX="27.0" layoutY="227.0" text="Antal" textFill="#001f3f">
+                                <Label fx:id="orderAmountLabel" layoutX="27.0" layoutY="227.0" text="Amount" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
                                 <ChoiceBox fx:id="priorityChoiceBox" layoutX="138.0" layoutY="325.0" prefWidth="150.0" />
-                                <Label fx:id="priorityLabel" layoutX="23.0" layoutY="324.0" prefHeight="27.0" prefWidth="77.0" text="Prioritet">
+                                <Label fx:id="priorityLabel" layoutX="48.0" layoutY="324.0" prefHeight="27.0" prefWidth="77.0" text="Priority">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <Button fx:id="sendOrderBtn" layoutX="637.0" layoutY="528.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-color: white;" text="Send Ordre" textFill="#001f3f">
+                                <Button fx:id="sendOrderBtn" layoutX="637.0" layoutY="528.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-color: transpaent;" text="Send Order" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font></Button>

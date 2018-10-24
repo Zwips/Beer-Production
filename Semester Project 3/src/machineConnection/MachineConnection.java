@@ -74,7 +74,7 @@ public class MachineConnection implements IMachineConnection {
     public void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) {
         IStatus status = new Status();
 
-        SubscriptionCreator.createSubscription()
+       // SubscriptionCreator.createSubscription()
 
     }
 
