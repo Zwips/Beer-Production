@@ -29,39 +29,11 @@ import semester.project.pkg3.FXMLDocumentController;
 public class MachineConnection implements IMachineConnection {
     
     private String identifier="::Program:Cube.";
+    private UaClient client;
 
-    public UaClient getConnection(String address, String password, String userID){
-        UaClient client;
-        
-        try {
-            client = new UaClient("opc.tcp://"+address);
-            
-            ApplicationDescription descr = new ApplicationDescription();
-            descr.setApplicationName(new LocalizedText("super"+"@localost"));
-            descr.setApplicationUri("urn:localhost:OPCUA:"+"super");
-            descr.setProductUri("urn:localhost:OPCUA:"+"super");
-            descr.setApplicationType(ApplicationType.Client);
-            
-            client.setSecurityMode(SecurityMode.NONE);
-            
-            try {
-                client.setUserIdentity(new UserIdentity(userID, password));
-            } catch (SessionActivationException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            try {
-                client.connect();
-            } catch (ServiceException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return client;
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
+    public MachineConnection(String address, String userID, String password){
+
+        this.client = this.getConnection(address,password,userID);
     }
 
     @Override
