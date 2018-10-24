@@ -24,7 +24,9 @@ public class ProductID {
     ProductID(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
-
+    public NodeId getNode() {
+        return node;
+    }
     float readProductIDForNextBatch(UaClient client, String prefix) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();

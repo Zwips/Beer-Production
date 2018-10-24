@@ -24,7 +24,9 @@ public class Control {
     Control(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
-
+    public NodeId getNode() {
+        return node;
+    }
     int readControlCommand(UaClient client, String prefix) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();
