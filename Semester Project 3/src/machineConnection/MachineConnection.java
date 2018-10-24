@@ -31,7 +31,7 @@ public class MachineConnection implements IMachineConnection {
     //<editor-fold desc="Admin Commands">
     @Override
     public float readCurrentProductID() throws ServiceException, StatusException {
-        Admin admin = new Admin();
+        IAdmin admin = new Admin();
 
         CurrentProductType prod = admin.getCurrentProductType(identifier);
         return prod.readCurrentProductID(client);
@@ -39,7 +39,7 @@ public class MachineConnection implements IMachineConnection {
 
     @Override
     public int readNumberOfDefectiveProducts() throws ServiceException, StatusException {
-        Admin admin = new Admin();
+        IAdmin admin = new Admin();
 
         DefectiveProducts prod = admin.getDefectiveProducts(identifier);
         return prod.readNumberOfDefectiveProducts(client);
@@ -47,7 +47,7 @@ public class MachineConnection implements IMachineConnection {
 
     @Override
     public int  readNumberOfProducedProducts() throws ServiceException, StatusException {
-        Admin admin = new Admin();
+        IAdmin admin = new Admin();
 
         ProducedProducts prod = admin.getProducedProducts(identifier);
         return prod.readNumberOfProducedProducts(client);
@@ -55,7 +55,7 @@ public class MachineConnection implements IMachineConnection {
 
     @Override
     public int readStopReasonID() throws ServiceException, StatusException {
-        Admin admin = new Admin();
+        IAdmin admin = new Admin();
 
         StopReasonID prod = admin.getStopReasonId(identifier);
         return prod.readStopReasonID(client);
@@ -63,7 +63,7 @@ public class MachineConnection implements IMachineConnection {
 
     @Override
     public int readStopReasonValue() throws ServiceException, StatusException {
-        Admin admin = new Admin();
+        IAdmin admin = new Admin();
 
         StopReasonValue prod = admin.getStopReasonValue(identifier);
         return prod.readStopReasonValue(client);
