@@ -10,6 +10,7 @@ import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
+import org.opcfoundation.ua.builtintypes.Variant;
 
 /**
  *
@@ -18,18 +19,22 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 public class Control {
     
     private String identifier = "CntrlCmd";
+    private NodeId node;
 
-    int readPackMLCommand(UaClient client, String prefix) throws ServiceException, StatusException {
-        NodeId node = new NodeId(6, prefix+this.identifier);
+    Control(String prefix){
+        node = new NodeId(6, prefix + this.identifier);
+    }
 
+    int readControlCommand(UaClient client, String prefix) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();
 
         return value;
     }
 
-    boolean writePackMLCommand(){
+    void setControlCommand(UaClient client, int amount) throws ServiceException, StatusException {
+        DataValue dataValue = new DataValue(new Variant(amount));
 
-        throw new UnsupportedOperationException();
+        SendCommand.write(node,dataValue,client);
     }
 }

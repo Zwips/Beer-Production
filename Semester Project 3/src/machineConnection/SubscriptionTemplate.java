@@ -59,10 +59,23 @@ class SubscriptionTemplate {
             @Override
             public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValue, DataValue dataValue1) {
                 //stuf stuff
+
+                /*reportTo.report(dataValue);
+
+                reportTo.reportTemp(dataValue);*/
             }
         };
         item = new MonitoredDataItem(node, Attributes.Value, MonitoringMode.Reporting);
         item.setDataChangeListener(listener);
+
+        /*client.addSubscription((new Subscription()).addItem(item));
+
+        client.getSubscription(1).removeItem();
+        try {
+            client.removeSubscription(new Subscription());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }*/
     }
 
 

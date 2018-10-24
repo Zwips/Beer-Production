@@ -14,6 +14,7 @@ import org.opcfoundation.ua.core.ApplicationDescription;
 import org.opcfoundation.ua.core.ApplicationType;
 import org.opcfoundation.ua.transport.security.SecurityMode;
 
+import java.awt.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,8 @@ public class ExperimentalClass {
     private UaClient client;
 
     private void handleButtonAction() {
+        Label label = new Label();
+
         try {
             NodeId node = new NodeId(6, "::Program:Cube.Status.StateCurrent");
             NodeId node2 = new NodeId(6, "::Program:Cube.Status.CurMatchSpeed");
