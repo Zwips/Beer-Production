@@ -18,9 +18,7 @@ public class Command implements ICommand {
 
 
     @Override
-    public Amount getAmount(String prefix) {
-        return new Amount(prefix + identifier);
-    }
+    public Amount getAmount(String prefix) { return new Amount(prefix + identifier); }
 
     @Override
     public BatchID getBatchId(String prefix) {
