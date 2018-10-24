@@ -27,22 +27,22 @@ public class Test {
     private static void start(UaClient client) throws InterruptedException {
 
         reset(client);
-        sleep(1000);
+//        sleep(1000);
 
         machSpeed(client);
-        sleep(1000);
+//        sleep(1000);
 
         batchID(client);
-        sleep(1000);
+//        sleep(1000);
 
         productID(client);
-        sleep(1000);
+//        sleep(1000);
 
         amount(client);
-        sleep(1000);
+//        sleep(1000);
 
         startMachine(client);
-        sleep(1000);
+//        sleep(1000);
     }
 
     private static void amount(UaClient client) {

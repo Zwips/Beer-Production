@@ -29,7 +29,7 @@ public class BatchAmountCurrent {
         return node;
     }
 
-    float readProductsInBatch(UaClient client) throws ServiceException, StatusException{
+    public float readProductsInBatch(UaClient client) throws ServiceException, StatusException{
 
         DataValue data = client.readValue(node);
         float value = data.getValue().floatValue();

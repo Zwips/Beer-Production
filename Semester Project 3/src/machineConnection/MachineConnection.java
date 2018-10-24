@@ -104,5 +104,10 @@ public class MachineConnection implements IMachineConnection {
         return prod.readStopReasonValue(client);
     }
 
+    @Override
+    public float readVibration(UaClient client) throws ServiceException, StatusException {
+        return 0;
+    }
+
 
 }
