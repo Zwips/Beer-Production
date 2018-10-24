@@ -29,12 +29,12 @@ public class Command implements ICommand {
     }
 
     @Override
-    public Control geControl(String prefix) {
+    public Control getControl(String prefix) {
         return new Control(prefix + identifier);
     }
 
     @Override
-    public MachineSpeed gMachineSpeed(String prefix) {
+    public MachineSpeed getMachineSpeed(String prefix) {
         return new MachineSpeed(prefix + identifier);
     }
 

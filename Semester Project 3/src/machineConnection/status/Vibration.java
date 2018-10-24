@@ -26,5 +26,9 @@ public class Vibration {
         float value = data.getValue().floatValue();
         
         return value;
-    } 
+    }
+
+    void getDatachangeListener(){
+
+    }
 }
