@@ -22,11 +22,11 @@ public interface IMachineConnection {
     int readStopReasonValue() throws ServiceException, StatusException;
 
     //subscribe creations
-    void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToVibration(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToVibration(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
 
     //set machine commands
     boolean setAmountInNextBatch(float value);

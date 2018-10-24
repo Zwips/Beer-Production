@@ -12,6 +12,7 @@ import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import machineConnection.admin.*;
 import machineConnection.status.Status;
+import org.opcfoundation.ua.builtintypes.NodeId;
 
 /**
  *
@@ -71,31 +72,49 @@ public class MachineConnection implements IMachineConnection {
 
     //<editor-fold desc="Subscriptions">
     @Override
-    public void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) {
+    public void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException {
         IStatus status = new Status();
 
-        SubscriptionCreator.createSubscription()
+        NodeId node = status.getTemperature(identifier).getNode();
+
+        SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
+    }
+
+    @Override
+    public void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException {
+        IStatus status = new Status();
+
+        NodeId node = status.getCurrentState(identifier).getNode();
+
+        SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
+    }
+
+    @Override
+    public void subscribeToVibration(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException {
+        IStatus status = new Status();
+
+        NodeId node = status.getVibration(identifier).getNode();
+
+        SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
 
     }
 
     @Override
-    public void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher) {
+    public void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException {
+        IStatus status = new Status();
 
+        NodeId node = status.getHumidity(identifier).getNode();
+
+        SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
     }
 
     @Override
-    public void subscribeToVibration(IDataChangeCatcher dataChangeCatcher) {
+    public void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException {
+        IAdmin admin = new Admin();
 
-    }
+        NodeId node = admin.getStopReasonId(identifier).getNode();
 
-    @Override
-    public void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher) {
-
-    }
-
-    @Override
-    public void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) {
-
+        SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
     }
     //</editor-fold>
 
