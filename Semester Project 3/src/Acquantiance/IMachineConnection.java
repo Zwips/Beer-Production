@@ -22,18 +22,18 @@ public interface IMachineConnection {
     int readStopReasonValue() throws ServiceException, StatusException;
 
     //subscribe creations
-    void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToVibration(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher);
-    void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher);
+    void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToCurrentState(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToVibration(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToHumidity(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
+    void subscribeToStopReasonID(IDataChangeCatcher dataChangeCatcher) throws ServiceException, StatusException;
 
     //set machine commands
-    boolean setAmountInNextBatch(float value);
-    boolean setBatchIDForNextBatch(float value);
-    boolean setControlCommand(int value);
-    boolean setMachineSpeed(float value);
-    boolean setProductIDForNextBatch(float value);
+    boolean setAmountInNextBatch(float value) throws ServiceException, StatusException;
+    boolean setBatchIDForNextBatch(float value) throws ServiceException, StatusException;
+    boolean setControlCommand(int value) throws ServiceException, StatusException;
+    boolean setMachineSpeed(float value) throws ServiceException, StatusException;
+    boolean setProductIDForNextBatch(float value) throws ServiceException, StatusException;
 
     //read status commands
     float readProductsInBatch() throws ServiceException, StatusException;

@@ -24,17 +24,19 @@ public class Control {
     Control(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
+
     public NodeId getNode() {
         return node;
     }
-    int readControlCommand(UaClient client, String prefix) throws ServiceException, StatusException {
+
+    public int readControlCommand(UaClient client) throws ServiceException, StatusException {
         DataValue data = client.readValue(node);
         int value = data.getValue().intValue();
 
         return value;
     }
 
-    void setControlCommand(UaClient client, int amount) throws ServiceException, StatusException {
+    public void setControlCommand(UaClient client, int amount) throws ServiceException, StatusException {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);
