@@ -8,7 +8,7 @@ import org.opcfoundation.ua.builtintypes.LocalizedText;
 import org.opcfoundation.ua.core.ApplicationDescription;
 import org.opcfoundation.ua.core.ApplicationType;
 import org.opcfoundation.ua.transport.security.SecurityMode;
-import semester.project.pkg3.FXMLDocumentController;
+import gui.FXMLDocumentController;
 
 import java.net.URISyntaxException;
 import java.util.logging.Level;
