@@ -168,23 +168,7 @@ public class Test {
     public static void main(String[] args) throws ServiceException, StatusException, InterruptedException {
         sleep(100);
 
-        connection.setControlCommand(1);
-        sleep(100);
-
-        connection.setProductIDForNextBatch(0);
-        sleep(100);
-
-        connection.setAmountInNextBatch(60000);
-        sleep(100);
-
-        connection.setBatchIDForNextBatch(600);
-        sleep(100);
-
-        connection.setMachineSpeed(600);
-        sleep(100);
-
-        connection.setControlCommand(2);
-
+        Test.startMachine();
 
         connection.subscribeToCurrentState(new SubscribtiontestState(new Test()));
     }
@@ -195,5 +179,27 @@ public class Test {
         System.out.println("Number of produced products "+connection.readNumberOfProducedProducts());
         sleep(100);
         System.out.println("Number of defective products "+connection.readNumberOfDefectiveProducts());
+
+        Test.startMachine();
+    }
+
+    private static void startMachine() throws ServiceException, StatusException, InterruptedException {
+        connection.setControlCommand(1);
+        sleep(100);
+
+        connection.setProductIDForNextBatch(0);
+        sleep(100);
+
+        connection.setAmountInNextBatch(1000);
+        sleep(100);
+
+        connection.setBatchIDForNextBatch(600);
+        sleep(100);
+
+        connection.setMachineSpeed(600);
+        sleep(100);
+
+        connection.setControlCommand(2);
+        sleep(100);
     }
 }

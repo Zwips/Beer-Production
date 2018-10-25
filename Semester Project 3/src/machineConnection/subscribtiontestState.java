@@ -17,7 +17,9 @@ class SubscribtiontestState implements IDataChangeCatcher {
     public void report(DataValue data) {
         try {
             System.out.println(data.getValue());
-            test.printProduction();
+            if (data.getValue().intValue()==17) {
+                test.printProduction();
+            }
         } catch (ServiceException e) {
             e.printStackTrace();
         } catch (StatusException e) {
