@@ -463,5 +463,10 @@ public class MachineConnection implements IMachineConnection {
 
         return -1;
     }
+
+    @Override
+    public boolean isConnected(){
+        return client.isConnected();
+    }
     //</editor-fold>
 }
