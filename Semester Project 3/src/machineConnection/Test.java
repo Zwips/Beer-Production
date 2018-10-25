@@ -12,6 +12,7 @@ import semester.project.pkg3.FXMLDocumentController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.sleep;
 
 public class Test {
@@ -168,6 +169,8 @@ public class Test {
     public static void main(String[] args) throws ServiceException, StatusException, InterruptedException {
         sleep(100);
 
+        Test.testAllMethods();
+
         Test.startMachine();
 
         connection.subscribeToCurrentState(new SubscribtiontestState(new Test()));
@@ -190,7 +193,7 @@ public class Test {
         connection.setProductIDForNextBatch(0);
         sleep(100);
 
-        connection.setAmountInNextBatch(1000);
+        connection.setAmountInNextBatch(200);
         sleep(100);
 
         connection.setBatchIDForNextBatch(600);
@@ -201,5 +204,37 @@ public class Test {
 
         connection.setControlCommand(2);
         sleep(100);
+    }
+
+    private static void testAllMethods() throws ServiceException, StatusException {
+
+        System.out.println("All read methods: "+
+                "\nDefective: "+
+        connection.readNumberOfDefectiveProducts()+
+                "\nProduced: "+
+        connection.readNumberOfProducedProducts()+
+                "\nCurrent Batch ID: "+
+        connection.readBatchIDCurrent()+
+                "\nCurrent Product ID: "+
+        connection.readCurrentProductID()+
+                "\nCurrent state: "+
+        connection.readCurrentState()+
+                "\nHumidity: "+
+        connection.readHumidity()+
+                "\nTemperature: "+
+        connection.readTemperature()+
+                "\nVibration: "+
+        connection.readVibration()+
+                "\nStop Reason Value: "+
+        connection.readStopReasonValue()+
+                "\nStop Reason ID: "+
+        connection.readStopReasonID()+
+                "\nProducts in Batch: "+
+        connection.readProductsInBatch()+
+                "\nMachine speed: "+
+        connection.readMachineSpeedCurrent());
+
+
+
     }
 }
