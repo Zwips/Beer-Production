@@ -164,12 +164,14 @@ public class FXMLDocumentController implements Initializable  {
         }
 
 
-        @FXML
-        void addMachineActionHandler(ActionEvent event) {
-       String address = iPaddressTextField.getText()+ ":" + portNumberTextField.getText();
-       String machineName = machineNameTextField.getText();
+    @FXML
+    void addMachineActionHandler(ActionEvent event) {
+        String address = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
+        String machineName = machineNameTextField.getText();
+        String username = userNameTextField.getText();
+        String password = passWordTextField.getText();
 
-        }
+    }
 
     @FXML
 

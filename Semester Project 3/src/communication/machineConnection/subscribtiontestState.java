@@ -5,6 +5,8 @@ import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
+import java.io.IOException;
+
 class SubscribtiontestState implements IDataChangeCatcher {
 
     private Test test;
@@ -25,6 +27,8 @@ class SubscribtiontestState implements IDataChangeCatcher {
         } catch (StatusException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
