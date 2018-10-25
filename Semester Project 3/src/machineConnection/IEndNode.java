@@ -8,5 +8,4 @@ public interface IEndNode {
 
     DataValue readNodeValue();
     NodeId getNodeId();
-    void writeCommand(Variant value);
 }

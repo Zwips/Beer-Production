@@ -164,7 +164,7 @@ public class Test {
 //
 //</editor-fold>
 
-    private static MachineConnection connection = new MachineConnection("127.0.0.1:4840", "sdu","1234");
+    private static MachineConnection connection = new MachineConnection("192.168.1.2:4840", "sdu","1234");
 
     public static void main(String[] args) throws ServiceException, StatusException, InterruptedException {
         sleep(100);
@@ -182,7 +182,9 @@ public class Test {
         System.out.println("Number of produced products "+connection.readNumberOfProducedProducts());
         sleep(100);
         System.out.println("Number of defective products "+connection.readNumberOfDefectiveProducts());
+        Test.testAllMethods();
 
+        sleep(100);
         Test.startMachine();
     }
 
@@ -200,7 +202,7 @@ public class Test {
         sleep(100);
 
         connection.setMachineSpeed(600);
-        sleep(100);
+        sleep(500);
 
         connection.setControlCommand(2);
         sleep(100);
