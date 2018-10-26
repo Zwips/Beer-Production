@@ -1,5 +1,7 @@
 package logic.erp;
 
+import Acquantiance.ProductTypeEnum;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,7 +19,7 @@ public class ERP {
         THEPLANT = new ProcessingPlant("THEPLANT");
     }
 
-    public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
+    public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         return productionOrderQueue.add(order);
 

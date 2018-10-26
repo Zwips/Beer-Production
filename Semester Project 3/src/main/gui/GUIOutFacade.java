@@ -1,6 +1,7 @@
 package gui;
 
 import Acquantiance.IERPFacade;
+import Acquantiance.ProductTypeEnum;
 import logic.erp.ERPFacade;
 
 import java.util.Date;
@@ -25,7 +26,7 @@ public class GUIOutFacade {
         this.erpFacade = erpFacade;
     }
 
-    public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
+    public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
 
         return erpFacade.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
 

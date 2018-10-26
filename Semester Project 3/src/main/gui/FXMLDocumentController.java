@@ -5,9 +5,15 @@
 */
 package gui;
 
+import Acquantiance.ProductTypeEnum;
+
 import static java.lang.Thread.sleep;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -16,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import static javafx.application.Application.launch;
+
 
 /**
  *
@@ -104,8 +111,15 @@ public class FXMLDocumentController implements Initializable  {
     @FXML
     private Button sendOrderBtn;
 
+    private HashMap<RadioButton, ProductTypeEnum> productToggleMap;
 
-//    DanishGUI danishGUI;
+    @FXML
+    private TextField earliestDeliveryDateTextField;
+
+    @FXML
+    private TextField latestDeliveryDateTextField1;
+
+
 
 
 
@@ -116,6 +130,10 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
         priorityChoiceBox.getItems().addAll("1", "2", "3");
         priorityChoiceBox.getSelectionModel().select("1");
+
+
+        productToggleMap = new HashMap<>();
+        productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }
         @FXML
         void DanishHandleBtn(ActionEvent event) {
@@ -127,14 +145,82 @@ public class FXMLDocumentController implements Initializable  {
 
         }
 
-        @FXML
-        void SendOrderHandleActionBtn(ActionEvent event) {
-        int amount = Integer.parseInt(orderAmountTextField.getText());
-        Toggle productType = TypeToggleGroup.getSelectedToggle();
-           // addOrder(int amount, float productType, Date earliestDeliveryDate, java.util.Date latestDeliveryDate, int priority)
-       // GUIOutFacade.getInstance().addOrder(amount,)
-         //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
+    public boolean parseDate(TextField field){
+        if(!field.getText().isEmpty()){
+            try{
+                Date SimpleDateFormat = new SimpleDateFormat("yyyy/MM/dd").parse(field.getText());
+                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+                return true;
+            } catch (ParseException e) {
+            }
         }
+
+        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        return false;
+    }
+
+    public boolean testInt(TextField field){
+        if(!field.getText().isEmpty()){
+            try{
+                Integer.parseInt(field.getText());
+                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+                return true;
+            }catch(NumberFormatException ex){
+            }
+        }
+
+        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        return false;
+    }
+
+        @FXML
+        void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
+            boolean allTrue = true;
+            int amount = 0;
+            Date earliestDeliveryDate = null;
+            Date latestDeliveryDate = null;
+
+            if (!this.testInt(orderAmountTextField)){
+                allTrue = false;
+            } else {
+                amount = Integer.parseInt(orderAmountTextField.getText());
+            }
+
+            if(!this.parseDate(earliestDeliveryDateTextField)) {
+                allTrue = false;
+            } else {
+                earliestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(earliestDeliveryDateTextField.getText());
+            }
+
+            if(!this.parseDate(latestDeliveryDateTextField1)) {
+                allTrue = false;
+            } else {
+                latestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(latestDeliveryDateTextField1.getText());
+            }
+
+
+
+
+            ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
+
+
+            int priority = Integer.parseInt(priorityChoiceBox.getValue());
+
+
+            if (allTrue){
+                GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
+                System.out.println("det lykkedes");
+            }
+        }
+
+
+
+
+
+    //   GUIOutFacade.getInstance().addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, latestDeliveryDate, int priority)
+
+         //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
+
 
 
     @FXML
