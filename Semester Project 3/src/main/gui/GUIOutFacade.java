@@ -1,6 +1,9 @@
 package gui;
 
 import Acquantiance.IERPFacade;
+import logic.erp.ERPFacade;
+
+import java.util.Date;
 
 public class GUIOutFacade {
 
@@ -20,6 +23,12 @@ public class GUIOutFacade {
 
     public void injectCommunicationFacade(IERPFacade erpFacade){
         this.erpFacade = erpFacade;
+    }
+
+    public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
+
+        return erpFacade.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+
     }
 
 }
