@@ -13,23 +13,24 @@ import static java.lang.Thread.sleep;
 public class Machine implements IMachine, IMesMachine, Runnable{
 
     private String name;
-    private String address;
+    private String IPAddress;
     private String userID;
     private String password;
     private IMachineConnection machineConnection;
-    private OptimalMachineSpecifications specs;
+    private MachineSpecifications specs;
 
-    public Machine(String name, String address, String userID, String password){
+    public Machine(String name, String IPAddress, String userID, String password){
         this.name = name;
-        this.address = address;
+        this.IPAddress = IPAddress;
         this.userID = userID;
         this.password = password;
         createMachineConnection();
-        specs = new OptimalMachineSpecifications();
+        specs = new MachineSpecifications();
+
     }
 
     private void createMachineConnection(){
-        machineConnection = new MachineConnection(address, userID, password);
+        machineConnection = new MachineConnection(IPAddress, userID, password);
     };
 
     @Override

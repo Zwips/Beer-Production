@@ -7,21 +7,19 @@ import java.util.Date;
 public class ERPFacade implements IERPFacade {
     ERP erp = new ERP();
 
-@Override
+    @Override
     public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
-
-   return erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-
+        return erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
     }
 
     @Override
-    public boolean addMachine(String processingPantID, String name, String address, String userID, String password) {
-        return erp.addMachine(processingPantID, name, address, userID, password);
+    public boolean addMachine(String processingPlantID, String machineName, String IPAddress, String userID, String password) {
+        return erp.addMachine(processingPlantID, machineName, IPAddress, userID, password);
     }
 
     @Override
-    public boolean addMachine( String name, String address, String userID, String password) {
-        return erp.addMachine(name, address, userID, password);
+    public boolean addMachine(String machineName, String IPAddress, String userID, String password) {
+        return erp.addMachine(machineName, IPAddress, userID, password);
     }
 
     @Override

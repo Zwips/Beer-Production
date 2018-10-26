@@ -5,49 +5,17 @@
 */
 package gui;
 
-import com.prosysopc.ua.ApplicationIdentity;
-import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.SessionActivationException;
-import com.prosysopc.ua.StatusException;
-import com.prosysopc.ua.UserIdentity;
-import com.prosysopc.ua.client.AddressSpaceException;
-import com.prosysopc.ua.client.ServerConnectionException;
-import com.prosysopc.ua.client.UaClient;
 import static java.lang.Thread.sleep;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javafx.application.Application;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import opcSamples.SampleConsoleClient;
-import org.opcfoundation.ua.builtintypes.DataValue;
-import org.opcfoundation.ua.builtintypes.DateTime;
-import org.opcfoundation.ua.builtintypes.LocalizedText;
-import org.opcfoundation.ua.builtintypes.NodeId;
-import org.opcfoundation.ua.builtintypes.StatusCode;
-import org.opcfoundation.ua.builtintypes.Variant;
-import org.opcfoundation.ua.core.ApplicationDescription;
-import org.opcfoundation.ua.core.ApplicationType;
-import org.opcfoundation.ua.core.Identifiers;
 
 import static javafx.application.Application.launch;
-import static org.opcfoundation.ua.core.Identifiers.DataValue;
-import static org.opcfoundation.ua.core.Identifiers.StatusCode;
-import org.opcfoundation.ua.core.TimestampsToReturn;
-import org.opcfoundation.ua.transport.security.SecurityMode;
 
 /**
  *
@@ -171,12 +139,12 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void addMachineActionHandler(ActionEvent event) {
-        String address = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
+        String IPAddress = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
         String machineName = machineNameTextField.getText();
         String username = userNameTextField.getText();
         String password = passWordTextField.getText();
 
-        GUIOutFacade.getInstance().addMachine(machineName,address,username,password);
+        GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
     }
 
     @FXML
