@@ -128,6 +128,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></Button>
+                        <TextField fx:id="latestDeliveryDateTextField" layoutX="199.0" layoutY="396.0" />
                             </children>
                         </AnchorPane>
                     </content>
