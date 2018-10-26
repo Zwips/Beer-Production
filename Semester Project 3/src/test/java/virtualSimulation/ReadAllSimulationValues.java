@@ -6,7 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ReadAllSimulationValues {
 
@@ -14,6 +14,10 @@ public class ReadAllSimulationValues {
     private Float temperature;
     private Float vibration;
     private Float humidity;
+    private Float currentState;
+    private Float amountOfProductsInBatch;
+    private Float currentBatchID;
+    private Float currentMachineSpeed;
 
     @Given("^The machine connection the virtual simulation is established$")
     public void theMachineConnectionTheVirtualSimulationIsEstablished() throws Throwable {
@@ -63,6 +67,51 @@ public class ReadAllSimulationValues {
             humidityIsRead = true;
         }
 
-        assertEquals(true, humidityIsRead);
+        assertTrue(humidityIsRead);
+    }
+
+    @When("^reading the current state$")
+    public void readingTheCurrentState() throws Throwable {
+        currentState = connection.readCurrentState();
+    }
+
+    @Then("^the current state is read$")
+    public void theCurrentStateIsRead() throws Throwable {
+        boolean currentStateIsRead = false;
+        if (currentState != null){
+            currentStateIsRead = true;
+        }
+
+        assertTrue(currentStateIsRead);
+    }
+
+    @When("^reading the the current machine speed$")
+    public void readingTheTheCurrentMachineSpeed() throws Throwable {
+        currentMachineSpeed = connection.readMachineSpeedCurrent();
+    }
+
+    @Then("^the current machine speed is read$")
+    public void theCurrentMachineSpeedIsRead() throws Throwable {
+        assertNotNull(currentMachineSpeed);
+    }
+
+    @When("^reading the the current batch ID$")
+    public void readingTheTheCurrentBatchID() throws Throwable {
+        currentBatchID = connection.readBatchIDCurrent();
+     }
+
+    @Then("^the current batch ID is read$")
+    public void theCurrentBatchIDIsRead() throws Throwable {
+        assertNotNull(currentBatchID);
+    }
+
+    @When("^reading the amount of products in a batch$")
+    public void readingTheAmountOfProductsInABatch() throws Throwable {
+        amountOfProductsInBatch = connection.readProductsInBatch();
+    }
+
+    @Then("^the amount of prodcuts in a batch is read$")
+    public void theAmountOfProdcutsInABatchIsRead() throws Throwable {
+        assertNotNull(amountOfProductsInBatch);
     }
 }

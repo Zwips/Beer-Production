@@ -1,6 +1,8 @@
 package communication.SQLCommunication;
 
 import communication.ISQLCommunicationFacade;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import sun.security.util.PendingException;
 
 import java.sql.Array;
 import java.sql.ResultSet;
@@ -23,6 +25,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
 //        results.
 //
 //        return results;
+        throw new NotImplementedException();
     }
 
     @Override

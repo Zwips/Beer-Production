@@ -1,6 +1,7 @@
 package communication.SQLCommunication;
 
 import Acquantiance.IBatch;
+import Acquantiance.ProductTypeEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,9 +31,10 @@ public class BatchReport implements IBatch {
         SelectFromDatabase select = new SelectFromDatabase();
         ResultSet rs = select.SelectFromBatch(ID);
 
-        for (int i: rs){
+        // this for loop can't be done??
+        /*for (int i: rs){
 
-        }
+        }*/
 
     }
 
@@ -70,4 +72,43 @@ public class BatchReport implements IBatch {
     }
 
 
+    @Override
+    public int getBatchID() {
+        return 0;
+    }
+
+    @Override
+    public ProductTypeEnum getProductType() {
+        return null;
+    }
+
+    @Override
+    public int getTotalProduced() {
+        return 0;
+    }
+
+    @Override
+    public int getTotalDiscarded() {
+        return 0;
+    }
+
+    @Override
+    public HashMap getAmountOfTimeInDifferentStates() {
+        return null;
+    }
+
+    @Override
+    public HashMap getTemperatures() {
+        return null;
+    }
+
+    @Override
+    public HashMap getHumidity() {
+        return null;
+    }
+
+    @Override
+    public HashMap getVibrations() {
+        return null;
+    }
 }

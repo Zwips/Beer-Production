@@ -1,5 +1,7 @@
 package logic.mes;
 
+import Acquantiance.ProductTypeEnum;
+
 import java.util.HashMap;
 
 public class MachineSpecifications {
@@ -32,53 +34,60 @@ public class MachineSpecifications {
         return allowedCommands.get(state);
     }
 
-    float getOptimalSpeed(int productType){
+    float getOptimalSpeed(ProductTypeEnum productType){
         switch (productType) {
-            case 0:
+            case PILSNER:
                 return 599;
-
-            case 1:
+            case WHEAT:
                 return 300;
-
-            case 2:
+            case IPA:
                 return 150;
-
-            case 3:
+            case STOUT:
                 return 200;
-
-            case 4:
+            case ALE:
                 return 100;
-
-            case 5:
+            case ALCOHOLFREE:
                 return 125;
-
             default:
                 return 100;
         }
     }
 
-    float maxSpeed(int productType) {
+    float maxSpeed(ProductTypeEnum productType) {
         switch (productType) {
-            case 0:
+            case PILSNER:
                 return 600;
-
-            case 1:
+            case WHEAT:
                 return 300;
-
-            case 2:
+            case IPA:
                 return 150;
-
-            case 3:
+            case STOUT:
                 return 200;
-
-            case 4:
+            case ALE:
                 return 100;
-
-            case 5:
+            case ALCOHOLFREE:
                 return 125;
-
             default:
                 return 100;
+        }
+    }
+
+    float getProductTypeCode(ProductTypeEnum productType){
+        switch (productType) {
+            case PILSNER:
+                return 0;
+            case WHEAT:
+                return 1;
+            case IPA:
+                return 2;
+            case STOUT:
+                return 3;
+            case ALE:
+                return 4;
+            case ALCOHOLFREE:
+                return 5;
+            default:
+                return -1;
         }
     }
 }
