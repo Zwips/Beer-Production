@@ -68,6 +68,9 @@ public class Machine implements IMachine, Runnable{
                         machineConnection.setControlCommand(2);
                         return true;
 
+                    case 9:
+                        machineConnection.setControlCommand(5);
+                        break;
                     case 17:
                         machineConnection.setControlCommand(3);
                         break;
