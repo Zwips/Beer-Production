@@ -17,6 +17,7 @@ import static java.lang.Thread.sleep;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -160,7 +161,11 @@ public class FXMLDocumentController implements Initializable  {
 
         @FXML
         void SendOrderHandleActionBtn(ActionEvent event) {
-
+        int amount = Integer.parseInt(orderAmountTextField.getText());
+        Toggle productType = TypeToggleGroup.getSelectedToggle();
+           // addOrder(int amount, float productType, Date earliestDeliveryDate, java.util.Date latestDeliveryDate, int priority)
+       // GUIOutFacade.getInstance().addOrder(amount,)
+         //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
         }
 
 
@@ -171,14 +176,11 @@ public class FXMLDocumentController implements Initializable  {
         String username = userNameTextField.getText();
         String password = passWordTextField.getText();
 
+        GUIOutFacade.getInstance().addMachine(machineName,address,username,password);
     }
 
     @FXML
-
-
-
     void TypeBtnHandleAction(ActionEvent event) {
-
 
     }
 

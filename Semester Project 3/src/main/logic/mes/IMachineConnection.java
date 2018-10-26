@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Acquantiance;
+package logic.mes;
 
+import Acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
-import com.prosysopc.ua.client.UaClient;
 
 /**
  *
  * @author HCHB
  */
 public interface IMachineConnection {
+
+
     //read status commands
     float readCurrentProductID() throws ServiceException, StatusException;
     int readNumberOfDefectiveProducts() throws ServiceException, StatusException;
@@ -47,4 +49,4 @@ public interface IMachineConnection {
     boolean isConnected();
 
 
-    }
+}
