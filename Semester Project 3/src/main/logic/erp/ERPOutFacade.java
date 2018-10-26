@@ -1,6 +1,7 @@
 package logic.erp;
 
 import Acquantiance.IMESFacade;
+import Acquantiance.IMesMachine;
 
 public class ERPOutFacade {
 
@@ -21,4 +22,15 @@ public class ERPOutFacade {
     public void injectCommunicationFacade(IMESFacade mesFacade){
         this.mesFacade = mesFacade;
     }
+
+    IMesMachine createMachine(String name, String address, String userID, String password){
+        return mesFacade.createMachine(name,address, userID, password);
+    }
+
+    boolean isConnected(IMesMachine machine)
+    {
+        return machine.isConnected();
+    }
+
+
 }

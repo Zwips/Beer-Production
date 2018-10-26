@@ -1,11 +1,10 @@
-package logic.mes;
+package Acquantiance;
 
-import Acquantiance.IDataChangeCatcher;
-import Acquantiance.IProductionOrder;
+
+
 import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.StatusException;
 
-public interface IMachine {
+public interface IMesMachine {
 
     //<editor-fold desc="commands to machine"
 
@@ -13,6 +12,7 @@ public interface IMachine {
     boolean executeOrder(IProductionOrder order, float batchId);
     boolean abandonOrder();
     String getMachineID();
+    boolean isConnected();
 
 
     //</editor-fold>
@@ -46,3 +46,4 @@ public interface IMachine {
 
 
 }
+

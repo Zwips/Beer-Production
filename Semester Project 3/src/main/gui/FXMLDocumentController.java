@@ -230,12 +230,10 @@ public class FXMLDocumentController implements Initializable  {
         String username = userNameTextField.getText();
         String password = passWordTextField.getText();
 
+        GUIOutFacade.getInstance().addMachine(machineName,address,username,password);
     }
 
     @FXML
-
-
-
     void TypeBtnHandleAction(ActionEvent event) {
 
     }
