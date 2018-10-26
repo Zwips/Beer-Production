@@ -6,12 +6,28 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ERP {
-    Queue<ProductionOrder> productionOrderQueue = new LinkedList<>();
+    private Queue<ProductionOrder> productionOrderQueue;
+    private HashMap<String, ProcessingPlant> processingPlants;
+
+    public ERP()
+    {
+        productionOrderQueue = new LinkedList<>();
+        processingPlants = new HashMap<>();
+    }
 
     public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         return productionOrderQueue.add(order);
 
+    }
+
+    void addProcessingPlant(String plantID){
+        ProcessingPlant plant = new ProcessingPlant(plantID);
+        processingPlants.put(plantID, plant);
+    }
+
+    boolean addMachine(String processingPantID, String name, String address, String userID, String password){
+        return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
     }
 
 }

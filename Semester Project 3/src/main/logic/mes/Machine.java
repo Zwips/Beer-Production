@@ -2,6 +2,7 @@ package logic.mes;
 
 
 import Acquantiance.IDataChangeCatcher;
+import Acquantiance.IMesMachine;
 import Acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
@@ -9,7 +10,7 @@ import communication.machineConnection.MachineConnection;
 
 import static java.lang.Thread.sleep;
 
-public class Machine implements IMachine, Runnable{
+public class Machine implements IMachine, IMesMachine, Runnable{
 
     private String name;
     private String address;
@@ -100,6 +101,11 @@ public class Machine implements IMachine, Runnable{
     @Override
     public String getMachineID() {
         return name;
+    }
+
+    @Override
+    public boolean isConnected() {
+        return machineConnection.isConnected();
     }
 
     @Override
