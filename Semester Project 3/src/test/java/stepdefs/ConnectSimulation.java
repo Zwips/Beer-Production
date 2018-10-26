@@ -15,28 +15,34 @@ import static org.junit.Assert.assertEquals;
 public class ConnectSimulation {
 
     private MachineConnection connection;
-    private Process process;
 
+    @SuppressWarnings("Duplicates")
     @Given("^The simulation is started$")
     public void theSimulationIsStarted() {
 
         // This can't be done from Java??
         // Runtime.getRuntime().exec("cmd.exe", "/c", ".");
+        File file = new File("Simulation/start.bat");
+        Process process;
 
+        try {String[] command = { "cmd.exe", "/C", "Start", file.getAbsolutePath() };
+            Runtime runtime = Runtime.getRuntime();
+            process  = runtime.exec(command);
+            process.waitFor();
 
-        /*ProcessBuilder processBuilder = new ProcessBuilder("cmd","/c","start.bat");
-        File dir = new File("C:\\Users\\HCHB\\IdeaProjects\\Beer-Production\\'Semester Project 3'\\Simulation");
-        processBuilder.directory(dir);
-        try {
-            process = processBuilder.start();
+            process.destroy();
+            process.destroyForcibly();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        try {
-            sleep(20000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
+
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,0 +1,28 @@
+
+
+Thu Oct 25 16:19:23 2018
+No ARsim registration found!
+  Bernecker & Rainer 
+
+
+
+Thu Oct 25 16:19:23 2018
+COMMAND_COLDSTART
+InstanceName : 01d46c6dba2ccbc0
+
+WorkingPath :
+C:\Users\HCHB\Documents\NetBeansProjects\Simulation\Config1\X20CP1586\
+
+
+
+Thu Oct 25 16:19:23 2018
+COMMAND_COLDSTART
+Version : E4.34
+
+
+
+Thu Oct 25 16:44:53 2018
+COMMAND_TERMINATE
+
+
+Thu Oct 25 16:44:54 2018
