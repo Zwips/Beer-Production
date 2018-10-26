@@ -10,7 +10,7 @@ public interface IMachine {
     //<editor-fold desc="commands to machine"
 
     void reconnectMachine();
-    boolean executeOrder(IProductionOrder order);
+    boolean executeOrder(IProductionOrder order, float batchId);
     boolean abandonOrder();
     String getMachineID();
 
