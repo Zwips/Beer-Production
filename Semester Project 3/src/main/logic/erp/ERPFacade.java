@@ -14,4 +14,20 @@ public class ERPFacade implements IERPFacade {
 
     }
 
+    @Override
+    public boolean addMachine(String processingPantID, String name, String address, String userID, String password) {
+        return erp.addMachine(processingPantID, name, address, userID, password);
+    }
+
+    @Override
+    public boolean addMachine( String name, String address, String userID, String password) {
+        return erp.addMachine(name, address, userID, password);
+    }
+
+    @Override
+    public void addProcessingPlant(String plantID) {
+        erp.addProcessingPlant(plantID);
+    }
+
+
 }

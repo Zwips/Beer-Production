@@ -8,11 +8,13 @@ import java.util.Queue;
 public class ERP {
     private Queue<ProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
+    private ProcessingPlant THEPLANT;
 
     public ERP()
     {
         productionOrderQueue = new LinkedList<>();
         processingPlants = new HashMap<>();
+        THEPLANT = new ProcessingPlant("THEPLANT");
     }
 
     public boolean addOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
@@ -28,6 +30,10 @@ public class ERP {
 
     boolean addMachine(String processingPantID, String name, String address, String userID, String password){
         return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
+    }
+
+    boolean addMachine(String name, String address, String userID, String password){
+        return THEPLANT.addMachine(name, address, userID, password);
     }
 
 }
