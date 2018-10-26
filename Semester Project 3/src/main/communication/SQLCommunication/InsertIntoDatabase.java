@@ -5,10 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@SuppressWarnings("Duplicates")
+
 public class InsertIntoDatabase {
 
-	DatabaseHandler dbHandler;
+	public InsertIntoDatabase(){
+
+	}
+
+	DatabaseConnector dbHandler;
 
 	public void InsertIntoBatch(int batchID, String productType, int amount, int defective) {
 
@@ -26,16 +30,8 @@ public class InsertIntoDatabase {
 			rs = pStatement.executeQuery();
 		} catch(SQLException e){
 			System.out.println("Exception" + e);
-		} finally{
-			try{
-			st.getConnection().close();
-			st.close();
-			if (rs!=null){
-				rs.close();
-			}
-			}catch(SQLException e) {
-
-			}
+		} finally {
+			dbHandler.CloseConnection(rs, st);
 		}
 	}
 
@@ -53,17 +49,8 @@ public class InsertIntoDatabase {
 		} catch (SQLException e) {
 			System.out.println("Exception" + e);
 		} finally {
-			try {
-				st.getConnection().close();
-				st.close();
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-
-			}
+			dbHandler.CloseConnection(rs, st);
 		}
-
 	}
 
 	public void InsertIntoHumidity(int batchID, String timeOfReading, float valuePercent) {
@@ -81,17 +68,8 @@ public class InsertIntoDatabase {
 		} catch (SQLException e) {
 			System.out.println("Exception" + e);
 		} finally {
-			try {
-				st.getConnection().close();
-				st.close();
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-
-			}
+			dbHandler.CloseConnection(rs, st);
 		}
-
 	}
 
 	public void InsertIntoTemperature(int batchID, String timeOfReading, float valueCelcius) {
@@ -109,17 +87,8 @@ public class InsertIntoDatabase {
 		} catch (SQLException e) {
 			System.out.println("Exception" + e);
 		} finally {
-			try {
-				st.getConnection().close();
-				st.close();
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-
-			}
+			dbHandler.CloseConnection(rs, st);
 		}
-
 	}
 
 	public void InsertIntoVibration(int batchID, String timeOfReading, float valuePBS) {
@@ -137,17 +106,8 @@ public class InsertIntoDatabase {
 		} catch (SQLException e) {
 			System.out.println("Exception" + e);
 		} finally {
-			try {
-				st.getConnection().close();
-				st.close();
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (SQLException e) {
-
-			}
+			dbHandler.CloseConnection(rs, st);
 		}
-
 	}
 
 	public void InsertIntoOrders(int amount, String productType, String earliestDeliveryDate, String latestDeliveryDate, int priority, boolean status, int batchID) {
@@ -155,7 +115,7 @@ public class InsertIntoDatabase {
 		Statement st = null;
 		ResultSet rs = null;
 
-		try{
+		try {
 			st = dbHandler.OpenConnection();
 			PreparedStatement pStatement = st.getConnection().prepareStatement("INSERT INTO Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
@@ -167,19 +127,10 @@ public class InsertIntoDatabase {
 			pStatement.setBoolean(6, status);
 			pStatement.setInt(7, batchID);
 			rs = pStatement.executeQuery();
-		} catch(SQLException e){
+		} catch (SQLException e) {
 			System.out.println("Exception" + e);
-		} finally{
-			try{
-				st.getConnection().close();
-				st.close();
-				if (rs!=null){
-					rs.close();
-				}
-			}catch(SQLException e) {
-
-			}
+		} finally {
+			dbHandler.CloseConnection(rs, st);
 		}
 	}
-
 }

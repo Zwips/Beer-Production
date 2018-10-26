@@ -1,14 +1,19 @@
 package communication.SQLCommunication;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@SuppressWarnings("Duplicates")
+
 public class SelectFromDatabase {
 
-    DatabaseHandler dbHandler;
+    public SelectFromDatabase(){
+
+    }
+
+    DatabaseConnector dbHandler;
 
 
     public ResultSet SelectFromBatch(int batchID) {
@@ -23,19 +28,11 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
+        } finally {
+            dbHandler.CloseConnection(rs, st);
 
-            }
+            return rs;
         }
-
-        return rs;
     }
 
     public ResultSet SelectFromTemperature(int batchID) {
@@ -50,18 +47,10 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
-
-            }
+        } finally {
+            dbHandler.CloseConnection(rs, st);
+            return rs;
         }
-        return rs;
     }
 
     public ResultSet SelectFromHumidity(int batchID) {
@@ -76,18 +65,11 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
+        } finally {
+            dbHandler.CloseConnection(rs, st);
 
-            }
+            return rs;
         }
-        return rs;
     }
 
     public ResultSet SelectFromVibration(int batchID) {
@@ -102,18 +84,11 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
+        } finally {
+            dbHandler.CloseConnection(rs, st);
 
-            }
+            return rs;
         }
-        return rs;
     }
 
     public ResultSet SelectFromBatchLog(int batchID) {
@@ -128,18 +103,11 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
+        } finally {
+            dbHandler.CloseConnection(rs, st);
 
-            }
+            return rs;
         }
-        return rs;
     }
 
     public ResultSet SelectFromOrder(int orderID) {
@@ -154,17 +122,10 @@ public class SelectFromDatabase {
             rs = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally{
-            try{
-                st.getConnection().close();
-                st.close();
-                if (rs!=null){
-                    rs.close();
-                }
-            }catch(SQLException e) {
+        } finally {
+            dbHandler.CloseConnection(rs, st);
 
-            }
+            return rs;
         }
-        return rs;
     }
 }
