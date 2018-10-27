@@ -21,9 +21,7 @@ public class Amount {
     private String identifier = "Parameter[2].Value";
     private NodeId node;
 
-
-
-    Amount(String prefix){
+    public Amount(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 

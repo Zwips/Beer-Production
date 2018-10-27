@@ -255,7 +255,7 @@ public class MachineConnection implements IMachineConnection {
                 e.printStackTrace();
             }
 
-            float readValue = 0;
+            int readValue = 0;
             try {
                 readValue = control.readControlCommand(client);
             } catch (StatusException e) {
@@ -467,6 +467,11 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public boolean isConnected(){
         return client.isConnected();
+    }
+
+    @Override
+    public void disConnect() {
+        client.disconnect();
     }
     //</editor-fold>
 }

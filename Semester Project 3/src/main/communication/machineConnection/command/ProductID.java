@@ -21,7 +21,7 @@ public class ProductID {
     private String identifier = "Parameter[1].Value";
     private NodeId node;
 
-    ProductID(String prefix){
+    public ProductID(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 
