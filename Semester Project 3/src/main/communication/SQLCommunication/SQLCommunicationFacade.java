@@ -7,6 +7,11 @@ import sun.security.util.PendingException;
 import java.sql.Array;
 import java.sql.ResultSet;
 
+/*
+Knows everything about the specific database, because communication with a database is not an industry standard
+
+ */
+
 public class SQLCommunicationFacade implements ISQLCommunicationFacade {
 
 
