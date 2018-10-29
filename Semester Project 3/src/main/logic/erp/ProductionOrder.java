@@ -14,6 +14,7 @@ public class ProductionOrder implements IProductionOrder {
 
 
 
+
     public ProductionOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
         this.amount = amount;
         this.productType = productType;
