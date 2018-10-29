@@ -124,11 +124,14 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <Button fx:id="sendOrderBtn" layoutX="637.0" layoutY="528.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-color: transpaent;" text="Send Order" textFill="#001f3f">
+                                <Button fx:id="sendOrderBtn" layoutX="637.0" layoutY="528.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" text="Send Order" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <TextField fx:id="latestDeliveryDateTextField" layoutX="199.0" layoutY="396.0" />
+                        <TextField fx:id="earliestDeliveryDateTextField" layoutX="244.0" layoutY="456.0" />
+                        <TextField fx:id="latestDeliveryDateTextField1" layoutX="169.0" layoutY="402.0" />
+                        <Label layoutX="81.0" layoutY="406.0" text="Latest delivery " />
+                        <Label layoutX="87.0" layoutY="460.0" text="Earliest delivery" />
                             </children>
                         </AnchorPane>
                     </content>

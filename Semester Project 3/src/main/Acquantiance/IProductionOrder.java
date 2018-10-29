@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface IProductionOrder {
   int getAmount();
-  float getProductType();
+  ProductTypeEnum getProductType();
   Date getEarliestDeliveryDate();
   Date getLatestDeliveryDate();
   int getPriority();

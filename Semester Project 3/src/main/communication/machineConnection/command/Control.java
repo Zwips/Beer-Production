@@ -21,7 +21,7 @@ public class Control {
     private String identifier = "CntrlCmd";
     private NodeId node;
 
-    Control(String prefix){
+    public Control(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 
@@ -40,5 +40,6 @@ public class Control {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);
+        System.out.println("sout: "+readControlCommand(client));
     }
 }

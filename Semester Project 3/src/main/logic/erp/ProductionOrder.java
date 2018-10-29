@@ -1,12 +1,13 @@
 package logic.erp;
 
 import Acquantiance.IProductionOrder;
+import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 
 public class ProductionOrder implements IProductionOrder {
     private int amount;
-    private float productType;
+    private ProductTypeEnum productType;
     private Date earliestDeliveryDate;
     private Date latestDeliveryDate;
     private int priority;
@@ -14,8 +15,7 @@ public class ProductionOrder implements IProductionOrder {
 
 
 
-
-    public ProductionOrder(int amount, float productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
+    public ProductionOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
         this.amount = amount;
         this.productType = productType;
         this.earliestDeliveryDate = earliestDeliveryDate;
@@ -29,7 +29,7 @@ public class ProductionOrder implements IProductionOrder {
     }
 
     @Override
-    public float getProductType() {
+    public ProductTypeEnum getProductType() {
         return productType;
     }
 
