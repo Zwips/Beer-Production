@@ -80,5 +80,3 @@ Feature: Pseudo unit testing - reads all values from the virtual simulation
 #  subscribe to humidity
 #  subscribe to current state
 #  subscribe to stop reason ID
-
-

@@ -40,6 +40,5 @@ public class Control {
         DataValue dataValue = new DataValue(new Variant(amount));
 
         SendCommand.write(node,dataValue,client);
-        System.out.println("sout: "+readControlCommand(client));
     }
 }
