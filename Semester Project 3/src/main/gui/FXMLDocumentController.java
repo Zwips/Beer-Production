@@ -132,6 +132,7 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getSelectionModel().select("1");
 
 
+
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }
