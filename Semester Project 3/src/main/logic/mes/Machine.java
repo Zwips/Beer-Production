@@ -4,6 +4,7 @@ package logic.mes;
 import Acquantiance.IDataChangeCatcher;
 import Acquantiance.IMesMachine;
 import Acquantiance.IProductionOrder;
+import Acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import communication.machineConnection.MachineConnection;
@@ -13,23 +14,24 @@ import static java.lang.Thread.sleep;
 public class Machine implements IMachine, IMesMachine, Runnable{
 
     private String name;
-    private String address;
+    private String IPAddress;
     private String userID;
     private String password;
     private IMachineConnection machineConnection;
-    private OptimalMachineSpecifications specs;
+    private MachineSpecifications specs;
 
-    public Machine(String name, String address, String userID, String password){
+    public Machine(String name, String IPAddress, String userID, String password){
         this.name = name;
-        this.address = address;
+        this.IPAddress = IPAddress;
         this.userID = userID;
         this.password = password;
         createMachineConnection();
-        specs = new OptimalMachineSpecifications();
+        specs = new MachineSpecifications();
+
     }
 
     private void createMachineConnection(){
-        machineConnection = new MachineConnection(address, userID, password);
+        machineConnection = new MachineConnection(IPAddress, userID, password);
     };
 
     @Override
@@ -40,18 +42,17 @@ public class Machine implements IMachine, IMesMachine, Runnable{
     @Override
     public boolean executeOrder(IProductionOrder order, float batchId) {
         int amount = order.getAmount();
-        float productType = order.getProductType();
-        float speed = specs.getOptimalSpeed((int) productType);
+        ProductTypeEnum productType = order.getProductType();
+        float speed = specs.getOptimalSpeed(productType);
         int currentState = -1;
+
         try {
             currentState = (int) machineConnection.readCurrentState();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        } catch (StatusException e) {
+        } catch (ServiceException | StatusException e) {
             e.printStackTrace();
         }
-        try {
 
+        try {
             while(currentState != 6 || currentState != -1){
                 switch(currentState){
                     case 2:
@@ -60,7 +61,7 @@ public class Machine implements IMachine, IMesMachine, Runnable{
                     case 4:
                         machineConnection.setAmountInNextBatch(amount);
                         sleep(100);
-                        machineConnection.setProductIDForNextBatch(productType);
+                        machineConnection.setProductIDForNextBatch(specs.getProductTypeCode(productType));
                         sleep(100);
                         machineConnection.setMachineSpeed(speed);
                         sleep(100);
@@ -68,25 +69,17 @@ public class Machine implements IMachine, IMesMachine, Runnable{
                         sleep(100);
                         machineConnection.setControlCommand(2);
                         return true;
-
                     case 9:
                         machineConnection.setControlCommand(5);
                         break;
                     case 17:
                         machineConnection.setControlCommand(3);
                         break;
-
-
                 }
                 sleep(500);
                 currentState = (int)machineConnection.readCurrentState();
             }
-
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        } catch (StatusException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ServiceException | StatusException | InterruptedException e) {
             e.printStackTrace();
         }
 

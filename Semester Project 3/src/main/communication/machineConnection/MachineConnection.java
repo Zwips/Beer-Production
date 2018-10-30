@@ -242,35 +242,14 @@ public class MachineConnection implements IMachineConnection {
         ICommand command = new Command();
 
         Control control = command.getControl(identifier);
-        int amountOfTries = 0;
-        do {
-            try {
-                control.setControlCommand(client, value);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            try {
-                sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            control.setControlCommand(client, value);
+        } catch (StatusException e) {
+//                e.printStackTrace();
+            return false;
+        }
 
-            float readValue = 0;
-            try {
-                readValue = control.readControlCommand(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-
-            if (readValue == value) {
-                return true;
-            }
-            amountOfTries++;
-
-        }while(amountOfTries <5);
-
-        return false;
-
+        return true;
     }
 
     @Override
@@ -467,6 +446,11 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public boolean isConnected(){
         return client.isConnected();
+    }
+
+    @Override
+    public void disConnect() {
+        client.disconnect();
     }
     //</editor-fold>
 }

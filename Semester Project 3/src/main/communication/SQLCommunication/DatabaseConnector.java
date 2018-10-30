@@ -1,13 +1,9 @@
 package communication.SQLCommunication;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
-public class DatabaseHandler {
-
+public class DatabaseConnector {
 
 
 	public Statement OpenConnection() {
@@ -31,5 +27,17 @@ public class DatabaseHandler {
 			}
 			return st;
 
+		}
+
+		public void CloseConnection(ResultSet rs, Statement st){
+		try{
+			st.getConnection().close();
+			st.close();
+			if (rs!=null){
+				rs.close();
+			}
+		}catch(SQLException e) {
+
+			}
 		}
 	}

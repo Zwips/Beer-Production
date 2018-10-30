@@ -10,7 +10,7 @@ import java.util.Queue;
 public class ERP {
     private Queue<ProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
-    private ProcessingPlant THEPLANT;
+    private final ProcessingPlant THEPLANT;
 
     public ERP()
     {
@@ -34,8 +34,8 @@ public class ERP {
         return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
     }
 
-    boolean addMachine(String name, String address, String userID, String password){
-        return THEPLANT.addMachine(name, address, userID, password);
+    boolean addMachine(String machineName, String IPAddress, String userID, String password){
+        return THEPLANT.addMachine(machineName, IPAddress, userID, password);
     }
 
 }

@@ -226,12 +226,12 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void addMachineActionHandler(ActionEvent event) {
-        String address = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
+        String IPAddress = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
         String machineName = machineNameTextField.getText();
         String username = userNameTextField.getText();
         String password = passWordTextField.getText();
 
-        GUIOutFacade.getInstance().addMachine(machineName,address,username,password);
+        GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
     }
 
     @FXML

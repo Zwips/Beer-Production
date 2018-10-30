@@ -47,6 +47,7 @@ public interface IMachineConnection {
     float readVibration() throws ServiceException, StatusException;
 
     boolean isConnected();
+    void disConnect();
 
 
 }

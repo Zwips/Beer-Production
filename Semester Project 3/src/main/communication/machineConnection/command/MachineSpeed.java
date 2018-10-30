@@ -21,7 +21,7 @@ public class MachineSpeed {
     private String identifier = "MachSpeed";
     private NodeId node;
 
-    MachineSpeed(String prefix){
+    public MachineSpeed(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 

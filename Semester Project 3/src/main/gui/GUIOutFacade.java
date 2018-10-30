@@ -32,8 +32,8 @@ public class GUIOutFacade {
 
     }
 
-    boolean addMachine(String name, String address, String userID, String password){
-        return erpFacade.addMachine(name, address, userID, password);
+    boolean addMachine(String name, String IPaddress, String userID, String password){
+        return erpFacade.addMachine(name, IPaddress, userID, password);
     }
 
 }

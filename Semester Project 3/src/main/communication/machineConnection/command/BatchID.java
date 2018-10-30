@@ -20,7 +20,7 @@ public class BatchID {
     private String identifier = "Parameter[0].Value";
     private NodeId node;
 
-    BatchID(String prefix){
+    public BatchID(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 

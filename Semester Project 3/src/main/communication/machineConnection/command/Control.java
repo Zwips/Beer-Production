@@ -21,7 +21,7 @@ public class Control {
     private String identifier = "CntrlCmd";
     private NodeId node;
 
-    Control(String prefix){
+    public Control(String prefix){
         node = new NodeId(6, prefix + this.identifier);
     }
 
