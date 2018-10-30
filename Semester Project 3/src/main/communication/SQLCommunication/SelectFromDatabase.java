@@ -9,12 +9,11 @@ import java.sql.Statement;
 
 public class SelectFromDatabase {
 
+    DatabaseConnector dbHandler;
+
     public SelectFromDatabase(){
 
     }
-
-    DatabaseConnector dbHandler;
-
 
     public ResultSet SelectFromBatch(int batchID) {
 
