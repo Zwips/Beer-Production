@@ -5,13 +5,12 @@ import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 
-public class ProductionOrder implements IProductionOrder {
+public class ProductionOrder implements IProductionOrder, Comparable<ProductionOrder> {
     private int amount;
     private ProductTypeEnum productType;
     private Date earliestDeliveryDate;
     private Date latestDeliveryDate;
     private int priority;
-
 
 
 
@@ -47,4 +46,17 @@ public class ProductionOrder implements IProductionOrder {
     public int getPriority() {
         return priority;
     }
+
+    public int getInternalPriority()
+    {
+
+        return priority;
+    }
+
+    @Override
+    public int compareTo(ProductionOrder o) {
+        return this.getInternalPriority() - o.getInternalPriority();
+    }
+
+
 }

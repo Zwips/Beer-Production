@@ -1,6 +1,9 @@
 package communication;
 
+import Acquantiance.ProductTypeEnum;
+
 import java.sql.ResultSet;
+import java.util.Date;
 
 public interface ISQLCommunicationFacade {
 
@@ -18,4 +21,7 @@ public interface ISQLCommunicationFacade {
     void InsertIntoVibration(int batchID, String timeOfReading, float valuePBS);
     void InsertIntoOrders(int amount, String productType, String earliestDeliveryDate, String latestDeliveryDate, int priority, boolean status, int batchID);
 
-}
+    void logBatch(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
+    void logTemperature(float value, Date timestamp, int batchID);
+    void logVibration(float value, Date timestamp, int batchID);
+    void logHumidity(float value, Date timestamp, int batchID);}

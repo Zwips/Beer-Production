@@ -2,10 +2,7 @@ package logic.erp;
 
 import Acquantiance.ProductTypeEnum;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class ERP {
     private Queue<ProductionOrder> productionOrderQueue;
@@ -14,7 +11,7 @@ public class ERP {
 
     public ERP()
     {
-        productionOrderQueue = new LinkedList<>();
+        productionOrderQueue = new PriorityQueue<>();
         processingPlants = new HashMap<>();
         THEPLANT = new ProcessingPlant("THEPLANT");
     }

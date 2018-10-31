@@ -1,11 +1,17 @@
 package communication.SQLCommunication;
 
+import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import sun.security.util.PendingException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.sql.Array;
 import java.sql.ResultSet;
+import java.util.Date;
 
 /*
 Knows everything about the specific database, because communication with a database is not an industry standard
@@ -93,4 +99,40 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
         InsertIntoDatabase insert = new InsertIntoDatabase();
         insert.InsertIntoOrders(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, status, batchID);
     }
+
+
+    /*
+    needs to be implemented with database
+     */
+    @Override
+    public void logBatch(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
+        File file = new File("superLog.txt");
+        PrintWriter output22 = null;
+        try {
+            output22 = new PrintWriter(new FileOutputStream(file,true));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        output22.println(machineID + ", " + numberOfDefective + ", " + productsInBatch + ", " + machineSpeed + ", " + product.getType());
+        output22.close();
+    }
+
+    @Override
+    public void logTemperature(float value, Date timestamp, int batchID) {
+        //TODO
+        //add the needed calls
+    }
+
+    @Override
+    public void logVibration(float value, Date timestamp, int batchID) {
+        //TODO
+        //add the needed calls
+    }
+
+    @Override
+    public void logHumidity(float value, Date timestamp, int batchID) {
+        //TODO
+        //add the needed calls
+    }
+
 }

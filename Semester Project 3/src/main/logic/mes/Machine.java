@@ -27,7 +27,19 @@ public class Machine implements IMachine, IMesMachine, Runnable{
         this.password = password;
         createMachineConnection();
         specs = new MachineSpecifications();
+        setMachineSubscriptions();
+    }
 
+    private void setMachineSubscriptions(){
+        try {
+            subscribeToCurrentState(new MachineCurrentMachineStateReporter(this));
+            subscribeToHumidity(new MachineHumidityReporter(this));
+            subscribeToTemperature(new MachineTemperatureReporter(this));
+            subscribeToVibration(new MachineVibrationReporter(this));
+            subscribeToStopReasonID(new MachineStopReasonIdReporter());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createMachineConnection(){
@@ -370,5 +382,53 @@ public class Machine implements IMachine, IMesMachine, Runnable{
     /*private removeMachine(String address){
 
     }*/
+
+    void uploadBatchInfo()
+    {
+        float batchID = -1;
+        int numberOfDefective = -1;
+        float productsInBatch = -1;
+        int currentProduct = -1;
+        float machineSpeed = -1;
+        try {
+            batchID = readBatchIDCurrent();
+            currentProduct = (int)readCurrentProductID();
+            productsInBatch = readProductsInBatch();
+            numberOfDefective = readNumberOfDefectiveProducts();
+            machineSpeed = readMachineSpeedCurrent();
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        ProductTypeEnum product;
+        switch(currentProduct)
+        {
+            case 0:
+                product = ProductTypeEnum.PILSNER;
+                break;
+
+            case 1:
+                product = ProductTypeEnum.WHEAT;
+                break;
+
+            case 2:
+                product = ProductTypeEnum.IPA;
+                break;
+
+            case 3:
+                product = ProductTypeEnum.STOUT;
+                break;
+
+            case 4:
+                product = ProductTypeEnum.ALE;
+                break;
+
+            default:
+                product = ProductTypeEnum.ALCOHOLFREE;
+        }
+
+        MESOutFacade.getInstance().logBatch(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
+
+    }
+
 
 }
