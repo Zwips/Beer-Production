@@ -6,9 +6,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import virtualSimulation.StateSubscriber;
-import virtualSimulation.StateSubscriberPhysical;
-import virtualSimulation.StopReasonSubscriber;
 
 import static java.lang.Thread.sleep;
 import static junit.framework.TestCase.assertNotNull;
