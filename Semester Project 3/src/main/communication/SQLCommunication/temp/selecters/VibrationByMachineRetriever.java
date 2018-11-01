@@ -8,6 +8,7 @@ import communication.SQLCommunication.temp.tools.Select;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.*;
 
 public class VibrationByMachineRetriever {
@@ -25,7 +26,7 @@ public class VibrationByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    Map<Date, Float> getVibrations(int machineID, Date date){
+    Map<Date, Float> getVibrations(int machineID, Timestamp date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));

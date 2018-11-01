@@ -8,6 +8,7 @@ import communication.SQLCommunication.temp.tools.Select;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.*;
 
 public class HumidityByMachineRetriever {
@@ -25,7 +26,7 @@ public class HumidityByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    Map<Date, Float> getHumidity(int machineID, Date date){
+    Map<Date, Float> getHumidity(int machineID, Timestamp date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));

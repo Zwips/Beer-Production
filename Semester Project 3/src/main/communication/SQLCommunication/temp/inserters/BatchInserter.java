@@ -11,34 +11,27 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderInserter {
-
-
+public class BatchInserter {
     private String values;
     private String tables;
     private Connection connection;
 
 
-    public OrderInserter() {
-        // "INSERT INTO Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID) VALUES (?,?,?,?,?,?,?)";
-
-        this.values = "(?,?,?,?,?,?,?)";
-        this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID)";
+    public BatchInserter() {
+        this.values = "(?,?,?,?)";
+        this.tables = "batch(BatchID, ProductType, Amount, Defective)";
         connection = new DatabaseConnector().OpenConnection();
     }
 
-
-    public void insert(int amount, ProductTypeEnum product, Timestamp earliestDate, Timestamp latestDate, int priority, int batchID) {
+    public void insert(int batchID, ProductTypeEnum product, int amount, int defective) {
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, amount));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, product.getType()));
-        wildCardInfo.add(new PrepareInfo(3, PrepareType.TIMESTAMP, earliestDate));
-        wildCardInfo.add(new PrepareInfo(4, PrepareType.TIMESTAMP, latestDate));
-        wildCardInfo.add(new PrepareInfo(5, PrepareType.INT, priority));
-        wildCardInfo.add(new PrepareInfo(6, PrepareType.BOOLEAN, false)); // false because it is not yet done
+        wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, batchID));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
     }
 }
+
