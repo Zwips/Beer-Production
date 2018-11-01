@@ -27,18 +27,19 @@ public class BatchByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    String getMachine(int machineID){
+    List<Integer> getBatches(int machineID){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        String batchID = null;
+        List<Integer> batchIDs = new ArrayList<>();
 
         try {
-            results.next();
+            while (results.next()){
+                batchIDs.add(results.getInt("batchid"));
+            }
 
-            batchID = results.getString("machineid");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,6 +50,6 @@ public class BatchByMachineRetriever {
             e.printStackTrace();
         }
 
-        return batchID;
+        return batchIDs;
     }
 }
