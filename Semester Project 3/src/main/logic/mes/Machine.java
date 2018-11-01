@@ -426,7 +426,7 @@ public class Machine implements IMachine, IMesMachine, Runnable{
                 product = ProductTypeEnum.ALCOHOLFREE;
         }
 
-        MESOutFacade.getInstance().logBatch(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
+        MESOutFacade.getInstance().logDefective(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
 
     }
 
