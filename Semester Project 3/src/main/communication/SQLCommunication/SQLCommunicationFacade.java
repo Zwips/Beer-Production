@@ -1,11 +1,16 @@
 package communication.SQLCommunication;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
+import communication.SQLCommunication.temp.*;
+import communication.machineConnection.status.Temperature;
+import org.bouncycastle.util.Times;
 import communication.SQLCommunication.temp.inserters.DefectiveInserter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /*
@@ -116,20 +121,30 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
 
     @Override
     public void logTemperature(float value, Date timestamp, int batchID) {
-        //TODO
-        //add the needed calls
+        Timestamp time = new Timestamp(timestamp.getTime());
+        new TemperatureInserter().insert(batchID,time,value);
     }
 
     @Override
     public void logVibration(float value, Date timestamp, int batchID) {
-        //TODO
-        //add the needed calls
+        Timestamp time = new Timestamp(timestamp.getTime());
+        new VibrationInserter().insert(batchID,time,value);
     }
 
     @Override
     public void logHumidity(float value, Date timestamp, int batchID) {
-        //TODO
-        //add the needed calls
+        Timestamp time = new Timestamp(timestamp.getTime());
+        new HumidityInserter().insert(batchID,time,value);
+    }
+
+    @Override
+    public void logOrder(IProductionOrder order, int batchID) {
+        int amount = order.getAmount();
+        ProductTypeEnum type = order.getProductType();
+        int priority = order.getPriority();
+        Timestamp earliestDate = new Timestamp(order.getEarliestDeliveryDate().getTime());
+        Timestamp latestDate = new Timestamp(order.getLatestDeliveryDate().getTime());
+        new OrderInserter().insert(amount, type, earliestDate,latestDate,priority, batchID);
     }
 
 }

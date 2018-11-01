@@ -3,6 +3,7 @@ package communication.SQLCommunication.temp.tools;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class SetPreparedStatement {
@@ -26,15 +27,14 @@ public class SetPreparedStatement {
                     String stringValue = (String) prepareInfo.getData();
                     statement.setString(prepareInfo.getPlace(), stringValue);
                     break;
-                case DATE:
-                    Date dateValue = (Date) prepareInfo.getData();
-                    statement.setDate(prepareInfo.getPlace(), dateValue);
-                    break;
                 case TIMESTAMP:
-                    java.util.Date javaDate = (java.util.Date)prepareInfo.getData();
-                    Date timestamp = new Date(javaDate.getTime());
-                    statement.setDate(prepareInfo.getPlace(), timestamp);
+                    Timestamp timeValue = (Timestamp) prepareInfo.getData();
+                    statement.setTimestamp(prepareInfo.getPlace(), timeValue);
                     break;
+                case BOOLEAN:
+                    Boolean boolValue = (Boolean)prepareInfo.getData();
+                    statement.setBoolean(prepareInfo.getPlace(), boolValue);
+
             }
         }
 
