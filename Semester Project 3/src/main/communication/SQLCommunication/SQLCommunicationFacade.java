@@ -68,7 +68,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public void InsertIntoBatch(int batchID, String productType, int amount, int defective) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoBatch(batchID, productType, amount, defective);
+//        insert.InsertIntoBatch(batchID, productType, amount, defective);
     }
 
     @Override
