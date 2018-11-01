@@ -2,15 +2,9 @@ package communication.SQLCommunication;
 
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.temp.DefectiveInserter;
+import communication.SQLCommunication.temp.inserters.DefectiveInserter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import sun.security.util.PendingException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.util.Date;
 

@@ -27,9 +27,13 @@ public class SetPreparedStatement {
                     statement.setString(prepareInfo.getPlace(), stringValue);
                     break;
                 case DATE:
-                    java.util.Date javaDate = (java.util.Date)prepareInfo.getData();
-                    Date dateValue = new Date(javaDate.getTime());
+                    Date dateValue = (Date) prepareInfo.getData();
                     statement.setDate(prepareInfo.getPlace(), dateValue);
+                    break;
+                case TIMESTAMP:
+                    java.util.Date javaDate = (java.util.Date)prepareInfo.getData();
+                    Date timestamp = new Date(javaDate.getTime());
+                    statement.setDate(prepareInfo.getPlace(), timestamp);
                     break;
             }
         }

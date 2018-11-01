@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.selecters;
 
 import Acquantiance.IBatch;
 import Acquantiance.ProductTypeEnum;
@@ -20,15 +20,19 @@ public class BatchRetriever {
     private String selectionsVibration;
     private String tablesVibration;
     private String conditionsVibration;
+
     private String selectionsHumidity;
     private String tablesHumidity;
     private String conditionsHumidity;
+
     private String selectionsTemperature;
     private String tablesTemperature;
     private String conditionsTemperature;
+
     private String selectionsBatch;
     private String tablesBatch;
     private String conditionsBatch;
+
     private Connection connection;
 
     public BatchRetriever() {
@@ -51,7 +55,7 @@ public class BatchRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    IBatch getBatch(int batchID){
+    public IBatch getBatch(int batchID){
         CommunicationBatch batch = new CommunicationBatch();;
 
         this.getGeneralBatchInfo(batch, batchID);

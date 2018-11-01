@@ -1,11 +1,7 @@
 package communication.SQLCommunication.temp;
 
 import Acquantiance.IBatch;
-import communication.SQLCommunication.DatabaseConnector;
-import communication.SQLCommunication.temp.dataClasses.CommunicationBatch;
-import communication.SQLCommunication.temp.tools.Insert;
-
-import java.util.Date;
+import communication.SQLCommunication.temp.selecters.BatchRetriever;
 
 import static java.lang.Thread.sleep;
 

@@ -5,6 +5,7 @@ public enum PrepareType {
     INT(),
     FLOAT(),
     STRING(),
-    DATE();
+    DATE(),
+    TIMESTAMP;
 
 }

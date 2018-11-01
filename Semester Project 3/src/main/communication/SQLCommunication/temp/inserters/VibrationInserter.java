@@ -1,11 +1,11 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.inserters;
 
 import communication.SQLCommunication.DatabaseConnector;
 
 import java.sql.Connection;
 import java.util.Date;
 
-public class TemperatureInserter {
+public class VibrationInserter {
 
 
     private String values;
@@ -13,15 +13,20 @@ public class TemperatureInserter {
     private Connection connection;
 
 
-    public TemperatureInserter() {
-        // "INSERT INTO temperature(batchid, timeOfReading, valueCelcius) VALUES (?,?,?)";
+    public VibrationInserter() {
+        // "INSERT INTO temperature(batchid, timeOfReading, ValuePBS) VALUES (?,?,?)";
 
         this.values = "(?,?,?)";
-        this.tables = "temperature(batchid, timeOfReading, valueCelcius)";
+        this.tables = "temperature(batchid, timeOfReading, ValuePBS)";
         connection = new DatabaseConnector().OpenConnection();
+
     }
 
+
     public void insert(int batchID, Date timeOfReading, float value){
+
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
+
     }
+
 }

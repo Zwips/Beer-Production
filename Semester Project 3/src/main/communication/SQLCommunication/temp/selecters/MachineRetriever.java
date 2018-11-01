@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.selecters;
 
 import communication.SQLCommunication.DatabaseConnector;
 import communication.SQLCommunication.temp.tools.PrepareInfo;

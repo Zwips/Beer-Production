@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.selecters;
 
 import communication.SQLCommunication.DatabaseConnector;
 import communication.SQLCommunication.temp.tools.PrepareInfo;
@@ -8,36 +8,37 @@ import communication.SQLCommunication.temp.tools.Select;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class BatchByMachineRetriever {
-
+public class VibrationByMachineRetriever {
 
     private String selections;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public BatchByMachineRetriever() {
-        this.selections = "batchid";
-        this.tables = "batch_log";
-        this.conditions = "machineID = ?";
+    public VibrationByMachineRetriever() {
+        this.selections = "valuepbs, timeofreading";
+        this.tables = "vibration";
+        this.conditions = "machineID = ? AND date < ?"; //TODO eller skulle det være den anden vej?
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<Integer> getBatches(int machineID){
+    Map<Date, Float> getVibrations(int machineID, Date date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, date));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<Integer> batchIDs = new ArrayList<>();
+        Map<Date, Float> vibrationMeasurements = new HashMap<>();
 
         try {
-            while (results.next()){
-                batchIDs.add(results.getInt("batchid"));
+            while(results.next()){
+                Float value = results.getFloat("valuepbs");
+                Date time = new Date(results.getTimestamp("timeofreading").getTime());
+                vibrationMeasurements.put(time, value);
             }
 
         } catch (SQLException e) {
@@ -50,6 +51,6 @@ public class BatchByMachineRetriever {
             e.printStackTrace();
         }
 
-        return batchIDs;
+        return vibrationMeasurements;
     }
 }

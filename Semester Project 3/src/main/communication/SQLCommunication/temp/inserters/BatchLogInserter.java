@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.inserters;
 
 import communication.SQLCommunication.DatabaseConnector;
 import communication.SQLCommunication.temp.tools.Insert;

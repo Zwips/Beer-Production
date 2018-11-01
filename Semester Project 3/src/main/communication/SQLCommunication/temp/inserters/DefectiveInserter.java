@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.inserters;
 
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.DatabaseConnector;
