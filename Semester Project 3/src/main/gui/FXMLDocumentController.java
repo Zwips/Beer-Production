@@ -9,6 +9,7 @@ import Acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,6 +119,9 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     private TextField latestDeliveryDateTextField1;
+    @FXML
+    private Label orderSucceededLabel;
+
 
 
 
@@ -210,7 +214,8 @@ public class FXMLDocumentController implements Initializable  {
 
             if (allTrue){
                 GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
-                System.out.println("det lykkedes");
+                orderSucceededLabel.setText("Order sent");
+
             }
         }
 
@@ -236,6 +241,10 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void TypeBtnHandleAction(ActionEvent event) {
+
+    }
+    @FXML
+    void MouseClickedActionAction(MouseEvent event) {
 
     }
 

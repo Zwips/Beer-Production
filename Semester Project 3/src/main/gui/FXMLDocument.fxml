@@ -7,17 +7,22 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXMLDocumentController">
     <children>
-        <TabPane layoutX="10.0" layoutY="2.0" prefHeight="600.0" prefWidth="801.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
+        <TabPane layoutX="10.0" layoutY="2.0" prefHeight="600.0" prefWidth="801.0" side="LEFT" style="-fx-border-color: white; -fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
             <tabs>
             <Tab text="Visualization">
                <content>
@@ -28,45 +33,64 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="machineNameLabel" layoutX="23.0" layoutY="44.0" text="Machine name">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="326.0" layoutY="256.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="771.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="253.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="771.0" />
+                        <Label fx:id="machineNameLabel" layoutX="16.0" layoutY="358.0" text="Machine name">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="iPAdressLabel" layoutX="23.0" layoutY="116.0" text="IP address">
+                        <Label fx:id="iPAdressLabel" layoutX="16.0" layoutY="441.0" text="IP address">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="portNumberLabel" layoutX="18.0" layoutY="190.0" text="Port number">
+                        <Label fx:id="portNumberLabel" layoutX="16.0" layoutY="519.0" text="Port number">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="machineNameTextField" layoutX="170.0" layoutY="35.0" prefHeight="35.0" prefWidth="185.0">
+                        <TextField fx:id="machineNameTextField" layoutX="192.0" layoutY="354.0" prefHeight="35.0" prefWidth="185.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="iPaddressTextField" layoutX="170.0" layoutY="109.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Label fx:id="userNameLabel" layoutX="25.0" layoutY="371.0" text="Username">
+                        <TextField fx:id="iPaddressTextField" layoutX="192.0" layoutY="437.0" prefHeight="35.0" prefWidth="185.0" />
+                        <Label fx:id="userNameLabel" layoutX="16.0" layoutY="87.0" text="Username">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="passWordLabel" layoutX="23.0" layoutY="440.0" text="Password">
+                        <Label fx:id="passWordLabel" layoutX="16.0" layoutY="160.0" text="Password">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="portNumberTextField" layoutX="170.0" layoutY="181.0" prefHeight="35.0" prefWidth="185.0" />
-                        <TextField fx:id="userNameTextField" layoutX="163.0" layoutY="368.0" prefHeight="35.0" prefWidth="185.0" />
-                        <TextField fx:id="passWordTextField" accessibleRole="IMAGE_VIEW" layoutX="170.0" layoutY="449.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Button fx:id="addMachineBtn" layoutX="618.0" layoutY="499.0" mnemonicParsing="false" onAction="#addMachineActionHandler" text="Add Machine">
+                        <TextField fx:id="portNumberTextField" layoutX="192.0" layoutY="509.0" prefHeight="35.0" prefWidth="185.0" />
+                        <TextField fx:id="userNameTextField" layoutX="162.0" layoutY="87.0" prefHeight="35.0" prefWidth="185.0" />
+                        <Button fx:id="addMachineBtn" layoutX="618.0" layoutY="513.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="18.0" />
                            </font>
                         </Button>
+                        <ImageView fitHeight="205.0" fitWidth="255.0" layoutX="509.0" layoutY="54.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../../../../Desktop/Unavngivet.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="typeLabel12" layoutX="339.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Login">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Line endX="666.0" layoutX="112.0" layoutY="54.0" startX="-110.0" strokeWidth="3.0" />
+                        <Label fx:id="typeLabel121" layoutX="273.0" layoutY="265.0" prefHeight="32.0" prefWidth="209.0" text="Machine information">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Line endX="666.0" layoutX="112.0" layoutY="306.0" startX="-110.0" strokeWidth="3.0" />
+                        <PasswordField fx:id="passWordTextField" layoutX="162.0" layoutY="161.0" prefHeight="36.0" prefWidth="182.0" />
                      </children></AnchorPane>
                     </content>
                 </Tab>
@@ -74,64 +98,83 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                          <RadioButton fx:id="pilsnerRadioBtn" layoutX="158.0" layoutY="132.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Pilsner">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="258.0" layoutY="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="772.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="320.0" layoutX="-1.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="774.0" />
+                          <RadioButton fx:id="pilsnerRadioBtn" layoutX="158.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Pilsner">
                            <toggleGroup>
                                         <ToggleGroup fx:id="TypeToggleGroup" />
                            </toggleGroup>
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </RadioButton>
-                          <RadioButton fx:id="wheatRadioBtn" layoutX="20.0" layoutY="60.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="wheatRadioBtn" layoutX="20.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="stoutRadioBtn" layoutX="20.0" layoutY="93.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Stout" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="stoutRadioBtn" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Stout" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="aleRadioBtn" layoutX="158.0" layoutY="60.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Ale" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="aleRadioBtn" layoutX="158.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Ale" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="158.0" layoutY="93.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="158.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                                <RadioButton fx:id="iPARadioBtn" layoutX="20.0" layoutY="132.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="IPA" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                                <RadioButton fx:id="iPARadioBtn" layoutX="20.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="IPA" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
-                              <Font name="Bell MT" size="15.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                        <Label fx:id="typeLabel" layoutX="14.0" layoutY="14.0" text="Type">
+                        <Label fx:id="typeLabel" layoutX="16.0" layoutY="75.0" prefHeight="31.0" prefWidth="128.0" text="Product type">
                            <font>
-                              <Font size="19.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                                <RadioButton fx:id="danishRadioButton" layoutX="474.0" layoutY="269.0" mnemonicParsing="false" onAction="#DanishHandleBtn" selected="true" text="Dansk">
-                                    <toggleGroup>
-                                        <ToggleGroup fx:id="LanguageToggleGroup" />
-                                    </toggleGroup>
-                                </RadioButton>
-                                <RadioButton fx:id="englishRadioButton" layoutX="607.0" layoutY="268.0" mnemonicParsing="false" onAction="#LanguageHandleBtn" text="English" toggleGroup="$LanguageToggleGroup" />
-                                <RadioButton fx:id="germanRadioButton" layoutX="548.0" layoutY="183.0" mnemonicParsing="false" onAction="#LanguageHandleBtn" text="Deutch" toggleGroup="$LanguageToggleGroup" />
-                                <TextField fx:id="orderAmountTextField" layoutX="138.0" layoutY="228.0" prefHeight="25.0" prefWidth="121.0" />
-                                <Label fx:id="orderAmountLabel" layoutX="27.0" layoutY="227.0" text="Amount" textFill="#001f3f">
+                                <TextField fx:id="orderAmountTextField" layoutX="186.0" layoutY="260.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="145.0" promptText="Required format: Integer" />
+                                <Label fx:id="orderAmountLabel" layoutX="16.0" layoutY="260.0" text="Product amount" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <ChoiceBox fx:id="priorityChoiceBox" layoutX="138.0" layoutY="325.0" prefWidth="150.0" />
-                                <Label fx:id="priorityLabel" layoutX="48.0" layoutY="324.0" prefHeight="27.0" prefWidth="77.0" text="Priority">
+                                <ChoiceBox fx:id="priorityChoiceBox" layoutX="200.0" layoutY="401.0" prefHeight="25.0" prefWidth="148.0" />
+                                <Label fx:id="priorityLabel" layoutX="24.0" layoutY="401.0" prefHeight="27.0" prefWidth="77.0" text="Priority">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <Button fx:id="sendOrderBtn" layoutX="637.0" layoutY="528.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" text="Send Order" textFill="#001f3f">
+                                <Button fx:id="sendOrderBtn" layoutX="634.0" layoutY="508.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Send Order" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <TextField fx:id="earliestDeliveryDateTextField" layoutX="244.0" layoutY="456.0" />
-                        <TextField fx:id="latestDeliveryDateTextField1" layoutX="169.0" layoutY="402.0" />
-                        <Label layoutX="81.0" layoutY="406.0" text="Latest delivery " />
-                        <Label layoutX="87.0" layoutY="460.0" text="Earliest delivery" />
+                        <TextField fx:id="earliestDeliveryDateTextField" layoutX="200.0" layoutY="514.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <TextField fx:id="latestDeliveryDateTextField1" layoutX="200.0" layoutY="458.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <Label layoutX="24.0" layoutY="514.0" text="Latest delivery ">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label layoutX="24.0" layoutY="458.0" text="Earliest delivery">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <ImageView fitHeight="205.0" fitWidth="255.0" layoutX="516.0" layoutY="66.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../../../../Desktop/Unavngivet.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="orderSucceededLabel" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
+                        <Label fx:id="typeLabel1" layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="typeLabel11" layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
+                        <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -141,7 +184,7 @@
             <Insets />
          </opaqueInsets>
         </TabPane>
-      <MenuBar layoutX="-13.0" layoutY="-3.0" prefHeight="28.0" prefWidth="812.0">
+      <MenuBar layoutX="-1.0" layoutY="-3.0" prefHeight="28.0" prefWidth="800.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
