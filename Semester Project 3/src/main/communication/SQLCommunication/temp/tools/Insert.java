@@ -7,29 +7,20 @@ import java.util.List;
 
 public class Insert {
 
-    private DatabaseConnector connector;
-
-    public Insert(DatabaseConnector connector) {
-        this.connector = connector;
+    public Insert() {
     }
 
-    boolean insertion(String table, String values, List<PrepareInfo> prepareInfos){
-
-        Connection st = null;
-        ResultSet rs = null;
+    boolean insertion(Connection connection, String table, String values, List<PrepareInfo> prepareInfos){
 
         try{
-            st = connector.OpenConnection();
-            PreparedStatement pStatement = st.prepareStatement("INSERT INTO "+ table + " VALUES "+values);
+            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO "+ table + " VALUES "+values);
 
             pStatement = new SetPreparedStatement().setIntoStatement(pStatement, prepareInfos);
 
-            rs = pStatement.executeQuery();
+            pStatement.execute();
         } catch(SQLException e){
             System.out.println("Exception" + e);
             return false;
-        } finally {
-            connector.CloseConnection(rs, st);
         }
 
         return true;

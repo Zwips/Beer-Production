@@ -16,5 +16,14 @@
     <orderEntry type="library" scope="TEST" name="Maven: info.cukes:cucumber-core:1.2.5" level="project" />
     <orderEntry type="library" scope="TEST" name="info.cukes:cucumber-java:1.2.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/communication/SQLCommunication/postgresql-42.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -28,7 +28,6 @@ public class DatabaseConnector {
     public void CloseConnection(ResultSet rs, Connection st){
         try{
             st.close();
-            st.close();
             if (rs!=null){ //Todo This shouldn't be necessary
                 rs.close();
             }
