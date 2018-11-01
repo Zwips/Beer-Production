@@ -1,15 +1,9 @@
 package communication.SQLCommunication.temp;
 
-import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.DatabaseConnector;
-import communication.SQLCommunication.temp.tools.Insert;
-import communication.SQLCommunication.temp.tools.PrepareInfo;
-import communication.SQLCommunication.temp.tools.PrepareType;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TemperatureInserter {
 
