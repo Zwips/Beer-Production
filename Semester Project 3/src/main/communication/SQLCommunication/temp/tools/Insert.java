@@ -2,37 +2,25 @@ package communication.SQLCommunication.temp.tools;
 
 import communication.SQLCommunication.DatabaseConnector;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class Insert {
 
-    private DatabaseConnector connector;
-
-    public Insert(DatabaseConnector connector) {
-        this.connector = connector;
+    public Insert() {
     }
 
-    boolean insertion(String table, String values, List<PrepareInfo> prepareInfos){
-
-        Statement st = null;
-        ResultSet rs = null;
+    public boolean insertion(Connection connection, String table, String values, List<PrepareInfo> prepareInfos){
 
         try{
-            st = connector.OpenConnection();
-            PreparedStatement pStatement = st.getConnection().prepareStatement("INSERT INTO "+ table + " VALUES "+values);
+            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO "+ table + " VALUES "+values);
 
             pStatement = new SetPreparedStatement().setIntoStatement(pStatement, prepareInfos);
 
-            rs = pStatement.executeQuery();
+            pStatement.execute();
         } catch(SQLException e){
             System.out.println("Exception" + e);
             return false;
-        } finally {
-            connector.CloseConnection(rs, st);
         }
 
         return true;

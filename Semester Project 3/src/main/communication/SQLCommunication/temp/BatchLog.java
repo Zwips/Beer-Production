@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatchRetriever {
+public class BatchLog {
 
     private String selections;
     private String tables;
@@ -22,21 +22,21 @@ public class BatchRetriever {
     private DatabaseConnector connector;
     private Connection connection;
 
-    public BatchRetriever() {
+    public BatchLog() {
         // "SELECT Batch.BatchID, Batch.ProductType, Batch.Amount, Batch.Defective WHERE Batch.BatchID = ?";
 
-        this.selections = "BatchID, ProductType, Amount, Defective";
-        this.tables = "Batch";
-        this.conditions = "BatchID = ?";
+        this.selections = "*";
+        this.tables = "batch_log";
+        this.conditions = "batchid = ?";
 
         this.connector = new DatabaseConnector();
         this.connection = connector.OpenConnection();
     }
 
-    IBatch getBatch(int batchID){
+    void getBatch(){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, 1));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions,wildCardInfo);
 
@@ -44,14 +44,11 @@ public class BatchRetriever {
         try {
             //while (results.next()){
             results.next();
-            batch = new CommunicationBatch();
+            System.out.println(results.getInt(1));
+            System.out.println(results.getString(2));
 
-            batch.setBatchID(results.getInt("BatchID"));
-            batch.setProduced(results.getInt("Amount"));
-            batch.setDiscarded(results.getInt("Defective"));
 
-            ProductTypeEnum type = ProductTypeEnum.get(results.getString("ProductType"));
-            batch.setProductType(type);
+
             //}
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,6 +59,5 @@ public class BatchRetriever {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return batch;
     }
 }

@@ -25,7 +25,7 @@ public class MESOutFacade {
         this.communicationFacade = communicationFacade;
     }
 
-    public void logBatch(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product){
+    public void logDefective(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product){
         communicationFacade.logDefectives(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
     }
 
