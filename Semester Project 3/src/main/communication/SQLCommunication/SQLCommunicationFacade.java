@@ -2,6 +2,7 @@ package communication.SQLCommunication;
 
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
+import communication.SQLCommunication.temp.DefectiveInserter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import sun.security.util.PendingException;
 
@@ -106,15 +107,17 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
      */
     @Override
     public void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
-        File file = new File("superLog.txt");
-        PrintWriter output22 = null;
-        try {
-            output22 = new PrintWriter(new FileOutputStream(file,true));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        output22.println(machineID + ", " + numberOfDefective + ", " + productsInBatch + ", " + machineSpeed + ", " + product.getType());
-        output22.close();
+
+        new DefectiveInserter().insert(machineID,numberOfDefective,productsInBatch,machineSpeed,product);
+//        File file = new File("superLog.txt");
+//        PrintWriter output22 = null;
+//        try {
+//            output22 = new PrintWriter(new FileOutputStream(file,true));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        output22.println(machineID + ", " + numberOfDefective + ", " + productsInBatch + ", " + machineSpeed + ", " + product.getType());
+//        output22.close();
     }
 
     @Override

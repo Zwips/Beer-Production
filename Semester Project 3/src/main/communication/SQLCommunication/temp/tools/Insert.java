@@ -10,7 +10,7 @@ public class Insert {
     public Insert() {
     }
 
-    boolean insertion(Connection connection, String table, String values, List<PrepareInfo> prepareInfos){
+    public boolean insertion(Connection connection, String table, String values, List<PrepareInfo> prepareInfos){
 
         try{
             PreparedStatement pStatement = connection.prepareStatement("INSERT INTO "+ table + " VALUES "+values);
