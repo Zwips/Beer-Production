@@ -16,8 +16,8 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void logBatch(String machineId,  int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
-        sqlFacade.logBatch(machineId, numberOfDefective,productsInBatch,machineSpeed,product);
+    public void logDefectives(String machineId, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
+        sqlFacade.logDefectives(machineId, numberOfDefective,productsInBatch,machineSpeed,product);
     }
 
     @Override

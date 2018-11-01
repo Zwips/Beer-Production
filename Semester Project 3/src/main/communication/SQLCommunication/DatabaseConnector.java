@@ -7,12 +7,12 @@ public class DatabaseConnector {
 
     public Connection OpenConnection() {
         try {
-            Class.forName("org.postgressql.Driver");
+            Class.forName("org.postgresql.Driver");
         } catch (java.lang.ClassNotFoundException e) {
             System.out.println(e);
         }
 
-        String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk/si3_2018_group_21";
+        String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk:5432/si3_2018_group_21_db";
         String username = "si3_2018_group_21";
         String password = "grim26:bijou";
         Connection db = null;
