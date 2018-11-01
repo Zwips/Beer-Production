@@ -3,13 +3,7 @@ package communication.SQLCommunication;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.temp.*;
-import communication.SQLCommunication.temp.inserters.HumidityInserter;
-import communication.SQLCommunication.temp.inserters.TemperatureInserter;
-import communication.SQLCommunication.temp.inserters.VibrationInserter;
-import communication.machineConnection.status.Temperature;
-import org.bouncycastle.util.Times;
-import communication.SQLCommunication.temp.inserters.DefectiveInserter;
+import communication.SQLCommunication.temp.inserters.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.ResultSet;
