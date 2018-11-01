@@ -1,5 +1,6 @@
 package communication;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import java.sql.ResultSet;
@@ -24,4 +25,7 @@ public interface ISQLCommunicationFacade {
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID);
     void logVibration(float value, Date timestamp, int batchID);
-    void logHumidity(float value, Date timestamp, int batchID);}
+    void logHumidity(float value, Date timestamp, int batchID);
+    void logOrder(IProductionOrder order, int batchID);
+
+    }

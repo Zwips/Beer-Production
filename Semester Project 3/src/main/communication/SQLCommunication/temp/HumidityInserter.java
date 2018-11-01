@@ -3,6 +3,7 @@ package communication.SQLCommunication.temp;
 import communication.SQLCommunication.DatabaseConnector;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class HumidityInserter {
@@ -22,7 +23,7 @@ public class HumidityInserter {
     }
 
 
-    public void insert(int batchID, Date timeOfReading, float value){
+    public void insert(int batchID, Timestamp timeOfReading, float value){
 
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
 
