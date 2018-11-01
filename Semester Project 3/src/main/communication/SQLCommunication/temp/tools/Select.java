@@ -13,13 +13,11 @@ public class Select {
         this.connector = new DatabaseConnector();
     }
 
-    public ResultSet query(String selections, String tables, String conditions, List<PrepareInfo> prepareInfos){
+    public ResultSet query(Connection connection, String selections, String tables, String conditions, List<PrepareInfo> prepareInfos){
 
-        Connection connection = null;
         ResultSet results = null;
 
         try{
-            connection = connector.OpenConnection();
             PreparedStatement pStatement = connection.prepareStatement("SELECT " + selections + " FROM " + tables + " WHERE "+conditions);
 
             pStatement = new SetPreparedStatement().setIntoStatement(pStatement, prepareInfos);
@@ -28,7 +26,7 @@ public class Select {
         } catch(SQLException e){
             System.out.println("Exception" + e);
         } finally {
-            connector.CloseConnection(results, connection);
+            //connector.CloseConnection(results, connection);
         }
 
         return results;
