@@ -4,6 +4,7 @@ public enum PrepareType {
 
     INT(),
     FLOAT(),
-    STRING();
+    STRING(),
+    DATE();
 
 }

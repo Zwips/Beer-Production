@@ -11,7 +11,7 @@ public class CommunicationFacade implements ICommunicationFacade {
     private ISQLCommunicationFacade sqlFacade;
 
 
-    CommunicationFacade(){
+    public CommunicationFacade(){
         sqlFacade = new SQLCommunicationFacade(); // skal muligvis flyttes til glue
     }
 

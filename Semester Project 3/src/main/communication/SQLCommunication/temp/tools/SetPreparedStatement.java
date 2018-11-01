@@ -1,5 +1,6 @@
 package communication.SQLCommunication.temp.tools;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,6 +25,11 @@ public class SetPreparedStatement {
                 case STRING:
                     String stringValue = (String) prepareInfo.getData();
                     statement.setString(prepareInfo.getPlace(), stringValue);
+                    break;
+                case DATE:
+                    java.util.Date javaDate = (java.util.Date)prepareInfo.getData();
+                    Date dateValue = new Date(javaDate.getTime());
+                    statement.setDate(prepareInfo.getPlace(), dateValue);
                     break;
             }
         }

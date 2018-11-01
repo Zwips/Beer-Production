@@ -1,6 +1,6 @@
 Feature: Pseudo unit testing - reads all values from the virtual simulation
 
-  Background:
+  Background: Established connection
     Given The machine connection the virtual simulation is established
 
   Scenario: The temperature is successfully read

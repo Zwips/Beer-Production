@@ -21,9 +21,9 @@ public class BatchRetriever {
     public BatchRetriever() {
         // "SELECT Batch.BatchID, Batch.ProductType, Batch.Amount, Batch.Defective WHERE Batch.BatchID = ?";
 
-        this.selections = "Batch.BatchID, Batch.ProductType, Batch.Amount, Batch.Defective";
+        this.selections = "BatchID, ProductType, Amount, Defective";
         this.tables = "Batch";
-        this.conditions = "Batch.BatchID = ?";
+        this.conditions = "BatchID = ?";
     }
 
     IBatch getBatch(int batchID){

@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DatabaseConnector {
 
-    public Statement OpenConnection() {
+    public Connection OpenConnection() {
         try {
             Class.forName("org.postgressql.Driver");
         } catch (java.lang.ClassNotFoundException e) {
@@ -15,20 +15,19 @@ public class DatabaseConnector {
         String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk/si3_2018_group_21";
         String username = "si3_2018_group_21";
         String password = "grim26:bijou";
-        Statement st = null;
+        Connection db = null;
 
         try {
-            Connection db = DriverManager.getConnection(url, username, password);
-
+            db = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return st; //TODO Shouldn't this be Connection db?
+        return db;
     }
 
-    public void CloseConnection(ResultSet rs, Statement st){
+    public void CloseConnection(ResultSet rs, Connection st){
         try{
-            st.getConnection().close();
+            st.close();
             st.close();
             if (rs!=null){ //Todo This shouldn't be necessary
                 rs.close();

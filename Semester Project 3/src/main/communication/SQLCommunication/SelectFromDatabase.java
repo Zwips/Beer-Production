@@ -15,6 +15,16 @@ public class SelectFromDatabase {
 
     }
 
+    public static void main(String[] args) {
+        SelectFromDatabase select = new SelectFromDatabase();
+        ResultSet result = select.SelectFromBatch(1);
+        try {
+            System.out.println(result.getInt(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ResultSet SelectFromBatch(int batchID) {
 
         Statement st = null;
