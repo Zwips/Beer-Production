@@ -7,5 +7,6 @@ public class CommunicatoinVibrationReporter implements IDataChangeCatcher {
     @Override
     public void report(DataValue data) {
 
+
     }
 }

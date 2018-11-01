@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 public class InsertIntoDatabase {
 
+	DatabaseConnector dbHandler;
+
 	public InsertIntoDatabase(){
 
 	}
-
-	DatabaseConnector dbHandler;
 
 	public void InsertIntoBatch(int batchID, String productType, int amount, int defective) {
 

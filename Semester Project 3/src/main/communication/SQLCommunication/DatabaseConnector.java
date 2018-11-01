@@ -5,39 +5,36 @@ import java.sql.*;
 
 public class DatabaseConnector {
 
+    public Statement OpenConnection() {
+        try {
+            Class.forName("org.postgressql.Driver");
+        } catch (java.lang.ClassNotFoundException e) {
+            System.out.println(e);
+        }
 
-	public Statement OpenConnection() {
-		try {
-			Class.forName("org.postgressql.Driver");
-		} catch (java.lang.ClassNotFoundException e) {
+        String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk/si3_2018_group_21";
+        String username = "si3_2018_group_21";
+        String password = "grim26:bijou";
+        Statement st = null;
 
-			System.out.println(e);
-		}
+        try {
+            Connection db = DriverManager.getConnection(url, username, password);
 
-			String url = "jdbc:postgresql://tek-mmmi-db0a.tek.c.sdu.dk/si3_2018_group_21";
-			String username = "si3_2018_group_21";
-			String password = "grim26:bijou";
-			Statement st = null;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return st; //TODO Shouldn't this be Connection db?
+    }
 
-			try {
-				Connection db = DriverManager.getConnection(url, username, password);
+    public void CloseConnection(ResultSet rs, Statement st){
+        try{
+            st.getConnection().close();
+            st.close();
+            if (rs!=null){ //Todo This shouldn't be necessary
+                rs.close();
+            }
+        }catch(SQLException e) {
 
-			} catch (SQLException e) {
-				System.out.println(e);
-			}
-			return st;
-
-		}
-
-		public void CloseConnection(ResultSet rs, Statement st){
-		try{
-			st.getConnection().close();
-			st.close();
-			if (rs!=null){
-				rs.close();
-			}
-		}catch(SQLException e) {
-
-			}
-		}
-	}
+        }
+    }
+}
