@@ -73,31 +73,31 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public void InsertIntoBatch_log(int batchID, int MachineID) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoBatch_log(batchID, MachineID);
+//        insert.InsertIntoBatch_log(batchID, MachineID);
     }
 
     @Override
     public void InsertIntoHumidity(int batchID, String timeOfReading, float valuePercent) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoHumidity(batchID, timeOfReading, valuePercent);
+//        insert.InsertIntoHumidity(batchID, timeOfReading, valuePercent);
     }
 
     @Override
     public void InsertIntoTemperature(int batchID, String timeOfReading, float valueCelcius) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoTemperature(batchID, timeOfReading, valueCelcius);
+//        insert.InsertIntoTemperature(batchID, timeOfReading, valueCelcius);
     }
 
     @Override
     public void InsertIntoVibration(int batchID, String timeOfReading, float valuePBS) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoVibration(batchID, timeOfReading, valuePBS);
+//        insert.InsertIntoVibration(batchID, timeOfReading, valuePBS);
     }
 
     @Override
     public void InsertIntoOrders(int amount, String productType, String earliestDeliveryDate, String latestDeliveryDate, int priority, boolean status, int batchID) {
         InsertIntoDatabase insert = new InsertIntoDatabase();
-        insert.InsertIntoOrders(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, status, batchID);
+//        insert.InsertIntoOrders(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, status, batchID);
     }
 
 
@@ -105,7 +105,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     needs to be implemented with database
      */
     @Override
-    public void logBatch(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
+    public void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
         File file = new File("superLog.txt");
         PrintWriter output22 = null;
         try {

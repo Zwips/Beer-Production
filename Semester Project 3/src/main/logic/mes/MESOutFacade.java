@@ -26,7 +26,7 @@ public class MESOutFacade {
     }
 
     public void logBatch(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product){
-        communicationFacade.logBatch(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
+        communicationFacade.logDefectives(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
     }
 
     public void logTemperature(float value, Date timestamp, int batchID) {
