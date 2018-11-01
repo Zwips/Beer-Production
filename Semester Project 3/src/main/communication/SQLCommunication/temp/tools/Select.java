@@ -7,10 +7,7 @@ import java.util.List;
 
 public class Select {
 
-    private DatabaseConnector connector;
-
     public Select() {
-        this.connector = new DatabaseConnector();
     }
 
     public ResultSet query(Connection connection, String selections, String tables, String conditions, List<PrepareInfo> prepareInfos){
@@ -25,8 +22,6 @@ public class Select {
             results = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
-        } finally {
-            //connector.CloseConnection(results, connection);
         }
 
         return results;
