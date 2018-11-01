@@ -23,6 +23,7 @@ public class BatchLog {
     private Connection connection;
 
     public BatchLog() {
+        //TODO remove??
         // "SELECT Batch.BatchID, Batch.ProductType, Batch.Amount, Batch.Defective WHERE Batch.BatchID = ?";
 
         this.selections = "*";

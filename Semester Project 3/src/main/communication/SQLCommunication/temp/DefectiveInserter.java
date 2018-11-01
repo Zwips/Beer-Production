@@ -24,7 +24,6 @@ public class DefectiveInserter {
         this.values = "(?,?,?,?)";
         this.tables = "defectives(machineid, numberofdefective, productsinbatch, machinespeed, product)";
         connection = new DatabaseConnector().OpenConnection();
-
     }
 
 
@@ -38,6 +37,5 @@ public class DefectiveInserter {
         wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, product.getType()));
 
        new Insert().insertion(connection, tables, values, wildCardInfo);
-
     }
 }

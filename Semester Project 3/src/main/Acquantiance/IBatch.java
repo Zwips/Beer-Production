@@ -1,6 +1,7 @@
 package Acquantiance;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public interface IBatch {
 
@@ -8,8 +9,8 @@ public interface IBatch {
     ProductTypeEnum getProductType();
     int getTotalProduced();
     int getTotalDiscarded();
-    HashMap getAmountOfTimeInDifferentStates();
-    HashMap getTemperatures();
-    HashMap getHumidity();
-    HashMap getVibrations();
+    Map getAmountOfTimeInDifferentStates();
+    Map getTemperatures();
+    Map getHumidity();
+    Map getVibrations();
 }

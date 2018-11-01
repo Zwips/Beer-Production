@@ -19,13 +19,9 @@ public class TemperatureInserter {
         this.values = "(?,?,?)";
         this.tables = "temperature(batchid, timeOfReading, valueCelcius)";
         connection = new DatabaseConnector().OpenConnection();
-
     }
 
-
     public void insert(int batchID, Date timeOfReading, float value){
-
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
-
     }
 }
