@@ -9,7 +9,7 @@ public class tester {
 
     public static void main(String[] args) throws InterruptedException {
         BatchLog log = new BatchLog();
-        log.getBatch();
+//        log.getBatch();
 
 
         /*TemperatureInserter inserter = new TemperatureInserter();
