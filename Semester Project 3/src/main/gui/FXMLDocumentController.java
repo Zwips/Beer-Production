@@ -122,11 +122,6 @@ public class FXMLDocumentController implements Initializable  {
     @FXML
     private Label orderSucceededLabel;
 
-
-
-
-
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -179,7 +174,7 @@ public class FXMLDocumentController implements Initializable  {
     }
 
         @FXML
-        void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
+    void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
             boolean allTrue = true;
             int amount = 0;
             Date earliestDeliveryDate = null;
@@ -219,15 +214,9 @@ public class FXMLDocumentController implements Initializable  {
             }
         }
 
-
-
-
-
-    //   GUIOutFacade.getInstance().addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, latestDeliveryDate, int priority)
+        //   GUIOutFacade.getInstance().addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, latestDeliveryDate, int priority)
 
          //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
-
-
 
     @FXML
     void addMachineActionHandler(ActionEvent event) {
@@ -238,7 +227,6 @@ public class FXMLDocumentController implements Initializable  {
 
         GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
     }
-
     @FXML
     void TypeBtnHandleAction(ActionEvent event) {
 
