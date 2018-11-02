@@ -3,16 +3,13 @@ package communication.SQLCommunication;
 import Acquantiance.*;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.temp.inserters.*;
-import communication.SQLCommunication.temp.selecters.BatchRetriever;
-import communication.SQLCommunication.temp.selecters.CompletedOrdersRetriever;
-import communication.SQLCommunication.temp.selecters.OrderRetriever;
-import communication.SQLCommunication.temp.selecters.PendingOrdersRetriever;
+import communication.SQLCommunication.temp.selecters.*;
 import communication.SQLCommunication.temp.updaters.OrderStatusSetter;
 
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /*
 Knows everything about the specific database, because communication with a database is not an industry standard
@@ -30,33 +27,37 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public ITemperatureReadings selectFromTemperature(String batchID, Date dateFrom) {
-        //TODO
-        return null;
+    public Map selectFromTemperature(String machineID, Date dateFrom) {
+        Timestamp time = new Timestamp(dateFrom.getTime());
+        return new TemperatureByMachineRetriever().getTemperatures(machineID,time);
     }
 
     @Override
-    public IHumidityReadings selectFromHumidity(String machineName, Date dateFrom) {
-        //TODO
-        return null;
+    public Map selectFromHumidity(String machineID, Date dateFrom) {
+        Timestamp time = new Timestamp(dateFrom.getTime());
+        return new HumidityByMachineRetriever().getHumidity(machineID,time);
     }
 
     @Override
-    public IVibrationReadings selectFromVibration(String machineID, Date dateFrom) {
-        //TODO
-        return null;
+    public Map selectFromVibration(String machineID, Date dateFrom) {
+        Timestamp time = new Timestamp(dateFrom.getTime());
+        return new VibrationByMachineRetriever().getVibrations(machineID,time);
     }
 
     @Override
-    public ResultSet selectFromBatchLog(int batchID) {
-        //TODO
-        return null;
+    public IBatchLog getBatchLogByBatchID(int batchID) {
+        return new BatchLogByBatchIDRetriever().getBatchLog(batchID);
+    }
+
+    @Override
+    public List<IBatchLog> getBatchLogByMachineID(String machineID) {
+        return new BatchLogByMachineRetriever().getBatchLogs(machineID);
     }
 
     @Override
     public IProductionOrder selectFromOrder(int orderID) {
         OrderRetriever retriever = new OrderRetriever();
-IProductionOrder order = retriever.getOrder(orderID);
+        IProductionOrder order = retriever.getOrder(orderID);
         return order;
     }
 
