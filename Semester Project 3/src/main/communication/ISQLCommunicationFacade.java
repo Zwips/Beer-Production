@@ -2,18 +2,19 @@ package communication;
 
 import Acquantiance.*;
 
-import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface ISQLCommunicationFacade {
 
     IBatch selectFromBatch(int batchID);
-    ITemperatureReadings selectFromTemperature(String batchID, Date dateFrom);
-    IHumidityReadings selectFromHumidity(String machineName, Date dateFrom);
-    IVibrationReadings selectFromVibration(String machineID, Date dateFrom);
+    Map selectFromTemperature(String machineID, Date dateFrom);
+    Map selectFromHumidity(String machineID, Date dateFrom);
+    Map selectFromVibration(String machineID, Date dateFrom);
 
-    ResultSet selectFromBatchLog(int batchID);//TODO make a wrapperclass this should return.
+    IBatchLog getBatchLogByBatchID(int batchID);
+    List<IBatchLog> getBatchLogByMachineID(String machineID);
 
     IProductionOrder selectFromOrder(int orderID);
     List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo);
@@ -22,7 +23,7 @@ public interface ISQLCommunicationFacade {
 
     void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective);
 
-    void InsertIntoBatch_log(int batchID, int MachineID, int orderID);
+    void InsertIntoBatch_log(int batchID, String MachineID, int orderID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID);
     void logVibration(float value, Date timestamp, int batchID);

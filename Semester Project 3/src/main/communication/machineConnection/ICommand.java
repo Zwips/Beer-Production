@@ -3,10 +3,10 @@ package communication.machineConnection;
 import communication.machineConnection.command.*;
 
 public interface ICommand {
-    public Amount getAmount(String prefix);
-    public BatchID getBatchId(String prefix);
-    public Control getControl(String prefix);
-    public MachineSpeed getMachineSpeed(String prefix);
-    public ProductID getProductId(String prefix);
+    Amount getAmount(String prefix);
+    BatchID getBatchId(String prefix);
+    Control getControl(String prefix);
+    MachineSpeed getMachineSpeed(String prefix);
+    ProductID getProductId(String prefix);
 
 }

@@ -7,7 +7,6 @@ import communication.machineConnection.command.BatchID;
 import communication.machineConnection.command.Control;
 import communication.machineConnection.command.MachineSpeed;
 import communication.machineConnection.command.ProductID;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -49,7 +48,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the temperature is read , physical simulation$")
     public void theTemperatureIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(temperature);
     }
 
@@ -60,7 +59,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the vibration levels is read , physical simulation$")
     public void theVibrationLevelsIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(vibration);
     }
 
@@ -71,7 +70,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the humidity is read , physical simulation$")
     public void theHumidityIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(humidity);
     }
 
@@ -82,7 +81,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the current state is read , physical simulation$")
     public void theCurrentStateIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentState);
     }
 
@@ -93,7 +92,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the current machine speed is read , physical simulation$")
     public void theCurrentMachineSpeedIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentMachineSpeed);
     }
 
@@ -104,7 +103,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the current batch ID is read , physical simulation$")
     public void theCurrentBatchIDIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentBatchID);
     }
 
@@ -115,7 +114,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the amount of products in a batch is read , physical simulation$")
     public void theAmountOfProductsInABatchIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(amountOfProductsInBatch);
     }
 
@@ -126,7 +125,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the amount to be produced is read , physical simulation$")
     public void theAmountToBeProducedIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(amountToBeProduced);
     }
 
@@ -145,7 +144,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the ID for the next batch is read , physical simulation$")
     public void theIDForTheNextBatchIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextBatchID);
     }
 
@@ -158,7 +157,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the machine speed is read , physical simulation$")
     public void theMachineSpeedIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextMachineSpeed);
     }
 
@@ -171,7 +170,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the product ID for the next batch is read , physical simulation$")
     public void theProductIDForTheNextBatchIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextProductID);
     }
 
@@ -184,7 +183,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the control command for the simulation is read , physical simulation$")
     public void theControlCommandForTheSimulationIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(controlCommand);
     }
 
@@ -195,7 +194,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the the number of defective products is read , physical simulation$")
     public void theTheNumberOfDefectiveProductsIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(numberOfDefectiveProducts);
     }
 
@@ -206,7 +205,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the the number of produced products is read , physical simulation$")
     public void theTheNumberOfProducedProductsIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(numberOfProducedProducts);
     }
 
@@ -217,7 +216,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the current product ID of the batch is read , physical simulation$")
     public void theCurrentProductIDOfTheBatchIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentProductID);
     }
 
@@ -228,7 +227,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the stop reason ID is read , physical simulation$")
     public void theStopReasonIDIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(stopReasonID);
     }
 
@@ -239,7 +238,7 @@ public class ReadAllPhysicalValues {
 
     @Then("^the stop reason value is read , physical simulation$")
     public void theStopReasonValueIsReadPhysicalSimulation() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(stopReasonValue);
     }
 }

@@ -7,7 +7,6 @@ import communication.machineConnection.command.BatchID;
 import communication.machineConnection.command.Control;
 import communication.machineConnection.command.MachineSpeed;
 import communication.machineConnection.command.ProductID;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -48,7 +47,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the temperature is read$")
     public void theTemperatureIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(temperature);
     }
 
@@ -59,7 +58,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the vibration levels is read$")
     public void theVibrationLevelsIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(vibration);
     }
 
@@ -70,7 +69,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the humidity is read$")
     public void theHumidityIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(humidity);
     }
 
@@ -81,7 +80,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the current state is read$")
     public void theCurrentStateIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentState);
     }
 
@@ -92,7 +91,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the current machine speed is read$")
     public void theCurrentMachineSpeedIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentMachineSpeed);
     }
 
@@ -103,7 +102,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the current batch ID is read$")
     public void theCurrentBatchIDIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentBatchID);
     }
 
@@ -114,7 +113,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the amount of products in a batch is read$")
     public void theAmountOfProdcutsInABatchIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(amountOfProductsInBatch);
     }
 
@@ -125,7 +124,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the amount to be produced is read$")
     public void theAmountToBeProducedIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(amountToBeProduced);
     }
 
@@ -138,7 +137,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the ID for the next batch is read$")
     public void theIDForTheNextBatchIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextBatchID);
     }
 
@@ -151,7 +150,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the machine speed is read$")
     public void theMachineSpeedIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextMachineSpeed);
     }
 
@@ -164,7 +163,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the product ID for the next batch is read$")
     public void theProductIDForTheNextBatchIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(nextProductID);
     }
 
@@ -177,7 +176,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the control command for the simulation is read$")
     public void theControlCommandForTheSimulationIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(controlCommand);
     }
 
@@ -194,7 +193,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the the number of defective products is read$")
     public void theTheNumberOfDefectiveProductsIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(numberOfDefectiveProducts);
     }
 
@@ -205,7 +204,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the the number of produced products is read$")
     public void theTheNumberOfProducedProductsIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(numberOfProducedProducts);
     }
 
@@ -216,7 +215,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the current product ID of the batch is read$")
     public void theCurrentProductIDOfTheBatchIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(currentProductID);
     }
 
@@ -227,7 +226,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the stop reason ID is read$")
     public void theStopReasonIDIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(stopReasonID);
     }
 
@@ -238,7 +237,7 @@ public class ReadAllSimulationValues {
 
     @Then("^the stop reason value is read$")
     public void theStopReasonValueIsRead() throws Throwable {
-        connection.disConnect();
+        connection.disconnect();
         assertNotNull(stopReasonValue);
     }
 }
