@@ -26,7 +26,7 @@ public class MachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    String getMachine(int batchID){
+    public String getMachine(int batchID){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));

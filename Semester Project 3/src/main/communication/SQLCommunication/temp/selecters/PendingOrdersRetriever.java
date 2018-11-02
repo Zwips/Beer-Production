@@ -30,7 +30,7 @@ public class PendingOrdersRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
+    public List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.TIMESTAMP, before));

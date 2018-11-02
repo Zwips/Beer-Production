@@ -26,7 +26,7 @@ public class HumidityByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    Map<Date, Float> getHumidity(int machineID, Timestamp date){
+    public Map<Date, Float> getHumidity(int machineID, Timestamp date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));

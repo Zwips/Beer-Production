@@ -27,7 +27,7 @@ public class BatchByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<Integer> getBatches(int machineID){
+    public List<Integer> getBatches(int machineID){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
