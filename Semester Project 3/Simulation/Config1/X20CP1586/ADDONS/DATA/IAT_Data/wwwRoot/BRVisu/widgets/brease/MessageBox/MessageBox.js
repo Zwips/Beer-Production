@@ -12,7 +12,7 @@ define(['widgets/brease/Window/Window', 'widgets/brease/MessageBox/libs/ButtonMa
 	* @iatMeta studio:visible
 	* false
     * @iatMeta category:Category
-    * System
+    * testSystem
 	*/
 
     /**

@@ -10,7 +10,7 @@ define(['brease/core/BaseWidget', 'brease/enum/Enum', 'brease/events/BreaseEvent
     * @iatMeta studio:visible
     * false
     * @iatMeta category:Category
-    * System
+    * testSystem
     * @finalClass
     */
 

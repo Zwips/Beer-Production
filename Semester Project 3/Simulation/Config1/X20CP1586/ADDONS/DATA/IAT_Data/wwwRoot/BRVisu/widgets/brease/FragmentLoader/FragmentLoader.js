@@ -20,9 +20,9 @@ define(function (require) {
     * @iatMeta studio:visible
 	* false
 	* @iatMeta category:Category
-	* System
+	* testSystem
 	* @iatMeta category:IO
-	* System
+	* testSystem
 	* @iatMeta category:Performance
 	* Low,Medium,High
 	* @iatMeta description:short

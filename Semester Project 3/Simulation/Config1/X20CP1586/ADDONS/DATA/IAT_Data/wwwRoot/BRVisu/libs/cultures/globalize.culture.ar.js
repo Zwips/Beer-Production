@@ -286,7 +286,7 @@ Globalize.addCultureInfo( "ar", "default", {
 				M: "dd MMMM"
 			},
 			convert: {
-                    // Adapted to Script from System.Globalization.HijriCalendar
+                    // Adapted to Script from testSystem.Globalization.HijriCalendar
                     ticks1970: 62135596800000,
                     // number of days leading up to each month
                     monthDays: [0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325, 355],

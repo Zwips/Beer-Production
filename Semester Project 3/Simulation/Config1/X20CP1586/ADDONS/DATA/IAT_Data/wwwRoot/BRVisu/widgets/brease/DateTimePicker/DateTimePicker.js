@@ -16,7 +16,7 @@ define(['widgets/brease/Window/Window', 'widgets/brease/DateTimePicker/libs/Slid
     * @iatMeta category:Category
     * Controls
     * @iatMeta category:IO
-    * Input,Output,System
+    * Input,Output,testSystem
     * @iatMeta category:Operation
     * Touch,Mouse
     * @iatMeta category:Appliance

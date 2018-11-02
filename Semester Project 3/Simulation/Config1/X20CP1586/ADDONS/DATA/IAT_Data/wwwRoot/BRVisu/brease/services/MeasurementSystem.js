@@ -48,7 +48,7 @@ define(['brease/events/BreaseEvent', 'brease/core/Utils'], function (BreaseEvent
 
         /**
 		* @method getCurrentMeasurementSystem
-		* Method to get current selected Measurement-System
+		* Method to get current selected Measurement-testSystem
 		* @return {Object}
 		*/
         getCurrentMeasurementSystem: function () {
@@ -58,18 +58,18 @@ define(['brease/events/BreaseEvent', 'brease/core/Utils'], function (BreaseEvent
 
         /**
 		* @method switchMeasurementSystem
-		* Method to change current selected Measurement-System
-		* @param {String} key Key of one available Measurement-System (e.g. 'metric')
+		* Method to change current selected Measurement-testSystem
+		* @param {String} key Key of one available Measurement-testSystem (e.g. 'metric')
 		*/
         switchMeasurementSystem: function (key) {
             //console.log('switchMeasurementSystem:', key);
             _switchDeferred = $.Deferred();
             if (_mms[key] === undefined) {
-                console.iatWarn('Measurement-System \u00BB' + key + '\u00AB is not defined!');
+                console.iatWarn('Measurement-testSystem \u00BB' + key + '\u00AB is not defined!');
                 _switchDeferred.resolve({ success: false });
 
             } else if (_currentMeasurementSystem === key) {
-                console.iatInfo('Measurement-System \u00BB' + key + '\u00AB is current!');
+                console.iatInfo('Measurement-testSystem \u00BB' + key + '\u00AB is current!');
                 _switchDeferred.resolve({ success: true });
 
             } else {
