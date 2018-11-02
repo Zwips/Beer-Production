@@ -142,7 +142,8 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
         Timestamp earliestDate = new Timestamp(order.getEarliestDeliveryDate().getTime());
         Timestamp latestDate = new Timestamp(order.getLatestDeliveryDate().getTime());
         int orderID = order.getOrderID();
-        new OrderInserter().insert(amount, type, earliestDate,latestDate,priority, orderID);
+        boolean status = order.getStatus();
+        new OrderInserter().insert(amount, type, earliestDate,latestDate,priority,status,orderID);
     }
 
 }
