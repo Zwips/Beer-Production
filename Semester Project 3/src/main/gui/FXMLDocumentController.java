@@ -221,14 +221,6 @@ public class FXMLDocumentController implements Initializable  {
 
 
 
-
-
-    //   GUIOutFacade.getInstance().addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, latestDeliveryDate, int priority)
-
-         //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
-
-
-
     @FXML
     void addMachineActionHandler(ActionEvent event) {
         String IPAddress = iPaddressTextField.getText() + ":" + portNumberTextField.getText();

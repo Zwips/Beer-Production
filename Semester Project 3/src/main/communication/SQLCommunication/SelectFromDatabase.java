@@ -67,6 +67,7 @@ public class SelectFromDatabase {
         Statement st = null;
         ResultSet rs = null;
 
+
         try{
             st = dbHandler.OpenConnection();
             PreparedStatement pStatement = st.getConnection().prepareStatement("SELECT Humidity.BatchID, Humidity.timeOfReading, Humidity.ValuePercent WHERE BatchID = ?");
