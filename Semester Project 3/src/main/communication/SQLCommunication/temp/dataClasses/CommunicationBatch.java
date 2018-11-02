@@ -3,7 +3,9 @@ package communication.SQLCommunication.temp.dataClasses;
 import Acquantiance.IBatch;
 import Acquantiance.ProductTypeEnum;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CommunicationBatch implements IBatch {
 
@@ -11,11 +13,10 @@ public class CommunicationBatch implements IBatch {
     private ProductTypeEnum productType;
     private int produced;
     private int discarded;
-    private HashMap amountOfTimeInDifferentStates;
-    private HashMap temperatures;
-    private HashMap humidity;
-    private HashMap vibrations;
-
+    private Map amountOfTimeInDifferentStates;
+    private Map<Date, Float> temperatures;
+    private Map<Date, Float> humidity;
+    private Map<Date, Float> vibrations;
     public CommunicationBatch() {
     }
 
@@ -35,59 +36,59 @@ public class CommunicationBatch implements IBatch {
         this.discarded = discarded;
     }
 
-    public void setAmountOfTimeInDifferentStates(HashMap amountOfTimeInDifferentStates) {
+    public void setAmountOfTimeInDifferentStates(Map amountOfTimeInDifferentStates) {
         this.amountOfTimeInDifferentStates = amountOfTimeInDifferentStates;
     }
 
-    public void setTemperatures(HashMap temperatures) {
+    public void setTemperatures(Map temperatures) {
         this.temperatures = temperatures;
     }
 
-    public void setHumidity(HashMap humidity) {
+    public void setHumidity(Map humidity) {
         this.humidity = humidity;
     }
 
-    public void setVibrations(HashMap vibrations) {
+    public void setVibrations(Map vibrations) {
         this.vibrations = vibrations;
     }
 
     @Override
     public int getBatchID() {
-        throw new UnsupportedOperationException();
+        return this.batchID;
     }
 
     @Override
     public ProductTypeEnum getProductType() {
-        throw new UnsupportedOperationException();
+        return this.productType;
     }
 
     @Override
     public int getTotalProduced() {
-        throw new UnsupportedOperationException();
+        return this.produced;
     }
 
     @Override
     public int getTotalDiscarded() {
-        throw new UnsupportedOperationException();
+        return this.discarded;
     }
 
     @Override
-    public HashMap getAmountOfTimeInDifferentStates() {
-        throw new UnsupportedOperationException();
+    public Map getAmountOfTimeInDifferentStates() {
+        return this.amountOfTimeInDifferentStates;
     }
 
     @Override
-    public HashMap getTemperatures() {
-        throw new UnsupportedOperationException();
+    public Map getTemperatures() {
+        return this.temperatures;
     }
 
     @Override
-    public HashMap getHumidity() {
-        throw new UnsupportedOperationException();
+    public Map getHumidity() {
+        return this.humidity;
     }
 
     @Override
-    public HashMap getVibrations() {
-        throw new UnsupportedOperationException();
+    public Map getVibrations() {
+        return this.vibrations;
     }
 }

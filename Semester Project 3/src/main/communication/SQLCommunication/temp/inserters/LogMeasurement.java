@@ -1,4 +1,4 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.inserters;
 
 import communication.SQLCommunication.temp.tools.Insert;
 import communication.SQLCommunication.temp.tools.PrepareInfo;
@@ -14,7 +14,7 @@ public class LogMeasurement {
     static void logMeasurement(int batchID, Date timeOfReading, float value, Connection connection, String tables, String values) {
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
-        wildCardInfo.add(new PrepareInfo(2, PrepareType.DATE, timeOfReading));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, timeOfReading));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.FLOAT, value));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);

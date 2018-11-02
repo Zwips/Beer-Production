@@ -8,6 +8,8 @@ public interface IProductionOrder {
   Date getEarliestDeliveryDate();
   Date getLatestDeliveryDate();
   int getPriority();
+  boolean getStatus();
+  int getOrderID();
 
 
 

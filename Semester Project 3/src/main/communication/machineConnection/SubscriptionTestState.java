@@ -7,11 +7,11 @@ import org.opcfoundation.ua.builtintypes.DataValue;
 
 import java.io.IOException;
 
-class SubscribtiontestState implements IDataChangeCatcher {
+class SubscriptionTestState implements IDataChangeCatcher {
 
     private Test test;
 
-    public SubscribtiontestState(Test test){
+    public SubscriptionTestState(Test test){
         this.test = test;
     }
 

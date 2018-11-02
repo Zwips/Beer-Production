@@ -36,32 +36,24 @@ public class MachineConnection implements IMachineConnection {
     public float readCurrentProductID() throws ServiceException {
         IAdmin admin = new Admin();
 
-        int amountOfTries = 0;
         CurrentProductType prod = admin.getCurrentProductType(identifier);
-        do {
-            try {
-                return prod.readCurrentProductID(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        try {
+            return prod.readCurrentProductID(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
         return -1;
     }
 
     @Override
     public int readNumberOfDefectiveProducts() throws ServiceException {
         IAdmin admin = new Admin();
-        int amountOfTries = 0;
         DefectiveProducts prod = admin.getDefectiveProducts(identifier);
-        do{
-            try {
-                return prod.readNumberOfDefectiveProducts(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        try {
+            return prod.readNumberOfDefectiveProducts(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
         return -1;
 
     }
@@ -69,50 +61,38 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public int  readNumberOfProducedProducts() throws ServiceException {
         IAdmin admin = new Admin();
-        int amountOfTries = 0;
         ProducedProducts prod = admin.getProducedProducts(identifier);
-        do{
-            try {
-                return prod.readNumberOfProducedProducts(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
+        try {
+            return prod.readNumberOfProducedProducts(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
-            amountOfTries++;
-        } while (amountOfTries < 5);
         return -1;
     }
 
     @Override
     public int readStopReasonID() throws ServiceException {
         IAdmin admin = new Admin();
-        int amountOfTries = 0;
         StopReasonID prod = admin.getStopReasonId(identifier);
-        do{
-            try {
-                return prod.readStopReasonID(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
+        try {
+            return prod.readStopReasonID(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
-            amountOfTries++;
-        } while (amountOfTries < 5);
         return -1;
     }
 
     @Override
     public int readStopReasonValue() throws ServiceException {
         IAdmin admin = new Admin();
-        int amountOfTries = 0;
         StopReasonValue prod = admin.getStopReasonValue(identifier);
-        do{
-            try {
-                return prod.readStopReasonValue(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        try {
+            return prod.readStopReasonValue(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
         return -1;
     }
     //</editor-fold>
@@ -122,8 +102,7 @@ public class MachineConnection implements IMachineConnection {
     public void subscribeToTemperature(IDataChangeCatcher dataChangeCatcher) throws ServiceException {
         IStatus status = new Status();
         NodeId node = status.getTemperature(identifier).getNode();
-        int amountOfTries = 0;
-        createSubscription(dataChangeCatcher, node, amountOfTries);
+        createSubscription(dataChangeCatcher, node);
 
     }
 
@@ -132,8 +111,7 @@ public class MachineConnection implements IMachineConnection {
         IStatus status = new Status();
 
         NodeId node = status.getCurrentState(identifier).getNode();
-        int amountOfTries = 0;
-        createSubscription(dataChangeCatcher, node, amountOfTries);
+        createSubscription(dataChangeCatcher, node);
     }
 
     @Override
@@ -141,8 +119,7 @@ public class MachineConnection implements IMachineConnection {
         IStatus status = new Status();
 
         NodeId node = status.getVibration(identifier).getNode();
-        int amountOfTries = 0;
-        createSubscription(dataChangeCatcher, node, amountOfTries);
+        createSubscription(dataChangeCatcher, node);
     }
 
     @Override
@@ -150,8 +127,7 @@ public class MachineConnection implements IMachineConnection {
         IStatus status = new Status();
 
         NodeId node = status.getHumidity(identifier).getNode();
-        int amountOfTries = 0;
-        createSubscription(dataChangeCatcher, node, amountOfTries);
+        createSubscription(dataChangeCatcher, node);
     }
 
     @Override
@@ -159,20 +135,15 @@ public class MachineConnection implements IMachineConnection {
         IAdmin admin = new Admin();
 
         NodeId node = admin.getStopReasonId(identifier).getNode();
-        int amountOfTries = 0;
-        createSubscription(dataChangeCatcher, node, amountOfTries);
+        createSubscription(dataChangeCatcher, node);
     }
 
-    private void createSubscription(IDataChangeCatcher dataChangeCatcher, NodeId node, int amountOfTries) throws ServiceException {
-        do{
-            try {
-                SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
-                break;
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5) ;
+    private void createSubscription(IDataChangeCatcher dataChangeCatcher, NodeId node) throws ServiceException {
+        try {
+            SubscriptionCreator.createSubscription(client,node,dataChangeCatcher);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
     }
     //</editor-fold>
 
@@ -182,30 +153,25 @@ public class MachineConnection implements IMachineConnection {
         ICommand command = new Command();
 
         Amount amount = command.getAmount(identifier);
-        int amountOfTries = 0;
-        do {
-            try {
-                amount.setAmountInNextBatch(client, value);
-                sleep(50);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            amount.setAmountInNextBatch(client, value);
+            sleep(50);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            float readValue = 0;
-            try {
-                readValue = amount.readAmountInNextBatch(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
+        float readValue = 0;
+        try {
+            readValue = amount.readAmountInNextBatch(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
-
-            if (readValue == value) {
-                return true;
-            }
-            amountOfTries++;
-        }while (amountOfTries < 5);
+        if (readValue == value) {
+            return true;
+        }
 
         return false;
 
@@ -217,23 +183,20 @@ public class MachineConnection implements IMachineConnection {
 
         BatchID batchID = command.getBatchId(identifier);
         float readValue = 0;
-        int amountOfTries = 0;
-        do {
-            try {
-                batchID.setBatchIDForNextBatch(client, value);
-                sleep(50);
-                readValue = batchID.readBatchIDForNextBatch(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            batchID.setBatchIDForNextBatch(client, value);
+            sleep(50);
+            readValue = batchID.readBatchIDForNextBatch(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            if (readValue == value) {
-                return true;
-            }
-            amountOfTries++;
-        } while(amountOfTries < 5);
+        if (readValue == value) {
+            return true;
+        }
+
         return false;
     }
 
@@ -245,7 +208,7 @@ public class MachineConnection implements IMachineConnection {
         try {
             control.setControlCommand(client, value);
         } catch (StatusException e) {
-//                e.printStackTrace();
+                e.printStackTrace();
             return false;
         }
 
@@ -258,31 +221,28 @@ public class MachineConnection implements IMachineConnection {
 
         MachineSpeed machineSpeed = command.getMachineSpeed(identifier);
 
-        int amountOfTries = 0;
-        do {
-            try {
-                machineSpeed.setMachineSpeed(client, value);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            try {
-                sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            machineSpeed.setMachineSpeed(client, value);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+        try {
+            sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            float readValue = 0;
-            try {
-                readValue = machineSpeed.readMachineSpeed(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
+        float readValue = 0;
+        try {
+            readValue = machineSpeed.readMachineSpeed(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
-            if (readValue == value) {
-                return true;
-            }
-            amountOfTries++;
-        }while(amountOfTries <5);
+        if (readValue == value) {
+            return true;
+        }
+
         return false;
 
     }
@@ -292,35 +252,30 @@ public class MachineConnection implements IMachineConnection {
         ICommand command = new Command();
 
         ProductID productId = command.getProductId(identifier);
-        int amountOfTries = 0;
 
-        do {
-            try {
-                productId.setProductIDForNextBatch(client, value);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            try {
-                sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            productId.setProductIDForNextBatch(client, value);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+        try {
+            sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            float readValue = 0;
-            try {
-                readValue = productId.readProductIDForNextBatch(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
+        float readValue = 0;
+        try {
+            readValue = productId.readProductIDForNextBatch(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
-            if (readValue == value) {
-                return true;
-            }
-            amountOfTries++;
-        }while (amountOfTries < 5);
+        if (readValue == value) {
+            return true;
+        }
+
         return false;
-
-
     }
     //</editor-fold>
 
@@ -328,32 +283,25 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public float readProductsInBatch() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            BatchAmountCurrent prod = status.getBatchAmountCurrent(identifier);
-            try {
-                return prod.readProductsInBatch(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        BatchAmountCurrent prod = status.getBatchAmountCurrent(identifier);
+        try {
+            return prod.readProductsInBatch(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+
         return -1;
     }
 
     @Override
     public float readBatchIDCurrent() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            BatchIDCurrent prod = status.getBatchIdCurrent(identifier);
-            try {
-                return prod.readBatchIDCurrent(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        BatchIDCurrent prod = status.getBatchIdCurrent(identifier);
+        try {
+            return prod.readBatchIDCurrent(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
         return -1;
     }
@@ -361,16 +309,12 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public float readCurrentState() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            CurrentState prod = status.getCurrentState(identifier);
-            try {
-                return prod.readCurrentState(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        CurrentState prod = status.getCurrentState(identifier);
+        try {
+            return prod.readCurrentState(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
         return -1;
     }
@@ -378,16 +322,12 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public float readHumidity() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            Humidity prod = status.getHumidity(identifier);
-            try {
-                return prod.readHumidity(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+        Humidity prod = status.getHumidity(identifier);
+        try {
+            return prod.readHumidity(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
         return -1;
     }
@@ -395,53 +335,46 @@ public class MachineConnection implements IMachineConnection {
     @Override
     public float readMachineSpeedCurrent() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            MachineSpeedCurrent prod = status.getMachineSpeedCurrent(identifier);
-            try {
-                return prod.readMachineSpeedCurrent(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
+
+        MachineSpeedCurrent prod = status.getMachineSpeedCurrent(identifier);
+        try {
+            return prod.readMachineSpeedCurrent(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
 
         return -1;
     }
 
     @Override
-    public float readTemperature() throws ServiceException {
+    public Float readTemperature() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            Temperature prod = status.getTemperature(identifier);
-            try {
-                return prod.readTemperature(client);
-            } catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
 
-        return -1;
+        Temperature prod = status.getTemperature(identifier);
+        try {
+            return prod.readTemperature(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
-    public float readVibration() throws ServiceException {
+    public Float readVibration() throws ServiceException {
         IStatus status = new Status();
-        int amountOfTries = 0;
-        do{
-            Vibration prod = status.getVibration(identifier);
-            try {
-                return prod.readVibration(client);
-            }  catch (StatusException e) {
-                e.printStackTrace();
-            }
-            amountOfTries++;
-        } while (amountOfTries < 5);
 
-        return -1;
+        Vibration prod = status.getVibration(identifier);
+        try {
+            return prod.readVibration(client);
+        } catch (StatusException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
+
+
 
     @Override
     public boolean isConnected(){
@@ -449,7 +382,7 @@ public class MachineConnection implements IMachineConnection {
     }
 
     @Override
-    public void disConnect() {
+    public void disconnect() {
         client.disconnect();
     }
     //</editor-fold>

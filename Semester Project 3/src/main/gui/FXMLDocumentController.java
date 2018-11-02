@@ -122,11 +122,6 @@ public class FXMLDocumentController implements Initializable  {
     @FXML
     private Label orderSucceededLabel;
 
-
-
-
-
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {

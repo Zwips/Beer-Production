@@ -1,10 +1,11 @@
 package communication;
 
-import Acquantiance.ICommunicationFacade;
-import Acquantiance.ProductTypeEnum;
+import Acquantiance.*;
 import communication.SQLCommunication.SQLCommunicationFacade;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class CommunicationFacade implements ICommunicationFacade {
 
@@ -16,22 +17,87 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
+    public IBatch getBatchByBatchID(int batchID) {
+       return sqlFacade.selectFromBatch(batchID);
+    }
+
+    @Override
+    public Map getTemperaturesByMachine(String machineID, Date dateFrom) {
+        return sqlFacade.selectFromTemperature(machineID,dateFrom);
+    }
+
+    @Override
+    public Map getHumiditiesByMachine(String machineID, Date dateFrom) {
+        return sqlFacade.selectFromHumidity(machineID,dateFrom);
+    }
+
+    @Override
+    public Map getVibrationsByMachine(String machineID, Date dateFrom) {
+        return sqlFacade.selectFromVibration(machineID,dateFrom);
+    }
+
+    @Override
+    public IBatchLog getBatchLogByBatchID(int batchID) {
+        return sqlFacade.getBatchLogByBatchID(batchID);
+    }
+
+    @Override
+    public List<IBatchLog> getBatchLogByMachineID(String machineID) {
+        return sqlFacade.getBatchLogByMachineID(machineID);
+    }
+
+    @Override
+    public IProductionOrder selectFromOrder(int orderID) {
+        return sqlFacade.selectFromOrder(orderID);
+    }
+
+    @Override
+    public List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo) {
+        return sqlFacade.getPendingOrders(dateFrom,dateTo);
+    }
+
+    @Override
+    public List<IProductionOrder> getCompletedOrders() {
+        return sqlFacade.getCompletedOrders();
+    }
+
+    @Override
+    public void setOrderCompleted(int orderId) {
+        sqlFacade.setOrderCompleted(orderId);
+    }
+
+    @Override
+    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective) {
+        sqlFacade.InsertIntoBatch(batchID,productType,amount,defective);
+    }
+
+    @Override
+    public void InsertIntoBatch_log(int batchID, String machineID, int orderID) {
+        sqlFacade.InsertIntoBatch_log(batchID,machineID,orderID);
+    }
+
+    @Override
     public void logDefectives(String machineId, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product) {
         sqlFacade.logDefectives(machineId, numberOfDefective,productsInBatch,machineSpeed,product);
     }
 
     @Override
     public void logTemperature(float value, Date timestamp, int batchID) {
-
+        sqlFacade.logTemperature(value,timestamp,batchID);
     }
 
     @Override
     public void logVibration(float value, Date timestamp, int batchID) {
-
+        sqlFacade.logVibration(value,timestamp,batchID);
     }
 
     @Override
     public void logHumidity(float value, Date timestamp, int batchID) {
+        sqlFacade.logHumidity(value,timestamp,batchID);
+    }
 
+    @Override
+    public void logOrder(IProductionOrder order) {
+        sqlFacade.logOrder(order);
     }
 }

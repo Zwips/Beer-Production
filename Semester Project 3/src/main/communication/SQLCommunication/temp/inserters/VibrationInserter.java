@@ -1,30 +1,33 @@
-package communication.SQLCommunication.temp;
+package communication.SQLCommunication.temp.inserters;
 
 import communication.SQLCommunication.DatabaseConnector;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.Date;
 
-public class HumidityInserter {
+public class VibrationInserter {
+
 
     private String values;
     private String tables;
     private Connection connection;
 
 
-    public HumidityInserter() {
-        // "INSERT INTO temperature(batchid, timeOfReading, valuePercent) VALUES (?,?,?)";
+    public VibrationInserter() {
+        // "INSERT INTO temperature(batchid, timeOfReading, ValuePBS) VALUES (?,?,?)";
 
         this.values = "(?,?,?)";
-        this.tables = "temperature(batchid, timeOfReading, valuePercent)";
+        this.tables = "temperature(batchid, timeOfReading, ValuePBS)";
         connection = new DatabaseConnector().OpenConnection();
 
     }
 
 
-    public void insert(int batchID, Date timeOfReading, float value){
+    public void insert(int batchID, Timestamp timeOfReading, float value){
 
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
 
     }
+
 }
