@@ -23,7 +23,7 @@ public interface ISQLCommunicationFacade {
 
     void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective);
 
-    void InsertIntoBatch_log(int batchID, int MachineID, int orderID);
+    void InsertIntoBatch_log(int batchID, String MachineID, int orderID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID);
     void logVibration(float value, Date timestamp, int batchID);

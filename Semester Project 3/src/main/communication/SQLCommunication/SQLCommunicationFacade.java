@@ -88,7 +88,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void InsertIntoBatch_log(int batchID, int MachineID, int orderID) {
+    public void InsertIntoBatch_log(int batchID, String MachineID, int orderID) {
         new BatchLogInserter().insert(batchID,MachineID,orderID);
     }
 
