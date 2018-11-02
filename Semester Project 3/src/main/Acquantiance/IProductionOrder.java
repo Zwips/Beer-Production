@@ -9,7 +9,7 @@ public interface IProductionOrder {
   Date getLatestDeliveryDate();
   int getPriority();
   boolean getStatus();
-  int getBatchID();
+  int getOrderID();
 
 
 

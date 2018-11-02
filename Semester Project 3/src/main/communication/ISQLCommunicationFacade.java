@@ -26,6 +26,6 @@ public interface ISQLCommunicationFacade {
     void logTemperature(float value, Date timestamp, int batchID);
     void logVibration(float value, Date timestamp, int batchID);
     void logHumidity(float value, Date timestamp, int batchID);
-    void logOrder(IProductionOrder order, int batchID);
+    void logOrder(IProductionOrder order);
 
     }

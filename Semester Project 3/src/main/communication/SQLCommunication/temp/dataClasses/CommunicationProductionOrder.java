@@ -16,7 +16,7 @@ public class CommunicationProductionOrder implements IProductionOrder {
     private int batchID;
 
     @Override
-    public int getBatchID() {
+    public int getOrderID() {
         return batchID;
     }
 

@@ -135,13 +135,14 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void logOrder(IProductionOrder order, int batchID) {
+    public void logOrder(IProductionOrder order) {
         int amount = order.getAmount();
         ProductTypeEnum type = order.getProductType();
         int priority = order.getPriority();
         Timestamp earliestDate = new Timestamp(order.getEarliestDeliveryDate().getTime());
         Timestamp latestDate = new Timestamp(order.getLatestDeliveryDate().getTime());
-        new OrderInserter().insert(amount, type, earliestDate,latestDate,priority, batchID);
+        int orderID = order.getOrderID();
+        new OrderInserter().insert(amount, type, earliestDate,latestDate,priority, orderID);
     }
 
 }
