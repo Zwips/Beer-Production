@@ -19,7 +19,7 @@ public class OrderStatusSetter {
     public OrderStatusSetter() {
         this.tables = "Orders";
         this.values = "status = ?";
-        this.conditions = "batchid = ?";
+        this.conditions = "orderid = ?";
 
         connection = new DatabaseConnector().OpenConnection();
     }
