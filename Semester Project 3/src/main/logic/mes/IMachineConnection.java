@@ -43,11 +43,11 @@ public interface IMachineConnection {
     float readCurrentState() throws ServiceException, StatusException;
     float readHumidity() throws ServiceException, StatusException;
     float readMachineSpeedCurrent() throws ServiceException, StatusException;
-    float readTemperature() throws ServiceException, StatusException;
-    float readVibration() throws ServiceException, StatusException;
+    Float readTemperature() throws ServiceException, StatusException;
+    Float readVibration() throws ServiceException, StatusException;
 
     boolean isConnected();
-    void disConnect();
+    void disconnect();
 
 
 }

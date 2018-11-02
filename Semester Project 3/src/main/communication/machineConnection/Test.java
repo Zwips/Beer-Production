@@ -25,7 +25,7 @@ public class Test {
 
         Test.startMachine();
 
-        connection.subscribeToCurrentState(new SubscribtiontestState(new Test()));
+        connection.subscribeToCurrentState(new SubscriptionTestState(new Test()));
     }
 
 
