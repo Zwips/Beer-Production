@@ -21,10 +21,11 @@ public class BatchLogInserter {
         connection = new DatabaseConnector().OpenConnection();
     }
 
-    boolean insert(int batchID, int machineID){
+    public boolean insert(int batchID, int machineID, int orderID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.INT, machineID));
+        wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, orderID));
 
         return new Insert().insertion(connection, tables, values, wildCardInfo);
     }

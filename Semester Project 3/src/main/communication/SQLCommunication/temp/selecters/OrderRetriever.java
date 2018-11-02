@@ -31,7 +31,7 @@ public class OrderRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    IProductionOrder getOrder(int batchid){
+    public IProductionOrder getOrder(int batchid){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchid));

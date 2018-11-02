@@ -28,7 +28,7 @@ public class CompletedOrdersRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<IProductionOrder> getCompletedOrders(){
+    public List<IProductionOrder> getCompletedOrders(){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.BOOLEAN, true));
