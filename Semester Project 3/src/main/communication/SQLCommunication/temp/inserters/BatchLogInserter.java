@@ -16,15 +16,17 @@ public class BatchLogInserter {
     private Connection connection;
 
     public BatchLogInserter() {
-        this.values = "(?,?)";
-        this.tables = "batch_log(batchid, machineid)";
+        this.values = "(?,?,?)";
+        this.tables = "batch_log(batchid, machineid, orderid)";
         connection = new DatabaseConnector().OpenConnection();
     }
 
-    boolean insert(int batchID, int machineID){
+    boolean insert(int batchID, int machineID, int orderID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.INT, machineID));
+        wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, orderID));
+
 
         return new Insert().insertion(connection, tables, values, wildCardInfo);
     }

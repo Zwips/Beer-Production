@@ -28,7 +28,7 @@ public class BatchLog {
         // "SELECT Batch.BatchID, Batch.ProductType, Batch.Amount, Batch.Defective WHERE Batch.BatchID = ?";
 
         this.selections = "*";
-        this.tables = "temperature";
+        this.tables = "batch_log";
         this.conditions = "batchid = ?";
 
         this.connector = new DatabaseConnector();
