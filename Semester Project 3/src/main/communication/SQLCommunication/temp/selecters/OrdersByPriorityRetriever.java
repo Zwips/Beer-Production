@@ -30,7 +30,7 @@ public class OrdersByPriorityRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<IProductionOrder> getCompletedOrders(int priority){
+    public List<IProductionOrder> getCompletedOrders(int priority){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, priority));

@@ -1,6 +1,8 @@
 package communication.SQLCommunication.temp.selecters;
 
+import Acquantiance.IBatchLog;
 import communication.SQLCommunication.DatabaseConnector;
+import communication.SQLCommunication.temp.dataClasses.CommunicationBatchLog;
 import communication.SQLCommunication.temp.tools.PrepareInfo;
 import communication.SQLCommunication.temp.tools.PrepareType;
 import communication.SQLCommunication.temp.tools.Select;
@@ -11,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatchByMachineRetriever {
+public class BatchLogByMachineRetriever {
 
 
     private String selections;
@@ -19,25 +21,32 @@ public class BatchByMachineRetriever {
     private String conditions;
     private Connection connection;
 
-    public BatchByMachineRetriever() {
-        this.selections = "batchid";
+    public BatchLogByMachineRetriever() {
+        this.selections = "batchid, machineid, orderid";
         this.tables = "batch_log";
         this.conditions = "machineID = ?";
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    List<Integer> getBatches(int machineID){
+    public List<IBatchLog> getBatchLogs(String machineID){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, machineID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<Integer> batchIDs = new ArrayList<>();
+        List<IBatchLog> batchLogs = new ArrayList<>();
 
         try {
             while (results.next()){
-                batchIDs.add(results.getInt("batchid"));
+                int batchID = results.getInt("batchid");
+                String machineName = results.getString("machineid");
+                int orderID = results.getInt("orderid");
+                CommunicationBatchLog batchLog = new CommunicationBatchLog();
+                batchLog.setBatchID(batchID);
+                batchLog.setMachineID(machineName);
+                batchLog.setOrderID(orderID);
+                batchLogs.add(batchLog);
             }
 
         } catch (SQLException e) {
@@ -50,6 +59,6 @@ public class BatchByMachineRetriever {
             e.printStackTrace();
         }
 
-        return batchIDs;
+        return batchLogs;
     }
 }

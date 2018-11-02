@@ -26,22 +26,22 @@ public class OrderRetriever {
     public OrderRetriever() {
         this.selections = "*";
         this.tables = "orders";
-        this.conditions = "orderid = ?";
+        this.conditions = "batchid = ?";
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    IProductionOrder getOrder(int orderid){
+    public IProductionOrder getOrder(int batchid){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, orderid));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchid));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
         CommunicationProductionOrder order = new CommunicationProductionOrder();
 
         try {
                 order.setAmount(results.getInt("amount"));
-                order.setOrderID(results.getInt("orderid"));
+                order.setBatchID(results.getInt("batchid"));
                 order.setPriority(results.getInt("priority"));
                 order.setStatus(results.getBoolean("status"));
                 order.setEarliestDeliveryDate(new Date(results.getTimestamp("EarliestDeliveryDate").getTime()));

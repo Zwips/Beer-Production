@@ -15,7 +15,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: info.cukes:cucumber-java:1.2.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: info.cukes:cucumber-core:1.2.5" level="project" />
     <orderEntry type="library" scope="TEST" name="info.cukes:cucumber-java:1.2.5" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -25,5 +24,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" scope="TEST" name="junit:junit:4.11" level="project" />
   </component>
 </module>

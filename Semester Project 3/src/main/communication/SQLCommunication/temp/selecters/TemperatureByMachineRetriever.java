@@ -24,7 +24,7 @@ public class TemperatureByMachineRetriever {
         this.connection = new DatabaseConnector().OpenConnection();
     }
 
-    Map<Date, Float> getTemperatures(int machineID, Timestamp date){
+    public Map<Date, Float> getTemperatures(String machineID, Timestamp date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
