@@ -41,9 +41,9 @@ public class OrderRetriever {
 
         try {
                 order.setAmount(results.getInt("amount"));
-                order.setBatchID(results.getInt("batchid"));
                 order.setPriority(results.getInt("priority"));
                 order.setStatus(results.getBoolean("status"));
+                order.setOrderID(results.getInt("orderid"));
                 order.setEarliestDeliveryDate(new Date(results.getTimestamp("EarliestDeliveryDate").getTime()));
                 order.setLatestDeliveryDate(new Date(results.getTimestamp("LatestDeliveryDate").getTime()));
 
