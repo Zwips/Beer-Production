@@ -28,7 +28,7 @@ public class OrderInserter {
     }
 
 
-    public void insert(int amount, ProductTypeEnum product, Timestamp earliestDate, Timestamp latestDate, int priority, int orderID) {
+    public void insert(int amount, ProductTypeEnum product, Timestamp earliestDate, Timestamp latestDate, int priority, boolean status, int orderID) {
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, amount));

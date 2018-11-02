@@ -11,6 +11,8 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     private Date earliestDeliveryDate;
     private Date latestDeliveryDate;
     private int priority;
+    private int orderID;
+    private boolean status;
 
 
 
@@ -45,6 +47,16 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     @Override
     public int getPriority() {
         return priority;
+    }
+
+    @Override
+    public boolean getStatus() {
+        return false;
+    }
+
+    @Override
+    public int getOrderID() {
+        return 0;
     }
 
     public int getInternalPriority()
