@@ -26,10 +26,10 @@ public class BatchInserter {
     public void insert(int batchID, ProductTypeEnum product, int amount, int defective) {
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, amount));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, product.getType()));
-        wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, batchID));
-        wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, amount));
+        wildCardInfo.add(new PrepareInfo(4, PrepareType.INT, defective));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
     }

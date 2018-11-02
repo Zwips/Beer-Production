@@ -13,15 +13,15 @@ public class CommunicationProductionOrder implements IProductionOrder {
     private Date latestDeliveryDate;
     private int priority;
     private boolean status;
-    private int batchID;
+    private int orderID;
 
     @Override
     public int getOrderID() {
-        return batchID;
+        return orderID;
     }
 
-    public void setBatchID(int batchID) {
-        this.batchID = batchID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public void setAmount(int amount) {

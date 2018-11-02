@@ -23,7 +23,7 @@ public class OrderInserter {
         // "INSERT INTO Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID) VALUES (?,?,?,?,?,?,?)";
 
         this.values = "(?,?,?,?,?,?,?)";
-        this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID)";
+        this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, orderID)";
         connection = new DatabaseConnector().OpenConnection();
     }
 
