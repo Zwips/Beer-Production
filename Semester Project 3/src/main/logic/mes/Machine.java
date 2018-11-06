@@ -36,7 +36,7 @@ public class Machine implements IMachine, IMesMachine, Runnable{
             subscribeToHumidity(new MachineHumidityReporter(this));
             subscribeToTemperature(new MachineTemperatureReporter(this));
             subscribeToVibration(new MachineVibrationReporter(this));
-            subscribeToStopReasonID(new MachineStopReasonIdReporter());
+            subscribeToStopReasonID(new MachineStopReasonIdReporter(this));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
