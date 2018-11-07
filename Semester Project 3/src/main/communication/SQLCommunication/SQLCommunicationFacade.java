@@ -2,9 +2,9 @@ package communication.SQLCommunication;
 
 import Acquantiance.*;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.temp.inserters.*;
-import communication.SQLCommunication.temp.selecters.*;
-import communication.SQLCommunication.temp.updaters.OrderStatusSetter;
+import communication.SQLCommunication.inserters.*;
+import communication.SQLCommunication.selecters.*;
+import communication.SQLCommunication.updaters.OrderStatusSetter;
 
 import java.sql.Timestamp;
 import java.util.Date;
