@@ -13,7 +13,11 @@ public class MachineStopReasonIdReporter implements IDataChangeCatcher {
     MaintenenceEmail me = new MaintenenceEmail();
     PowerLossEmail pe = new PowerLossEmail();
     StopEmail se = new StopEmail();
+    private Machine machine;
 
+    public MachineStopReasonIdReporter(Machine machine) {
+        this.machine = machine;
+    }
 
     @Override
     public void report(DataValue data) {
