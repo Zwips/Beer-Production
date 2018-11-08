@@ -8,11 +8,17 @@ import org.opcfoundation.ua.builtintypes.DataValue;
 public class MachineStopReasonIdReporter implements IDataChangeCatcher {
 
     private String StopReasonID;
-    AbortEmail am = new AbortEmail();
-    InventoryEmail ie = new InventoryEmail();
-    MaintenenceEmail me = new MaintenenceEmail();
-    PowerLossEmail pe = new PowerLossEmail();
-    StopEmail se = new StopEmail();
+    private AbortEmail am = new AbortEmail();
+    private InventoryEmail ie = new InventoryEmail();
+    private MaintenenceEmail me = new MaintenenceEmail();
+    private PowerLossEmail pe = new PowerLossEmail();
+    private StopEmail se = new StopEmail();
+    private Machine machine;
+
+    MachineStopReasonIdReporter(Machine machine)
+    {
+        this.machine = machine;
+    }
 
     @Override
     public void report(DataValue data) {
