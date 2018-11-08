@@ -22,6 +22,10 @@ public class ERP {
 
     }
 
+    public Queue<ProductionOrder> getProductionOrderQueue() {
+        return productionOrderQueue;
+    }
+
     void addProcessingPlant(String plantID){
         ProcessingPlant plant = new ProcessingPlant(plantID);
         processingPlants.put(plantID, plant);

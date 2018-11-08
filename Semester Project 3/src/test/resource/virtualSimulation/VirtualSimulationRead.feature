@@ -75,13 +75,7 @@ Feature: Pseudo unit testing - reads all values from the virtual simulation
     When reading the stop reason value
     Then the stop reason value is read
 
-  Scenario:
-    When
-    Then
 
 #  subscribe to temp
 #  subscribe to vibration
 #  subscribe to humidity
-
-#  subscribe to current state
-#  subscribe to stop reason ID
