@@ -1,4 +1,4 @@
-package communication.OutCommunication;
+package communication.MailCommunication;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.mail.*;
 import java.util.Properties;
 
-public class StopEmail {
+public class MaintenenceEmail {
 
 	private String username = "beerproductiontest@gmail.com";
 	private String password = "beer:123";
@@ -22,7 +22,8 @@ public class StopEmail {
 
 
 
-	public void SendStopEMail() {
+
+	public void SendMaintenenceEMail() {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +51,7 @@ public class StopEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid has been manually stopped");
+			message.setText(date+ " maintenence needed");
 
 			Transport.send(message);
 

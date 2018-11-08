@@ -1,4 +1,4 @@
-package communication.OutCommunication;
+package communication.MailCommunication;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.mail.*;
 import java.util.Properties;
 
-public class MaintenenceEmail {
+public class PowerLossEmail {
 
 	private String username = "beerproductiontest@gmail.com";
 	private String password = "beer:123";
@@ -22,8 +22,7 @@ public class MaintenenceEmail {
 
 
 
-
-	public void SendMaintenenceEMail() {
+	public void SendPowerLossEmail() {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -51,7 +50,7 @@ public class MaintenenceEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+ " maintenence needed");
+			message.setText(date+"machineid power loss detected");
 
 			Transport.send(message);
 

@@ -1,4 +1,4 @@
-package communication.OutCommunication;
+package communication.MailCommunication;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.mail.*;
 import java.util.Properties;
 
-public class AbortEmail {
+public class StopEmail {
 
 	private String username = "beerproductiontest@gmail.com";
 	private String password = "beer:123";
@@ -22,7 +22,7 @@ public class AbortEmail {
 
 
 
-	public void SendAbortEMail() {
+	public void SendStopEMail() {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +50,7 @@ public class AbortEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid has been manually aborted");
+			message.setText(date+"machineid has been manually stopped");
 
 			Transport.send(message);
 
