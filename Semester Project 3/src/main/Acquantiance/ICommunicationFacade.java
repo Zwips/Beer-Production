@@ -27,4 +27,11 @@ public interface ICommunicationFacade {
     void logHumidity(float value, Date timestamp, int batchID);
 
     void logOrder(IProductionOrder order);
+
+    void SendAbortEMail(String machineName);
+    void SendStopEmail(String machineName);
+    void SendInventoryEmail(String machineName);
+    void SendMaintenenceEmail(String machineName);
+    void SendPowerLossEmail(String machineName);
+
 }

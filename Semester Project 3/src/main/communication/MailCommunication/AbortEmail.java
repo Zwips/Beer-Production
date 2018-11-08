@@ -1,5 +1,8 @@
 package communication.MailCommunication;
 
+import logic.mes.Machine;
+import logic.mes.MachineStopReasonIdReporter;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -18,11 +21,10 @@ public class AbortEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date = new Date();
 
 
-
-	public void SendAbortEMail() {
+	public void SendAbortEmail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +52,7 @@ public class AbortEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid has been manually aborted");
+			message.setText(date+" "+ machineName+" "+"has been manually aborted");
 
 			Transport.send(message);
 
