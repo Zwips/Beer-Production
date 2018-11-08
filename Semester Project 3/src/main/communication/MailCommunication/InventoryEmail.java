@@ -18,7 +18,7 @@ public class InventoryEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	private Date date;
+	private Date date = new Date();
 
 
 

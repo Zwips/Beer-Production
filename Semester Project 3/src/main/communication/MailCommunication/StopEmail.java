@@ -18,7 +18,7 @@ public class StopEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	private Date date;
+	private Date date = new Date();
 
 
 	public void SendStopEMail(String machineName) {
