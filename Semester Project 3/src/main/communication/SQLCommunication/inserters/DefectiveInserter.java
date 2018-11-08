@@ -21,7 +21,7 @@ public class DefectiveInserter {
     public DefectiveInserter() {
         // "INSERT INTO defectives(machineid, numberofdefective, productsinbatch, machinespeed, product) VALUES (?,?,?,?,?)";
 
-        this.values = "(?,?,?,?)";
+        this.values = "(?,?,?,?,?)";
         this.tables = "defectives(machineid, numberofdefective, productsinbatch, machinespeed, product)";
         connection = new DatabaseConnector().OpenConnection();
     }
