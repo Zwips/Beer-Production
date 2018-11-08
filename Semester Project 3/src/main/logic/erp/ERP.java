@@ -39,4 +39,20 @@ public class ERP {
         return THEPLANT.addMachine(machineName, IPAddress, userID, password);
     }
 
+    boolean checkForMachine(String processingPlantID, String machineName){
+        return processingPlants.get(processingPlantID).checkForMachine(machineName);
+    }
+    boolean checkForMachine(String machineName)
+    {
+        return THEPLANT.checkForMachine(machineName);
+    }
+
+    boolean removeMachine(String processingPlantID, String machineName) {
+        return processingPlants.get(processingPlantID).removeMachine(machineName);
+    }
+
+    boolean removeMachine(String machineName) {
+        return THEPLANT.removeMachine(machineName);
+    }
+
 }

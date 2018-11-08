@@ -14,14 +14,25 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     private int orderID;
     private boolean status;
 
-
-
     public ProductionOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
         this.amount = amount;
         this.productType = productType;
         this.earliestDeliveryDate = earliestDeliveryDate;
         this.latestDeliveryDate = latestDeliveryDate;
         this.priority = priority;
+        this.status = false;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     @Override
@@ -51,17 +62,15 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
 
     @Override
     public boolean getStatus() {
-        return false;
+        return this.status;
     }
 
     @Override
     public int getOrderID() {
-        return 0;
+        return this.orderID;
     }
 
-    public int getInternalPriority()
-    {
-
+    public int getInternalPriority(){
         return priority;
     }
 
