@@ -133,7 +133,7 @@ public class SQLCommunication {
         pStatement.setString(1,this.machineID);
         pStatement.execute();
 
-        this.sqlModule.InsertIntoBatch_log(batchID, this.machineID,this.orderID);
+        this.sqlModule.InsertIntoBatch_log(this.batchID, this.machineID,this.orderID);
     }
 
     @When("^retrieving a batchlog entry with batchID -(\\d+)$")
@@ -297,7 +297,7 @@ public class SQLCommunication {
         pStatement.setString(1,this.machineID);
         pStatement.execute();
 
-        this.sqlModule.logDefectives(this.machineID, batchDefective, productsInBatch, machineSpeed, productType);
+        this.sqlModule.logDefectives(this.machineID, numberOfDefectives, productsInBatch, machineSpeed, productType);
     }
 
     @Then("^the date is correctly inserted into the database$")
@@ -306,12 +306,13 @@ public class SQLCommunication {
         pStatement.setString(1,this.machineID);
         ResultSet results = pStatement.executeQuery();
 
+        results.next();
         assertEquals(this.machineID,results.getString("machineid"));
         assertEquals(this.numberOfDefectives,results.getInt("numberofdefective"));
         assertEquals(this.productsInBatch,results.getFloat("productsinbatch"),0);
         assertEquals(this.machineSpeed,results.getFloat("machinespeed"),0);
 
-        ProductTypeEnum type = ProductTypeEnum.get(results.getString("ProductType"));
+        ProductTypeEnum type = ProductTypeEnum.get(results.getString("Product"));
         assertEquals(this.productType,type);
     }
 }
