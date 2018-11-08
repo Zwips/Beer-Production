@@ -198,6 +198,4 @@ public class SQLOrders {
         assertEquals(this.orderID,this.order.getOrderID());
         assertTrue(this.order.getStatus());
     }
-
-
 }

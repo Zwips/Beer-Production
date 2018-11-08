@@ -21,7 +21,7 @@ public class HumidityByMachineRetriever {
     public HumidityByMachineRetriever() {
         this.selections = "valuepercent, timeofreading";
         this.tables = "humidity";
-        this.conditions = "machineID = ? AND date < ?"; //TODO eller skulle det være den anden vej?
+        this.conditions = "machineID = ? AND date > ?"; //TODO eller skulle det være den anden vej?
 
         this.connection = new DatabaseConnector().OpenConnection();
     }

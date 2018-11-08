@@ -19,7 +19,7 @@ public class TemperatureByMachineRetriever {
     public TemperatureByMachineRetriever() {
         this.selections = "valuecelcius, timeofreading";
         this.tables = "temperature";
-        this.conditions = "machineID = ? AND date < ?"; //TODO eller skulle det være den anden vej?
+        this.conditions = "machineID = ? AND date > ?"; //TODO eller skulle det være den anden vej?
 
         this.connection = new DatabaseConnector().OpenConnection();
     }

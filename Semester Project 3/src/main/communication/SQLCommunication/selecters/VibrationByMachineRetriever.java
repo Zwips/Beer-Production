@@ -21,7 +21,7 @@ public class VibrationByMachineRetriever {
     public VibrationByMachineRetriever() {
         this.selections = "valuepbs, timeofreading";
         this.tables = "vibration";
-        this.conditions = "machineID = ? AND date < ?"; //TODO eller skulle det være den anden vej?
+        this.conditions = "machineID = ? AND date > ?"; //TODO eller skulle det være den anden vej?
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
