@@ -133,7 +133,7 @@ public class SQLCommunication {
         pStatement.setString(1,this.machineID);
         pStatement.execute();
 
-        this.sqlModule.InsertIntoBatch_log(batchID, this.machineID,this.orderID);
+        this.sqlModule.InsertIntoBatch_log(this.batchID, this.machineID,this.orderID);
     }
 
     @When("^retrieving a batchlog entry with batchID -(\\d+)$")
@@ -306,6 +306,7 @@ public class SQLCommunication {
         pStatement.setString(1,this.machineID);
         ResultSet results = pStatement.executeQuery();
 
+        results.next();
         assertEquals(this.machineID,results.getString("machineid"));
         assertEquals(this.numberOfDefectives,results.getInt("numberofdefective"));
         assertEquals(this.productsInBatch,results.getFloat("productsinbatch"),0);
