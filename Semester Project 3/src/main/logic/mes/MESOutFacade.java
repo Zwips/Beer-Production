@@ -2,7 +2,6 @@ package logic.mes;
 
 import Acquantiance.ICommunicationFacade;
 import Acquantiance.ProductTypeEnum;
-
 import java.util.Date;
 
 public class MESOutFacade {
@@ -21,6 +20,7 @@ public class MESOutFacade {
         return MESOutFacade.instance;
     }
 
+
     public void injectCommunicationFacade(ICommunicationFacade communicationFacade){
         this.communicationFacade = communicationFacade;
     }
@@ -29,6 +29,21 @@ public class MESOutFacade {
         communicationFacade.logDefectives(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
     }
 
+    public void SendStopEmail(String machineName){
+        communicationFacade.SendStopEmail(machineName);
+    }
+
+    public void SendInventoryEmail(String machineName) {communicationFacade.SendInventoryEmail(machineName);
+    }
+
+    public void SendAbortEmail(String machineName) { communicationFacade.SendAbortEMail(machineName);
+    }
+    public void SendMaintenenceEmail(String machineName) {
+        communicationFacade.SendMaintenenceEmail(machineName);
+    }
+
+    public void SendPowerlossEmail(String machineName){  communicationFacade.SendPowerLossEmail(machineName);
+    }
     public void logTemperature(float value, Date timestamp, int batchID) {
 
     }
@@ -40,5 +55,6 @@ public class MESOutFacade {
     public void logHumidity(float value, Date timestamp, int batchID){
 
     }
+
 
 }

@@ -1,19 +1,15 @@
 package logic.mes;
 
 import Acquantiance.IDataChangeCatcher;
-import communication.MailCommunication.*;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 
 public class MachineStopReasonIdReporter implements IDataChangeCatcher {
 
 
-    AbortEmail am = new AbortEmail();
-    InventoryEmail ie = new InventoryEmail();
-    MaintenenceEmail me = new MaintenenceEmail();
-    PowerLossEmail pe = new PowerLossEmail();
-    StopEmail se = new StopEmail();
+
     private Machine machine;
+
 
     public MachineStopReasonIdReporter(Machine machine) {
         this.machine = machine;
@@ -25,22 +21,22 @@ public class MachineStopReasonIdReporter implements IDataChangeCatcher {
 
     switch (value){
         case 10:
-            ie.SendInventoryEMail();
+            MESOutFacade.getInstance().SendInventoryEmail(machine.getMachineID());
             break;
         case 11:
-            me.SendMaintenenceEMail();
+            MESOutFacade.getInstance().SendMaintenenceEmail(machine.getMachineID());
             //
             break;
         case 12:
-            se.SendStopEMail();
+            MESOutFacade.getInstance().SendStopEmail(machine.getMachineID());
             //
             break;
         case 13:
-            pe.SendPowerLossEmail();
+            MESOutFacade.getInstance().SendPowerlossEmail(machine.getMachineID());
             //
             break;
         case 14:
-            am.SendAbortEMail();
+            MESOutFacade.getInstance().SendAbortEmail(machine.getMachineID());
             //
             break;
 

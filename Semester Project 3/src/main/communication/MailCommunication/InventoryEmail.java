@@ -18,11 +18,11 @@ public class InventoryEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date;
 
 
 
-	public void SendInventoryEMail() {
+	public void SendInventoryEMail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +50,7 @@ public class InventoryEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid inventory is empty");
+			message.setText(date+" "+ machineName+" "+"has stopped because the inventory is empty");
 
 			Transport.send(message);
 

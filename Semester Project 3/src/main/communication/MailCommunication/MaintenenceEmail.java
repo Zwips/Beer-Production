@@ -18,12 +18,12 @@ public class MaintenenceEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date;
 
 
 
 
-	public void SendMaintenenceEMail() {
+	public void SendMaintenenceEMail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -51,7 +51,7 @@ public class MaintenenceEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+ " maintenence needed");
+			message.setText(date+" "+ machineName+" "+"has stopped because maintenance is needed");
 
 			Transport.send(message);
 

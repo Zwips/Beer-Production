@@ -18,11 +18,10 @@ public class StopEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date;
 
 
-
-	public void SendStopEMail() {
+	public void SendStopEMail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +49,7 @@ public class StopEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid has been manually stopped");
+			message.setText(date+" "+ machineName+" "+"has been manually stopped");
 
 			Transport.send(message);
 
