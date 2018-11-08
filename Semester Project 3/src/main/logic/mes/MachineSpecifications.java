@@ -9,7 +9,7 @@ public class MachineSpecifications {
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
 
-    MachineSpecifications(){
+    public MachineSpecifications(){
         commandNumbers = new HashMap<String, Integer>();
         commandNumbers.put("",0);
         commandNumbers.put("Reset",1);
@@ -72,7 +72,7 @@ public class MachineSpecifications {
         }
     }
 
-    float getProductTypeCode(ProductTypeEnum productType){
+    public float getProductTypeCode(ProductTypeEnum productType){
         switch (productType) {
             case PILSNER:
                 return 0;
