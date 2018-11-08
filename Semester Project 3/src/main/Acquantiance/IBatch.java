@@ -1,5 +1,6 @@
 package Acquantiance;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public interface IBatch {
     int getTotalProduced();
     int getTotalDiscarded();
     Map getAmountOfTimeInDifferentStates();
-    Map getTemperatures();
-    Map getHumidity();
-    Map getVibrations();
+    Map<Date,Float> getTemperatures();
+    Map<Date,Float> getHumidity();
+    Map<Date,Float> getVibrations();
 }
