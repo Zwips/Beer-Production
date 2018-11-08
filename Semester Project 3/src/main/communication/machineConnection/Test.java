@@ -19,7 +19,7 @@ public class Test {
     static MachineSpecifications specs = new MachineSpecifications();
 
     private static MachineConnection connection = new MachineConnection("192.168.1.2", "sdu","1234");
-    //private static MachineConnection connection = new MachineConnection("127.0.0.1:4840", "sdu","1234");
+    //private static MachineConnection connection = new MachineConnection("10.112.254.165", "sdu","1234");
 
     public Test() throws FileNotFoundException {
     }
