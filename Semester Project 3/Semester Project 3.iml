@@ -25,5 +25,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" name="javaee" level="project" />
   </component>
 </module>

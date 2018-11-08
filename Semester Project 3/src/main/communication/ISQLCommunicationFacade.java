@@ -9,9 +9,9 @@ import java.util.Map;
 public interface ISQLCommunicationFacade {
 
     IBatch selectFromBatch(int batchID);
-    Map selectFromTemperature(String machineID, Date dateFrom);
-    Map selectFromHumidity(String machineID, Date dateFrom);
-    Map selectFromVibration(String machineID, Date dateFrom);
+    Map<Date,Float> selectFromTemperature(String machineID, Date dateFrom);
+    Map<Date,Float> selectFromHumidity(String machineID, Date dateFrom);
+    Map<Date,Float> selectFromVibration(String machineID, Date dateFrom);
 
     IBatchLog getBatchLogByBatchID(int batchID);
     List<IBatchLog> getBatchLogByMachineID(String machineID);
@@ -28,7 +28,6 @@ public interface ISQLCommunicationFacade {
     void logTemperature(float value, Date timestamp, int batchID);
     void logVibration(float value, Date timestamp, int batchID);
     void logHumidity(float value, Date timestamp, int batchID);
-
     void logOrder(IProductionOrder order);
 
     }

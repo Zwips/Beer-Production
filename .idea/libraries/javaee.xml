@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="javaee">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/Semester Project 3/javaee.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Semester Project 3/mail.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
