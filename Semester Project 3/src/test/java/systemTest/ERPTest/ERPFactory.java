@@ -19,12 +19,12 @@ public class ERPFactory {
 
     }
 
-    @When("^there is no factory with the name TestFactory$")
+    @Given("^there is no factory with the name TestFactory$")
     public void thereIsNoFactoryWithTheNameTestFactory() throws Throwable {
         erp.removeProcessingPlant("TestFactory");
     }
 
-    @And("^Adding a factory with the name TestFactory$")
+    @When("^Adding a factory with the name TestFactory$")
     public void addingAFactoryWithTheNameTestFactory() throws Throwable {
         erp.addProcessingPlant("TestFactory");
     }
@@ -35,12 +35,12 @@ public class ERPFactory {
 
     }
 
-    @When("^there is a factory with the name TestFactory$")
+    @Given("^there is a factory with the name TestFactory$")
     public void thereIsAFactoryWithTheNameTestFactory() throws Throwable {
         erp.addProcessingPlant("TestFactory");
     }
 
-    @And("^removing a factory with name the TestFactory$")
+    @When("^removing a factory with name the TestFactory$")
     public void removingAFactoryWithNameTheTestFactory() throws Throwable {
         erp.removeProcessingPlant("TestFactory");;
     }

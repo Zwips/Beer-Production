@@ -35,6 +35,7 @@ public class ERPMachine {
         erp.addProcessingPlant("TestFactory");
     }
 
+    @SuppressWarnings("Duplicates")
     @Given("^The simulation is started$")
     public void theSimulationIsStarted() {
         File file = new File("Simulation/start.bat");
@@ -47,9 +48,7 @@ public class ERPMachine {
 
             process.destroy();
             process.destroyForcibly();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -60,15 +59,15 @@ public class ERPMachine {
         }
     }
 
-    @When("^there is not already a machine the name TestMachine$")
-    public void thereIsNotAlreadyAMachineTheNameTestMachine() throws Throwable {
+    @Given("^there is not already a machine named TestMachine$")
+    public void thereIsNotAlreadyAMachineNamedTestMachine() throws Throwable {
         if(erp.checkForMachine("TestMachine")) {
             erp.removeMachine("TestFactory","TestMachine");
         }
     }
 
-    @And("^adding a machine with name the TestMachine$")
-    public void addingAMachineWithNameTheTestMachine() throws Throwable {
+    @When("^adding a machine named the TestMachine$")
+    public void addingAMachineNamedTheTestMachine() throws Throwable {
         erp.addMachine("TestFactory", "TestMachine","127.0.0.1:4840", "sdu","1234" );
     }
 
@@ -77,14 +76,14 @@ public class ERPMachine {
         assertEquals(true,erp.checkForMachine("TestMachine"));
     }
 
-    @When("^there is a machine with name the TestMachine$")
-    public void thereIsAMachineWithNameTheTestMachine() throws Throwable {
+    @Given("^there is a machine named the TestMachine$")
+    public void thereIsAMachineNamedTheTestMachine() throws Throwable {
         if(!erp.checkForMachine("TestMachine"))
         erp.addMachine("TestFactory", "TestMachine","127.0.0.1:4840", "sdu","1234" );
     }
 
-    @And("^removing a machine with name the TestMachine$")
-    public void removingAMachineWithNameTheTestMachine() throws Throwable {
+    @When("^removing a machine named the TestMachine$")
+    public void removingAMachineNamedTheTestMachine() throws Throwable {
         erp.removeMachine("TestFactory","TestMachine");
     }
 
