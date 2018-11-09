@@ -60,7 +60,7 @@ public class MESOutFacade {
         return communicationFacade.getNextOrderID();
     }
     int getNextBatchID(){
-        return communicationFacade.getNextOrderID();
+        return communicationFacade.getNextBatchID();
     }
 
 }

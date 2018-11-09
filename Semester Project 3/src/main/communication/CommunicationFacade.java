@@ -137,7 +137,7 @@ public class CommunicationFacade implements ICommunicationFacade {
 
     @Override
     public int getNextBatchID() {
-        return sqlFacade.getNextOrderID();
+        return sqlFacade.getNextBatchID();
     }
 
 
