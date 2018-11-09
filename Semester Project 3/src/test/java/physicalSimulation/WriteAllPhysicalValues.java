@@ -29,7 +29,7 @@ public class WriteAllPhysicalValues {
 
     @Given("^A machine connection is connected to the physical simulation$")
     public void aMachineConnectionIsConnectedToThePhysicalSimulation() throws Throwable {
-        this.connection = new MachineConnection("192.168.1.2:4840","sdu","1234");
+        this.connection = new MachineConnection("10.112.254.165","sdu","1234");
     }
 
     @Given("^The amount to be produced is (\\d+) , physical simulation$")
@@ -45,7 +45,7 @@ public class WriteAllPhysicalValues {
     @Then("^the simulation have the amount to be produced set to (\\d+) , physical simulation$")
     public void theSimulationHaveTheAmountToBeProducedSetToPhysicalSimulation(float amount) throws Throwable {
         Connection con = new Connection();
-        UaClient client = con.getConnection("192.168.1.2:4840", "1234", "sdu");
+        UaClient client = con.getConnection("10.112.254.165", "1234", "sdu");
 
         Amount batchAmount = new Amount("::Program:Cube.Command.");
         float nextAmount = batchAmount.readAmountInNextBatch(client);
@@ -67,7 +67,7 @@ public class WriteAllPhysicalValues {
     @Then("^the simulation have the ID for the next batch set to (\\d+) , physical simulation$")
     public void theSimulationHaveTheIDForTheNextBatchSetToPhysicalSimulation(float id) throws Throwable {
         Connection con = new Connection();
-        UaClient client = con.getConnection("192.168.1.2:4840", "1234", "sdu");
+        UaClient client = con.getConnection("10.112.254.165", "1234", "sdu");
 
         BatchID batchID = new BatchID("::Program:Cube.Command.");
         float nextBatchID = batchID.readBatchIDForNextBatch(client);
@@ -89,7 +89,7 @@ public class WriteAllPhysicalValues {
     @Then("^the simulation have the machine speed set to (\\d+) , physical simulation$")
     public void theSimulationHaveTheMachineSpeedSetToPhysicalSimulation(float speed) throws Throwable {
         Connection con = new Connection();
-        UaClient client = con.getConnection("192.168.1.2:4840", "1234", "sdu");
+        UaClient client = con.getConnection("10.112.254.165", "1234", "sdu");
 
         MachineSpeed machineSpeed = new MachineSpeed("::Program:Cube.Command.");
         float nextMachineSpeed = machineSpeed.readMachineSpeed(client);
@@ -111,7 +111,7 @@ public class WriteAllPhysicalValues {
     @Then("^the simulation have the product ID for the next batch set to (\\d+) , physical simulation$")
     public void theSimulationHaveTheProductIDForTheNextBatchSetToPhysicalSimulation(float id) throws Throwable {
         Connection con = new Connection();
-        UaClient client = con.getConnection("192.168.1.2:4840", "1234", "sdu");
+        UaClient client = con.getConnection("10.112.254.165", "1234", "sdu");
 
         ProductID productID = new ProductID("::Program:Cube.Command.");
         float nextProductID = productID.readProductIDForNextBatch(client);
@@ -135,7 +135,7 @@ public class WriteAllPhysicalValues {
     @Then("^the simulation is in a different state , physical simulation$")
     public void theSimulationIsInADifferentStatePhysicalSimulation() throws Throwable {
         Connection con = new Connection();
-        UaClient client = con.getConnection("192.168.1.2:4840", "1234", "sdu");
+        UaClient client = con.getConnection("10.112.254.165", "1234", "sdu");
 
         CurrentState stateNode = new CurrentState("::Program:Cube.Status.");
 
