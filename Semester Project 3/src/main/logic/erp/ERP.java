@@ -62,4 +62,7 @@ public class ERP {
         return THEPLANT.removeMachine(machineName);
     }
 
+    public Queue<ProductionOrder> getProductionOrderQueue() {
+        return this.productionOrderQueue;
+    }
 }
