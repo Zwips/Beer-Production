@@ -13,5 +13,3 @@ Feature: Add or remove a factory from an ERP system
       When there is a factory with the name TestFactory
       And removing a factory with name the TestFactory
       Then the factory is removed
-
-  }
