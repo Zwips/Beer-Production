@@ -229,6 +229,10 @@ public class FXMLDocumentController implements Initializable  {
 
         GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
     }
+    @FXML
+    void removeMachineActionHandler(ActionEvent event) {
+
+    }
 
 
     public void TypeBtnHandleAction(ActionEvent actionEvent) {
