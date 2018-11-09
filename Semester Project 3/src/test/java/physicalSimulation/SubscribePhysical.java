@@ -18,7 +18,7 @@ public class SubscribePhysical {
 
     @Given("^a connection to the physical simulation$")
     public void aConnectionToThePhysicalSimulation() throws Throwable {
-        this.connection = new MachineConnection("192.168.1.2:4840","sdu","1234");
+        this.connection = new MachineConnection("10.112.254.165","sdu","1234");
     }
 
     @Given("^The physical simulation is in the aborted state$")
