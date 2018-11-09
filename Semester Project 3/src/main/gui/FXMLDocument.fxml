@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -183,6 +184,7 @@
                         <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
                         <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" onEditStart="#loadOrderInformationActionHandler" prefHeight="200.0" prefWidth="200.0" />
                         <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Button" />
+                        <DatePicker layoutX="205.0" layoutY="78.0" />
                             </children>
                         </AnchorPane>
                     </content>

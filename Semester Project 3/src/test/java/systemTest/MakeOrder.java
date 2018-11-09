@@ -10,6 +10,7 @@ import logic.erp.ERP;
 import logic.erp.ProductionOrder;
 
 import java.util.Date;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -49,16 +50,18 @@ public class MakeOrder {
 
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
-        Queue<IProductionOrder> pQueue = erp.getProductionOrderQueue();
+        List<IProductionOrder> pQueue = erp.getProductionOrderQueue();
         boolean correctOrder = false;
-        while (!pQueue.isEmpty()) {
-            IProductionOrder pO = pQueue.poll();
 
-            if (pO.getAmount() == this.amount && pO.getProductType() == this.productType && pO.getEarliestDeliveryDate() == this.earliestDeliveryDate && pO.getLatestDeliveryDate() == this.latestDeliveryDate && pO.getPriority() == this.priority) {
-                correctOrder = true;
-                break;
+            for (IProductionOrder order: pQueue) {
+
+                if (order.getAmount() == this.amount && order.getProductType() == this.productType && order.getEarliestDeliveryDate() == this.earliestDeliveryDate && order.getLatestDeliveryDate() == this.latestDeliveryDate && order.getPriority() == this.priority) {
+                    correctOrder = true;
+                    break;
+                }
+
             }
-        }
+
         assertTrue(correctOrder);
     }
 }

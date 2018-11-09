@@ -5,7 +5,7 @@ import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
-import java.util.Queue;
+import java.util.List;
 
 public class ERPFacade implements IERPFacade {
     ERP erp = new ERP();
@@ -46,7 +46,7 @@ public class ERPFacade implements IERPFacade {
     }
 
     @Override
-    public Queue<IProductionOrder> getProductionOrderQueue() {
+    public List<IProductionOrder> getProductionOrderQueue() {
       return this.erp.getProductionOrderQueue();
     }
 
