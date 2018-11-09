@@ -8,13 +8,14 @@ import java.util.*;
 public class ERP {
     private Queue<IProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
-    private final ProcessingPlant THEPLANT;
+
 
     public ERP()
     {
         productionOrderQueue = new PriorityQueue<>();
         processingPlants = new HashMap<>();
-        THEPLANT = new ProcessingPlant("THEPLANT");
+        ProcessingPlant plant = new ProcessingPlant("THEPLANT");
+        processingPlants.put("THEPLANT",plant);
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
@@ -44,7 +45,7 @@ public class ERP {
     }
 
     public boolean addMachine(String machineName, String IPAddress, String userID, String password){
-        return THEPLANT.addMachine(machineName, IPAddress, userID, password);
+        return processingPlants.get("THEPLANT").addMachine(machineName, IPAddress, userID, password);
     }
 
 
@@ -61,7 +62,7 @@ public class ERP {
     }
 
     public boolean removeMachine(String machineName) {
-        return THEPLANT.removeMachine(machineName);
+        return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
     public Queue<IProductionOrder> getProductionOrderQueue() {
