@@ -17,10 +17,10 @@ public class Starter {
         GUIOutFacade guiOutFacade = GUIOutFacade.getInstance();
 
         CommunicationFacade communicationFacade = new CommunicationFacade();
-        ERPFacade erpFacade = new ERPFacade();
         MESFacade mesFacade = new MESFacade();
-
         erpOutFacade.injectCommunicationFacade(mesFacade);
+
+        ERPFacade erpFacade = new ERPFacade();
         mesOutFacade.injectCommunicationFacade(communicationFacade);
         guiOutFacade.injectCommunicationFacade(erpFacade);
 
