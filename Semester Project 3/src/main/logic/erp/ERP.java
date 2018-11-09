@@ -8,17 +8,20 @@ import java.util.*;
 public class ERP {
     private Queue<IProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
-    private final ProcessingPlant THEPLANT;
+    private int orderID;
 
     public ERP()
     {
         productionOrderQueue = new PriorityQueue<>();
         processingPlants = new HashMap<>();
-        THEPLANT = new ProcessingPlant("THEPLANT");
+        ProcessingPlant plant = new ProcessingPlant("THEPLANT");
+        processingPlants.put("THEPLANT",plant);
+        orderID = 0; //TODO add funtionality for finding next orderID in database.
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+        order.setOrderID(orderID++);
         return productionOrderQueue.add(order);
 
     }
@@ -44,7 +47,7 @@ public class ERP {
     }
 
     public boolean addMachine(String machineName, String IPAddress, String userID, String password){
-        return THEPLANT.addMachine(machineName, IPAddress, userID, password);
+        return processingPlants.get("THEPLANT").addMachine(machineName, IPAddress, userID, password);
     }
 
 
@@ -61,7 +64,7 @@ public class ERP {
     }
 
     public boolean removeMachine(String machineName) {
-        return THEPLANT.removeMachine(machineName);
+        return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
     public Queue<IProductionOrder> getProductionOrderQueue() {

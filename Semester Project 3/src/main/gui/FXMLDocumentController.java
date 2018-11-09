@@ -240,7 +240,14 @@ public class FXMLDocumentController implements Initializable  {
     }
     @FXML
     void removeMachineActionHandler(ActionEvent event) {
-
+        if(!GUIOutFacade.getInstance().removeMachine(machineNameTextField.getText()))
+        {
+            machineNameTextField.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        }
+        else
+        {
+            machineNameTextField.setStyle("-fx-border-color: #00000;-fx-border-width: 3;");
+        }
     }
 
 
