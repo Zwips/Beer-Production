@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -29,7 +30,7 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-                <Tab text="Add Machine">
+                <Tab text="Add/Remove Machine">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -68,12 +69,12 @@
                         </Label>
                         <TextField fx:id="portNumberTextField" layoutX="192.0" layoutY="509.0" prefHeight="35.0" prefWidth="185.0" />
                         <TextField fx:id="userNameTextField" layoutX="162.0" layoutY="87.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Button fx:id="addMachineBtn" layoutX="618.0" layoutY="513.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
+                        <Button fx:id="addMachineBtn" layoutX="584.0" layoutY="513.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="39.0" prefWidth="164.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="205.0" fitWidth="255.0" layoutX="509.0" layoutY="54.0" pickOnBounds="true">
+                        <ImageView fitHeight="113.0" fitWidth="137.0" layoutX="632.0" layoutY="44.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../../../../../Desktop/Unavngivet.png" />
                            </image>
@@ -91,6 +92,11 @@
                         </Label>
                         <Line endX="666.0" layoutX="112.0" layoutY="306.0" startX="-110.0" strokeWidth="3.0" />
                         <PasswordField fx:id="passWordTextField" layoutX="162.0" layoutY="161.0" prefHeight="36.0" prefWidth="182.0" />
+                        <Button fx:id="removeMachineBtn1" layoutX="583.0" layoutY="449.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="39.0" prefWidth="166.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove Machine">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
                     </content>
                 </Tab>
@@ -163,12 +169,12 @@
                            </image>
                         </ImageView>
                         <Label fx:id="orderSucceededLabel" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
-                        <Label fx:id="typeLabel1" layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
+                        <Label layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="typeLabel11" layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
+                        <Label layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -179,6 +185,102 @@
                         </AnchorPane>
                     </content>
                 </Tab>
+            <Tab text="Make Order">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="258.0" layoutY="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="772.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="320.0" layoutX="-1.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="774.0" />
+                        <RadioButton fx:id="pilsnerRadioBtn1" layoutX="158.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Pilsner">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="TypeToggleGroup1" />
+                           </toggleGroup>
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="wheatRadioBtn1" layoutX="20.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="stoutRadioBtn1" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Stout" textFill="#001f3f" toggleGroup="$TypeToggleGroup1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="aleRadioBtn1" layoutX="158.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Ale" textFill="#001f3f" toggleGroup="$TypeToggleGroup1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="alchoholFreeRadioBtn1" layoutX="158.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="iPARadioBtn1" layoutX="20.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="IPA" textFill="#001f3f" toggleGroup="$TypeToggleGroup1">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <Label fx:id="typeLabel1" layoutX="16.0" layoutY="75.0" prefHeight="31.0" prefWidth="128.0" text="Product type">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="orderAmountTextField1" layoutX="186.0" layoutY="260.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="145.0" promptText="Required format: Integer" />
+                        <Label fx:id="orderAmountLabel1" layoutX="16.0" layoutY="260.0" text="Product amount" textFill="#001f3f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="priorityChoiceBox1" layoutX="200.0" layoutY="401.0" prefHeight="25.0" prefWidth="148.0" />
+                        <Label fx:id="priorityLabel1" layoutX="24.0" layoutY="401.0" prefHeight="27.0" prefWidth="77.0" text="Priority">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="sendOrderBtn1" layoutX="634.0" layoutY="508.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Send Order" textFill="#001f3f">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="earliestDeliveryDateTextField1" layoutX="200.0" layoutY="514.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <TextField fx:id="latestDeliveryDateTextField11" layoutX="200.0" layoutY="458.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <Label layoutX="24.0" layoutY="514.0" text="Latest delivery ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="24.0" layoutY="458.0" text="Earliest delivery">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="89.0" fitWidth="123.0" layoutX="647.0" layoutY="54.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../../../../Desktop/Unavngivet.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="orderSucceededLabel1" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
+                        <Label fx:id="typeLabel11" layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="typeLabel111" layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
+                        <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
+                        <ListView fx:id="ordersListView" editable="true" layoutX="446.0" layoutY="80.0" prefHeight="200.0" prefWidth="188.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
             </tabs>
          <opaqueInsets>
             <Insets />

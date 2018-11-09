@@ -9,7 +9,6 @@ import Acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 
@@ -121,6 +122,8 @@ public class FXMLDocumentController implements Initializable  {
     private TextField latestDeliveryDateTextField1;
     @FXML
     private Label orderSucceededLabel;
+    @FXML
+    private ListView<ProductionOrder> ordersListView;
 
     @FXML
     @Override
@@ -212,6 +215,7 @@ public class FXMLDocumentController implements Initializable  {
                 orderSucceededLabel.setText("Order sent");
 
             }
+
         }
 
 
@@ -227,7 +231,12 @@ public class FXMLDocumentController implements Initializable  {
     }
 
 
+    public void TypeBtnHandleAction(ActionEvent actionEvent) {
     }
+
+    public void MouseClickedActionAction(MouseEvent mouseEvent) {
+    }
+}
 
 
 
