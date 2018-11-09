@@ -107,8 +107,6 @@ public class Test {
     private void printToFile() throws IOException, ServiceException, StatusException {
         ISQLCommunicationFacade sql = new SQLCommunicationFacade();
         sql.logDefectives("speedTest", connection.readNumberOfDefectiveProducts(), connection.readProductsInBatch(), machineSpeed, productType);
-
-
     }
 }
 
