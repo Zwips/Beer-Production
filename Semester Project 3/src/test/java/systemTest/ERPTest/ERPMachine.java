@@ -62,7 +62,7 @@ public class ERPMachine {
 
     @When("^there is not already a machine the name TestMachine$")
     public void thereIsNotAlreadyAMachineTheNameTestMachine() throws Throwable {
-        if(erp.checkForMachine("TestFactory","TestMachine")) {
+        if(erp.checkForMachine("TestMachine")) {
             erp.removeMachine("TestFactory","TestMachine");
         }
     }
@@ -74,12 +74,12 @@ public class ERPMachine {
 
     @Then("^the machine is added$")
     public void theMachineIsAdded() throws Throwable {
-        assertEquals(true,erp.checkForMachine("TestFactory", "TestMachine"));
+        assertEquals(true,erp.checkForMachine("TestMachine"));
     }
 
     @When("^there is a machine with name the TestMachine$")
     public void thereIsAMachineWithNameTheTestMachine() throws Throwable {
-        if(!erp.checkForMachine("TestFactory","TestMachine"))
+        if(!erp.checkForMachine("TestMachine"))
         erp.addMachine("TestFactory", "TestMachine","127.0.0.1:4840", "sdu","1234" );
     }
 
@@ -90,7 +90,7 @@ public class ERPMachine {
 
     @Then("^the machine is removed$")
     public void theMachineIsRemoved() throws Throwable {
-        assertEquals(false, erp.checkForMachine("TestFactory","TestMachine"));
+        assertEquals(false, erp.checkForMachine("TestMachine"));
     }
 
     void testGlue(){

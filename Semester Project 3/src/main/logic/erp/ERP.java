@@ -46,16 +46,17 @@ public class ERP {
         return THEPLANT.addMachine(machineName, IPAddress, userID, password);
     }
 
-    public boolean checkForMachine(String processingPlantID, String machineName){
-        return processingPlants.get(processingPlantID).checkForMachine(machineName);
-    }
+
     public boolean checkForMachine(String machineName)
     {
-        return THEPLANT.checkForMachine(machineName);
-    }
-
-    public boolean removeMachine(String processingPlantID, String machineName) {
-        return processingPlants.get(processingPlantID).removeMachine(machineName);
+        Set<Map.Entry<String, ProcessingPlant>> processingPlantSet = processingPlants.entrySet();
+        for (Map.Entry<String, ProcessingPlant> entrySet : processingPlantSet) {
+            if(entrySet.getValue().checkForMachine(machineName))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean removeMachine(String machineName) {
@@ -64,5 +65,9 @@ public class ERP {
 
     public Queue<ProductionOrder> getProductionOrderQueue() {
         return this.productionOrderQueue;
+    }
+
+    public boolean removeMachine(String processingPlantID, String machineName) {
+        return processingPlants.get(processingPlantID).removeMachine(machineName);
     }
 }

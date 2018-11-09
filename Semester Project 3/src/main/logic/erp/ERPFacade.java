@@ -28,5 +28,20 @@ public class ERPFacade implements IERPFacade {
         erp.addProcessingPlant(plantID);
     }
 
+    @Override
+    public void removeProcessingPlant(String plantID) {
+        erp.removeProcessingPlant(plantID);
+    }
+
+    @Override
+    public boolean removeMachine(String processingPantID, String machineName) {
+        return erp.removeMachine(processingPantID, machineName);
+    }
+
+    @Override
+    public boolean removeMachine(String machineName) {
+        return erp.removeMachine(machineName);
+    }
+
 
 }
