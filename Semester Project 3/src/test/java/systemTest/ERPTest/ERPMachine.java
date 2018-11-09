@@ -7,6 +7,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.erp.ERP;
 
+import java.io.File;
+import java.io.IOException;
+
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 
 public class ERPMachine {
@@ -19,7 +23,32 @@ public class ERPMachine {
 
     @Given("^a Factory in the ERP system with the name TestFactory exists$")
     public void aFactoryInTheERPSystemWithTheNameTestFactoryExists() throws Throwable {
-       erp.addProcessingPlant("TestFactory");
+        erp.addProcessingPlant("TestFactory");
+    }
+
+    @Given("^The simulation is started$")
+    public void theSimulationIsStarted() {
+        File file = new File("Simulation/start.bat");
+        Process process;
+
+        try {String[] command = { "cmd.exe", "/C", "Start", file.getAbsolutePath() };
+            Runtime runtime = Runtime.getRuntime();
+            process  = runtime.exec(command);
+            process.waitFor();
+
+            process.destroy();
+            process.destroyForcibly();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @When("^there is not already a machine the name TestMachine$")
