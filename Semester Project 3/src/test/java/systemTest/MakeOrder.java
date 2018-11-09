@@ -1,5 +1,6 @@
 package systemTest;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -48,10 +49,10 @@ public class MakeOrder {
 
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
-        Queue<ProductionOrder> pQueue = erp.getProductionOrderQueue();
+        Queue<IProductionOrder> pQueue = erp.getProductionOrderQueue();
         boolean correctOrder = false;
         while (!pQueue.isEmpty()) {
-            ProductionOrder pO = pQueue.poll();
+            IProductionOrder pO = pQueue.poll();
 
             if (pO.getAmount() == this.amount && pO.getProductType() == this.productType && pO.getEarliestDeliveryDate() == this.earliestDeliveryDate && pO.getLatestDeliveryDate() == this.latestDeliveryDate && pO.getPriority() == this.priority) {
                 correctOrder = true;
