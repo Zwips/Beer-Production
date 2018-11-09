@@ -93,18 +93,19 @@ public class ERPMachine {
         assertEquals(false, erp.checkForMachine("TestMachine"));
     }
 
-    void testGlue(){
+    static void testGlue(){
 
         ERPOutFacade erpOutFacade = ERPOutFacade.getInstance();
         MESOutFacade mesOutFacade = MESOutFacade.getInstance();
         GUIOutFacade guiOutFacade = GUIOutFacade.getInstance();
 
         CommunicationFacade communicationFacade = new CommunicationFacade();
-        ERPFacade erpFacade = new ERPFacade();
-        MESFacade mesFacade = new MESFacade();
-
-        erpOutFacade.injectCommunicationFacade(mesFacade);
         mesOutFacade.injectCommunicationFacade(communicationFacade);
+        MESFacade mesFacade = new MESFacade();
+        erpOutFacade.injectCommunicationFacade(mesFacade);
+
+        ERPFacade erpFacade = new ERPFacade();
         guiOutFacade.injectCommunicationFacade(erpFacade);
+
     }
 }

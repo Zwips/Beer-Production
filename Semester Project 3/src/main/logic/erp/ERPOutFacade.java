@@ -32,5 +32,12 @@ public class ERPOutFacade {
         return machine.isConnected();
     }
 
+    int getNextOrderID(){
+        return mesFacade.getNextOrderID();
+    }
+
+    int getNextBatchID(){
+        return mesFacade.getNextBatchID();
+    }
 
 }

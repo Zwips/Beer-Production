@@ -33,5 +33,6 @@ public interface ICommunicationFacade {
     void SendInventoryEmail(String machineName);
     void SendMaintenenceEmail(String machineName);
     void SendPowerLossEmail(String machineName);
-
+    int getNextOrderID();
+    int getNextBatchID();
 }

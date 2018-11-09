@@ -56,5 +56,11 @@ public class MESOutFacade {
 
     }
 
+    int getNextOrderID(){
+        return communicationFacade.getNextOrderID();
+    }
+    int getNextBatchID(){
+        return communicationFacade.getNextOrderID();
+    }
 
 }

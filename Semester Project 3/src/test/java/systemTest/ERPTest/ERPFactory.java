@@ -14,7 +14,7 @@ public class ERPFactory {
     private ERP erp;
     @Given("^there is an ERP system$")
     public void thereIsAnERPSystem() throws Throwable {
-
+        ERPMachine.testGlue();
         this.erp = new ERP();
 
     }

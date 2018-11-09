@@ -130,5 +130,15 @@ public class CommunicationFacade implements ICommunicationFacade {
         mailFacade.SendPowerLossEmail(machineName);
     }
 
+    @Override
+    public int getNextOrderID() {
+        return sqlFacade.getNextOrderID();
+    }
+
+    @Override
+    public int getNextBatchID() {
+        return sqlFacade.getNextOrderID();
+    }
+
 
 }

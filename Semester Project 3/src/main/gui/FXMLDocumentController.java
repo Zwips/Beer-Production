@@ -257,7 +257,7 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
-    productionOrderListView.setItems(GUIOutFacade.getInstance().
+//    productionOrderListView.setItems(GUIOutFacade.getInstance());
 
     }
 }

@@ -30,4 +30,10 @@ public interface ISQLCommunicationFacade {
     void logHumidity(float value, Date timestamp, int batchID);
     void logOrder(IProductionOrder order);
 
+    int getNextOrderID();
+    int getNextBatchID();
+
+    void deleteOrderByOrderID(int orderID);
+    void deleteBatchLogByBatchID(int BatchID);
+
     }
