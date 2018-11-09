@@ -8,7 +8,7 @@ import java.util.*;
 public class ERP {
     private Queue<IProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
-
+    private int orderID;
 
     public ERP()
     {
@@ -16,10 +16,12 @@ public class ERP {
         processingPlants = new HashMap<>();
         ProcessingPlant plant = new ProcessingPlant("THEPLANT");
         processingPlants.put("THEPLANT",plant);
+        orderID = 0; //TODO add funtionality for finding next orderID in database.
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+        order.setOrderID(orderID++);
         return productionOrderQueue.add(order);
 
     }
