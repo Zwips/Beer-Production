@@ -1,8 +1,12 @@
 
 package communication.machineConnection;
 
+import Acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
+import communication.ISQLCommunicationFacade;
+import communication.SQLCommunication.SQLCommunicationFacade;
+import logic.mes.MachineSpecifications;
 
 import java.io.*;
 
@@ -11,6 +15,8 @@ import static java.lang.Thread.sleep;
 public class Test {
     static int machineSpeed = 575;
     static int numberOfRuns = 0;
+    static ProductTypeEnum productType = ProductTypeEnum.PILSNER;
+    static MachineSpecifications specs = new MachineSpecifications();
 
     private static MachineConnection connection = new MachineConnection("192.168.1.2", "sdu","1234");
     //private static MachineConnection connection = new MachineConnection("127.0.0.1:4840", "sdu","1234");
@@ -53,7 +59,7 @@ public class Test {
         connection.setControlCommand(1);
         sleep(100);
 
-        connection.setProductIDForNextBatch(0);
+        connection.setProductIDForNextBatch(specs.getProductTypeCode(productType));
         sleep(100);
 
         connection.setAmountInNextBatch(200);
@@ -99,15 +105,8 @@ public class Test {
     }
 
     private void printToFile() throws IOException, ServiceException, StatusException {
-        System.out.println("penis");
-
-        File file = new File("DataPilsner.txt");
-        PrintWriter output22 = new PrintWriter(new FileOutputStream(file,true));
-        String strin1 = "" + connection.readNumberOfDefectiveProducts();
-        String strin2 = "" +  machineSpeed;
-        output22.println(strin1+", " +strin2);
-        output22.close();
-
+        ISQLCommunicationFacade sql = new SQLCommunicationFacade();
+        sql.logDefectives("speedTest", connection.readNumberOfDefectiveProducts(), connection.readProductsInBatch(), machineSpeed, productType);
     }
 }
 

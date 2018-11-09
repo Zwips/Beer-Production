@@ -1,6 +1,7 @@
 package communication;
 
 import Acquantiance.*;
+import communication.MailCommunication.MailCommunicationFacede;
 import communication.SQLCommunication.SQLCommunicationFacade;
 
 import java.util.Date;
@@ -10,10 +11,12 @@ import java.util.Map;
 public class CommunicationFacade implements ICommunicationFacade {
 
     private ISQLCommunicationFacade sqlFacade;
+    private IMailCommunicaitonFacade mailFacade;
 
 
     public CommunicationFacade(){
         sqlFacade = new SQLCommunicationFacade(); // skal muligvis flyttes til glue
+        mailFacade = new MailCommunicationFacede(); // skal muligvis flyttes til glue
     }
 
     @Override
@@ -100,4 +103,32 @@ public class CommunicationFacade implements ICommunicationFacade {
     public void logOrder(IProductionOrder order) {
         sqlFacade.logOrder(order);
     }
+
+    @Override
+    public void SendAbortEMail(String machineName) {
+        mailFacade.SendAbortEmail(machineName);
+    }
+
+    @Override
+    public void SendStopEmail(String machineName) {
+        mailFacade.SendStopEmail(machineName);
+
+    }
+
+    @Override
+    public void SendInventoryEmail(String machineName) {
+        mailFacade.SendInventoryEmail(machineName);
+    }
+
+    @Override
+    public void SendMaintenenceEmail(String machineName) {
+        mailFacade.SendMaintenenceEmail(machineName);
+    }
+
+    @Override
+    public void SendPowerLossEmail(String machineName) {
+        mailFacade.SendPowerLossEmail(machineName);
+    }
+
+
 }

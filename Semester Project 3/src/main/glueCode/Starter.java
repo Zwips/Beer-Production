@@ -1,6 +1,7 @@
 package glueCode;
 
 import communication.CommunicationFacade;
+import communication.MailCommunication.MailCommunicationFacede;
 import gui.GUIOutFacade;
 import gui.SemesterProject3;
 import logic.erp.ERPFacade;

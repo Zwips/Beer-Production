@@ -16,8 +16,8 @@ public class BatchLogInserter {
     private Connection connection;
 
     public BatchLogInserter() {
-        this.values = "(?,?)";
-        this.tables = "batch_log(batchid, machineid)";
+        this.values = "(?,?,?)";
+        this.tables = "batch_log(batchid, machineid, orderid)";
         connection = new DatabaseConnector().OpenConnection();
     }
 

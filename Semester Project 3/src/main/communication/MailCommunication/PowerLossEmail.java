@@ -1,4 +1,4 @@
-package communication.OutCommunication;
+package communication.MailCommunication;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,11 +18,11 @@ public class PowerLossEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date = new Date();
 
 
 
-	public void SendPowerLossEmail() {
+	public void SendPowerLossEmail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +50,7 @@ public class PowerLossEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid power loss detected");
+			message.setText(date+" "+ machineName+" "+"has stopped due to power loss");
 
 			Transport.send(message);
 

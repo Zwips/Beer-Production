@@ -21,7 +21,9 @@ public class VibrationByMachineRetriever {
     public VibrationByMachineRetriever() {
         this.selections = "valuepbs, timeofreading";
         this.tables = "vibration";
-        this.conditions = "machineID = ? AND date > ?"; //TODO eller skulle det være den anden vej?
+        this.conditions = "timeofreading > ? AND batchid IN(Select batchID" +
+                " FROM batch_log" +
+                " WHERE machineID = ?)"; //TODO eller skulle det være den anden vej?
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
@@ -29,8 +31,8 @@ public class VibrationByMachineRetriever {
     public Map<Date, Float> getVibrations(String machineID, Timestamp date){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, machineID));
-        wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, date));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.TIMESTAMP, date));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, machineID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
         Map<Date, Float> vibrationMeasurements = new HashMap<>();

@@ -22,36 +22,43 @@ public class ERP {
 
     }
 
-    public Queue<ProductionOrder> getProductionOrderQueue() {
-        return productionOrderQueue;
-    }
-
-    void addProcessingPlant(String plantID){
+    public void addProcessingPlant(String plantID){
         ProcessingPlant plant = new ProcessingPlant(plantID);
         processingPlants.put(plantID, plant);
     }
 
-    boolean addMachine(String processingPantID, String name, String address, String userID, String password){
+    public void removeProcessingPlant(String plantID)
+    {
+        processingPlants.remove(plantID, processingPlants.get(plantID));
+    }
+
+    public boolean checkForProcessingPlant(String plantID){
+        return processingPlants.containsKey(plantID);
+    }
+
+
+
+    public boolean addMachine(String processingPantID, String name, String address, String userID, String password){
         return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
     }
 
-    boolean addMachine(String machineName, String IPAddress, String userID, String password){
+    public boolean addMachine(String machineName, String IPAddress, String userID, String password){
         return THEPLANT.addMachine(machineName, IPAddress, userID, password);
     }
 
-    boolean checkForMachine(String processingPlantID, String machineName){
+    public boolean checkForMachine(String processingPlantID, String machineName){
         return processingPlants.get(processingPlantID).checkForMachine(machineName);
     }
-    boolean checkForMachine(String machineName)
+    public boolean checkForMachine(String machineName)
     {
         return THEPLANT.checkForMachine(machineName);
     }
 
-    boolean removeMachine(String processingPlantID, String machineName) {
+    public boolean removeMachine(String processingPlantID, String machineName) {
         return processingPlants.get(processingPlantID).removeMachine(machineName);
     }
 
-    boolean removeMachine(String machineName) {
+    public boolean removeMachine(String machineName) {
         return THEPLANT.removeMachine(machineName);
     }
 

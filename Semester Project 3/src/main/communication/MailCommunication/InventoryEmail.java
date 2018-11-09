@@ -1,4 +1,4 @@
-package communication.OutCommunication;
+package communication.MailCommunication;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.mail.*;
 import java.util.Properties;
 
-public class StopEmail {
+public class InventoryEmail {
 
 	private String username = "beerproductiontest@gmail.com";
 	private String password = "beer:123";
@@ -18,11 +18,11 @@ public class StopEmail {
 	private String port = "465";
 	private String recipent = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
-	Date date =new Date();
+	private Date date = new Date();
 
 
 
-	public void SendStopEMail() {
+	public void SendInventoryEMail(String machineName) {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.user", "beerproductiontest");
@@ -50,7 +50,7 @@ public class StopEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(recipent));
 			message.setSubject("test test");
-			message.setText(date+"machineid has been manually stopped");
+			message.setText(date+" "+ machineName+" "+"has stopped because the inventory is empty");
 
 			Transport.send(message);
 
