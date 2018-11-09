@@ -1,9 +1,11 @@
 package logic.erp;
 
 import Acquantiance.IERPFacade;
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
+import java.util.Queue;
 
 public class ERPFacade implements IERPFacade {
     ERP erp = new ERP();
@@ -41,6 +43,11 @@ public class ERPFacade implements IERPFacade {
     @Override
     public boolean removeMachine(String machineName) {
         return erp.removeMachine(machineName);
+    }
+
+    @Override
+    public Queue<IProductionOrder> getProductionOrderQueue() {
+      return this.erp.getProductionOrderQueue();
     }
 
 

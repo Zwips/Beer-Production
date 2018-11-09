@@ -1,11 +1,12 @@
 package logic.erp;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import java.util.*;
 
 public class ERP {
-    private Queue<ProductionOrder> productionOrderQueue;
+    private Queue<IProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
     private final ProcessingPlant THEPLANT;
 
@@ -63,7 +64,7 @@ public class ERP {
         return THEPLANT.removeMachine(machineName);
     }
 
-    public Queue<ProductionOrder> getProductionOrderQueue() {
+    public Queue<IProductionOrder> getProductionOrderQueue() {
         return this.productionOrderQueue;
     }
 

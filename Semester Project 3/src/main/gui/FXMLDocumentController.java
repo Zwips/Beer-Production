@@ -5,6 +5,7 @@
 */
 package gui;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
@@ -122,8 +123,14 @@ public class FXMLDocumentController implements Initializable  {
     private TextField latestDeliveryDateTextField1;
     @FXML
     private Label orderSucceededLabel;
+
+
     @FXML
-    private ListView<ProductionOrder> ordersListView;
+    private ListView<IProductionOrder> productionOrderListView;
+
+    @FXML
+    private Button loadProductionOrdersBtn;
+
 
     @FXML
     @Override
@@ -239,6 +246,12 @@ public class FXMLDocumentController implements Initializable  {
     }
 
     public void MouseClickedActionAction(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    void loadProductionOrdersActionHandler(ActionEvent event) {
+    productionOrderListView.setItems(GUIOutFacade.getInstance().
+
     }
 }
 

@@ -1,10 +1,11 @@
 package gui;
 
 import Acquantiance.IERPFacade;
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
-import logic.erp.ERPFacade;
 
 import java.util.Date;
+import java.util.Queue;
 
 public class GUIOutFacade {
 
@@ -50,6 +51,11 @@ public class GUIOutFacade {
 
     void removeProcessingPlant(String processingPlantID) {
         erpFacade.removeProcessingPlant(processingPlantID);
+    }
+
+    Queue<IProductionOrder> getProductionOrderQueue(){
+
+        return erpFacade.getProductionOrderQueue();
     }
 
 }
