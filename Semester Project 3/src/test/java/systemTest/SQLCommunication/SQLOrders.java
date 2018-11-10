@@ -5,8 +5,6 @@ import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.SQLCommunication.updaters.OrderStatusSetter;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,7 +26,7 @@ public class SQLOrders {
     private int amount;
     private ProductTypeEnum productType;
     private Date earliestDeliveryDate;
-    private Date latesDeliveryDate;
+    private Date latestDeliveryDate;
     private int priority;
     private IProductionOrder order;
     private List<IProductionOrder> pendingOrders;
@@ -50,14 +48,14 @@ public class SQLOrders {
         this.amount = 1;
         this.productType = ProductTypeEnum.ALE;
         this.earliestDeliveryDate = new Date(1000000);
-        this.latesDeliveryDate = new Date(5000000);
+        this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
         PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
         pStatement.setInt(1,this.orderID);
         pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latesDeliveryDate, priority);
+        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         order.setOrderID(this.orderID);
         this.sqlModule.logOrder(order);
     }
@@ -73,7 +71,7 @@ public class SQLOrders {
         assertEquals(this.amount, this.order.getAmount());
         assertEquals(this.productType,this.order.getProductType());
         assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latesDeliveryDate,this.order.getLatestDeliveryDate());
+        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
         assertEquals(this.priority,this.order.getPriority());
         assertEquals(this.orderID,this.order.getOrderID());
     }
@@ -85,14 +83,14 @@ public class SQLOrders {
         this.amount = 1;
         this.productType = ProductTypeEnum.ALE;
         this.earliestDeliveryDate = new Date(1000000);
-        this.latesDeliveryDate = new Date(5000000);
+        this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
         PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
         pStatement.setInt(1,this.orderID);
         pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latesDeliveryDate, priority);
+        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         order.setOrderID(this.orderID);
         order.setStatus(false);
         this.sqlModule.logOrder(order);
@@ -114,7 +112,7 @@ public class SQLOrders {
         assertEquals(this.amount, this.order.getAmount());
         assertEquals(this.productType,this.order.getProductType());
         assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latesDeliveryDate,this.order.getLatestDeliveryDate());
+        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
         assertEquals(this.priority,this.order.getPriority());
         assertEquals(this.orderID,this.order.getOrderID());
         assertEquals(false,this.order.getStatus());
@@ -126,14 +124,14 @@ public class SQLOrders {
         this.amount = 1;
         this.productType = ProductTypeEnum.ALE;
         this.earliestDeliveryDate = new Date(1000000);
-        this.latesDeliveryDate = new Date(5000000);
+        this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
         PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
         pStatement.setInt(1,this.orderID);
         pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latesDeliveryDate, priority);
+        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         order.setOrderID(this.orderID);
         order.setStatus(true);
         this.sqlModule.logOrder(order);
@@ -156,7 +154,7 @@ public class SQLOrders {
         assertEquals(this.amount, this.order.getAmount());
         assertEquals(this.productType,this.order.getProductType());
         assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latesDeliveryDate,this.order.getLatestDeliveryDate());
+        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
         assertEquals(this.priority,this.order.getPriority());
         assertEquals(this.orderID,this.order.getOrderID());
         assertTrue(this.order.getStatus());
@@ -169,14 +167,14 @@ public class SQLOrders {
         this.amount = 1;
         this.productType = ProductTypeEnum.ALE;
         this.earliestDeliveryDate = new Date(1000000);
-        this.latesDeliveryDate = new Date(5000000);
+        this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
         PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
         pStatement.setInt(1,this.orderID);
         pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latesDeliveryDate, priority);
+        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         order.setOrderID(this.orderID);
         order.setStatus(false);
         this.sqlModule.logOrder(order);
@@ -193,7 +191,7 @@ public class SQLOrders {
         assertEquals(this.amount, this.order.getAmount());
         assertEquals(this.productType,this.order.getProductType());
         assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latesDeliveryDate,this.order.getLatestDeliveryDate());
+        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
         assertEquals(this.priority,this.order.getPriority());
         assertEquals(this.orderID,this.order.getOrderID());
         assertTrue(this.order.getStatus());

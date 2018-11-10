@@ -1,12 +1,9 @@
 package systemTest.ERPTest;
 
 import communication.CommunicationFacade;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import glueCode.Starter;
 import gui.GUIOutFacade;
 import logic.erp.ERP;
 import logic.erp.ERPFacade;
@@ -26,7 +23,9 @@ public class ERPMachine {
 
     @Given("^a ERP system to work on$")
     public void aERPSystemToWorkOn() throws Throwable {
-        testGlue();
+        //ERPLevelInitializer.glue();
+
+        testGlue(); //TODO can this be removed??
         erp = new ERP();
     }
 
@@ -92,7 +91,7 @@ public class ERPMachine {
         assertEquals(false, erp.checkForMachine("TestMachine"));
     }
 
-    static void testGlue(){
+    private static void testGlue(){ //TODO can this be removed??
 
         ERPOutFacade erpOutFacade = ERPOutFacade.getInstance();
         MESOutFacade mesOutFacade = MESOutFacade.getInstance();

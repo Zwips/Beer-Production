@@ -26,15 +26,13 @@ public class MakeOrder {
     private Date latestDeliveryDate;
     private int priority;
 
-
     @Given("^the system is initialized$")
     public void theSystemIsInitialized() throws Throwable {
         erp = new ERP();
-
     }
 
-    @Given("^all the parameters$")
-    public void allTheParameters() throws Throwable {
+    @Given("^all the parameters for an order$")
+    public void allTheParametersForAnOrder() throws Throwable {
         this.amount = 100;
         this.productType = ProductTypeEnum.ALCOHOLFREE;
         this.earliestDeliveryDate = new Date(0);
@@ -45,17 +43,19 @@ public class MakeOrder {
     @When("^adding the order to the queue$")
     public void addingTheOrderToTheQueue() throws Throwable {
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-
     }
 
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
-        List<IProductionOrder> pQueue = erp.getProductionOrderQueue();
+        List<IProductionOrder> orders = erp.getProductionOrderQueue();
         boolean correctOrder = false;
 
-            for (IProductionOrder order: pQueue) {
+            for (IProductionOrder order: orders) {
 
-                if (order.getAmount() == this.amount && order.getProductType() == this.productType && order.getEarliestDeliveryDate() == this.earliestDeliveryDate && order.getLatestDeliveryDate() == this.latestDeliveryDate && order.getPriority() == this.priority) {
+                if (order.getAmount() == this.amount && order.getProductType() == this.productType
+                        && order.getEarliestDeliveryDate() == this.earliestDeliveryDate
+                        && order.getLatestDeliveryDate() == this.latestDeliveryDate
+                        && order.getPriority() == this.priority) {
                     correctOrder = true;
                     break;
                 }

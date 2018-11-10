@@ -8,9 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 public class ERPFacade implements IERPFacade {
-    ERP erp = new ERP();
 
-@Override
+    ERP erp;
+
+    public ERPFacade() {
+        this.erp = new ERP();
+    }
+
+    @Override
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         return erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
     }
