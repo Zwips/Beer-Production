@@ -139,12 +139,11 @@ public class ERP {
         return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
-    public List<IProductionOrder> getProductionOrders() {
     /** Method for getting the production order queue.
      *
      * @return the production order list.
      */
-    public List<IProductionOrder> getProductionOrderQueue() {
+    public List<IProductionOrder> getProductionOrderQueue( ){
         List<IProductionOrder> list = new ArrayList<>();
 
         for (IProductionOrder order:this.productionOrders){
@@ -196,7 +195,6 @@ public class ERP {
     /** Method for initialising the order queue.
      *
      */
-    private void initialiseOrderQueue(){
     private void initialiseOrders(){
         List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
         for (IProductionOrder p: orders) {
