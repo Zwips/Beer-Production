@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an Humidty Retriever
+ * @author Michael P
+ * @param HumidityByMachineRetriever method retrieves the humidity information from the database including valuepercent, timestamp, batchid & machineid
+ * @param getHumidity creates the hashmap humidityMeasurements containing the humidity information and returns it.                     .
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;

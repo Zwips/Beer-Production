@@ -5,6 +5,7 @@ import communication.MailCommunication.MailCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -143,6 +144,16 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public int getNextBatchID() {
         return sqlFacade.getNextBatchID();
+    }
+
+    @Override
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines() {
+        return sqlFacade.getMachines();
+    }
+
+    @Override
+    public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
+        sqlFacade.InsertMachine(factoryID,machineID,machine_IP,userID,password);
     }
 
 

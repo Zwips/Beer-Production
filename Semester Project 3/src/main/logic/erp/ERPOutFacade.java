@@ -1,9 +1,8 @@
 package logic.erp;
 
-import Acquantiance.IMESFacade;
-import Acquantiance.IMesMachine;
-import Acquantiance.IProductionOrder;
+import Acquantiance.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ERPOutFacade {
@@ -46,5 +45,12 @@ public class ERPOutFacade {
     List<IProductionOrder> getPendingOrders(){
         return mesFacade.getPendingOrders();
     }
+    HashMap<String, List<IMachineConnectionInformation>> getMachines(){
+        return mesFacade.getMachines();
+    }
+    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
+        mesFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
+    }
+
 
 }

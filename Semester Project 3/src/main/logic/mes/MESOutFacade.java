@@ -1,9 +1,9 @@
 package logic.mes;
 
-import Acquantiance.ICommunicationFacade;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import Acquantiance.*;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class MESOutFacade {
@@ -69,5 +69,13 @@ public class MESOutFacade {
     public List<IProductionOrder> getPendingOrders() {
         return communicationFacade.getPendingOrders();
     }
+
+    HashMap<String, List<IMachineConnectionInformation>> getMachines(){
+        return communicationFacade.getMachines();
+    }
+    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
+        communicationFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
+    }
+
 
 }
