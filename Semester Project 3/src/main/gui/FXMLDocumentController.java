@@ -26,6 +26,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -154,6 +156,25 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getSelectionModel().select("1");
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
+
+        ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
+        productionOrderListView.setItems(data);
+
+        productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IProductionOrder>() {
+            @Override
+            public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
+                loadOrderInformationActionHandler(newValue);
+            }
+        });
+
+    }
+    void loadOrderInformationActionHandler(IProductionOrder iProductionOrder){
+
+        IProductionOrder order = iProductionOrder;
+        orderAmountTextField.setText(order.getAmount()+"");
+
+        earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
     }
     @FXML
     void DanishHandleBtn(ActionEvent event) {
@@ -213,7 +234,7 @@ public class FXMLDocumentController implements Initializable  {
 
                 allTrue = false;
             } else {
-                latestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
+                latestDeliveryDate = new Date(latestDeliveryDatePicker.getValue().toEpochDay()*86400000);
             }
 
 
@@ -272,12 +293,6 @@ public class FXMLDocumentController implements Initializable  {
     }
 
     public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
-       GUIOutFacade.getInstance().getProductionOrderQueue();
-
-       IProductionOrder order = productionOrderListView.getSelectionModel().getSelectedItem();
-       orderAmountTextField.setText(order.getAmount()+"");
-
-       earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
     }
     @FXML

@@ -143,7 +143,7 @@ public class ERP {
      *
      * @return the production order list.
      */
-    public List<IProductionOrder> getProductionOrderQueue( ){
+    public List<IProductionOrder> getProductionOrders( ){
         List<IProductionOrder> list = new ArrayList<>();
 
         for (IProductionOrder order:this.productionOrders){
