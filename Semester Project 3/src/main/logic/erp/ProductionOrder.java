@@ -3,6 +3,7 @@ package logic.erp;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
+import java.security.InvalidParameterException;
 import java.util.Date;
 
 public class ProductionOrder implements IProductionOrder, Comparable<ProductionOrder> {
@@ -14,13 +15,17 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     private int orderID;
     private boolean status;
 
-    public ProductionOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
+    public ProductionOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) throws InvalidParameterException {
         this.amount = amount;
         this.productType = productType;
         this.earliestDeliveryDate = earliestDeliveryDate;
         this.latestDeliveryDate = latestDeliveryDate;
         this.priority = priority;
         this.status = false;
+
+        if(!validate()){
+            throw new InvalidParameterException();
+        }
     }
 
     public void setOrderID(int orderID) {
@@ -33,6 +38,14 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    private boolean validate(){
+        if(this.amount > 0 && latestDeliveryDate.after(earliestDeliveryDate)){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     @Override

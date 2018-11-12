@@ -20,8 +20,9 @@ public class Starter {
         MESFacade mesFacade = new MESFacade();
         erpOutFacade.injectCommunicationFacade(mesFacade);
 
-        ERPFacade erpFacade = new ERPFacade();
         mesOutFacade.injectCommunicationFacade(communicationFacade);
+        ERPFacade erpFacade = new ERPFacade();
+
         guiOutFacade.injectCommunicationFacade(erpFacade);
 
         SemesterProject3.main(args);

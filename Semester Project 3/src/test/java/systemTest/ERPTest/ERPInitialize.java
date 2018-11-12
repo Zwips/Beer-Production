@@ -9,6 +9,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.erp.ERP;
 import logic.erp.ProductionOrder;
+import systemTest.ERPLevelInitializer;
 import systemTest.SQLCommunication.SQLCommunication;
 
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ public class ERPInitialize {
 
     @When("^an ERP system initialises$")
     public void anERPSystemInitialises() throws Throwable {
-        ERPMachine.testGlue();
+        ERPLevelInitializer.glue();
         erp = new ERP();
     }
 

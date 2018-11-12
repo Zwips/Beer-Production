@@ -117,11 +117,7 @@ public class FXMLDocumentController implements Initializable  {
 
     private HashMap<RadioButton, ProductTypeEnum> productToggleMap;
 
-    @FXML
-    private TextField earliestDeliveryDateTextField;
 
-    @FXML
-    private TextField latestDeliveryDateTextField1;
     @FXML
     private Label orderSucceededLabel;
     @FXML
@@ -129,10 +125,13 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     private DatePicker earliestDeliveryDatePicker;
+    @FXML
+    private DatePicker latestDeliveryDatePicker;
 
     @FXML
     private ListView<IProductionOrder> productionOrderListView;
-
+    @FXML
+    private Button changeOrder;
 
 
 
@@ -159,17 +158,14 @@ public class FXMLDocumentController implements Initializable  {
 
         }
 
-    public boolean parseDate(TextField field){
-        if(!field.getText().isEmpty()){
-            try{
-                Date SimpleDateFormat = new SimpleDateFormat("yyyy/MM/dd").parse(field.getText());
-                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
-                return true;
-            } catch (ParseException e) {
-            }
+    public boolean parseDate(DatePicker picker){
+        if(picker.getValue()!=null){
+
+            picker.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+            return true;
         }
 
-        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        picker.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
         return false;
     }
 
@@ -191,10 +187,8 @@ public class FXMLDocumentController implements Initializable  {
         void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
             boolean allTrue = true;
             int amount = 0;
-            Date date = new Date(earliestDeliveryDatePicker.getValue().toEpochDay());
-            System.out.println(date);
-            Date earliestDeliveryDate = null;
             Date latestDeliveryDate = null;
+            Date earliestDeliveryDate = null;
 
             if (!this.testInt(orderAmountTextField)){
                 allTrue = false;
@@ -202,16 +196,17 @@ public class FXMLDocumentController implements Initializable  {
                 amount = Integer.parseInt(orderAmountTextField.getText());
             }
 
-            if(!this.parseDate(earliestDeliveryDateTextField)) {
+            if(!this.parseDate(earliestDeliveryDatePicker)) {
                 allTrue = false;
             } else {
-                earliestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(earliestDeliveryDateTextField.getText());
+                earliestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
             }
 
-            if(!this.parseDate(latestDeliveryDateTextField1)) {
+            if(!this.parseDate(latestDeliveryDatePicker)) {
+
                 allTrue = false;
             } else {
-                latestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(latestDeliveryDateTextField1.getText());
+                latestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
             }
 
 
@@ -269,6 +264,10 @@ public class FXMLDocumentController implements Initializable  {
     }
 
     public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
+    }
+    @FXML
+    void ChangeOrderActionBtn(ActionEvent event) {
+
     }
 
 }
