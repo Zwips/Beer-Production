@@ -57,6 +57,7 @@ public class BatchLogByBatchIDRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return batchLog;
     }
 

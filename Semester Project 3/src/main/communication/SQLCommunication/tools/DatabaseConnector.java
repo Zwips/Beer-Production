@@ -25,14 +25,13 @@ public class DatabaseConnector {
         return db;
     }
 
-    public void CloseConnection(ResultSet rs, Connection st){
+    public void CloseConnection(Connection st){
         try{
             st.close();
-            if (rs!=null){ //Todo This shouldn't be necessary
-                rs.close();
-            }
-        }catch(SQLException e) {
 
+            } catch (SQLException e1) {
+            e1.printStackTrace();
         }
+
     }
 }
