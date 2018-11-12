@@ -73,6 +73,11 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
+    public List<IProductionOrder> getPendingOrders() {
+        return new PendingOrdersRetriever().getPendingOrders();
+    }
+
+    @Override
     public List<IProductionOrder> getCompletedOrders() {
         CompletedOrdersRetriever retriever = new CompletedOrdersRetriever();
         return retriever.getCompletedOrders();

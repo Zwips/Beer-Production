@@ -19,6 +19,7 @@ public class ERP {
         processingPlants.put("THEPLANT",plant);
         initialiseBatchID();
         initialiseOrderID();
+        initialiseOrderQueue();
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
@@ -91,5 +92,12 @@ public class ERP {
 
     private void initialiseOrderID(){
         nextOrderID = ERPOutFacade.getInstance().getNextOrderID();
+    }
+
+    private void initialiseOrderQueue(){
+        List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
+        for (IProductionOrder p: orders) {
+            productionOrderQueue.add(p);
+        }
     }
 }

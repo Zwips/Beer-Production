@@ -60,6 +60,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
+    public List<IProductionOrder> getPendingOrders() {
+        return sqlFacade.getPendingOrders();
+    }
+
+    @Override
     public List<IProductionOrder> getCompletedOrders() {
         return sqlFacade.getCompletedOrders();
     }
