@@ -5,6 +5,11 @@
  */
 package communication.machineConnection.command;
 
+/** Represents an amount in a batch and all the commands you can call on an amount.
+ * @author HCHB
+ *
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
@@ -12,10 +17,7 @@ import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 import org.opcfoundation.ua.builtintypes.Variant;
 
-/**
- *
- * @author HCHB
- */
+
 public class Amount {
  
     private String identifier = "Parameter[2].Value";

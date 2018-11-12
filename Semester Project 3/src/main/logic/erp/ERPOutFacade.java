@@ -48,9 +48,12 @@ public class ERPOutFacade {
     HashMap<String, List<IMachineConnectionInformation>> getMachines(){
         return mesFacade.getMachines();
     }
-    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
+    public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
         mesFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
     }
 
+    public void deleteMachine(String machineID){
+        mesFacade.deleteMachine(machineID);
+    }
 
 }

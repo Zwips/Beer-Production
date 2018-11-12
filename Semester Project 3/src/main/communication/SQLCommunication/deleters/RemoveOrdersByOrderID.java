@@ -1,8 +1,8 @@
 package communication.SQLCommunication.deleters;
-/** Represents an batchlog remover
+/** Represents an order remover
  * @author Michael P
- * @param OrdersRemoveByOrderID constructor creates the batchlog to be removed with the given batchid
- * @param delete method deletes the batchlog from the batchlog table in the database & returns true if successful.
+ * @param OrdersRemoveByOrderID constructor creates the order to be removed from the given orderid
+ * @param delete method deletes the order from the order table in the database & returns true if successful.
  */
 import communication.SQLCommunication.tools.*;
 
@@ -10,23 +10,23 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatchLogRemoveByBatchID {
+public class RemoveOrdersByOrderID {
     private String values;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public BatchLogRemoveByBatchID() {
-        this.tables = "batch_log";
-        this.conditions = "batchid = ?";
+    public RemoveOrdersByOrderID() {
+        this.tables = "Orders";
+        this.conditions = "orderid = ?";
 
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean delete(int batchID){
+    public boolean delete(int orderID){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, orderID));
 
 
         new Delete().delete(connection, tables,  conditions, wildCardInfo);

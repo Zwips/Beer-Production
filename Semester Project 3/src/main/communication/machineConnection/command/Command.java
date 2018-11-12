@@ -5,12 +5,14 @@
  */
 package communication.machineConnection.command;
 
+/** Represents commands.
+ * @author HCHB
+ *
+ */
+
 import communication.machineConnection.ICommand;
 
-/**
- *
- * @author HCHB
- */
+
 public class Command implements ICommand {
 
     private String identifier="Command.";

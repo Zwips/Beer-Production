@@ -5,16 +5,18 @@
  */
 package communication.machineConnection.admin;
 
+/** Represents a stopReasonID.
+ * @author HCHB
+ *
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 
-/**
- *
- * @author HCHB
- */
+
 public class StopReasonID {
 
     private String identifier = "StopReason.ID";

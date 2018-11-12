@@ -156,5 +156,10 @@ public class CommunicationFacade implements ICommunicationFacade {
         sqlFacade.InsertMachine(factoryID,machineID,machine_IP,userID,password);
     }
 
+    @Override
+    public void deleteMachine(String machineID) {
+        sqlFacade.deleteMachine(machineID);
+    }
+
 
 }

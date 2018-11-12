@@ -38,8 +38,10 @@ public interface ISQLCommunicationFacade {
 
     void deleteOrderByOrderID(int orderID);
     void deleteBatchLogByBatchID(int BatchID);
+    void deleteMachine(String machineID);
 
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
+
 
     }

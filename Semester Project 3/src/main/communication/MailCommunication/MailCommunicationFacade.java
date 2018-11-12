@@ -13,7 +13,6 @@ public class MailCommunicationFacade implements IMailCommunicationFacade {
 	@Override
 	public void SendAbortEmail(String machineName) {
 		new AbortEmail().SendAbortEmail(machineName);
-
 	}
 
 	@Override

@@ -5,16 +5,16 @@
  */
 package communication.machineConnection.status;
 
+/** Represents the current BatchID
+ * @author HCHB
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 
-/**
- *
- * @author HCHB
- */
 public class BatchIDCurrent {
         
     private String identifier = "Parameter[0].Value";

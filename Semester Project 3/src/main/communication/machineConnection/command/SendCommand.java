@@ -1,5 +1,10 @@
 package communication.machineConnection.command;
 
+/** Represents a client that sends a command.
+ * @author Asmus
+ * @param write Method for sending a command.
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
