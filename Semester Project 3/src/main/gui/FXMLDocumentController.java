@@ -4,7 +4,16 @@
  * and open the template in the editor.
  */
 package gui;
-
+/** Represents all GUI control
+ * @author Michael P
+ * @param initialize initializes the choicebox & hashmap containing the product types.
+ * @param parseDate parses the given text to a date.
+ * @param testInt test if integers have been written in textfield, and returns true or false.
+ * @param SendOrderHandleActionBtn sends order to the database if all required information is given & returns "order send" if successful.
+ * @param addMachineActionHandler adds another machine if present with the required information ipadress, machinename, username & password.
+ * @param removeMachineActionHandler removes chosen machine.
+ * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
@@ -142,9 +151,6 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
         priorityChoiceBox.getItems().addAll("1", "2", "3");
         priorityChoiceBox.getSelectionModel().select("1");
-
-
-
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }

@@ -5,16 +5,17 @@
  */
 package communication.machineConnection.status;
 
+/** Represents the humidity.
+ * @author HCHB
+ *
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 
-/**
- *
- * @author HCHB
- */
 public class Humidity {
         
     private String identifier = "Parameter[2].Value";

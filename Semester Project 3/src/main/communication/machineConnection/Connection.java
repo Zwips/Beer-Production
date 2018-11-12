@@ -1,5 +1,10 @@
 package communication.machineConnection;
 
+/** Represents the creation of a connection.
+ * @author Asmus
+ * @param getConnection Method for creating a connection to the machine via the UaClient.
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.SessionActivationException;
 import com.prosysopc.ua.UserIdentity;
