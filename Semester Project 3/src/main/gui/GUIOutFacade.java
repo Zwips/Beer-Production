@@ -5,6 +5,7 @@ import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Queue;
 
 public class GUIOutFacade {
@@ -53,7 +54,7 @@ public class GUIOutFacade {
         erpFacade.removeProcessingPlant(processingPlantID);
     }
 
-    Queue<IProductionOrder> getProductionOrderQueue(){
+    List<IProductionOrder> getProductionOrderQueue(){
 
         return erpFacade.getProductionOrderQueue();
     }

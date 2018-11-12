@@ -70,8 +70,13 @@ public class ERP {
         return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
-    public Queue<IProductionOrder> getProductionOrderQueue() {
-        return this.productionOrderQueue;
+    public List<IProductionOrder> getProductionOrderQueue() {
+        List<IProductionOrder> list = new ArrayList<>();
+
+        for (IProductionOrder order:this.productionOrderQueue){
+            list.add(order.clone());
+        }
+        return list;
     }
 
     public boolean removeMachine(String processingPlantID, String machineName) {
@@ -87,7 +92,7 @@ public class ERP {
     }
 
     private void initialiseBatchID(){
-         nextBatchID = ERPOutFacade.getInstance().getNextBatchID();
+        nextBatchID = ERPOutFacade.getInstance().getNextBatchID();
     }
 
     private void initialiseOrderID(){
