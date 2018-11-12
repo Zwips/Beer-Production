@@ -54,6 +54,7 @@ public class VibrationByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return vibrationMeasurements;
     }
 }

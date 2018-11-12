@@ -63,6 +63,7 @@ public class CompletedOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return orders;
     }
 }

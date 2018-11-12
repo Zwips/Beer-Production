@@ -52,6 +52,7 @@ public class TemperatureByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return temperatureMeasurements;
     }
 }

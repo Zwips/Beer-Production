@@ -72,6 +72,7 @@ public class BatchRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return batch;
     }
 

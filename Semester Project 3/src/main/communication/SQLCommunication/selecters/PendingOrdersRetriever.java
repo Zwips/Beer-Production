@@ -66,6 +66,7 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return orders;
     }
     public List<IProductionOrder> getPendingOrders(){
@@ -102,6 +103,7 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return orders;
     }
 }

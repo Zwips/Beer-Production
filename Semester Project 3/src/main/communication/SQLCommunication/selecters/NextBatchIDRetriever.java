@@ -35,7 +35,10 @@ import java.util.*;
 
         try {
             while(results.next()){
-                return results.getInt(1);
+                int nextBatchID = results.getInt(1);
+
+                new DatabaseConnector().CloseConnection(connection);
+                return nextBatchID;
             }
 
         } catch (SQLException e) {
@@ -48,6 +51,7 @@ import java.util.*;
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return 1;
     }
 }

@@ -35,7 +35,10 @@ public class NextOrderIDRetriever {
 
         try {
             while(results.next()){
-                return results.getInt(1);
+                int nextOrderID = results.getInt(1);
+
+                new DatabaseConnector().CloseConnection(connection);
+                return nextOrderID;
             }
 
         } catch (SQLException e) {

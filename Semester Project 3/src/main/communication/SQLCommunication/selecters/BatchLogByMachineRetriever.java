@@ -59,6 +59,7 @@ public class BatchLogByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return batchLogs;
     }
 }

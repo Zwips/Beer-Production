@@ -54,6 +54,7 @@ public class HumidityByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().CloseConnection(connection);
         return temperatureMeasurements;
     }
 
