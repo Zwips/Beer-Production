@@ -105,7 +105,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="258.0" layoutY="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="772.0" />
+                        <Rectangle fx:id="latestDeliveryDatePicker" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="258.0" layoutY="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="772.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="320.0" layoutX="-1.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="774.0" />
                           <RadioButton fx:id="pilsnerRadioBtn" layoutX="158.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Pilsner">
                            <toggleGroup>
@@ -183,8 +183,9 @@
                         <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
                         <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
                         <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" onEditStart="#loadOrderInformationActionHandler" prefHeight="200.0" prefWidth="200.0" />
-                        <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Button" />
-                        <DatePicker layoutX="205.0" layoutY="78.0" />
+                        <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Load" />
+                        <DatePicker fx:id="earliestDeliveryDatePicker" layoutX="439.0" layoutY="458.0" />
+                        <DatePicker layoutX="439.0" layoutY="514.0" />
                             </children>
                         </AnchorPane>
                     </content>

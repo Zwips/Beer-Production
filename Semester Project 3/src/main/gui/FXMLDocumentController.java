@@ -13,6 +13,7 @@ import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.collections.FXCollections;
@@ -123,13 +124,16 @@ public class FXMLDocumentController implements Initializable  {
     private TextField latestDeliveryDateTextField1;
     @FXML
     private Label orderSucceededLabel;
+    @FXML
+    private Button loadProductionOrdersBtn;
 
+    @FXML
+    private DatePicker earliestDeliveryDatePicker;
 
     @FXML
     private ListView<IProductionOrder> productionOrderListView;
 
-    @FXML
-    private Button loadProductionOrdersBtn;
+
 
 
     @FXML
@@ -187,6 +191,8 @@ public class FXMLDocumentController implements Initializable  {
         void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
             boolean allTrue = true;
             int amount = 0;
+            Date date = new Date(earliestDeliveryDatePicker.getValue().toEpochDay());
+            System.out.println(date);
             Date earliestDeliveryDate = null;
             Date latestDeliveryDate = null;
 
@@ -264,6 +270,7 @@ public class FXMLDocumentController implements Initializable  {
 
     public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
     }
+
 }
 
 
