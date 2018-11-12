@@ -1,8 +1,8 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui;
 
 import Acquantiance.IProductionOrder;
@@ -148,15 +148,15 @@ public class FXMLDocumentController implements Initializable  {
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }
-        @FXML
-        void DanishHandleBtn(ActionEvent event) {
+    @FXML
+    void DanishHandleBtn(ActionEvent event) {
 
-        }
+    }
 
-        @FXML
-        void LanguageHandleBtn(ActionEvent event) {
+    @FXML
+    void LanguageHandleBtn(ActionEvent event) {
 
-        }
+    }
 
     public boolean parseDate(DatePicker picker){
         if(picker.getValue()!=null){
@@ -190,11 +190,11 @@ public class FXMLDocumentController implements Initializable  {
             Date latestDeliveryDate = null;
             Date earliestDeliveryDate = null;
 
-            if (!this.testInt(orderAmountTextField)){
-                allTrue = false;
-            } else {
-                amount = Integer.parseInt(orderAmountTextField.getText());
-            }
+        if (!this.testInt(orderAmountTextField)){
+            allTrue = false;
+        } else {
+            amount = Integer.parseInt(orderAmountTextField.getText());
+        }
 
             if(!this.parseDate(earliestDeliveryDatePicker)) {
                 allTrue = false;
@@ -212,19 +212,19 @@ public class FXMLDocumentController implements Initializable  {
 
 
 
-            ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
+        ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-            int priority = Integer.parseInt(priorityChoiceBox.getValue());
+        int priority = Integer.parseInt(priorityChoiceBox.getValue());
 
 
-            if (allTrue){
-                GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
-                orderSucceededLabel.setText("Order sent");
-
-            }
+        if (allTrue){
+            GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
+            orderSucceededLabel.setText("Order sent");
 
         }
+
+    }
 
 
 
@@ -258,7 +258,7 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
-    productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
+        productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
 
 
     }

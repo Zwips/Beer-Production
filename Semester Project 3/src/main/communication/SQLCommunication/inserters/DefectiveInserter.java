@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an defective inserter
+ * @author Michael P
+ * @param DefectiveInserter constructor creates the object containing machineid, numberofdefectives, productsinbatch, machinespeed & producttype.
+ * @param insert method inserts the object into the the defectives table in the database.
+ */
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
@@ -23,7 +27,7 @@ public class DefectiveInserter {
 
         this.values = "(?,?,?,?,?)";
         this.tables = "defectives(machineid, numberofdefective, productsinbatch, machinespeed, product)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
 

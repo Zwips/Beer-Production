@@ -10,6 +10,7 @@ import logic.erp.ERPFacade;
 import logic.erp.ERPOutFacade;
 import logic.mes.MESFacade;
 import logic.mes.MESOutFacade;
+import systemTest.ERPLevelInitializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class ERPMachine {
     public void aERPSystemToWorkOn() throws Throwable {
         //ERPLevelInitializer.glue();
 
-        testGlue(); //TODO can this be removed??
+        ERPLevelInitializer.glue();
         erp = new ERP();
     }
 
@@ -91,19 +92,5 @@ public class ERPMachine {
         assertEquals(false, erp.checkForMachine("TestMachine"));
     }
 
-    private static void testGlue(){ //TODO can this be removed??
 
-        ERPOutFacade erpOutFacade = ERPOutFacade.getInstance();
-        MESOutFacade mesOutFacade = MESOutFacade.getInstance();
-        GUIOutFacade guiOutFacade = GUIOutFacade.getInstance();
-
-        CommunicationFacade communicationFacade = new CommunicationFacade();
-        mesOutFacade.injectCommunicationFacade(communicationFacade);
-        MESFacade mesFacade = new MESFacade();
-        erpOutFacade.injectCommunicationFacade(mesFacade);
-
-        ERPFacade erpFacade = new ERPFacade();
-        guiOutFacade.injectCommunicationFacade(erpFacade);
-
-    }
 }

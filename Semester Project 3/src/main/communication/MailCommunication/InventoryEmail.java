@@ -1,5 +1,12 @@
 package communication.MailCommunication;
-
+/** Represents an Inventory notification.
+ * @author Michael P
+ * @param SendInventoryEmail method creates a smtp
+ * Session to Gmail.com & sends a standard
+ * Inventory Email to the relevant recipient.
+ * @param machineName gets machine name from the machine
+ * which inventory is empty
+ */
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -16,7 +23,7 @@ public class InventoryEmail {
 	private String password = "beer:123";
 	private String smtpport = "25";
 	private String port = "465";
-	private String recipent = "fartillucas@gmail.com";
+	private String recipient = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
 	private Date date = new Date();
 
@@ -48,7 +55,7 @@ public class InventoryEmail {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(benefactor));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(recipent));
+				InternetAddress.parse(recipient));
 			message.setSubject("test test");
 			message.setText(date+" "+ machineName+" "+"has stopped because the inventory is empty");
 

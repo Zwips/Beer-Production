@@ -20,7 +20,7 @@ public class Connection {
         UaClient client;
 
         try {
-            client = new UaClient("opc.tcp://"+address);
+            client = new UaClient(address);
 
             ApplicationDescription descr = new ApplicationDescription();
             descr.setApplicationName(new LocalizedText("super"+"@localost"));

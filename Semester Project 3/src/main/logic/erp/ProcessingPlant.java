@@ -1,5 +1,12 @@
 package logic.erp;
 
+/** Represents a processing plant.
+ * @author Asmus
+ * @param addMachine Method for adding a machine to the list of machines.
+ * @param checkForMachine Method for checking if a machine exists in the list of machines.
+ * @param removeMachine Method for removing a machine from the list of machines.
+ */
+
 import Acquantiance.IMesMachine;
 
 import java.util.HashMap;

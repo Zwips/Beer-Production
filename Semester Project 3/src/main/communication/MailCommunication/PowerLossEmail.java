@@ -1,5 +1,12 @@
 package communication.MailCommunication;
-
+/** Represents an power loss notification.
+ * @author Michael P
+ * @param SendPowerLossEmail method creates a smtp
+ * Session to Gmail.com & sends a standard
+ * Power loss Email to the relevant recipient.
+ * @param machineName gets machine name from the machine
+ * that has stopped due to power loss
+ */
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -16,7 +23,7 @@ public class PowerLossEmail {
 	private String password = "beer:123";
 	private String smtpport = "25";
 	private String port = "465";
-	private String recipent = "fartillucas@gmail.com";
+	private String recipient = "fartillucas@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
 	private Date date = new Date();
 
@@ -48,7 +55,7 @@ public class PowerLossEmail {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(benefactor));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(recipent));
+				InternetAddress.parse(recipient));
 			message.setSubject("test test");
 			message.setText(date+" "+ machineName+" "+"has stopped due to power loss");
 

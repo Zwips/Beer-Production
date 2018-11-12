@@ -1,5 +1,10 @@
 package logic.mes;
 
+/** Represents a machine reporter for vibration.
+ * @author Asmus
+ * @param report Method for logging vibration.
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import org.opcfoundation.ua.builtintypes.DataValue;

@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an completed orders retriever
+ * @author Michael P
+ * @param CompletedOrdersRetriever method retrieves the completed orders from the database where status=true.
+ * @param getCompletedOrders creates the ArrayList orders containing completed orders and returns it.                     .
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
@@ -25,7 +29,7 @@ public class CompletedOrdersRetriever {
         this.tables = "orders";
         this.conditions = "status = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getCompletedOrders(){
@@ -63,6 +67,7 @@ public class CompletedOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an Humidty Retriever
+ * @author Michael P
+ * @param HumidityByMachineRetriever method retrieves the humidity information from the database including valuepercent, timestamp, batchid & machineid
+ * @param getHumidity creates the hashmap humidityMeasurements containing the humidity information and returns it.                     .
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;
@@ -25,7 +29,7 @@ public class HumidityByMachineRetriever {
                 " FROM batch_log" +
                 " WHERE machineID = ?)"; //TODO eller skulle det være den anden vej?
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public Map<Date, Float> getHumidity(String machineID, Timestamp date){
@@ -54,6 +58,7 @@ public class HumidityByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return temperatureMeasurements;
     }
 

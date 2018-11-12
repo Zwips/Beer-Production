@@ -1,5 +1,11 @@
 package communication.SQLCommunication.updaters;
-
+/** Represents an StatusSetter
+ * @author Michael P
+ * @param OrderStatusSetter method set the status of all
+ * orders to false=pending by default.
+ * @param updateStatus method changes the default value
+ * from false to true=completed.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;
@@ -21,7 +27,7 @@ public class OrderStatusSetter {
         this.values = "status = ?";
         this.conditions = "orderid = ?";
 
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public boolean updateStatus(int orderID){

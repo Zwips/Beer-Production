@@ -1,5 +1,11 @@
 package logic.erp;
 
+/** Representing a production order.
+ * @author Asmus
+ * @param isStatus Method for seeing current status.
+ * @param clone Method for cloning everything from productionOrder to a new order.
+ */
+
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 

@@ -1,9 +1,8 @@
 package logic.mes;
 
-import Acquantiance.IMESFacade;
-import Acquantiance.IMesMachine;
-import Acquantiance.IProductionOrder;
+import Acquantiance.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MESFacade implements IMESFacade {
@@ -26,6 +25,16 @@ public class MESFacade implements IMESFacade {
     @Override
     public List<IProductionOrder> getPendingOrders() {
         return MESOutFacade.getInstance().getPendingOrders();
+    }
+
+    @Override
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines() {
+        return MESOutFacade.getInstance().getMachines();
+    }
+
+    @Override
+    public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
+        MESOutFacade.getInstance().InsertMachine(factoryID, machineID, machine_IP, userID, password);
     }
 
 

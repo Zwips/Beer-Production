@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an batch log by machine retriever.
+ * @author Michael P
+ * @param BatchLogByMachineRetriever method retrieves the batchlogs from the database with the given machineID
+ * @param getBatchLogs creates the ArrayList Batchlogs and returns it.                     .
+ */
 import Acquantiance.IBatchLog;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.dataClasses.CommunicationBatchLog;
@@ -26,7 +30,7 @@ public class BatchLogByMachineRetriever {
         this.tables = "batch_log";
         this.conditions = "machineID = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IBatchLog> getBatchLogs(String machineID){
@@ -59,6 +63,7 @@ public class BatchLogByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return batchLogs;
     }
 }

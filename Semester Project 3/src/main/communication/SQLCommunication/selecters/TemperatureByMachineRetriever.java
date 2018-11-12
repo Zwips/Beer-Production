@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an Temperature Retriever
+ * @author Michael P
+ * @param TemperatureByMachineRetriever method retrieves the Temperature information from the database including valuecelcius, timestamp, batchid & machineid
+ * @param getTemperature creates the hashmap temperatureMeasurements containing the vibration information and returns it.                     .
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;
@@ -23,7 +27,7 @@ public class TemperatureByMachineRetriever {
                                                     " FROM batch_log" +
                                                     " WHERE machineID = ?)"; //TODO eller skulle det være den anden vej?
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public Map<Date, Float> getTemperatures(String machineID, Timestamp date){
@@ -52,6 +56,7 @@ public class TemperatureByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return temperatureMeasurements;
     }
 }

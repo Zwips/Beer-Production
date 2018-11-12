@@ -1,5 +1,9 @@
 package communication.SQLCommunication.tools;
-
+/** Represents an updater
+ * @author Michael P
+ * @param update method updates various data in the database
+ * & returns true if successful
+ */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,6 +25,8 @@ public class Update {
         } catch(SQLException e){
             System.out.println("Exception" + e);
             return false;
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
 
         return true;

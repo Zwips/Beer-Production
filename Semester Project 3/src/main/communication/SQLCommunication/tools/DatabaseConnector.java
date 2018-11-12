@@ -1,11 +1,18 @@
 package communication.SQLCommunication.tools;
-
+/** Represents an postgressql database connector
+ * @author Michael P
+ * @param OpenConnection method creates a conneciton
+ * to the post gres sql database
+ * Inventory Email to the relevant recipient.
+ * @param CloseConnection method closes the connection
+ * to the postgres sql database
+ */
 import java.sql.*;
 
 
 public class DatabaseConnector {
 
-    public Connection OpenConnection() {
+    public Connection openConnection() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (java.lang.ClassNotFoundException e) {
@@ -25,14 +32,13 @@ public class DatabaseConnector {
         return db;
     }
 
-    public void CloseConnection(ResultSet rs, Connection st){
+    public void closeConnection(Connection st){
         try{
             st.close();
-            if (rs!=null){ //Todo This shouldn't be necessary
-                rs.close();
-            }
-        }catch(SQLException e) {
 
+            } catch (SQLException e1) {
+            e1.printStackTrace();
         }
+
     }
 }

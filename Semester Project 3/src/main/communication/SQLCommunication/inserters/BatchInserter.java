@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an Batch inserter
+ * @author Michael P
+ * @param BatchLogInserter constructor creates the batch containing batchid, Producttype, amount & defective.
+ * @param insert method inserts the batch into the Batch table in the database.
+ */
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
@@ -19,7 +23,7 @@ public class BatchInserter {
     public BatchInserter() {
         this.values = "(?,?,?,?)";
         this.tables = "batch(BatchID, ProductType, Amount, Defective)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public void insert(int batchID, ProductTypeEnum product, int amount, int defective) {

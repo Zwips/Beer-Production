@@ -1,7 +1,6 @@
 package glueCode;
 
 import communication.CommunicationFacade;
-import communication.MailCommunication.MailCommunicationFacede;
 import gui.GUIOutFacade;
 import gui.SemesterProject3;
 import logic.erp.ERPFacade;
@@ -19,10 +18,9 @@ public class Starter {
         CommunicationFacade communicationFacade = new CommunicationFacade();
         MESFacade mesFacade = new MESFacade();
         erpOutFacade.injectCommunicationFacade(mesFacade);
-
         mesOutFacade.injectCommunicationFacade(communicationFacade);
-        ERPFacade erpFacade = new ERPFacade();
 
+        ERPFacade erpFacade = new ERPFacade();
         guiOutFacade.injectCommunicationFacade(erpFacade);
 
         SemesterProject3.main(args);

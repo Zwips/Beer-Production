@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an pending orders retriever
+ * @author Michael P
+ * @param PendingOrdersRetriever method retrieves the pending orders from the database where status=false
+ * @param getPendingOrders creates the ArrayList orders containing pending orders and returns it.                     .
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
@@ -27,7 +31,7 @@ public class PendingOrdersRetriever {
         this.tables = "orders";
         this.conditions = "status = false";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
@@ -66,6 +70,7 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
     public List<IProductionOrder> getPendingOrders(){
@@ -102,6 +107,8 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
+
 }

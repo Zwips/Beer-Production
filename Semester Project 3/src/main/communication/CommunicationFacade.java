@@ -1,22 +1,23 @@
 package communication;
 
 import Acquantiance.*;
-import communication.MailCommunication.MailCommunicationFacede;
+import communication.MailCommunication.MailCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CommunicationFacade implements ICommunicationFacade {
 
     private ISQLCommunicationFacade sqlFacade;
-    private IMailCommunicaitonFacade mailFacade;
+    private IMailCommunicationFacade mailFacade;
 
 
     public CommunicationFacade(){
         sqlFacade = new SQLCommunicationFacade(); // skal muligvis flyttes til glue
-        mailFacade = new MailCommunicationFacede(); // skal muligvis flyttes til glue
+        mailFacade = new MailCommunicationFacade(); // skal muligvis flyttes til glue
     }
 
     @Override
@@ -127,7 +128,7 @@ public class CommunicationFacade implements ICommunicationFacade {
 
     @Override
     public void SendMaintenenceEmail(String machineName) {
-        mailFacade.SendMaintenenceEmail(machineName);
+        mailFacade.SendMaintenanceEmail(machineName);
     }
 
     @Override
@@ -143,6 +144,16 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public int getNextBatchID() {
         return sqlFacade.getNextBatchID();
+    }
+
+    @Override
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines() {
+        return sqlFacade.getMachines();
+    }
+
+    @Override
+    public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
+        sqlFacade.InsertMachine(factoryID,machineID,machine_IP,userID,password);
     }
 
 
