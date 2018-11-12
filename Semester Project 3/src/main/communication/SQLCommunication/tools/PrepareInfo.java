@@ -1,5 +1,9 @@
 package communication.SQLCommunication.tools;
-
+/** Represents an info preparer
+ * @author Michael P
+ * PrepareInfo constructs the info for selecting,
+ * inserting & deleting data in the database
+ */
 public class PrepareInfo {
 
     private int place;

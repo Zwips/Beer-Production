@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an Temperature Retriever
+ * @author Michael P
+ * @param TemperatureByMachineRetriever method retrieves the Temperature information from the database including valuecelcius, timestamp, batchid & machineid
+ * @param getTemperature creates the hashmap temperatureMeasurements containing the vibration information and returns it.                     .
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;

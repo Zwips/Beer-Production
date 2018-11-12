@@ -1,5 +1,12 @@
 package communication.SQLCommunication.tools;
-
+/** Represents an postgressql database connector
+ * @author Michael P
+ * @param OpenConnection method creates a conneciton
+ * to the post gres sql database
+ * Inventory Email to the relevant recipient.
+ * @param CloseConnection method closes the connection
+ * to the postgres sql database
+ */
 import java.sql.*;
 
 

@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an orders next batchid Retriever
+ * @author Michael P
+ * @param NextBatchIDRetriever method retrieves the latest Batch from the database with the MAX keyword
+ * @param getNextBatchID returns the latest Batch.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.Select;

@@ -1,5 +1,12 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an Vibration Retriever
+ * @author Michael P
+ * @param VibrationByMachineRetriever method retrieves
+ * the vibration information from the database including
+ * timestamp, batchid & machineid
+ * @param getVibrations creates the hashmap vibrationMeasurements
+ * containing the vibration information and returns it.                     .
+    */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;

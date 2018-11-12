@@ -1,5 +1,14 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an batch Retriever
+ * @author Michael P
+ * @param BatchRetriever method retrieves the batch from the database with given batchid containing batchid, producttype, amount, defective, vibration, temperature and humidity
+ * @param getBatch creates the the object CommunicationBatch & returns it.
+ * @param getGeneralBatchInfo retrieves the batch info batchid, amount & defective from communicationsbatch.
+ * @param getTemperatureInfo retrieves the valuecelcius & timestamp from communicationsbatch
+ * @param getVibrationInfo retrieves the valuePBS & timestamp from communicationsbatch
+ * @param getHumidityInfo retrieves the valuepercent & timestamp from communicationsbatch
+ *
+ */
 import Acquantiance.IBatch;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;

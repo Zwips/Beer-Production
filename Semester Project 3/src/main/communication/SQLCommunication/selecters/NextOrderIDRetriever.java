@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an orders next orderid Retriever
+ * @author Michael P
+ * @param NextOrderIDRetriever method retrieves the latest order from the database with the MAX keyword
+ * @param getNextOrderID returns the latest order.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.Select;
