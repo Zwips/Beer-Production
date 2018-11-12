@@ -1,8 +1,8 @@
 package communication.MailCommunication;
 
-import communication.IMailCommunicaitonFacade;
+import communication.IMailCommunicationFacade;
 
-public class MailCommunicationFacede implements IMailCommunicaitonFacade {
+public class MailCommunicationFacade implements IMailCommunicationFacade {
 
 
 	@Override
@@ -17,8 +17,8 @@ public class MailCommunicationFacede implements IMailCommunicaitonFacade {
 	}
 
 	@Override
-	public void SendMaintenenceEmail(String machineName) {
-		new MaintenenceEmail().SendMaintenenceEMail(machineName);
+	public void SendMaintenanceEmail(String machineName) {
+		new MaintenanceEmail().SendMaintenenceEMail(machineName);
 	}
 
 	@Override
