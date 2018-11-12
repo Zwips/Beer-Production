@@ -52,7 +52,7 @@ public class BatchRetriever {
         this.tablesHumidity= "humidity";
         this.conditionsHumidity = "BatchID = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public IBatch getBatch(int batchID){
@@ -72,6 +72,7 @@ public class BatchRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return batch;
     }
 

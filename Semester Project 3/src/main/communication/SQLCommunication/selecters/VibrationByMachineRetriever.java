@@ -25,7 +25,7 @@ public class VibrationByMachineRetriever {
                 " FROM batch_log" +
                 " WHERE machineID = ?)"; //TODO eller skulle det være den anden vej?
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public Map<Date, Float> getVibrations(String machineID, Timestamp date){
@@ -54,6 +54,7 @@ public class VibrationByMachineRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return vibrationMeasurements;
     }
 }

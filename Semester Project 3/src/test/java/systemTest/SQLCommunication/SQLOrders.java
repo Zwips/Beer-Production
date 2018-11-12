@@ -39,7 +39,7 @@ public class SQLOrders {
 
     @Given("^a connection to the database,orders$")
     public void aConnectionToTheDatabaseOrders() throws Throwable {
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     @Given("^that an order with ID -(\\d+) exists$")

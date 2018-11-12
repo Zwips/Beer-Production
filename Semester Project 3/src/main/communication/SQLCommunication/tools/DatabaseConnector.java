@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DatabaseConnector {
 
-    public Connection OpenConnection() {
+    public Connection openConnection() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (java.lang.ClassNotFoundException e) {
@@ -25,7 +25,7 @@ public class DatabaseConnector {
         return db;
     }
 
-    public void CloseConnection(Connection st){
+    public void closeConnection(Connection st){
         try{
             st.close();
 

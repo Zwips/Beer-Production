@@ -4,12 +4,10 @@ import Acquantiance.IERPFacade;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import logic.erp.ERP;
 import systemTest.ERPLevelInitializer;
 
 import java.sql.Connection;
@@ -38,7 +36,7 @@ public class ChangeOrder {
 
     @Given("^a connection to the database, OrderChange$")
     public void aConnectionToTheDatabaseOrderChange() throws Throwable {
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     @And("^the system is initialized, at ERP level$")

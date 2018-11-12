@@ -27,7 +27,7 @@ public class PendingOrdersRetriever {
         this.tables = "orders";
         this.conditions = "status = false";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
@@ -66,6 +66,7 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
     public List<IProductionOrder> getPendingOrders(){
@@ -102,6 +103,7 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

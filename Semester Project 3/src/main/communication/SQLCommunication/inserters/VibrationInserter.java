@@ -18,7 +18,7 @@ public class VibrationInserter {
 
         this.values = "(?,?,?)";
         this.tables = "vibration(batchid, timeOfReading, ValuePBS)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
 
     }
 

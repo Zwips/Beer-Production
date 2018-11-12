@@ -16,7 +16,7 @@ public class BatchLogRemoveByBatchID {
         this.tables = "batch_log";
         this.conditions = "batchid = ?";
 
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public boolean delete(int batchID){

@@ -18,7 +18,7 @@ public class BatchLogInserter {
     public BatchLogInserter() {
         this.values = "(?,?,?)";
         this.tables = "batch_log(batchid, machineid, orderid)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public boolean insert(int batchID, String machineID, int orderID){

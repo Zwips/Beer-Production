@@ -27,7 +27,7 @@ public class OrdersByPriorityRetriever {
         this.tables = "orders";
         this.conditions = "priority = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getCompletedOrders(int priority){
@@ -65,6 +65,7 @@ public class OrdersByPriorityRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }
