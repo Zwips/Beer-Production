@@ -63,8 +63,8 @@ public class ChangeOrder {
     @When("^updating the order$")
     public void updatingTheOrder() throws Throwable {
         //TODO or should it return the order as a object?
-        //this.erpFacade.updateOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority,orderID,status);
-        fail();
+        this.erpFacade.updateOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority,orderID,status);
+
     }
 
     @Then("^the updated order is not in the queue$")
@@ -119,26 +119,26 @@ public class ChangeOrder {
             assertEquals(orderID, results.getInt("orderid"));
 
             boolean different = true;
-            if (amount == results.getInt("amount")){
+            if (amount != results.getInt("amount")){
                 different = false;
             }
 
-            if (priority == results.getInt("priority")){
+            if (priority != results.getInt("priority")){
                 different = false;
             }
 
-            if (status == results.getBoolean("status")){
+            if (status != results.getBoolean("status")){
                 different = false;
             }
 
-            if (earliestDeliveryDate.equals(results.getDate("earliestdeliverydate"))){
+            if (!earliestDeliveryDate.equals(results.getDate("earliestdeliverydate"))){
                 different = false;
             }
 
-            if (latestDeliveryDate.equals(results.getDate("latestdeliverydate"))){
+            if (!latestDeliveryDate.equals(results.getDate("latestdeliverydate"))){
                 different = false;
             }
-            if (productType.equals(ProductTypeEnum.get(results.getString("producttype")))){
+            if (!productType.equals(ProductTypeEnum.get(results.getString("producttype")))){
                 different = false;
             }
             assertTrue(different);

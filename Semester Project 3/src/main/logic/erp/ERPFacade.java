@@ -52,7 +52,12 @@ public class ERPFacade implements IERPFacade {
 
     @Override
     public List<IProductionOrder> getProductionOrderQueue() {
-      return this.erp.getProductionOrderQueue();
+      return this.erp.getProductionOrders();
+    }
+
+    @Override
+    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
+      return erp.changeOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID, status);
     }
 
 
