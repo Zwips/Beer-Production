@@ -24,7 +24,7 @@ public class OrderInserter {
 
         this.values = "(?,?,?,?,?,?,?)";
         this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, orderID)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
 

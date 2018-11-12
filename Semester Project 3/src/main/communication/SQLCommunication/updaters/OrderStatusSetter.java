@@ -27,7 +27,7 @@ public class OrderStatusSetter {
         this.values = "status = ?";
         this.conditions = "orderid = ?";
 
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public boolean updateStatus(int orderID){

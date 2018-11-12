@@ -31,7 +31,7 @@ public class OrdersByPriorityRetriever {
         this.tables = "orders";
         this.conditions = "priority = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getOrdersByPriority(int priority){
@@ -69,6 +69,7 @@ public class OrdersByPriorityRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

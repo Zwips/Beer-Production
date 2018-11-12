@@ -29,7 +29,7 @@ public class BatchLogByBatchIDRetriever {
         this.tables = "batch_log";
         this.conditions = "BatchID = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public IBatchLog getBatchLog(int batchID){
@@ -61,7 +61,7 @@ public class BatchLogByBatchIDRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().CloseConnection(connection);
+        new DatabaseConnector().closeConnection(connection);
         return batchLog;
     }
 

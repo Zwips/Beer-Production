@@ -31,7 +31,7 @@ public class OrderRetriever {
         this.tables = "orders";
         this.conditions = "orderid = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public IProductionOrder getOrder(int batchid){
@@ -63,6 +63,7 @@ public class OrderRetriever {
             e.printStackTrace();
         }
 
+        new DatabaseConnector().closeConnection(connection);
         return order;
     }
 }
