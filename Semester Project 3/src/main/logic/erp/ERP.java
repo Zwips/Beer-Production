@@ -11,6 +11,7 @@ package logic.erp;
  * @param removeMachine Method for removing a machine from the list of processing plants.
  */
 
+import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
@@ -35,6 +36,7 @@ public class ERP {
         initialiseBatchID();
         initialiseOrderID();
         initialiseOrders();
+        intitialiseFactories();
     }
 
     /**Method to add an order to the production order queue.
@@ -143,7 +145,7 @@ public class ERP {
      *
      * @return the production order list.
      */
-    public List<IProductionOrder> getProductionOrderQueue( ){
+    public List<IProductionOrder> getProductionOrders( ){
         List<IProductionOrder> list = new ArrayList<>();
 
         for (IProductionOrder order:this.productionOrders){
@@ -219,5 +221,29 @@ public class ERP {
             }
         }
         return false;
+    }
+
+    private void intitialiseFactories(){
+        Set<Map.Entry<String, List<IMachineConnectionInformation>>> entryList  = ERPOutFacade.getInstance().getMachines().entrySet();
+        for (Map.Entry<String, List<IMachineConnectionInformation>> entry: entryList) {
+            if(processingPlants.containsKey(entry.getKey()))
+            {
+                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
+                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
+                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
+                }
+
+            }
+            else
+            {
+                processingPlants.put(entry.getKey(), new ProcessingPlant(entry.getKey()));
+                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
+                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
+                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
+                }
+            }
+        }
+
+
     }
 }
