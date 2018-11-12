@@ -108,7 +108,6 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 

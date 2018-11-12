@@ -35,10 +35,8 @@ public class DatabaseConnector {
     public void closeConnection(Connection st){
         try{
             st.close();
-
-            } catch (SQLException e1) {
+        } catch (SQLException e1) {
             e1.printStackTrace();
         }
-
     }
 }

@@ -32,9 +32,7 @@ public class ProcessingPlant {
         if(machine.isConnected()) {
             machines.put(machineName, machine);
             return true;
-        }
-        else
-        {
+        } else{
             return false;
         }
     }
