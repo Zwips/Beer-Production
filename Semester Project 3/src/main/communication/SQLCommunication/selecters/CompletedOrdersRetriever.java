@@ -25,7 +25,7 @@ public class CompletedOrdersRetriever {
         this.tables = "orders";
         this.conditions = "status = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IProductionOrder> getCompletedOrders(){
@@ -63,7 +63,7 @@ public class CompletedOrdersRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().CloseConnection(connection);
+        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

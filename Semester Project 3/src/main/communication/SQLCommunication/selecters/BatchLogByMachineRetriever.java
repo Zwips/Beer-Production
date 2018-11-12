@@ -26,7 +26,7 @@ public class BatchLogByMachineRetriever {
         this.tables = "batch_log";
         this.conditions = "machineID = ?";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public List<IBatchLog> getBatchLogs(String machineID){
@@ -59,7 +59,7 @@ public class BatchLogByMachineRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().CloseConnection(connection);
+        new DatabaseConnector().closeConnection(connection);
         return batchLogs;
     }
 }

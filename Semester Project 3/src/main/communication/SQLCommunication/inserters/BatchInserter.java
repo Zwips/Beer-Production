@@ -19,7 +19,7 @@ public class BatchInserter {
     public BatchInserter() {
         this.values = "(?,?,?,?)";
         this.tables = "batch(BatchID, ProductType, Amount, Defective)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public void insert(int batchID, ProductTypeEnum product, int amount, int defective) {

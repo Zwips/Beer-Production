@@ -16,7 +16,7 @@ public class OrdersRemoveByOrderID {
         this.tables = "Orders";
         this.conditions = "orderid = ?";
 
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
     }
 
     public boolean delete(int orderID){

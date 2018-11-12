@@ -17,7 +17,7 @@ public class HumidityInserter {
 
         this.values = "(?,?,?)";
         this.tables = "humidity(batchid, timeOfReading, valuePercent)";
-        connection = new DatabaseConnector().OpenConnection();
+        connection = new DatabaseConnector().openConnection();
 
     }
 

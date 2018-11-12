@@ -25,7 +25,7 @@ public class HumidityByMachineRetriever {
                 " FROM batch_log" +
                 " WHERE machineID = ?)"; //TODO eller skulle det være den anden vej?
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public Map<Date, Float> getHumidity(String machineID, Timestamp date){
@@ -54,7 +54,7 @@ public class HumidityByMachineRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().CloseConnection(connection);
+        new DatabaseConnector().closeConnection(connection);
         return temperatureMeasurements;
     }
 

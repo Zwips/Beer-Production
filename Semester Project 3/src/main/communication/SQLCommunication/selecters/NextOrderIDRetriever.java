@@ -2,13 +2,11 @@ package communication.SQLCommunication.selecters;
 
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
-import communication.SQLCommunication.tools.PrepareType;
 import communication.SQLCommunication.tools.Select;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 
 public class NextOrderIDRetriever {
@@ -23,7 +21,7 @@ public class NextOrderIDRetriever {
         this.tables = "orders";
         this.conditions = "true = true";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public int gerNextOrderID(){
@@ -37,7 +35,7 @@ public class NextOrderIDRetriever {
             while(results.next()){
                 int nextOrderID = results.getInt(1);
 
-                new DatabaseConnector().CloseConnection(connection);
+                new DatabaseConnector().closeConnection(connection);
                 return nextOrderID;
             }
 

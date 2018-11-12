@@ -3,12 +3,9 @@ package systemTest.SQLCommunication;
 import Acquantiance.IBatch;
 import Acquantiance.IBatchLog;
 import Acquantiance.ProductTypeEnum;
-import com.prosysopc.ua.types.opcua.BuildInfoType;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.SQLCommunication.tools.SetPreparedStatement;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,7 +14,6 @@ import cucumber.api.java.en.When;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +54,7 @@ public class SQLCommunication {
 
     @Given("^a connection to the database$")
     public void aConnectionToTheDatabase() throws Throwable {
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     @Given("^that a batch with ID -(\\d+) exists$")

@@ -2,13 +2,11 @@ package communication.SQLCommunication.selecters;
 
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
-import communication.SQLCommunication.tools.PrepareType;
 import communication.SQLCommunication.tools.Select;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 
     public class NextBatchIDRetriever {
@@ -23,7 +21,7 @@ import java.util.*;
         this.tables = "batch_log";
         this.conditions = "true = true";
 
-        this.connection = new DatabaseConnector().OpenConnection();
+        this.connection = new DatabaseConnector().openConnection();
     }
 
     public int getNextBatchID(){
@@ -37,7 +35,7 @@ import java.util.*;
             while(results.next()){
                 int nextBatchID = results.getInt(1);
 
-                new DatabaseConnector().CloseConnection(connection);
+                new DatabaseConnector().closeConnection(connection);
                 return nextBatchID;
             }
 
@@ -51,7 +49,7 @@ import java.util.*;
             e.printStackTrace();
         }
 
-        new DatabaseConnector().CloseConnection(connection);
+        new DatabaseConnector().closeConnection(connection);
         return 1;
     }
 }
