@@ -37,5 +37,10 @@ public class MESFacade implements IMESFacade {
         MESOutFacade.getInstance().InsertMachine(factoryID, machineID, machine_IP, userID, password);
     }
 
+    @Override
+    public void deleteMachine(String machineID) {
+        MESOutFacade.getInstance().deleteMachine(machineID);
+    }
+
 
 }

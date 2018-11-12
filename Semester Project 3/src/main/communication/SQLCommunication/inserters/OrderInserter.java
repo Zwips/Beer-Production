@@ -36,7 +36,7 @@ public class OrderInserter {
         wildCardInfo.add(new PrepareInfo(3, PrepareType.TIMESTAMP, earliestDate));
         wildCardInfo.add(new PrepareInfo(4, PrepareType.TIMESTAMP, latestDate));
         wildCardInfo.add(new PrepareInfo(5, PrepareType.INT, priority));
-        wildCardInfo.add(new PrepareInfo(6, PrepareType.BOOLEAN, status)); // false because it is not yet done
+        wildCardInfo.add(new PrepareInfo(6, PrepareType.BOOLEAN, false)); // false because it is not yet done
         wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, orderID));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);

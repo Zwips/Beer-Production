@@ -40,4 +40,5 @@ public interface ICommunicationFacade {
 
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
+    void deleteMachine(String machineID);
 }

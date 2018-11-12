@@ -40,6 +40,7 @@ public class SetPreparedStatement {
                 case BOOLEAN:
                     Boolean boolValue = (Boolean)prepareInfo.getData();
                     statement.setBoolean(prepareInfo.getPlace(), boolValue);
+                    break;
                 case BYTEARRAY:
                     ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
                     ObjectOutputStream objectOS = new ObjectOutputStream(byteArrayOS);
@@ -48,6 +49,7 @@ public class SetPreparedStatement {
 
                     byte[] byteA = byteArrayOS.toByteArray();
                     statement.setBytes(prepareInfo.getPlace(), byteA);
+                    break;
 
 
             }

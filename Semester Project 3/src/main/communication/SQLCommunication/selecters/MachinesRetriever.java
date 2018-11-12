@@ -23,9 +23,9 @@ public class MachinesRetriever {
 
 
     public MachinesRetriever() {
-        this.selections = "";
-        this.tables = "factories(machineid, machine_ip, userid, password, machine_specs, factoryid)";
-        this.conditions = "true = ture";
+        this.selections = "*";
+        this.tables = "machines";
+        this.conditions = "true = true";
         connection = new DatabaseConnector().openConnection();
     }
 
@@ -39,37 +39,41 @@ public class MachinesRetriever {
 
         ResultSet results =  new Select().query(connection, selections, tables, conditions, wildCardInfo);
         String factoryID = "";
-        try {
-        while (results.next()) {
-            machineConnectionInformation = new CommunicationMachineConnectionInformation();
 
-                machineConnectionInformation.setMachineID(results.getString(1));
-                machineConnectionInformation.setMachineIP(results.getString(2));
-                machineConnectionInformation.setMachineUsername(results.getString(3));
-                machineConnectionInformation.setMachinePassword(results.getString(4));
+
+            try {
+                                results.next();
+                factoryID = results.getString("factoryid");
+                do {
+                    machineConnectionInformation = new CommunicationMachineConnectionInformation();
+
+                    machineConnectionInformation.setMachineID(results.getString("machineid"));
+                    machineConnectionInformation.setMachineIP(results.getString("machine_ip"));
+                    machineConnectionInformation.setMachineUsername(results.getString("machineuserid"));
+                    machineConnectionInformation.setMachinePassword(results.getString("machinepassword"));
 //                for when machine specification is something we can use;
 //                byte[] bytes = results.getBytes(5);
 //                ByteArrayInputStream byteArrayIS = new ByteArrayInputStream(bytes);
 //                ObjectInputStream objectIS = new ObjectInputStream(byteArrayIS);
 //                machineConnectionInformation.setMachineSpecification((IMachineSpecification) objectIS.readObject());
 
-                if(results.getString(6).equals(factoryID)) {
-                    machineConnectionInformations.add(machineConnectionInformation);
-                    factoryID = results.getString(6);
-                }
-                else
-                {
-                    map.put(factoryID, machineConnectionInformations);
-                    machineConnectionInformations = new ArrayList<>();
-                    machineConnectionInformations.add(machineConnectionInformation);
-                    factoryID = results.getString(6);
-                }
+                    if(results.getString("factoryid").equals(factoryID)) {
+                        machineConnectionInformations.add(machineConnectionInformation);
+
+                    }
+                    else
+                    {
+                        map.put(factoryID, machineConnectionInformations);
+                        machineConnectionInformations = new ArrayList<>();
+                        machineConnectionInformations.add(machineConnectionInformation);
+                        factoryID = results.getString("factoryid");
+                    }
 
 
-    }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                } while (results.next());
+                map.put(factoryID, machineConnectionInformations);
+            } catch (SQLException e) {
+            }
         return map;
     }
 }

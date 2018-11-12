@@ -77,5 +77,8 @@ public class MESOutFacade {
         communicationFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
     }
 
+    void deleteMachine(String machineID){
+        communicationFacade.deleteMachine(machineID);
+    }
 
 }

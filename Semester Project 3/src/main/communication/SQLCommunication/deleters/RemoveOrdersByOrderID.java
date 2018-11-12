@@ -6,13 +6,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersRemoveByOrderID {
+public class RemoveOrdersByOrderID {
     private String values;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public OrdersRemoveByOrderID() {
+    public RemoveOrdersByOrderID() {
         this.tables = "Orders";
         this.conditions = "orderid = ?";
 

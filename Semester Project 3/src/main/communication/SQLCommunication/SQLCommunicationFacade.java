@@ -2,13 +2,13 @@ package communication.SQLCommunication;
 
 import Acquantiance.*;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.deleters.BatchLogRemoveByBatchID;
-import communication.SQLCommunication.deleters.OrdersRemoveByOrderID;
+import communication.SQLCommunication.deleters.RemoveBatchLogByBatchID;
+import communication.SQLCommunication.deleters.RemoveMachine;
+import communication.SQLCommunication.deleters.RemoveOrdersByOrderID;
 import communication.SQLCommunication.inserters.*;
 import communication.SQLCommunication.selecters.*;
 import communication.SQLCommunication.updaters.OrderStatusSetter;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -149,12 +149,17 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
 
     @Override
     public void deleteOrderByOrderID(int orderID) {
-        new OrdersRemoveByOrderID().delete(orderID);
+        new RemoveOrdersByOrderID().delete(orderID);
     }
 
     @Override
     public void deleteBatchLogByBatchID(int BatchID) {
-        new BatchLogRemoveByBatchID().delete(BatchID);
+        new RemoveBatchLogByBatchID().delete(BatchID);
+    }
+
+    @Override
+    public void deleteMachine(String machineID) {
+        new RemoveMachine().delete(machineID);
     }
 
     @Override

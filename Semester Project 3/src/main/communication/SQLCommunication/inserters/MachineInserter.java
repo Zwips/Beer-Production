@@ -18,8 +18,8 @@ public class MachineInserter {
 
 
     public MachineInserter() {
-        this.values = "(?,?,?,?,?,?)";
-        this.tables = "factories(factoryid, machineid, machine_ip, userid, password, machine_specs)";
+        this.values = "(?,?,?,?,?)";
+        this.tables = "machines(factoryid, machineid, machine_ip, machineuserid, machinepassword)";
         connection = new DatabaseConnector().openConnection();
     }
 
@@ -30,10 +30,14 @@ public class MachineInserter {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, machineID));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.STRING, machine_IP));
         wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, userID));
-        wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, password));
-//        wildCardInfo.add(new PrepareInfo(4, PrepareType.BYTEARRAY, specs)); for when specification is a thing we can use
-        wildCardInfo.add(new PrepareInfo(5, PrepareType.BYTEARRAY, new byte[0]));//until above is in use;
+        wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, password));
 
-        new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        if(new Insert().insertion(connection, tables, values, wildCardInfo)){
+            System.out.println("it worked");
+        }
+        else{
+            System.out.println("it failed");
+        }
     }
 }

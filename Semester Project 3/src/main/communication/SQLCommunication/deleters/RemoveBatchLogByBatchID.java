@@ -6,13 +6,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatchLogRemoveByBatchID {
+public class RemoveBatchLogByBatchID {
     private String values;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public BatchLogRemoveByBatchID() {
+    public RemoveBatchLogByBatchID() {
         this.tables = "batch_log";
         this.conditions = "batchid = ?";
 
