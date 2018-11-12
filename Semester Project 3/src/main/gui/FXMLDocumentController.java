@@ -1,8 +1,8 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui;
 
 import Acquantiance.IProductionOrder;
@@ -145,15 +145,15 @@ public class FXMLDocumentController implements Initializable  {
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }
-        @FXML
-        void DanishHandleBtn(ActionEvent event) {
+    @FXML
+    void DanishHandleBtn(ActionEvent event) {
 
-        }
+    }
 
-        @FXML
-        void LanguageHandleBtn(ActionEvent event) {
+    @FXML
+    void LanguageHandleBtn(ActionEvent event) {
 
-        }
+    }
 
     public boolean parseDate(TextField field){
         if(!field.getText().isEmpty()){
@@ -183,47 +183,47 @@ public class FXMLDocumentController implements Initializable  {
         return false;
     }
 
-        @FXML
-        void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
-            boolean allTrue = true;
-            int amount = 0;
-            Date earliestDeliveryDate = null;
-            Date latestDeliveryDate = null;
+    @FXML
+    void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
+        boolean allTrue = true;
+        int amount = 0;
+        Date earliestDeliveryDate = null;
+        Date latestDeliveryDate = null;
 
-            if (!this.testInt(orderAmountTextField)){
-                allTrue = false;
-            } else {
-                amount = Integer.parseInt(orderAmountTextField.getText());
-            }
+        if (!this.testInt(orderAmountTextField)){
+            allTrue = false;
+        } else {
+            amount = Integer.parseInt(orderAmountTextField.getText());
+        }
 
-            if(!this.parseDate(earliestDeliveryDateTextField)) {
-                allTrue = false;
-            } else {
-                earliestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(earliestDeliveryDateTextField.getText());
-            }
+        if(!this.parseDate(earliestDeliveryDateTextField)) {
+            allTrue = false;
+        } else {
+            earliestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(earliestDeliveryDateTextField.getText());
+        }
 
-            if(!this.parseDate(latestDeliveryDateTextField1)) {
-                allTrue = false;
-            } else {
-                latestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(latestDeliveryDateTextField1.getText());
-            }
-
-
+        if(!this.parseDate(latestDeliveryDateTextField1)) {
+            allTrue = false;
+        } else {
+            latestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(latestDeliveryDateTextField1.getText());
+        }
 
 
-            ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-            int priority = Integer.parseInt(priorityChoiceBox.getValue());
+        ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-            if (allTrue){
-                GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
-                orderSucceededLabel.setText("Order sent");
+        int priority = Integer.parseInt(priorityChoiceBox.getValue());
 
-            }
+
+        if (allTrue){
+            GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
+            orderSucceededLabel.setText("Order sent");
 
         }
+
+    }
 
 
 
@@ -257,7 +257,7 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
-    productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
+        productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
 
 
     }

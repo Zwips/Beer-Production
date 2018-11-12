@@ -1,5 +1,9 @@
 package communication.SQLCommunication.deleters;
-
+/** Represents an batchlog remover
+ * @author Michael P
+ * @param OrdersRemoveByOrderID constructor creates the batchlog to be removed with the given batchid
+ * @param delete method deletes the batchlog from the batchlog table in the database & returns true if successful.
+ */
 import communication.SQLCommunication.tools.*;
 
 import java.sql.Connection;
