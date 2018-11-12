@@ -1,5 +1,11 @@
 package logic.mes;
 
+/** Represents a machine reporter for state change
+ * @author Asmus
+ * @param report Method for uploading Batch info if state reaches complete.
+ *
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
