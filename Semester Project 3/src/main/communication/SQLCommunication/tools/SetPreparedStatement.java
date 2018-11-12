@@ -1,5 +1,6 @@
 package communication.SQLCommunication.tools;
 
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -10,7 +11,7 @@ public class SetPreparedStatement {
     public SetPreparedStatement() {
     }
 
-    PreparedStatement setIntoStatement(PreparedStatement statement, List<PrepareInfo> prepareInfos) throws SQLException {
+    PreparedStatement setIntoStatement(PreparedStatement statement, List<PrepareInfo> prepareInfos) throws SQLException, IOException {
 
         for (PrepareInfo prepareInfo : prepareInfos) {
             switch (prepareInfo.getType()){
@@ -33,6 +34,15 @@ public class SetPreparedStatement {
                 case BOOLEAN:
                     Boolean boolValue = (Boolean)prepareInfo.getData();
                     statement.setBoolean(prepareInfo.getPlace(), boolValue);
+                case BYTEARRAY:
+                    ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+                    ObjectOutputStream objectOS = new ObjectOutputStream(byteArrayOS);
+                    objectOS.writeObject(prepareInfo.getData());
+                    objectOS.flush();
+
+                    byte[] byteA = byteArrayOS.toByteArray();
+                    statement.setBytes(prepareInfo.getPlace(), byteA);
+
 
             }
         }

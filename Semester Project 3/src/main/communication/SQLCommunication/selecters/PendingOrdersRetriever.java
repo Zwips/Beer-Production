@@ -106,4 +106,5 @@ public class PendingOrdersRetriever {
         new DatabaseConnector().closeConnection(connection);
         return orders;
     }
+
 }

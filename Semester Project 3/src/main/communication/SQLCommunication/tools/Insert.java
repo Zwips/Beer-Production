@@ -19,6 +19,8 @@ public class Insert {
         } catch(SQLException e){
             System.out.println("Exception" + e);
             return false;
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
 
         return true;

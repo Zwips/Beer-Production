@@ -8,8 +8,10 @@ import communication.SQLCommunication.inserters.*;
 import communication.SQLCommunication.selecters.*;
 import communication.SQLCommunication.updaters.OrderStatusSetter;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -153,6 +155,16 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public void deleteBatchLogByBatchID(int BatchID) {
         new BatchLogRemoveByBatchID().delete(BatchID);
+    }
+
+    @Override
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines() {
+        return new MachinesRetriever().getMachines();
+    }
+
+    @Override
+    public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
+        new MachineInserter().insert(factoryID,machineID,machine_IP,userID,password);
     }
 
 }

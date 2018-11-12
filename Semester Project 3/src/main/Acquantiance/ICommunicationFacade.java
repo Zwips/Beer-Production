@@ -1,6 +1,7 @@
 package Acquantiance;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +37,7 @@ public interface ICommunicationFacade {
     void SendPowerLossEmail(String machineName);
     int getNextOrderID();
     int getNextBatchID();
+
+    HashMap<String, List<IMachineConnectionInformation>> getMachines();
+    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
 }

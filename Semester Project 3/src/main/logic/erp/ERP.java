@@ -1,5 +1,6 @@
 package logic.erp;
 
+import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
@@ -20,6 +21,7 @@ public class ERP {
         initialiseBatchID();
         initialiseOrderID();
         initialiseOrderQueue();
+        intitialiseFactories();
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
@@ -45,8 +47,13 @@ public class ERP {
 
 
 
-    public boolean addMachine(String processingPantID, String name, String address, String userID, String password){
-        return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
+    public boolean addMachine(String processingPantID, String machineID, String address, String userID, String password){
+        if (processingPlants.get(processingPantID).addMachine(machineID, address, userID, password))
+        {
+            ERPOutFacade.getInstance().InsertMachine(processingPantID,machineID,address,userID,password);
+            return true;
+        }
+        return false;
     }
 
     public boolean addMachine(String machineName, String IPAddress, String userID, String password){
@@ -104,5 +111,29 @@ public class ERP {
         for (IProductionOrder p: orders) {
             productionOrderQueue.add(p);
         }
+    }
+
+    private void intitialiseFactories(){
+        Set<Map.Entry<String, List<IMachineConnectionInformation>>> entryList  = ERPOutFacade.getInstance().getMachines().entrySet();
+        for (Map.Entry<String, List<IMachineConnectionInformation>> entry: entryList) {
+            if(processingPlants.containsKey(entry.getKey()))
+            {
+                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
+                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
+                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
+                   }
+
+            }
+            else
+            {
+                processingPlants.put(entry.getKey(), new ProcessingPlant(entry.getKey()));
+                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
+                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
+                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
+                }
+            }
+        }
+
+
     }
 }

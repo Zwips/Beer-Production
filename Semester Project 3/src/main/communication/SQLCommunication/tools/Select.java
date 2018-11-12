@@ -20,6 +20,8 @@ public class Select {
             results = pStatement.executeQuery();
         } catch(SQLException e){
             System.out.println("Exception" + e);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
 
         return results;

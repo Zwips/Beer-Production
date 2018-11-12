@@ -6,6 +6,7 @@ public enum PrepareType {
     FLOAT(),
     STRING(),
     TIMESTAMP(),
-    BOOLEAN;
+    BYTEARRAY(),
+    BOOLEAN();
 
 }

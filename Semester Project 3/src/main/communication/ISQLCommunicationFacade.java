@@ -2,7 +2,9 @@ package communication;
 
 import Acquantiance.*;
 
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +38,8 @@ public interface ISQLCommunicationFacade {
 
     void deleteOrderByOrderID(int orderID);
     void deleteBatchLogByBatchID(int BatchID);
+
+    HashMap<String, List<IMachineConnectionInformation>> getMachines();
+    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
 
     }

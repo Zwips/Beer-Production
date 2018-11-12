@@ -1,10 +1,12 @@
 package logic.mes;
 
+import Acquantiance.IMachineSpecification;
 import Acquantiance.ProductTypeEnum;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class MachineSpecifications {
+public class MachineSpecifications implements IMachineSpecification, Serializable {
 
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
