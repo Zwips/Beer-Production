@@ -109,14 +109,32 @@ public class SQLCommunication {
 
     @Then("^the correct batch is retrieved$")
     public void theCorrectBatchIsRetrieved() throws Throwable {
-        assertEquals(this.batchID, this.batch.getBatchID());
-        assertEquals(this.batchAmount,this.batch.getTotalProduced());
-        assertEquals(this.batchDefective,this.batch.getTotalDiscarded());
-        assertEquals(this.batchType,this.batch.getProductType());
+        try{
+            assertEquals(this.batchID, this.batch.getBatchID());
+            assertEquals(this.batchAmount,this.batch.getTotalProduced());
+            assertEquals(this.batchDefective,this.batch.getTotalDiscarded());
+            assertEquals(this.batchType,this.batch.getProductType());
 
-        assertEquals(this.temperature,this.batch.getTemperatures().get(this.timestamp));
-        assertEquals(this.humidity,this.batch.getHumidity().get(this.timestamp));
-        assertEquals(this.vibration,this.batch.getVibrations().get(this.timestamp));
+            assertEquals(this.temperature,this.batch.getTemperatures().get(this.timestamp));
+            assertEquals(this.humidity,this.batch.getHumidity().get(this.timestamp));
+            assertEquals(this.vibration,this.batch.getVibrations().get(this.timestamp));
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM batch WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @Given("^that a batchlog entry with batchid -(\\d+) exists$")
@@ -139,9 +157,15 @@ public class SQLCommunication {
 
     @Then("^the correct bachlog entry is retrieved$")
     public void theCorrectBachlogEntryIsRetrieved() throws Throwable {
-        assertEquals(this.batchID,this.batchLogEntry.getBatchID());
-        assertEquals(this.orderID,this.batchLogEntry.getOrderID());
-        assertEquals(this.machineID,this.batchLogEntry.getMachineID());
+        try{
+            assertEquals(this.batchID,this.batchLogEntry.getBatchID());
+            assertEquals(this.orderID,this.batchLogEntry.getOrderID());
+            assertEquals(this.machineID,this.batchLogEntry.getMachineID());
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @Given("^that a batchlog entry with machineID -(\\d+) exists$")
@@ -170,9 +194,15 @@ public class SQLCommunication {
             }
         }
 
-        assertEquals(this.batchID,this.batchLogEntry.getBatchID());
-        assertEquals(this.orderID,this.batchLogEntry.getOrderID());
-        assertEquals(this.machineID,this.batchLogEntry.getMachineID());
+        try{
+            assertEquals(this.batchID,this.batchLogEntry.getBatchID());
+            assertEquals(this.orderID,this.batchLogEntry.getOrderID());
+            assertEquals(this.machineID,this.batchLogEntry.getMachineID());
+        }  finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @Given("^that a batchlog entry with machineID and batchID -(\\d+) exists$")
@@ -215,8 +245,18 @@ public class SQLCommunication {
             }
         }
 
-        assertEquals(temperatureMeasurement.getKey(),this.measurementsTime);
-        assertEquals(temperatureMeasurement.getValue(),this.temperature);
+        try{
+            assertEquals(temperatureMeasurement.getKey(),this.measurementsTime);
+            assertEquals(temperatureMeasurement.getValue(),this.temperature);
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @And("^And that vibrations with batch -(\\d+) exists$")
@@ -246,8 +286,18 @@ public class SQLCommunication {
             }
         }
 
-        assertEquals(vibrationMeasurement.getKey(),this.measurementsTime);
-        assertEquals(vibrationMeasurement.getValue(),this.vibration);
+        try{
+            assertEquals(vibrationMeasurement.getKey(),this.measurementsTime);
+            assertEquals(vibrationMeasurement.getValue(),this.vibration);
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @And("^And that humidity with batch -(\\d+) exists$")
@@ -277,8 +327,18 @@ public class SQLCommunication {
             }
         }
 
-        assertEquals(humidityMeasurement.getKey(),this.measurementsTime);
-        assertEquals(humidityMeasurement.getValue(),this.humidity);
+        try{
+            assertEquals(humidityMeasurement.getKey(),this.measurementsTime);
+            assertEquals(humidityMeasurement.getValue(),this.humidity);
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+
+            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ?;");
+            pStatement.setInt(1,this.batchID);
+            pStatement.execute();
+        }
     }
 
     @When("^inserting data about the rate of defectives with machineID -(\\d+)$")

@@ -36,6 +36,7 @@ public class PendingOrdersRetriever {
 
     public List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
 
+        String conditions = this.conditions+" AND latestdeliverydate < ? AND latestdeliverydate > ?";
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.TIMESTAMP, before));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, after));

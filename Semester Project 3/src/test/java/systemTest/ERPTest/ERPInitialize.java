@@ -60,8 +60,6 @@ public class ERPInitialize {
         ERPLevelInitializer.glue();
     }
 
-
-
     @Then("^TestFactory and TestMachine will be loaded$")
     public void testfactoryAndTestMachineWillBeLoaded() throws Throwable {
         try {
