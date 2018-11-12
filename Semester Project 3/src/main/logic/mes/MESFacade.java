@@ -2,6 +2,9 @@ package logic.mes;
 
 import Acquantiance.IMESFacade;
 import Acquantiance.IMesMachine;
+import Acquantiance.IProductionOrder;
+
+import java.util.List;
 
 public class MESFacade implements IMESFacade {
 
@@ -18,6 +21,11 @@ public class MESFacade implements IMESFacade {
     @Override
     public int getNextBatchID() {
         return MESOutFacade.getInstance().getNextBatchID();
+    }
+
+    @Override
+    public List<IProductionOrder> getPendingOrders() {
+        return MESOutFacade.getInstance().getPendingOrders();
     }
 
 

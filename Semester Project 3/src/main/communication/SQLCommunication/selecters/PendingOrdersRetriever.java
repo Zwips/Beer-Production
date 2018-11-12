@@ -25,7 +25,7 @@ public class PendingOrdersRetriever {
     public PendingOrdersRetriever() {
         this.selections = "*";
         this.tables = "orders";
-        this.conditions = "latestdeliverydate < ? AND latestdeliverydate > ? AND status = false";
+        this.conditions = "status = false";
 
         this.connection = new DatabaseConnector().OpenConnection();
     }
@@ -35,6 +35,42 @@ public class PendingOrdersRetriever {
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.TIMESTAMP, before));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, after));
+
+        ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
+        List<IProductionOrder> orders = new ArrayList<>();
+
+        try {
+            while(results.next()){
+                CommunicationProductionOrder order = new CommunicationProductionOrder();
+
+                order.setAmount(results.getInt("amount"));
+                order.setOrderID(results.getInt("orderid"));
+                order.setPriority(results.getInt("priority"));
+                order.setStatus(results.getBoolean("status"));
+                order.setEarliestDeliveryDate(new Date(results.getTimestamp("EarliestDeliveryDate").getTime()));
+                order.setLatestDeliveryDate(new Date(results.getTimestamp("LatestDeliveryDate").getTime()));
+
+                ProductTypeEnum type = ProductTypeEnum.get(results.getString("ProductType"));
+                order.setType(type);
+
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+    public List<IProductionOrder> getPendingOrders(){
+
+        List<PrepareInfo> wildCardInfo = new ArrayList<>();
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
         List<IProductionOrder> orders = new ArrayList<>();

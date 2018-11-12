@@ -18,6 +18,7 @@ public interface ISQLCommunicationFacade {
 
     IProductionOrder selectFromOrder(int orderID);
     List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo);
+    List<IProductionOrder> getPendingOrders();
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
