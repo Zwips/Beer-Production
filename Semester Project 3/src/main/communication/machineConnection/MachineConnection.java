@@ -17,9 +17,9 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 
 import static java.lang.Thread.sleep;
 
-/**
- *
+/** Represents the connection to the machine
  * @author HCHB
+ *
  */
 public class MachineConnection implements IMachineConnection {
 

@@ -1,5 +1,8 @@
 package communication.machineConnection;
 
+/** Represents a template for a subscription.
+ * @author Malte
+ */
 
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;

@@ -5,6 +5,11 @@
  */
 package communication.machineConnection.command;
 
+/** Represents ProductID commands.
+ * @author HCHB
+ *
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
@@ -12,10 +17,6 @@ import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 import org.opcfoundation.ua.builtintypes.Variant;
 
-/**
- *
- * @author HCHB
- */
 public class ProductID {
     
     private String identifier = "Parameter[1].Value";

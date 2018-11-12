@@ -5,12 +5,14 @@
  */
 package communication.machineConnection.admin;
 
+/** Represents a admin in the system.
+ * @author HCHB
+ *
+ */
+
 import communication.machineConnection.IAdmin;
 
-/**
- *
- * @author HCHB
- */
+
 public class Admin implements IAdmin {
 
     private String identifier="Admin.";
