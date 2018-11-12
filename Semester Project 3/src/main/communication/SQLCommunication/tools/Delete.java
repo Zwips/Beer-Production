@@ -1,5 +1,9 @@
 package communication.SQLCommunication.tools;
-
+/** Represents an deleter
+ * @author Michael P
+ * @param delete method deletes various data in the database
+ * & returns true if successful
+ */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

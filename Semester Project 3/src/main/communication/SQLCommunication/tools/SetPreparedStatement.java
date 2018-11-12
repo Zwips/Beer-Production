@@ -1,5 +1,10 @@
 package communication.SQLCommunication.tools;
-
+/** Represents a prepaired statement setter
+ * @author Michael P
+ * @param setIntoStatement uses a switch & datatype enums
+ * to choose the correct statement for inserting date into the database
+ * & returns the statement
+ */
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;

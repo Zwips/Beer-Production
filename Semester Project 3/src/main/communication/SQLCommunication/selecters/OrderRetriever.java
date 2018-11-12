@@ -1,5 +1,9 @@
 package communication.SQLCommunication.selecters;
-
+/** Represents an order Retriever
+ * @author Michael P
+ * @param orderRetriever method retrieves the orders from the database with given orderid
+ * @param getOrder creates the ArrayList CommunicationProductionOrder with the orders & returns it.                     .
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
