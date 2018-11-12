@@ -17,7 +17,7 @@ import java.util.Date;
 import javax.mail.*;
 import java.util.Properties;
 
-public class MaintenenceEmail {
+public class MaintenanceEmail {
 
 	private String username = "beerproductiontest@gmail.com";
 	private String password = "beer:123";
