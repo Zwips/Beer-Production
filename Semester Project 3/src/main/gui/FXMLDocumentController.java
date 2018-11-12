@@ -14,6 +14,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 import javafx.collections.FXCollections;
@@ -254,6 +255,7 @@ public class FXMLDocumentController implements Initializable  {
     }
 
     public void MouseClickedActionAction(MouseEvent mouseEvent) {
+
     }
 
     @FXML
@@ -264,11 +266,19 @@ public class FXMLDocumentController implements Initializable  {
     }
 
     public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
+       GUIOutFacade.getInstance().getProductionOrderQueue();
+
+       IProductionOrder order = productionOrderListView.getSelectionModel().getSelectedItem();
+       orderAmountTextField.setText(order.getAmount()+"");
+
+       earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
     }
     @FXML
     void ChangeOrderActionBtn(ActionEvent event) {
 
     }
+
 
 }
 
