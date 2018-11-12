@@ -45,6 +45,9 @@ public class ConnectSimulation {
         }
     }
 
+
+
+
     @When("^connecting the the virtual simulation$")
     public void connectingTheTheVirtualSimulation() throws Throwable {
         this.connection = new MachineConnection("127.0.0.1:4840","sdu","1234");

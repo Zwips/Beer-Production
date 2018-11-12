@@ -12,7 +12,7 @@ define(['widgets/brease/Window/Window', 'brease/events/BreaseEvent', 'brease/enu
     * @iatMeta studio:visible
     * false
     * @iatMeta category:Category
-    * System
+    * testSystem
     */
 
     /**

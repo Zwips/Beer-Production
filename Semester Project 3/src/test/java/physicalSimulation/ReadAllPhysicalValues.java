@@ -37,7 +37,7 @@ public class ReadAllPhysicalValues {
 
     @Given("^The machine connection the physical simulation is established$")
     public void theMachineConnectionThePhysicalSimulationIsEstablished() throws Throwable {
-        this.connection = new MachineConnection("192.168.1.2:4840","sdu","1234");
+        this.connection = new MachineConnection("10.112.254.165","sdu","1234");
     }
 
 
@@ -132,7 +132,7 @@ public class ReadAllPhysicalValues {
     @Given("^a connection to the simulation , physical simulation$")
     public void aConnectionToTheSimulationPhysicalSimulation() throws Throwable {
         Connection con = new Connection();
-        client = con.getConnection("192.168.1.2:4840","1234","sdu");
+        client = con.getConnection("10.112.254.165","1234","sdu");
     }
 
     @When("^reading the ID for the next batch , physical simulation$")

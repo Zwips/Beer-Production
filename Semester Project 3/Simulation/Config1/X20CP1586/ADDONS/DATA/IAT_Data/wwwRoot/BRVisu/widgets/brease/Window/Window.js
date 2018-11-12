@@ -13,7 +13,7 @@ define(['brease/core/BaseWidget', 'widgets/brease/Window/libs/Config', 'brease/e
     * @iatMeta studio:visible
     * false
     * @iatMeta category:Category
-    * System
+    * testSystem
     */
     var defaultSettings = WindowConfig,
 

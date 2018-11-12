@@ -2,6 +2,9 @@ package logic.erp;
 
 import Acquantiance.IMESFacade;
 import Acquantiance.IMesMachine;
+import Acquantiance.IProductionOrder;
+
+import java.util.List;
 
 public class ERPOutFacade {
 
@@ -32,5 +35,16 @@ public class ERPOutFacade {
         return machine.isConnected();
     }
 
+    int getNextOrderID(){
+        return mesFacade.getNextOrderID();
+    }
+
+    int getNextBatchID(){
+        return mesFacade.getNextBatchID();
+    }
+
+    List<IProductionOrder> getPendingOrders(){
+        return mesFacade.getPendingOrders();
+    }
 
 }

@@ -2,7 +2,7 @@ package Acquantiance;
 
 import java.util.Date;
 
-public interface IProductionOrder {
+public interface IProductionOrder{
   int getAmount();
   ProductTypeEnum getProductType();
   Date getEarliestDeliveryDate();
@@ -10,6 +10,8 @@ public interface IProductionOrder {
   int getPriority();
   boolean getStatus();
   int getOrderID();
+  String toString();
+  IProductionOrder clone();
 
 
 

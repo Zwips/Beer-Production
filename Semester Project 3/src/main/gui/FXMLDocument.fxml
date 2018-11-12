@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -68,7 +70,7 @@
                         </Label>
                         <TextField fx:id="portNumberTextField" layoutX="192.0" layoutY="509.0" prefHeight="35.0" prefWidth="185.0" />
                         <TextField fx:id="userNameTextField" layoutX="162.0" layoutY="87.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Button fx:id="addMachineBtn" layoutX="618.0" layoutY="513.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
+                        <Button fx:id="addMachineBtn" layoutX="609.0" layoutY="453.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -91,10 +93,15 @@
                         </Label>
                         <Line endX="666.0" layoutX="112.0" layoutY="306.0" startX="-110.0" strokeWidth="3.0" />
                         <PasswordField fx:id="passWordTextField" layoutX="162.0" layoutY="161.0" prefHeight="36.0" prefWidth="182.0" />
+                        <Button fx:id="addMachineBtn1" layoutX="578.0" layoutY="511.0" mnemonicParsing="false" onAction="#removeMachineActionHandler" prefHeight="39.0" prefWidth="161.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove Machine">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
                      </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Make Order">
+                <Tab text="Orders">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -147,8 +154,8 @@
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <TextField fx:id="earliestDeliveryDateTextField" layoutX="200.0" layoutY="514.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
-                        <TextField fx:id="latestDeliveryDateTextField1" layoutX="200.0" layoutY="458.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <TextField fx:id="earliestDeliveryDateTextField" layoutX="200.0" layoutY="514.0" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
+                        <TextField fx:id="latestDeliveryDateTextField1" layoutX="200.0" layoutY="458.0" prefHeight="25.0" prefWidth="183.0" promptText="Required format: YYYY/MM/DD" />
                         <Label layoutX="24.0" layoutY="514.0" text="Latest delivery ">
                            <font>
                               <Font size="18.0" />
@@ -157,24 +164,27 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView fitHeight="205.0" fitWidth="255.0" layoutX="516.0" layoutY="66.0" pickOnBounds="true">
+                        <ImageView fitHeight="173.0" fitWidth="187.0" layoutX="584.0" layoutY="66.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../../../../../Desktop/Unavngivet.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="orderSucceededLabel" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
-                        <Label fx:id="typeLabel1" layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
+                        <Label layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="typeLabel11" layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
+                        <Label layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
                         <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
                         <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
+                        <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" onEditStart="#loadOrderInformationActionHandler" prefHeight="200.0" prefWidth="200.0" />
+                        <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Button" />
+                        <DatePicker layoutX="205.0" layoutY="78.0" />
                             </children>
                         </AnchorPane>
                     </content>

@@ -15,6 +15,7 @@ public interface ICommunicationFacade {
 
     IProductionOrder selectFromOrder(int orderID);
     List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo);
+    List<IProductionOrder> getPendingOrders();
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
@@ -33,5 +34,6 @@ public interface ICommunicationFacade {
     void SendInventoryEmail(String machineName);
     void SendMaintenenceEmail(String machineName);
     void SendPowerLossEmail(String machineName);
-
+    int getNextOrderID();
+    int getNextBatchID();
 }

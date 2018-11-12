@@ -1,8 +1,10 @@
 package logic.mes;
 
 import Acquantiance.ICommunicationFacade;
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import java.util.Date;
+import java.util.List;
 
 public class MESOutFacade {
 
@@ -56,5 +58,16 @@ public class MESOutFacade {
 
     }
 
+    int getNextOrderID(){
+        return communicationFacade.getNextOrderID();
+    }
+    int getNextBatchID(){
+        return communicationFacade.getNextBatchID();
+    }
+
+
+    public List<IProductionOrder> getPendingOrders() {
+        return communicationFacade.getPendingOrders();
+    }
 
 }

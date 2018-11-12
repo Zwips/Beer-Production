@@ -60,6 +60,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
+    public List<IProductionOrder> getPendingOrders() {
+        return sqlFacade.getPendingOrders();
+    }
+
+    @Override
     public List<IProductionOrder> getCompletedOrders() {
         return sqlFacade.getCompletedOrders();
     }
@@ -128,6 +133,16 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public void SendPowerLossEmail(String machineName) {
         mailFacade.SendPowerLossEmail(machineName);
+    }
+
+    @Override
+    public int getNextOrderID() {
+        return sqlFacade.getNextOrderID();
+    }
+
+    @Override
+    public int getNextBatchID() {
+        return sqlFacade.getNextBatchID();
     }
 
 

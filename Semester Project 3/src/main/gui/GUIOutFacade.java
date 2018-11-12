@@ -1,10 +1,12 @@
 package gui;
 
 import Acquantiance.IERPFacade;
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
-import logic.erp.ERPFacade;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Queue;
 
 public class GUIOutFacade {
 
@@ -32,8 +34,29 @@ public class GUIOutFacade {
 
     }
 
-    boolean addMachine(String name, String IPaddress, String userID, String password){
-        return erpFacade.addMachine(name, IPaddress, userID, password);
+    boolean addMachine(String machineName, String IPaddress, String userID, String password){
+        return erpFacade.addMachine(machineName, IPaddress, userID, password);
+    }
+
+    boolean removeMachine(String machineName) {
+        return erpFacade.removeMachine(machineName);
+    }
+
+    boolean removeMachine(String processingPlantID, String machineName) {
+        return erpFacade.removeMachine(processingPlantID, machineName);
+    }
+
+    void addProcessingPlant(String processingPlantID) {
+        erpFacade.addProcessingPlant(processingPlantID);
+    }
+
+    void removeProcessingPlant(String processingPlantID) {
+        erpFacade.removeProcessingPlant(processingPlantID);
+    }
+
+    List<IProductionOrder> getProductionOrderQueue(){
+
+        return erpFacade.getProductionOrderQueue();
     }
 
 }

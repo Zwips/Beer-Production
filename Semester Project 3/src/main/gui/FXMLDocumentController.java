@@ -5,22 +5,24 @@
 */
 package gui;
 
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 
@@ -122,6 +124,14 @@ public class FXMLDocumentController implements Initializable  {
     @FXML
     private Label orderSucceededLabel;
 
+
+    @FXML
+    private ListView<IProductionOrder> productionOrderListView;
+
+    @FXML
+    private Button loadProductionOrdersBtn;
+
+
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -174,7 +184,7 @@ public class FXMLDocumentController implements Initializable  {
     }
 
         @FXML
-    void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
+        void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
             boolean allTrue = true;
             int amount = 0;
             Date earliestDeliveryDate = null;
@@ -212,11 +222,10 @@ public class FXMLDocumentController implements Initializable  {
                 orderSucceededLabel.setText("Order sent");
 
             }
+
         }
 
-        //   GUIOutFacade.getInstance().addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, latestDeliveryDate, int priority)
 
-         //   amount, productType, earliestDeliveryDate, latestDeliveryDate, priority)
 
     @FXML
     void addMachineActionHandler(ActionEvent event) {
@@ -228,15 +237,34 @@ public class FXMLDocumentController implements Initializable  {
         GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
     }
     @FXML
-    void TypeBtnHandleAction(ActionEvent event) {
-
+    void removeMachineActionHandler(ActionEvent event) {
+        if(!GUIOutFacade.getInstance().removeMachine(machineNameTextField.getText()))
+        {
+            machineNameTextField.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        }
+        else
+        {
+            machineNameTextField.setStyle("-fx-border-color: #00000;-fx-border-width: 3;");
+        }
     }
+
+
+    public void TypeBtnHandleAction(ActionEvent actionEvent) {
+    }
+
+    public void MouseClickedActionAction(MouseEvent mouseEvent) {
+    }
+
     @FXML
-    void MouseClickedActionAction(MouseEvent event) {
+    void loadProductionOrdersActionHandler(ActionEvent event) {
+    productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
+
 
     }
 
+    public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
     }
+}
 
 
 

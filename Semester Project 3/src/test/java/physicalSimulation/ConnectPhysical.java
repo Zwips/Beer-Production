@@ -21,7 +21,7 @@ public class ConnectPhysical {
 
     @When("^connecting the the physical simulation$")
     public void connectingTheThePhysicalSimulation() throws Throwable {
-        this.connection = new MachineConnection("192.168.1.2:4840","sdu","1234");
+        this.connection = new MachineConnection("10.112.254.165","sdu","1234");
     }
 
     @Then("^The machine connection is connected to the physical simulation$")

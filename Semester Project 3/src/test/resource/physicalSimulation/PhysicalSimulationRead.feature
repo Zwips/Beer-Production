@@ -78,5 +78,3 @@ Feature: Pseudo unit testing - reads all values from the physical simulation
 #  subscribe to temp
 #  subscribe to vibration
 #  subscribe to humidity
-#  subscribe to current state
-#  subscribe to stop reason ID

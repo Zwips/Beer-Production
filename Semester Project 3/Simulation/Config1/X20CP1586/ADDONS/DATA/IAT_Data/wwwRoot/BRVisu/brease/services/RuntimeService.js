@@ -126,8 +126,8 @@ define(function () {
 
     /**
     * @method
-    * Method to switch Measurement-System
-    * @param {String} key A String to specify Measurement-System.
+    * Method to switch Measurement-testSystem
+    * @param {String} key A String to specify Measurement-testSystem.
     * @param {Function} [callback] A callback method to handle result
     */
     p.switchMeasurementSystem = function () {
