@@ -14,10 +14,11 @@ package logic.erp;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class ERP {
-    private Queue<IProductionOrder> productionOrderQueue;
+    private List<IProductionOrder> productionOrders;
     private HashMap<String, ProcessingPlant> processingPlants;
     private int nextOrderID;
     private int nextBatchID;
@@ -27,13 +28,13 @@ public class ERP {
      */
     public ERP()
     {
-        productionOrderQueue = new PriorityQueue<>();
+        productionOrders = new ArrayList<IProductionOrder>();
         processingPlants = new HashMap<>();
         ProcessingPlant plant = new ProcessingPlant("THEPLANT");
         processingPlants.put("THEPLANT",plant);
         initialiseBatchID();
         initialiseOrderID();
-        initialiseOrderQueue();
+        initialiseOrders();
     }
 
     /**Method to add an order to the production order queue.
@@ -46,10 +47,17 @@ public class ERP {
      * @return the production order queue with the added order.
      */
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(nextOrderID++);
-        return productionOrderQueue.add(order);
+        ProductionOrder order = null;
 
+        try {
+            order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+        } catch (InvalidParameterException ex){
+            return false;
+        }
+
+        order.setOrderID(nextOrderID++);
+        //ERPOutFacade.getInstance().
+        return productionOrders.add(order);
     }
 
     /** Method to add a new processing plant to the list of processing plants.
@@ -131,6 +139,7 @@ public class ERP {
         return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
+    public List<IProductionOrder> getProductionOrders() {
     /** Method for getting the production order queue.
      *
      * @return the production order list.
@@ -138,7 +147,7 @@ public class ERP {
     public List<IProductionOrder> getProductionOrderQueue() {
         List<IProductionOrder> list = new ArrayList<>();
 
-        for (IProductionOrder order:this.productionOrderQueue){
+        for (IProductionOrder order:this.productionOrders){
             list.add(order.clone());
         }
         return list;
@@ -188,9 +197,29 @@ public class ERP {
      *
      */
     private void initialiseOrderQueue(){
+    private void initialiseOrders(){
         List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
         for (IProductionOrder p: orders) {
-            productionOrderQueue.add(p);
+            productionOrders.add(p);
         }
+    }
+
+    public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
+        for (IProductionOrder productionOrder : this.productionOrders) {
+            if (productionOrder.getOrderID()==orderID){
+                ProductionOrder changedOrder = null;
+
+                try {
+                    changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+                    changedOrder.setOrderID(orderID);
+                    productionOrders.remove(productionOrder);
+                    productionOrders.add(changedOrder);
+                    return true;
+                } catch (InvalidParameterException ex){
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }

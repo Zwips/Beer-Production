@@ -1,10 +1,19 @@
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui;
-
+/** Represents all GUI control
+ * @author Michael P
+ * @param initialize initializes the choicebox & hashmap containing the product types.
+ * @param parseDate parses the given text to a date.
+ * @param testInt test if integers have been written in textfield, and returns true or false.
+ * @param SendOrderHandleActionBtn sends order to the database if all required information is given & returns "order send" if successful.
+ * @param addMachineActionHandler adds another machine if present with the required information ipadress, machinename, username & password.
+ * @param removeMachineActionHandler removes chosen machine.
+ * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
@@ -13,6 +22,7 @@ import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.collections.FXCollections;
@@ -116,20 +126,22 @@ public class FXMLDocumentController implements Initializable  {
 
     private HashMap<RadioButton, ProductTypeEnum> productToggleMap;
 
-    @FXML
-    private TextField earliestDeliveryDateTextField;
 
-    @FXML
-    private TextField latestDeliveryDateTextField1;
     @FXML
     private Label orderSucceededLabel;
+    @FXML
+    private Button loadProductionOrdersBtn;
 
+    @FXML
+    private DatePicker earliestDeliveryDatePicker;
+    @FXML
+    private DatePicker latestDeliveryDatePicker;
 
     @FXML
     private ListView<IProductionOrder> productionOrderListView;
-
     @FXML
-    private Button loadProductionOrdersBtn;
+    private Button changeOrder;
+
 
 
     @FXML
@@ -139,33 +151,27 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
         priorityChoiceBox.getItems().addAll("1", "2", "3");
         priorityChoiceBox.getSelectionModel().select("1");
-
-
-
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
     }
-        @FXML
-        void DanishHandleBtn(ActionEvent event) {
+    @FXML
+    void DanishHandleBtn(ActionEvent event) {
 
+    }
+
+    @FXML
+    void LanguageHandleBtn(ActionEvent event) {
+
+    }
+
+    public boolean parseDate(DatePicker picker){
+        if(picker.getValue()!=null){
+
+            picker.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+            return true;
         }
 
-        @FXML
-        void LanguageHandleBtn(ActionEvent event) {
-
-        }
-
-    public boolean parseDate(TextField field){
-        if(!field.getText().isEmpty()){
-            try{
-                Date SimpleDateFormat = new SimpleDateFormat("yyyy/MM/dd").parse(field.getText());
-                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
-                return true;
-            } catch (ParseException e) {
-            }
-        }
-
-        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        picker.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
         return false;
     }
 
@@ -187,43 +193,44 @@ public class FXMLDocumentController implements Initializable  {
         void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
             boolean allTrue = true;
             int amount = 0;
-            Date earliestDeliveryDate = null;
             Date latestDeliveryDate = null;
+            Date earliestDeliveryDate = null;
 
-            if (!this.testInt(orderAmountTextField)){
+        if (!this.testInt(orderAmountTextField)){
+            allTrue = false;
+        } else {
+            amount = Integer.parseInt(orderAmountTextField.getText());
+        }
+
+            if(!this.parseDate(earliestDeliveryDatePicker)) {
                 allTrue = false;
             } else {
-                amount = Integer.parseInt(orderAmountTextField.getText());
+                earliestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
             }
 
-            if(!this.parseDate(earliestDeliveryDateTextField)) {
+            if(!this.parseDate(latestDeliveryDatePicker)) {
+
                 allTrue = false;
             } else {
-                earliestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(earliestDeliveryDateTextField.getText());
-            }
-
-            if(!this.parseDate(latestDeliveryDateTextField1)) {
-                allTrue = false;
-            } else {
-                latestDeliveryDate = new SimpleDateFormat("yyyy/MM/dd").parse(latestDeliveryDateTextField1.getText());
+                latestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
             }
 
 
 
 
-            ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
+        ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-            int priority = Integer.parseInt(priorityChoiceBox.getValue());
+        int priority = Integer.parseInt(priorityChoiceBox.getValue());
 
 
-            if (allTrue){
-                GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
-                orderSucceededLabel.setText("Order sent");
-
-            }
+        if (allTrue){
+            GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
+            orderSucceededLabel.setText("Order sent");
 
         }
+
+    }
 
 
 
@@ -257,13 +264,18 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
-    productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
+        productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
 
 
     }
 
     public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
     }
+    @FXML
+    void ChangeOrderActionBtn(ActionEvent event) {
+
+    }
+
 }
 
 

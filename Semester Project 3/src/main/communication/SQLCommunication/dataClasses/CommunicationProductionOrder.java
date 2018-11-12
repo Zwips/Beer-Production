@@ -1,5 +1,9 @@
 package communication.SQLCommunication.dataClasses;
-
+/** Represents an Communication Production Order
+ * @author Michael P
+ * @param OrdersRemoveByOrderID constructor creates the object CommunicationProductionOrder.
+ * @param clone method clones the object CommunicationProductionOrder.
+ */
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
