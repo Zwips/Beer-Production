@@ -1,9 +1,7 @@
 package Acquantiance;
 
-import logic.erp.ProductionOrder;
-
 import java.util.Date;
-import java.util.Queue;
+import java.util.List;
 
 public interface IERPFacade {
     boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority);
@@ -15,5 +13,5 @@ public interface IERPFacade {
 
     boolean removeMachine(String processingPantID, String machineName);
     boolean removeMachine(String machineName);
-    Queue<IProductionOrder> getProductionOrderQueue();
+    List<IProductionOrder> getProductionOrderQueue();
     }

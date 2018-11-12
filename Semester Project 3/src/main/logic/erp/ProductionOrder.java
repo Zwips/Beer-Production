@@ -39,6 +39,18 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     public int getAmount() {
         return amount;
     }
+    @Override
+    public String toString(){
+        return "OrderID: "+orderID;
+    }
+
+    @Override
+    public IProductionOrder clone() {
+       ProductionOrder order = new ProductionOrder(this.amount, this.productType, this.earliestDeliveryDate, this.latestDeliveryDate, this.priority);
+       order.setStatus(this.status);
+       order.setOrderID(orderID);
+       return order;
+    }
 
     @Override
     public ProductTypeEnum getProductType() {

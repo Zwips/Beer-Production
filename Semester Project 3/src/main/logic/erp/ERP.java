@@ -8,7 +8,8 @@ import java.util.*;
 public class ERP {
     private Queue<IProductionOrder> productionOrderQueue;
     private HashMap<String, ProcessingPlant> processingPlants;
-    private int orderID;
+    private int nextOrderID;
+    private int nextBatchID;
 
     public ERP()
     {
@@ -16,12 +17,14 @@ public class ERP {
         processingPlants = new HashMap<>();
         ProcessingPlant plant = new ProcessingPlant("THEPLANT");
         processingPlants.put("THEPLANT",plant);
-        orderID = 0; //TODO add funtionality for finding next orderID in database.
+        initialiseBatchID();
+        initialiseOrderID();
+        initialiseOrderQueue();
     }
 
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(orderID++);
+        order.setOrderID(nextOrderID++);
         return productionOrderQueue.add(order);
 
     }
@@ -67,11 +70,39 @@ public class ERP {
         return processingPlants.get("THEPLANT").removeMachine(machineName);
     }
 
-    public Queue<IProductionOrder> getProductionOrderQueue() {
-        return this.productionOrderQueue;
+    public List<IProductionOrder> getProductionOrderQueue() {
+        List<IProductionOrder> list = new ArrayList<>();
+
+        for (IProductionOrder order:this.productionOrderQueue){
+            list.add(order.clone());
+        }
+        return list;
     }
 
     public boolean removeMachine(String processingPlantID, String machineName) {
         return processingPlants.get(processingPlantID).removeMachine(machineName);
+    }
+
+    public int getNextOrderID() {
+        return nextOrderID;
+    }
+
+    public int getNextBatchID() {
+        return nextBatchID;
+    }
+
+    private void initialiseBatchID(){
+        nextBatchID = ERPOutFacade.getInstance().getNextBatchID();
+    }
+
+    private void initialiseOrderID(){
+        nextOrderID = ERPOutFacade.getInstance().getNextOrderID();
+    }
+
+    private void initialiseOrderQueue(){
+        List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
+        for (IProductionOrder p: orders) {
+            productionOrderQueue.add(p);
+        }
     }
 }

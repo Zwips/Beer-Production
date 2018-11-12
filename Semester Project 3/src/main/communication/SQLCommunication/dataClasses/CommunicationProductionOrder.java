@@ -15,6 +15,19 @@ public class CommunicationProductionOrder implements IProductionOrder {
     private boolean status;
     private int orderID;
 
+    public CommunicationProductionOrder() {
+    }
+
+    public CommunicationProductionOrder(int amount, ProductTypeEnum type, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, boolean status, int orderID) {
+        this.amount = amount;
+        this.type = type;
+        this.earliestDeliveryDate = earliestDeliveryDate;
+        this.latestDeliveryDate = latestDeliveryDate;
+        this.priority = priority;
+        this.status = status;
+        this.orderID = orderID;
+    }
+
     @Override
     public int getOrderID() {
         return orderID;
@@ -77,4 +90,10 @@ public class CommunicationProductionOrder implements IProductionOrder {
     public boolean getStatus() {
         return this.status;
     }
+    @Override
+    public IProductionOrder clone() {
+        CommunicationProductionOrder order = new CommunicationProductionOrder(this.amount,type, earliestDeliveryDate, latestDeliveryDate, priority, status, orderID);
+        return order;
+    }
+
 }

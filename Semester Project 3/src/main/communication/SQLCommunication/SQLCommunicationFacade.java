@@ -2,6 +2,8 @@ package communication.SQLCommunication;
 
 import Acquantiance.*;
 import communication.ISQLCommunicationFacade;
+import communication.SQLCommunication.deleters.BatchLogRemoveByBatchID;
+import communication.SQLCommunication.deleters.OrdersRemoveByOrderID;
 import communication.SQLCommunication.inserters.*;
 import communication.SQLCommunication.selecters.*;
 import communication.SQLCommunication.updaters.OrderStatusSetter;
@@ -71,6 +73,11 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
+    public List<IProductionOrder> getPendingOrders() {
+        return new PendingOrdersRetriever().getPendingOrders();
+    }
+
+    @Override
     public List<IProductionOrder> getCompletedOrders() {
         CompletedOrdersRetriever retriever = new CompletedOrdersRetriever();
         return retriever.getCompletedOrders();
@@ -126,6 +133,26 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
         int orderID = order.getOrderID();
         boolean status = order.getStatus();
         new OrderInserter().insert(amount, type, earliestDate,latestDate,priority,status,orderID);
+    }
+
+    @Override
+    public int getNextOrderID() {
+       return new NextOrderIDRetriever().gerNextOrderID();
+    }
+
+    @Override
+    public int getNextBatchID() {
+        return new NextBatchIDRetriever().getNextBatchID();
+    }
+
+    @Override
+    public void deleteOrderByOrderID(int orderID) {
+        new OrdersRemoveByOrderID().delete(orderID);
+    }
+
+    @Override
+    public void deleteBatchLogByBatchID(int BatchID) {
+        new BatchLogRemoveByBatchID().delete(BatchID);
     }
 
 }

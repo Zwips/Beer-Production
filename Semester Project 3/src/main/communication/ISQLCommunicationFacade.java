@@ -18,6 +18,7 @@ public interface ISQLCommunicationFacade {
 
     IProductionOrder selectFromOrder(int orderID);
     List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo);
+    List<IProductionOrder> getPendingOrders();
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
@@ -29,5 +30,11 @@ public interface ISQLCommunicationFacade {
     void logVibration(float value, Date timestamp, int batchID);
     void logHumidity(float value, Date timestamp, int batchID);
     void logOrder(IProductionOrder order);
+
+    int getNextOrderID();
+    int getNextBatchID();
+
+    void deleteOrderByOrderID(int orderID);
+    void deleteBatchLogByBatchID(int BatchID);
 
     }
