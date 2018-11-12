@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an Humidity inserter
+ * @author Michael P
+ * @param HumidityInserter constructor creates the object containing batchid, timestamp & valuePercent.
+ * @param insert method inserts the object into the table humidity in the database.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 
 import java.sql.Connection;
