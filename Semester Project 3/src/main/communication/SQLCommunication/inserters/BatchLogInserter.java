@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an Batchlog inserter
+ * @author Michael P
+ * @param BatchLogInserter constructor creates the object batchlog containing batchid, machineid & orderid
+ * @param insert method inserts the object into the Batchlog table in the database.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
 import communication.SQLCommunication.tools.PrepareInfo;

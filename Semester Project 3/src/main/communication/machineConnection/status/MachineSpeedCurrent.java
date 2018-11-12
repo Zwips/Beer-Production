@@ -11,9 +11,9 @@ import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 
-/**
- *
+/** Represents the current machine speed.
  * @author HCHB
+ *
  */
 public class MachineSpeedCurrent {
 

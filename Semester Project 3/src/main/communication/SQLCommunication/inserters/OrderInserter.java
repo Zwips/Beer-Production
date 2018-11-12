@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an order inserter
+ * @author Michael P
+ * @param Orderinserter constructor creates the object order containing amount, producttype, Earliestdeliverydate, latestdeliverydate, priority, status & orderID
+ * @param insert method inserts the object into the order table in the database.
+ */
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;

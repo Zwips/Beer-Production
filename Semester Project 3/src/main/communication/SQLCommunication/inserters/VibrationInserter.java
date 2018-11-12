@@ -1,5 +1,9 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents an Vibration inserter
+ * @author Michael P
+ * @param VibrationInserter constructor creates the object containing batchid, timestamp & valuePBS
+ * @param insert method inserts the object into the vibrations table in the database.
+ */
 import communication.SQLCommunication.tools.DatabaseConnector;
 
 import java.sql.Connection;

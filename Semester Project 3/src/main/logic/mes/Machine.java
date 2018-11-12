@@ -1,5 +1,18 @@
 package logic.mes;
 
+/** Representing a machine in our system
+ * @author Asmus
+ * @param createMachineConnection Method for creating a connecting to a machine.
+ * @param executeOrder Method for executing a order.
+ * @param abandonOrder Method for dropping a order.
+ * @param isConnected  Method for checking if a machine is connected.
+ * @param subscribeToTemperature Method for creating a subscription to the temperature.
+ * @param subscribeToCurrentState Method for creating a subscription to the current state.
+ * @param subscribeToVibration Method for creating a subscription to the vibration.
+ * @param subscribeToHumidity Method for creating a subscription to the Humidity
+ * @param subscribeToStopReasonID Method for creating a subscription to StopReasonID
+ * @param uploadBatchInfo Method for all information about a Batch.
+ */
 
 import Acquantiance.IDataChangeCatcher;
 import Acquantiance.IMesMachine;

@@ -1,5 +1,9 @@
 package communication.machineConnection;
 
+/** Represents
+ *
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;

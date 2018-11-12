@@ -1,5 +1,10 @@
 package logic.mes;
 
+/** Represents a machine reporter for humidity
+ * @author Asmus
+ * @param report Method for logging humidity.
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import org.opcfoundation.ua.builtintypes.DataValue;

@@ -5,16 +5,17 @@
  */
 package communication.machineConnection.status;
 
+/** Represents the temperature of a machine.
+ * @author HCHB
+ *
+ */
+
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
 
-/**
- *
- * @author HCHB
- */
 public class Temperature {
     
     private String identifier = "Parameter[3].Value";

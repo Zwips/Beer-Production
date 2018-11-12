@@ -1,5 +1,10 @@
 package communication.machineConnection;
 
+/** Represents the subscription creator.
+ * @author Asmus
+ * @param createSubscription Method for the creation of a subscription to a client.
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;

@@ -1,12 +1,14 @@
 package logic.mes;
 
-import Acquantiance.IMachineSpecification;
+/** Represents the specifications for a machine.
+ * @author Asmus
+ */
+
 import Acquantiance.ProductTypeEnum;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
-public class MachineSpecifications implements IMachineSpecification, Serializable {
+public class MachineSpecifications {
 
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
@@ -36,7 +38,7 @@ public class MachineSpecifications implements IMachineSpecification, Serializabl
         return allowedCommands.get(state);
     }
 
-    float getOptimalSpeed(ProductTypeEnum productType){
+    public float getOptimalSpeed(ProductTypeEnum productType){
         switch (productType) {
             case PILSNER:
                 return 599;

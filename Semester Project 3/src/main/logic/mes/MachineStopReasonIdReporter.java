@@ -1,7 +1,13 @@
 package logic.mes;
 
+/** Represents a machine reporter for stopReasonID.
+ * @author Asmus
+ * @param report Method for sending a mail with a stopReason dependent on the stopReasonID.
+ */
+
 import Acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
+
 
 
 public class MachineStopReasonIdReporter implements IDataChangeCatcher {

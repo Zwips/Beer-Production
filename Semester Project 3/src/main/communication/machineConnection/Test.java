@@ -13,13 +13,14 @@ import java.io.*;
 import static java.lang.Thread.sleep;
 
 public class Test {
-    static int machineSpeed = 575;
-    static int numberOfRuns = 0;
-    static ProductTypeEnum productType = ProductTypeEnum.PILSNER;
-    static MachineSpecifications specs = new MachineSpecifications();
+    static int numberOfRuns = 5;
+    static ProductTypeEnum productType = ProductTypeEnum.IPA;
 
-    private static MachineConnection connection = new MachineConnection("192.168.1.2", "sdu","1234");
-    //private static MachineConnection connection = new MachineConnection("127.0.0.1:4840", "sdu","1234");
+    static MachineSpecifications specs = new MachineSpecifications();
+    static int machineSpeed = (int)specs.getOptimalSpeed(productType);
+
+    //private static MachineConnection connection = new MachineConnection("192.168.1.2", "sdu","1234");
+    private static MachineConnection connection = new MachineConnection("10.112.254.165", "sdu","1234");
 
     public Test() throws FileNotFoundException {
     }
@@ -51,7 +52,7 @@ public class Test {
 
         numberOfRuns++;
         if(numberOfRuns%5==0){
-            machineSpeed -=50;
+            machineSpeed -=25;
         }
         connection.setMachineSpeed(machineSpeed);
         sleep(100);

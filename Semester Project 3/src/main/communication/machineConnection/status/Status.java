@@ -5,12 +5,12 @@
  */
 package communication.machineConnection.status;
 
+/** Represents the status of the system.
+ * @author HCHB
+ *
+ */
 import communication.machineConnection.IStatus;
 
-/**
- *
- * @author HCHB
- */
 public class Status implements IStatus {
     
         private String identifier ="Status.";

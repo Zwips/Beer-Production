@@ -1,5 +1,8 @@
 package communication.SQLCommunication.inserters;
-
+/** Represents a logger
+ * @author Michael P
+ * @param logMeasurement method creates an ArrayList containing the measurements containing batchID, timestamp, value & inserts it into the database.
+ */
 import communication.SQLCommunication.tools.Insert;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;
