@@ -119,7 +119,7 @@ public class FXMLDocumentController implements Initializable  {
     private Label orderAmountLabel;
 
     @FXML
-    private ChoiceBox<String> priorityChoiceBox;
+    private ChoiceBox<Integer> priorityChoiceBox;
 
     @FXML
     private Label priorityLabel;
@@ -152,8 +152,8 @@ public class FXMLDocumentController implements Initializable  {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
-        priorityChoiceBox.getItems().addAll("1", "2", "3");
-        priorityChoiceBox.getSelectionModel().select("1");
+        priorityChoiceBox.getItems().addAll(1,2,3);
+        priorityChoiceBox.getSelectionModel().select(1);
         productToggleMap = new HashMap<>();
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
 
@@ -172,8 +172,9 @@ public class FXMLDocumentController implements Initializable  {
 
         IProductionOrder order = iProductionOrder;
         orderAmountTextField.setText(order.getAmount()+"");
-
+        latestDeliveryDatePicker.setValue(order.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        priorityChoiceBox.setValue(order.getPriority());
 
     }
     @FXML
@@ -243,8 +244,7 @@ public class FXMLDocumentController implements Initializable  {
         ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-        int priority = Integer.parseInt(priorityChoiceBox.getValue());
-
+        int priority = (priorityChoiceBox.getValue());
 
         if (allTrue){
             GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
