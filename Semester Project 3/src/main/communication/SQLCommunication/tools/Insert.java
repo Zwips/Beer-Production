@@ -30,4 +30,52 @@ public class Insert {
         return true;
     }
 
+    public static void main(String[] args) {
+        Insert insert = new Insert();
+        insert.insertionTest();
+    }
+
+    void insertionTest(){
+
+        long i = 1;
+        while(i<100) {
+            Connection connection2 = new DatabaseConnector().openConnection();
+
+            try {
+                PreparedStatement pStatement = connection2.prepareStatement("INSERT INTO " + "temptable(timex, numbery, name)" + " VALUES " + "(?,?,?)");
+
+                pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
+                pStatement.setLong(2, i);
+                pStatement.setString(3, "MALTE");
+
+
+                pStatement.execute();
+                connection2.close();
+
+            } catch (SQLException e) {
+                System.out.println("Exception" + e);
+                try {
+                    connection2.close();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            i++;
+        }
+
+        Connection connection = new DatabaseConnector().openConnection();
+        try {
+            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO " + "temptable(timex, numbery)" + " VALUES " + "(?,?,?)");
+            while(i<2000) {
+                pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
+                pStatement.setLong(2, i++);
+                pStatement.setString(3, "MALTE");
+
+                pStatement.execute();
+            }
+        } catch (SQLException e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
 }
