@@ -42,7 +42,7 @@ public class Insert {
             Connection connection2 = new DatabaseConnector().openConnection();
 
             try {
-                PreparedStatement pStatement = connection2.prepareStatement("INSERT INTO " + "temptable(timex, numbery, name)" + " VALUES " + "(?,?,?)");
+                PreparedStatement pStatement = connection2.prepareStatement("INSERT INTO " + "temptable(timex, numbery, namez)" + " VALUES " + "(?,?,?)");
 
                 pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 pStatement.setLong(2, i);
@@ -65,7 +65,7 @@ public class Insert {
 
         Connection connection = new DatabaseConnector().openConnection();
         try {
-            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO " + "temptable(timex, numbery)" + " VALUES " + "(?,?,?)");
+            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO " + "temptable(timex, numbery, namez)" + " VALUES " + "(?,?,?)");
             while(i<2000) {
                 pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 pStatement.setLong(2, i++);
