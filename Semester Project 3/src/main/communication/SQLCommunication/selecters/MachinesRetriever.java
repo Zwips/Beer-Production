@@ -40,40 +40,47 @@ public class MachinesRetriever {
         ResultSet results =  new Select().query(connection, selections, tables, conditions, wildCardInfo);
         String factoryID = "";
 
+        try {
+            results.next();
+            factoryID = results.getString("factoryid");
 
-            try {
-                                results.next();
-                factoryID = results.getString("factoryid");
-                do {
-                    machineConnectionInformation = new CommunicationMachineConnectionInformation();
+            do {
+                machineConnectionInformation = new CommunicationMachineConnectionInformation();
 
-                    machineConnectionInformation.setMachineID(results.getString("machineid"));
-                    machineConnectionInformation.setMachineIP(results.getString("machine_ip"));
-                    machineConnectionInformation.setMachineUsername(results.getString("machineuserid"));
-                    machineConnectionInformation.setMachinePassword(results.getString("machinepassword"));
+                machineConnectionInformation.setMachineID(results.getString("machineid"));
+                machineConnectionInformation.setMachineIP(results.getString("machine_ip"));
+                machineConnectionInformation.setMachineUsername(results.getString("machineuserid"));
+                machineConnectionInformation.setMachinePassword(results.getString("machinepassword"));
 //                for when machine specification is something we can use;
 //                byte[] bytes = results.getBytes(5);
 //                ByteArrayInputStream byteArrayIS = new ByteArrayInputStream(bytes);
 //                ObjectInputStream objectIS = new ObjectInputStream(byteArrayIS);
 //                machineConnectionInformation.setMachineSpecification((IMachineSpecification) objectIS.readObject());
 
-                    if(results.getString("factoryid").equals(factoryID)) {
-                        machineConnectionInformations.add(machineConnectionInformation);
+                //TODO: Vil mene at dette er mere sikker kode, idet at det andet så vidt jeg kan se forudsætter at dataene er grupperet efter machineID for ikke at tabe data
+                String newFactoryID = results.getString("factoryid");
+                if (map.containsKey(newFactoryID)){
+                    map.get(newFactoryID).add(machineConnectionInformation);
+                } else {
+                    machineConnectionInformations = new ArrayList<>();
+                    machineConnectionInformations.add(machineConnectionInformation);
+                    map.put(factoryID, machineConnectionInformations);
+                }
 
-                    }
-                    else
-                    {
-                        map.put(factoryID, machineConnectionInformations);
-                        machineConnectionInformations = new ArrayList<>();
-                        machineConnectionInformations.add(machineConnectionInformation);
-                        factoryID = results.getString("factoryid");
-                    }
+                /*if(results.getString("factoryid").equals(factoryID)) {
+                    machineConnectionInformations.add(machineConnectionInformation);
+                } else {
+                    map.put(factoryID, machineConnectionInformations);
+                    machineConnectionInformations = new ArrayList<>();
+                    machineConnectionInformations.add(machineConnectionInformation);
+                    factoryID = results.getString("factoryid");
+                }*/
 
+            } while (results.next());
 
-                } while (results.next());
-                map.put(factoryID, machineConnectionInformations);
-            } catch (SQLException e) {
-            }
+            map.put(factoryID, machineConnectionInformations);
+        } catch (SQLException e) {
+        }
         return map;
     }
 }

@@ -27,8 +27,7 @@ public class ERP {
     /** Constructer for ERP.
      *
      */
-    public ERP()
-    {
+    public ERP() {
         productionOrders = new ArrayList<IProductionOrder>();
         processingPlants = new HashMap<>();
         ProcessingPlant plant = new ProcessingPlant("THEPLANT");
@@ -58,7 +57,7 @@ public class ERP {
         }
 
         order.setOrderID(nextOrderID++);
-        //ERPOutFacade.getInstance().
+        //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
         return productionOrders.add(order);
     }
 
@@ -199,8 +198,8 @@ public class ERP {
      */
     private void initialiseOrders(){
         List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
-        for (IProductionOrder p: orders) {
-            productionOrders.add(p);
+        for (IProductionOrder order: orders) {
+            productionOrders.add(order);
         }
     }
 
@@ -214,6 +213,7 @@ public class ERP {
                     changedOrder.setOrderID(orderID);
                     productionOrders.remove(productionOrder);
                     productionOrders.add(changedOrder);
+                    //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
                     return true;
                 } catch (InvalidParameterException ex){
                     return false;
@@ -226,16 +226,12 @@ public class ERP {
     private void intitialiseFactories(){
         Set<Map.Entry<String, List<IMachineConnectionInformation>>> entryList  = ERPOutFacade.getInstance().getMachines().entrySet();
         for (Map.Entry<String, List<IMachineConnectionInformation>> entry: entryList) {
-            if(processingPlants.containsKey(entry.getKey()))
-            {
+            if(processingPlants.containsKey(entry.getKey())) {
                 List<IMachineConnectionInformation> machineInfoList = entry.getValue();
                 for (IMachineConnectionInformation machineInfo : machineInfoList ) {
                     processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
                 }
-
-            }
-            else
-            {
+            } else {
                 processingPlants.put(entry.getKey(), new ProcessingPlant(entry.getKey()));
                 List<IMachineConnectionInformation> machineInfoList = entry.getValue();
                 for (IMachineConnectionInformation machineInfo : machineInfoList ) {
@@ -243,7 +239,6 @@ public class ERP {
                 }
             }
         }
-
-
     }
+
 }

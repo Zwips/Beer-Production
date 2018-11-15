@@ -24,8 +24,6 @@ public class ERPMachine {
 
     @Given("^a ERP system to work on$")
     public void aERPSystemToWorkOn() throws Throwable {
-        //ERPLevelInitializer.glue();
-
         ERPLevelInitializer.glue();
         erp = new ERP();
     }
@@ -78,8 +76,9 @@ public class ERPMachine {
 
     @Given("^there is a machine named the TestMachine$")
     public void thereIsAMachineNamedTheTestMachine() throws Throwable {
-        if(!erp.checkForMachine("TestMachine"))
-        erp.addMachine("TestFactory", "TestMachine","127.0.0.1:4840", "sdu","1234" );
+        if(!erp.checkForMachine("TestMachine")){
+            erp.addMachine("TestFactory", "TestMachine","127.0.0.1:4840", "sdu","1234" );
+        }
     }
 
     @When("^removing a machine named the TestMachine$")

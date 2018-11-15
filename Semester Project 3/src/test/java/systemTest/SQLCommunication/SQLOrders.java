@@ -68,12 +68,18 @@ public class SQLOrders {
 
     @Then("^the correct order is retrieved$")
     public void theCorrectOrderIsRetrieved() throws Throwable {
-        assertEquals(this.amount, this.order.getAmount());
-        assertEquals(this.productType,this.order.getProductType());
-        assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
-        assertEquals(this.priority,this.order.getPriority());
-        assertEquals(this.orderID,this.order.getOrderID());
+        try {
+            assertEquals(this.amount, this.order.getAmount());
+            assertEquals(this.productType,this.order.getProductType());
+            assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
+            assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
+            assertEquals(this.priority,this.order.getPriority());
+            assertEquals(this.orderID,this.order.getOrderID());
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1,this.orderID);
+            pStatement.execute();
+        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -109,13 +115,19 @@ public class SQLOrders {
             }
         }
 
-        assertEquals(this.amount, this.order.getAmount());
-        assertEquals(this.productType,this.order.getProductType());
-        assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
-        assertEquals(this.priority,this.order.getPriority());
-        assertEquals(this.orderID,this.order.getOrderID());
-        assertEquals(false,this.order.getStatus());
+        try{
+            assertEquals(this.amount, this.order.getAmount());
+            assertEquals(this.productType,this.order.getProductType());
+            assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
+            assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
+            assertEquals(this.priority,this.order.getPriority());
+            assertEquals(this.orderID,this.order.getOrderID());
+            assertEquals(false,this.order.getStatus());
+        }  finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1,this.orderID);
+            pStatement.execute();
+        }
     }
 
     @Given("^that a completed order with ID -(\\d+) exists$")
@@ -133,8 +145,8 @@ public class SQLOrders {
 
         ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         order.setOrderID(this.orderID);
-        order.setStatus(true);
         this.sqlModule.logOrder(order);
+        this.sqlModule.setOrderCompleted(this.orderID);
     }
 
     @When("^retrieving completed orders$")
@@ -151,13 +163,19 @@ public class SQLOrders {
             }
         }
 
-        assertEquals(this.amount, this.order.getAmount());
-        assertEquals(this.productType,this.order.getProductType());
-        assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
-        assertEquals(this.priority,this.order.getPriority());
-        assertEquals(this.orderID,this.order.getOrderID());
-        assertTrue(this.order.getStatus());
+        try{
+            assertEquals(this.amount, this.order.getAmount());
+            assertEquals(this.productType,this.order.getProductType());
+            assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
+            assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
+            assertEquals(this.priority,this.order.getPriority());
+            assertEquals(this.orderID,this.order.getOrderID());
+            assertTrue(this.order.getStatus());
+        }  finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1,this.orderID);
+            pStatement.execute();
+        }
     }
 
     @SuppressWarnings("Duplicates")
@@ -185,15 +203,23 @@ public class SQLOrders {
         this.sqlModule.setOrderCompleted(-orderID);
     }
 
+    @SuppressWarnings("Duplicates")
     @Then("^the order with ID -(\\d+) is set to completed$")
     public void theOrderWithIDIsSetToCompleted(int orderID) throws Throwable {
         this.order = this.sqlModule.selectFromOrder(-orderID);
-        assertEquals(this.amount, this.order.getAmount());
-        assertEquals(this.productType,this.order.getProductType());
-        assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
-        assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
-        assertEquals(this.priority,this.order.getPriority());
-        assertEquals(this.orderID,this.order.getOrderID());
-        assertTrue(this.order.getStatus());
+
+        try{
+            assertEquals(this.amount, this.order.getAmount());
+            assertEquals(this.productType,this.order.getProductType());
+            assertEquals(this.earliestDeliveryDate,this.order.getEarliestDeliveryDate());
+            assertEquals(this.latestDeliveryDate,this.order.getLatestDeliveryDate());
+            assertEquals(this.priority,this.order.getPriority());
+            assertEquals(this.orderID,this.order.getOrderID());
+            assertTrue(this.order.getStatus());
+        }  finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1,this.orderID);
+            pStatement.execute();
+        }
     }
 }

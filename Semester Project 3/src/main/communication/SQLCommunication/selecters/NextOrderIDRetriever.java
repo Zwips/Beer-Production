@@ -36,13 +36,11 @@ public class NextOrderIDRetriever {
 
 
         try {
-            while(results.next()){
-                int nextOrderID = results.getInt(1);
+            results.next();
+            int nextOrderID = results.getInt(1);
 
-                new DatabaseConnector().closeConnection(connection);
-                return nextOrderID;
-            }
-
+            new DatabaseConnector().closeConnection(connection);
+            return nextOrderID;
         } catch (SQLException e) {
             e.printStackTrace();
         }

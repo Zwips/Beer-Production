@@ -34,15 +34,12 @@ import java.util.*;
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
 
-
         try {
-            while(results.next()){
-                int nextBatchID = results.getInt(1);
+            results.next();
+            int nextBatchID = results.getInt(1);
 
-                new DatabaseConnector().closeConnection(connection);
-                return nextBatchID;
-            }
-
+            new DatabaseConnector().closeConnection(connection);
+            return nextBatchID;
         } catch (SQLException e) {
             e.printStackTrace();
         }

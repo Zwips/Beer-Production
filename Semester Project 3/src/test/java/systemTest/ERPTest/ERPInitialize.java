@@ -60,7 +60,10 @@ public class ERPInitialize {
         ERPLevelInitializer.glue();
     }
 
-
+    @When("^an ERP system initialises$")
+    public void anERPSystemInitialises() throws Throwable {
+        erp = new ERP();
+    }
 
     @Then("^TestFactory and TestMachine will be loaded$")
     public void testfactoryAndTestMachineWillBeLoaded() throws Throwable {
@@ -78,11 +81,6 @@ public class ERPInitialize {
     @Given("^A batchID with int max is in batch_log in the database$")
     public void aBatchIDWithIntMaxIsInBatch_logInTheDatabase() throws Throwable {
         sql.InsertIntoBatch_log(Integer.MAX_VALUE,"TestMachine", -1);
-    }
-
-    @When("^an ERP system initialises$")
-    public void anERPSystemInitialises() throws Throwable {
-        erp = new ERP();
     }
 
     @Then("^nextBatchID will be int max$")
