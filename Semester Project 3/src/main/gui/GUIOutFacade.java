@@ -33,7 +33,9 @@ public class GUIOutFacade {
         return erpFacade.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
 
     }
-
+    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
+        return erpFacade.updateOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID, status);
+    }
     boolean addMachine(String machineName, String IPaddress, String userID, String password){
         return erpFacade.addMachine(machineName, IPaddress, userID, password);
     }
@@ -53,6 +55,7 @@ public class GUIOutFacade {
     void removeProcessingPlant(String processingPlantID) {
         erpFacade.removeProcessingPlant(processingPlantID);
     }
+
 
     List<IProductionOrder> getProductionOrderQueue(){
 

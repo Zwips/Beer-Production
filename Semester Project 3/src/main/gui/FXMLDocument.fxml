@@ -86,7 +86,7 @@
                            </font>
                         </Label>
                         <Line endX="666.0" layoutX="112.0" layoutY="54.0" startX="-110.0" strokeWidth="3.0" />
-                        <Label fx:id="typeLabel121" layoutX="273.0" layoutY="265.0" prefHeight="32.0" prefWidth="209.0" text="Machine information">
+                        <Label layoutX="273.0" layoutY="265.0" prefHeight="32.0" prefWidth="209.0" text="Machine information">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -179,11 +179,11 @@
                         </Label>
                         <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
                         <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
-                        <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" onEditStart="#loadOrderInformationActionHandler" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" prefHeight="200.0" prefWidth="171.0" />
                         <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Load" />
                         <DatePicker fx:id="earliestDeliveryDatePicker" layoutX="187.0" layoutY="459.0" />
                         <DatePicker fx:id="latestDeliveryDatePicker" layoutX="186.0" layoutY="515.0" />
-                        <Button fx:id="changeOrder" layoutX="624.0" layoutY="464.0" mnemonicParsing="false" onAction="#ChangeOrderActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Change Order" textFill="#001f3f">
+                        <Button fx:id="changeOrder" layoutX="624.0" layoutY="464.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Change Order" textFill="#001f3f">
                            <font>
                               <Font size="18.0" />
                            </font>

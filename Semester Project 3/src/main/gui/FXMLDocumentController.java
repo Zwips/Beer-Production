@@ -144,7 +144,7 @@ public class FXMLDocumentController implements Initializable  {
     private ListView<IProductionOrder> productionOrderListView;
     @FXML
     private Button changeOrder;
-
+    private IProductionOrder currentlySelectedOrder;
 
 
     @FXML
@@ -155,7 +155,14 @@ public class FXMLDocumentController implements Initializable  {
         priorityChoiceBox.getItems().addAll(1,2,3);
         priorityChoiceBox.getSelectionModel().select(1);
         productToggleMap = new HashMap<>();
+        productToggleMap.put(iPARadioBtn,ProductTypeEnum.IPA);
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
+        productToggleMap.put(pilsnerRadioBtn,ProductTypeEnum.PILSNER);
+        productToggleMap.put(wheatRadioBtn,ProductTypeEnum.WHEAT);
+        productToggleMap.put(alchoholFreeRadioBtn,ProductTypeEnum.ALCOHOLFREE);
+        productToggleMap.put(stoutRadioBtn,ProductTypeEnum.STOUT);
+
+
 
         ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
         productionOrderListView.setItems(data);
@@ -163,7 +170,11 @@ public class FXMLDocumentController implements Initializable  {
         productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IProductionOrder>() {
             @Override
             public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
-                loadOrderInformationActionHandler(newValue);
+
+                currentlySelectedOrder = newValue;
+                if(newValue!=null) {
+                    loadOrderInformationActionHandler(newValue);
+                }
             }
         });
 
@@ -176,16 +187,31 @@ public class FXMLDocumentController implements Initializable  {
         earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         priorityChoiceBox.setValue(order.getPriority());
 
-    }
-    @FXML
-    void DanishHandleBtn(ActionEvent event) {
+        switch (order.getProductType()){
+            case ALE:
+            aleRadioBtn.setSelected(true);
+                break;
+            case ALCOHOLFREE:
+                alchoholFreeRadioBtn.setSelected(true);
+                break;
+            case IPA:
+                iPARadioBtn.setSelected(true);
+                break;
+            case STOUT:
+                stoutRadioBtn.setSelected(true);
+                break;
+            case WHEAT:
+                wheatRadioBtn.setSelected(true);
+                break;
+            case PILSNER:
+                pilsnerRadioBtn.setSelected(true);
+                break;
 
+        }
     }
 
-    @FXML
-    void LanguageHandleBtn(ActionEvent event) {
 
-    }
+
 
     public boolean parseDate(DatePicker picker){
         if(picker.getValue()!=null){
@@ -246,10 +272,12 @@ public class FXMLDocumentController implements Initializable  {
 
         int priority = (priorityChoiceBox.getValue());
 
-        if (allTrue){
+        if (allTrue && event.getSource()==sendOrderBtn){
             GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
             orderSucceededLabel.setText("Order sent");
 
+        }else if (allTrue&&event.getSource()==changeOrder){
+            GUIOutFacade.getInstance().updateOrder(amount,selectedType,earliestDeliveryDate,latestDeliveryDate,priority,currentlySelectedOrder.getOrderID(),currentlySelectedOrder.getStatus());
         }
 
     }
@@ -287,18 +315,15 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
+        currentlySelectedOrder = null;
         productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
 
 
     }
 
-    public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
 
-    }
-    @FXML
-    void ChangeOrderActionBtn(ActionEvent event) {
 
-    }
+
 
 
 }
