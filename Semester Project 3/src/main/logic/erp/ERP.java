@@ -211,7 +211,7 @@ public class ERP {
         this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
     }
 
-    public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
+    public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
         try {
             ProductionOrder changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             changedOrder.setOrderID(orderID);

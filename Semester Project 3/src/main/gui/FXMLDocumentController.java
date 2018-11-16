@@ -21,8 +21,6 @@ import static java.lang.Thread.sleep;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -35,7 +33,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 
@@ -119,7 +116,7 @@ public class FXMLDocumentController implements Initializable  {
     private Label orderAmountLabel;
 
     @FXML
-    private ChoiceBox<String> priorityChoiceBox;
+    private ChoiceBox<Integer> priorityChoiceBox;
 
     @FXML
     private Label priorityLabel;
@@ -144,7 +141,7 @@ public class FXMLDocumentController implements Initializable  {
     private ListView<IProductionOrder> productionOrderListView;
     @FXML
     private Button changeOrder;
-
+    private IProductionOrder currentlySelectedOrder;
 
 
     @FXML
@@ -152,10 +149,17 @@ public class FXMLDocumentController implements Initializable  {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
-        priorityChoiceBox.getItems().addAll("1", "2", "3");
-        priorityChoiceBox.getSelectionModel().select("1");
+        priorityChoiceBox.getItems().addAll(1,2,3);
+        priorityChoiceBox.getSelectionModel().select(1);
         productToggleMap = new HashMap<>();
+        productToggleMap.put(iPARadioBtn,ProductTypeEnum.IPA);
         productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
+        productToggleMap.put(pilsnerRadioBtn,ProductTypeEnum.PILSNER);
+        productToggleMap.put(wheatRadioBtn,ProductTypeEnum.WHEAT);
+        productToggleMap.put(alchoholFreeRadioBtn,ProductTypeEnum.ALCOHOLFREE);
+        productToggleMap.put(stoutRadioBtn,ProductTypeEnum.STOUT);
+
+
 
         ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
         productionOrderListView.setItems(data);
@@ -163,7 +167,11 @@ public class FXMLDocumentController implements Initializable  {
         productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IProductionOrder>() {
             @Override
             public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
-                loadOrderInformationActionHandler(newValue);
+
+                currentlySelectedOrder = newValue;
+                if(newValue!=null) {
+                    loadOrderInformationActionHandler(newValue);
+                }
             }
         });
 
@@ -172,19 +180,35 @@ public class FXMLDocumentController implements Initializable  {
 
         IProductionOrder order = iProductionOrder;
         orderAmountTextField.setText(order.getAmount()+"");
-
+        latestDeliveryDatePicker.setValue(order.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        priorityChoiceBox.setValue(order.getPriority());
 
+        switch (order.getProductType()){
+            case ALE:
+            aleRadioBtn.setSelected(true);
+                break;
+            case ALCOHOLFREE:
+                alchoholFreeRadioBtn.setSelected(true);
+                break;
+            case IPA:
+                iPARadioBtn.setSelected(true);
+                break;
+            case STOUT:
+                stoutRadioBtn.setSelected(true);
+                break;
+            case WHEAT:
+                wheatRadioBtn.setSelected(true);
+                break;
+            case PILSNER:
+                pilsnerRadioBtn.setSelected(true);
+                break;
+
+        }
     }
-    @FXML
-    void DanishHandleBtn(ActionEvent event) {
 
-    }
 
-    @FXML
-    void LanguageHandleBtn(ActionEvent event) {
 
-    }
 
     public boolean parseDate(DatePicker picker){
         if(picker.getValue()!=null){
@@ -243,13 +267,14 @@ public class FXMLDocumentController implements Initializable  {
         ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
 
-        int priority = Integer.parseInt(priorityChoiceBox.getValue());
+        int priority = (priorityChoiceBox.getValue());
 
-
-        if (allTrue){
+        if (allTrue && event.getSource()==sendOrderBtn){
             GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
             orderSucceededLabel.setText("Order sent");
 
+        }else if (allTrue&&event.getSource()==changeOrder){
+            GUIOutFacade.getInstance().updateOrder(amount,selectedType,earliestDeliveryDate,latestDeliveryDate,priority,currentlySelectedOrder.getOrderID());
         }
 
     }
@@ -287,18 +312,15 @@ public class FXMLDocumentController implements Initializable  {
 
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
+        currentlySelectedOrder = null;
         productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
 
 
     }
 
-    public void loadOrderInformationActionHandler(ListView.EditEvent<IProductionOrder> iProductionOrderEditEvent) {
 
-    }
-    @FXML
-    void ChangeOrderActionBtn(ActionEvent event) {
 
-    }
+
 
 
 }

@@ -15,5 +15,5 @@ public interface IERPFacade {
     boolean removeMachine(String machineName);
     List<IProductionOrder> getProductionOrderQueue();
 
-    boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status);
+    boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID);
 }
