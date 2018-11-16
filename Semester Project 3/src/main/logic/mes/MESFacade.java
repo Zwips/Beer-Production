@@ -80,7 +80,16 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public Map<String, IProcessingCapacity> addOrders(Map<String, List<IProductionOrder>> destinations) {
-        return null;
+        Map<String, IProcessingCapacity> capacity = new HashMap<>();
+
+        for (Map.Entry<String, List<IProductionOrder>> destination : destinations.entrySet()) {
+            String plantID = destination.getKey();
+            List<IProductionOrder> orders = destination.getValue();
+
+            capacity.put(plantID, this.processingPlants.get(plantID).addOrders(orders));
+        }
+
+        return capacity;
     }
 
     @Override

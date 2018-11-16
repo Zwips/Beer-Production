@@ -1,12 +1,13 @@
 package logic.mes;
 
+import Acquantiance.IProcessingCapacity;
 import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ProcessingCapacity {
+public class ProcessingCapacity implements IProcessingCapacity {
 
 
     private TreeMap<Date, Map<ProductTypeEnum, Integer>> capacity;

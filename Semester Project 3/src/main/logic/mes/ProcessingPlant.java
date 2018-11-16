@@ -9,6 +9,7 @@ package logic.mes;
 
 import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.IMesMachine;
+import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
 import logic.erp.ERPOutFacade;
@@ -95,7 +96,7 @@ public class ProcessingPlant {
     }
 
     //TODO change to a plant scheduler
-    boolean addOrders(List<IProductionOrder> orders){
+    ProcessingCapacity addOrders(List<IProductionOrder> orders){
 
         if (this.Queue==null) {
             this.Queue = new ConcurrentLinkedQueue<>();
@@ -108,7 +109,7 @@ public class ProcessingPlant {
             }
         }
 
-        return true;
+        return new ProcessingCapacity();
     }
 
     //TODO or it should remove each element and leave an empty queue?
