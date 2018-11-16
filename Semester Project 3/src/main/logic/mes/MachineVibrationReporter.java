@@ -13,10 +13,12 @@ import java.util.Date;
 
 public class MachineVibrationReporter implements IDataChangeCatcher {
     private Machine machine;
+    private String factoryID;
 
-    MachineVibrationReporter(Machine machine)
+    MachineVibrationReporter(Machine machine, String factoryID)
     {
         this.machine = machine;
+        this.factoryID = factoryID;
     }
     @Override
     public void report(DataValue data) {
@@ -25,7 +27,7 @@ public class MachineVibrationReporter implements IDataChangeCatcher {
             Date date = new Date(data.getServerTimestamp().getValue());
 
             try {
-                MESOutFacade.getInstance().logVibration(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent());
+                MESOutFacade.getInstance().logVibration(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }

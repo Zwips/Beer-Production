@@ -17,8 +17,8 @@ public class tester {
 
         sleep(1000);*/
 
-        BatchRetriever retriever = new BatchRetriever();
-        IBatch batch = retriever.getBatch(-1);
+//        BatchRetriever retriever = new BatchRetriever();
+//        IBatch batch = retriever.getBatch(-1);
 
     }
 }

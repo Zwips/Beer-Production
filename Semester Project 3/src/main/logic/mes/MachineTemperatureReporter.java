@@ -14,8 +14,9 @@ import java.util.Date;
 public class MachineTemperatureReporter implements IDataChangeCatcher {
 
     private Machine machine;
+    private String factoryID;
 
-    MachineTemperatureReporter(Machine machine)
+    MachineTemperatureReporter(Machine machine, String factoryID)
     {
         this.machine = machine;
     }
@@ -24,7 +25,7 @@ public class MachineTemperatureReporter implements IDataChangeCatcher {
         Date date = new Date(data.getServerTimestamp().getValue());
 
         try {
-            MESOutFacade.getInstance().logTemperature(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent());
+            MESOutFacade.getInstance().logTemperature(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

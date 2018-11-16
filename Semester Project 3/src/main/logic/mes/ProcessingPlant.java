@@ -51,7 +51,7 @@ public class ProcessingPlant {
     }
 
     boolean addMachine(String machineName, String IPAddress, String userID, String password){
-        Machine machine = new Machine(machineName, IPAddress, userID, password);
+        Machine machine = new Machine(machineName, IPAddress, userID, password,plantID);
 
         try {
             machine.subscribeToCurrentState(new MachinestateCompleteSubscriber(machineName, this));

@@ -3,12 +3,12 @@ package Acquantiance;
 import java.util.*;
 
 public interface ICommunicationFacade {
-    IBatch getBatchByBatchID(int batchID);
+    IBatch getBatchByBatchID(int batchID, String factoryID);
     Map getTemperaturesByMachine(String machineID, Date dateFrom);
     Map getHumiditiesByMachine(String machineID, Date dateFrom);
     Map getVibrationsByMachine(String machineID, Date dateFrom);
 
-    IBatchLog getBatchLogByBatchID(int batchID);
+    IBatchLog getBatchLogByBatchID(int batchID, String factoryID);
     List<IBatchLog> getBatchLogByMachineID(String machineID);
 
     IProductionOrder selectFromOrder(int orderID);
@@ -17,13 +17,13 @@ public interface ICommunicationFacade {
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
-    void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective);
+    void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
 
-    void InsertIntoBatch_log(int batchID, String machineID, int orderID);
+    void InsertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
-    void logTemperature(float value, Date timestamp, int batchID);
-    void logVibration(float value, Date timestamp, int batchID);
-    void logHumidity(float value, Date timestamp, int batchID);
+    void logTemperature(float value, Date timestamp, int batchID, String factoryID);
+    void logVibration(float value, Date timestamp, int batchID, String factoryID);
+    void logHumidity(float value, Date timestamp, int batchID, String factoryID);
 
     void logOrder(IProductionOrder order);
 

@@ -21,18 +21,20 @@ public class BatchInserter {
 
 
     public BatchInserter() {
-        this.values = "(?,?,?,?)";
-        this.tables = "batch(BatchID, ProductType, Amount, Defective)";
+        this.values = "(?,?,?,?,?)";
+        this.tables = "batch(BatchID, ProductType, Amount, Defective, FactoryID)";
         connection = new DatabaseConnector().openConnection();
     }
 
-    public void insert(int batchID, ProductTypeEnum product, int amount, int defective) {
+    public void insert(int batchID, ProductTypeEnum product, int amount, int defective, String factoryID) {
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, product.getType()));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, amount));
         wildCardInfo.add(new PrepareInfo(4, PrepareType.INT, defective));
+        wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, factoryID));
+
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
     }

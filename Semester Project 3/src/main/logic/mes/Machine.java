@@ -26,6 +26,7 @@ import static java.lang.Thread.sleep;
 
 public class Machine implements IMachine, IMesMachine, Runnable{
 
+    private final String factoryID;
     private String name;
     private String IPAddress;
     private String userID;
@@ -33,7 +34,7 @@ public class Machine implements IMachine, IMesMachine, Runnable{
     private IMachineConnection machineConnection;
     private MachineSpecifications specs;
 
-    public Machine(String name, String IPAddress, String userID, String password){
+    public Machine(String name, String IPAddress, String userID, String password, String factoryID){
         this.name = name;
         this.IPAddress = IPAddress;
         this.userID = userID;
@@ -41,14 +42,15 @@ public class Machine implements IMachine, IMesMachine, Runnable{
         createMachineConnection();
         specs = new MachineSpecifications();
         setMachineSubscriptions();
+        this.factoryID = factoryID;
     }
 
     private void setMachineSubscriptions(){
         try {
             subscribeToCurrentState(new MachineCurrentMachineStateReporter(this));
-            subscribeToHumidity(new MachineHumidityReporter(this));
-            subscribeToTemperature(new MachineTemperatureReporter(this));
-            subscribeToVibration(new MachineVibrationReporter(this));
+            subscribeToHumidity(new MachineHumidityReporter(this,factoryID));
+            subscribeToTemperature(new MachineTemperatureReporter(this,factoryID));
+            subscribeToVibration(new MachineVibrationReporter(this,factoryID));
             subscribeToStopReasonID(new MachineStopReasonIdReporter(this));
         } catch (ServiceException e) {
             e.printStackTrace();

@@ -33,9 +33,7 @@ public class ERPOutFacade {
         this.mesFacade = mesFacade;
     }
 
-    IMesMachine createMachine(String machineName, String IPAddress, String userID, String password){
-        return mesFacade.createMachine(machineName,IPAddress, userID, password);
-    }
+
 
     int getNextOrderID(){
         return mesFacade.getNextOrderID();

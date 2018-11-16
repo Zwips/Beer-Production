@@ -21,9 +21,9 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
 
 
     @Override
-    public IBatch selectFromBatch(int batchID) {
+    public IBatch selectFromBatch(int batchID, String factoryID) {
         BatchRetriever retriever = new BatchRetriever();
-        IBatch batch = retriever.getBatch(batchID);
+        IBatch batch = retriever.getBatch(batchID, factoryID);
         return batch;
     }
 
@@ -46,7 +46,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public IBatchLog getBatchLogByBatchID(int batchID) {
+    public IBatchLog getBatchLogByBatchID(int batchID, String factoryID) {
         return new BatchLogByBatchIDRetriever().getBatchLog(batchID);
     }
 
@@ -88,14 +88,14 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective) {
-        new BatchInserter().insert(batchID,productType,amount,defective);
+    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID) {
+        new BatchInserter().insert(batchID,productType,amount,defective,factoryID);
 
     }
 
     @Override
-    public void InsertIntoBatch_log(int batchID, String MachineID, int orderID) {
-        new BatchLogInserter().insert(batchID,MachineID,orderID);
+    public void InsertIntoBatch_log(int batchID, String MachineID, int orderID, String factoryID) {
+        new BatchLogInserter().insert(batchID,MachineID,orderID,factoryID);
     }
 
 
@@ -105,21 +105,21 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void logTemperature(float value, Date timestamp, int batchID) {
+    public void logTemperature(float value, Date timestamp, int batchID, String factoryID) {
         Timestamp time = new Timestamp(timestamp.getTime());
-        new TemperatureInserter().insert(batchID,time,value);
+        new TemperatureInserter().insert(batchID,time,value,factoryID);
     }
 
     @Override
-    public void logVibration(float value, Date timestamp, int batchID) {
+    public void logVibration(float value, Date timestamp, int batchID, String factoryID) {
         Timestamp time = new Timestamp(timestamp.getTime());
-        new VibrationInserter().insert(batchID,time,value);
+        new VibrationInserter().insert(batchID,time,value,factoryID);
     }
 
     @Override
-    public void logHumidity(float value, Date timestamp, int batchID) {
+    public void logHumidity(float value, Date timestamp, int batchID, String factoryID) {
         Timestamp time = new Timestamp(timestamp.getTime());
-        new HumidityInserter().insert(batchID,time,value);
+        new HumidityInserter().insert(batchID,time,value,factoryID);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void deleteBatchLogByBatchID(int BatchID) {
+    public void deleteBatchLogByBatchID(int BatchID, String factoryID) {
         new RemoveBatchLogByBatchID().delete(BatchID);
     }
 

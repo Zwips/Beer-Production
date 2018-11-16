@@ -13,10 +13,12 @@ import java.util.Date;
 
 public class MachineHumidityReporter implements IDataChangeCatcher {
     private Machine machine;
+    private String factoryID;
 
-    MachineHumidityReporter(Machine machine)
+    MachineHumidityReporter(Machine machine, String factoryID)
     {
         this.machine = machine;
+        this.factoryID = factoryID;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class MachineHumidityReporter implements IDataChangeCatcher {
         Date date = new Date(data.getServerTimestamp().getValue());
 
         try {
-            MESOutFacade.getInstance().logHumidity(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent());
+            MESOutFacade.getInstance().logHumidity(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

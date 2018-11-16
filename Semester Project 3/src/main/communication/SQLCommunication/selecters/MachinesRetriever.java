@@ -57,7 +57,6 @@ public class MachinesRetriever {
 //                ObjectInputStream objectIS = new ObjectInputStream(byteArrayIS);
 //                machineConnectionInformation.setMachineSpecification((IMachineSpecification) objectIS.readObject());
 
-                //TODO: Vil mene at dette er mere sikker kode, idet at det andet så vidt jeg kan se forudsætter at dataene er grupperet efter machineID for ikke at tabe data
                 String newFactoryID = results.getString("factoryid");
                 if (map.containsKey(newFactoryID)){
                     map.get(newFactoryID).add(machineConnectionInformation);

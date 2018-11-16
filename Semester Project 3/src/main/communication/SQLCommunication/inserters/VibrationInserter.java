@@ -20,16 +20,16 @@ public class VibrationInserter {
     public VibrationInserter() {
         // "INSERT INTO temperature(batchid, timeOfReading, ValuePBS) VALUES (?,?,?)";
 
-        this.values = "(?,?,?)";
-        this.tables = "vibration(batchid, timeOfReading, ValuePBS)";
+        this.values = "(?,?,?,?)";
+        this.tables = "vibration(batchid, timeOfReading, ValuePBS, factoryid)";
         connection = new DatabaseConnector().openConnection();
 
     }
 
 
-    public void insert(int batchID, Timestamp timeOfReading, float value){
+    public void insert(int batchID, Timestamp timeOfReading, float value, String factoryID){
 
-        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
+        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values, factoryID);
 
     }
 

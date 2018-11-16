@@ -3,7 +3,6 @@ package communication.SQLCommunication.dataClasses;
 import Acquantiance.IBatchLog;
 
 public class CommunicationBatchLog implements IBatchLog {
-    //TODO remove this comment
 
     private String machineID;
     private int orderID;

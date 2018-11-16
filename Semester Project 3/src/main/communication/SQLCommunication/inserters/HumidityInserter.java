@@ -19,16 +19,16 @@ public class HumidityInserter {
     public HumidityInserter() {
         // "INSERT INTO temperature(batchid, timeOfReading, valuePercent) VALUES (?,?,?)";
 
-        this.values = "(?,?,?)";
-        this.tables = "humidity(batchid, timeOfReading, valuePercent)";
+        this.values = "(?,?,?,?)";
+        this.tables = "humidity(batchid, timeOfReading, valuePercent, factoryid)";
         connection = new DatabaseConnector().openConnection();
 
     }
 
 
-    public void insert(int batchID, Timestamp timeOfReading, float value){
+    public void insert(int batchID, Timestamp timeOfReading, float value, String factoryID){
 
-        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
+        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values,factoryID);
 
     }
 }

@@ -18,8 +18,8 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public IBatch getBatchByBatchID(int batchID) {
-       return sqlFacade.selectFromBatch(batchID);
+    public IBatch getBatchByBatchID(int batchID, String factoryID) {
+       return sqlFacade.selectFromBatch(batchID, factoryID);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public IBatchLog getBatchLogByBatchID(int batchID) {
-        return sqlFacade.getBatchLogByBatchID(batchID);
+    public IBatchLog getBatchLogByBatchID(int batchID, String factoryID) {
+        return sqlFacade.getBatchLogByBatchID(batchID,factoryID);
     }
 
     @Override
@@ -73,13 +73,13 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective) {
-        sqlFacade.InsertIntoBatch(batchID,productType,amount,defective);
+    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID) {
+        sqlFacade.InsertIntoBatch(batchID,productType,amount,defective,factoryID);
     }
 
     @Override
-    public void InsertIntoBatch_log(int batchID, String machineID, int orderID) {
-        sqlFacade.InsertIntoBatch_log(batchID,machineID,orderID);
+    public void InsertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID) {
+        sqlFacade.InsertIntoBatch_log(batchID,machineID,orderID,factoryID);
     }
 
     @Override
@@ -88,18 +88,18 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void logTemperature(float value, Date timestamp, int batchID) {
-        sqlFacade.logTemperature(value,timestamp,batchID);
+    public void logTemperature(float value, Date timestamp, int batchID, String factoryID) {
+        sqlFacade.logTemperature(value,timestamp,batchID,factoryID);
     }
 
     @Override
-    public void logVibration(float value, Date timestamp, int batchID) {
-        sqlFacade.logVibration(value,timestamp,batchID);
+    public void logVibration(float value, Date timestamp, int batchID, String factoryID) {
+        sqlFacade.logVibration(value,timestamp,batchID,factoryID);
     }
 
     @Override
-    public void logHumidity(float value, Date timestamp, int batchID) {
-        sqlFacade.logHumidity(value,timestamp,batchID);
+    public void logHumidity(float value, Date timestamp, int batchID, String factoryID) {
+        sqlFacade.logHumidity(value,timestamp,batchID,factoryID);
     }
 
     @Override

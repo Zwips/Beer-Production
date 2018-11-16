@@ -62,7 +62,7 @@ public class ChangeOrder {
 
     @When("^updating the order$")
     public void updatingTheOrder() throws Throwable {
-        //TODO or should it return the order as a object?
+        //TODO or should it return the order as an object?
         this.erpFacade.updateOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority,orderID);
 
     }

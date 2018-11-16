@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package gui;
-/** Represents all GUI control
+/**
+ * Represents all GUI control
+ *
  * @author Michael P
  * @param initialize initializes the choicebox & hashmap containing the product types.
  * @param parseDate parses the given text to a date.
@@ -14,6 +16,7 @@ package gui;
  * @param removeMachineActionHandler removes chosen machine.
  * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
  */
+
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 
@@ -21,6 +24,8 @@ import static java.lang.Thread.sleep;
 
 import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -33,6 +38,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 
@@ -41,7 +47,7 @@ import static javafx.application.Application.launch;
  *
  * @author HCHB
  */
-public class FXMLDocumentController implements Initializable  {
+public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Label machineNameLabel;
@@ -147,17 +153,17 @@ public class FXMLDocumentController implements Initializable  {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
-        priorityChoiceBox.getItems().addAll(1,2,3);
+        priorityChoiceBox.getItems().addAll(1, 2, 3);
         priorityChoiceBox.getSelectionModel().select(1);
         productToggleMap = new HashMap<>();
-        productToggleMap.put(iPARadioBtn,ProductTypeEnum.IPA);
-        productToggleMap.put(aleRadioBtn,ProductTypeEnum.ALE);
-        productToggleMap.put(pilsnerRadioBtn,ProductTypeEnum.PILSNER);
-        productToggleMap.put(wheatRadioBtn,ProductTypeEnum.WHEAT);
-        productToggleMap.put(alchoholFreeRadioBtn,ProductTypeEnum.ALCOHOLFREE);
-        productToggleMap.put(stoutRadioBtn,ProductTypeEnum.STOUT);
+        productToggleMap.put(iPARadioBtn, ProductTypeEnum.IPA);
+        productToggleMap.put(aleRadioBtn, ProductTypeEnum.ALE);
+        productToggleMap.put(pilsnerRadioBtn, ProductTypeEnum.PILSNER);
+        productToggleMap.put(wheatRadioBtn, ProductTypeEnum.WHEAT);
+        productToggleMap.put(alchoholFreeRadioBtn, ProductTypeEnum.ALCOHOLFREE);
+        productToggleMap.put(stoutRadioBtn, ProductTypeEnum.STOUT);
 
 
 
@@ -176,17 +182,21 @@ public class FXMLDocumentController implements Initializable  {
         });
 
     }
-    void loadOrderInformationActionHandler(IProductionOrder iProductionOrder){
 
-        IProductionOrder order = iProductionOrder;
-        orderAmountTextField.setText(order.getAmount()+"");
-        latestDeliveryDatePicker.setValue(order.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        earliestDeliveryDatePicker.setValue( order.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        priorityChoiceBox.setValue(order.getPriority());
+    /**
+     * Method for loading information from an IProductionOrder and setting the corresponding fields
+     * @param iProductionOrder
+     */
+    void loadOrderInformationActionHandler(IProductionOrder iProductionOrder) {
 
-        switch (order.getProductType()){
+        orderAmountTextField.setText(iProductionOrder.getAmount() + "");
+        latestDeliveryDatePicker.setValue(iProductionOrder.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        earliestDeliveryDatePicker.setValue(iProductionOrder.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        priorityChoiceBox.setValue(iProductionOrder.getPriority());
+
+        switch (iProductionOrder.getProductType()) {
             case ALE:
-            aleRadioBtn.setSelected(true);
+                aleRadioBtn.setSelected(true);
                 break;
             case ALCOHOLFREE:
                 alchoholFreeRadioBtn.setSelected(true);
@@ -208,10 +218,8 @@ public class FXMLDocumentController implements Initializable  {
     }
 
 
-
-
-    public boolean parseDate(DatePicker picker){
-        if(picker.getValue()!=null){
+    public boolean parseDate(DatePicker picker) {
+        if (picker.getValue() != null) {
 
             picker.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
             return true;
@@ -221,9 +229,9 @@ public class FXMLDocumentController implements Initializable  {
         return false;
     }
 
-    public boolean testInt(TextField field){
-        if(!field.getText().isEmpty()){
-            try{
+    public boolean testInt(TextField field) {
+        if (!field.getText().isEmpty()) {
+            try {
                 Integer.parseInt(field.getText());
                 field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
                 return true;
@@ -235,42 +243,38 @@ public class FXMLDocumentController implements Initializable  {
         return false;
     }
 
-        @FXML
-        void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
-            boolean allTrue = true;
-            int amount = 0;
-            Date latestDeliveryDate = null;
-            Date earliestDeliveryDate = null;
+    @FXML
+    void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
+        boolean allTrue = true;
+        int amount = 0;
+        Date latestDeliveryDate = null;
+        Date earliestDeliveryDate = null;
 
-        if (!this.testInt(orderAmountTextField)){
+        if (!this.testInt(orderAmountTextField)) {
             allTrue = false;
         } else {
             amount = Integer.parseInt(orderAmountTextField.getText());
         }
 
-            if(!this.parseDate(earliestDeliveryDatePicker)) {
-                allTrue = false;
-            } else {
-                earliestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay()*86400000);
-            }
+        if (!this.parseDate(earliestDeliveryDatePicker)) {
+            allTrue = false;
+        } else {
+            earliestDeliveryDate = new Date(earliestDeliveryDatePicker.getValue().toEpochDay() * 86400000);
+        }
 
-            if(!this.parseDate(latestDeliveryDatePicker)) {
+        if (!this.parseDate(latestDeliveryDatePicker)) {
 
-                allTrue = false;
-            } else {
-                latestDeliveryDate = new Date(latestDeliveryDatePicker.getValue().toEpochDay()*86400000);
-            }
-
-
-
+            allTrue = false;
+        } else {
+            latestDeliveryDate = new Date(latestDeliveryDatePicker.getValue().toEpochDay() * 86400000);
+        }
 
         ProductTypeEnum selectedType = productToggleMap.get(TypeToggleGroup.getSelectedToggle());
 
-
         int priority = (priorityChoiceBox.getValue());
 
-        if (allTrue && event.getSource()==sendOrderBtn){
-            GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority );
+        if (allTrue && event.getSource() == sendOrderBtn) {
+            GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority);
             orderSucceededLabel.setText("Order sent");
 
         }else if (allTrue&&event.getSource()==changeOrder){
@@ -280,7 +284,6 @@ public class FXMLDocumentController implements Initializable  {
     }
 
 
-
     @FXML
     void addMachineActionHandler(ActionEvent event) {
         String IPAddress = iPaddressTextField.getText() + ":" + portNumberTextField.getText();
@@ -288,16 +291,14 @@ public class FXMLDocumentController implements Initializable  {
         String username = userNameTextField.getText();
         String password = passWordTextField.getText();
 
-        GUIOutFacade.getInstance().addMachine(machineName, IPAddress,username,password);
+        GUIOutFacade.getInstance().addMachine(machineName, IPAddress, username, password);
     }
+
     @FXML
     void removeMachineActionHandler(ActionEvent event) {
-        if(!GUIOutFacade.getInstance().removeMachine(machineNameTextField.getText()))
-        {
+        if (!GUIOutFacade.getInstance().removeMachine(machineNameTextField.getText())) {
             machineNameTextField.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
-        }
-        else
-        {
+        } else {
             machineNameTextField.setStyle("-fx-border-color: #00000;-fx-border-width: 3;");
         }
     }
@@ -314,13 +315,7 @@ public class FXMLDocumentController implements Initializable  {
     void loadProductionOrdersActionHandler(ActionEvent event) {
         currentlySelectedOrder = null;
         productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
-
-
     }
-
-
-
-
 
 
 }

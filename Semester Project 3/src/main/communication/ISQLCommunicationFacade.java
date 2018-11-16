@@ -2,17 +2,16 @@ package communication;
 
 import Acquantiance.*;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public interface ISQLCommunicationFacade {
 
-    IBatch selectFromBatch(int batchID);
+    IBatch selectFromBatch(int batchID, String factoryID);
     Map<Date,Float> selectFromTemperature(String machineID, Date dateFrom);
     Map<Date,Float> selectFromHumidity(String machineID, Date dateFrom);
     Map<Date,Float> selectFromVibration(String machineID, Date dateFrom);
 
-    IBatchLog getBatchLogByBatchID(int batchID);
+    IBatchLog getBatchLogByBatchID(int batchID, String factoryID);
     List<IBatchLog> getBatchLogByMachineID(String machineID);
 
     IProductionOrder selectFromOrder(int orderID);
@@ -21,20 +20,20 @@ public interface ISQLCommunicationFacade {
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
-    void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective);
+    void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
 
-    void InsertIntoBatch_log(int batchID, String MachineID, int orderID);
+    void InsertIntoBatch_log(int batchID, String MachineID, int orderID, String factoryID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
-    void logTemperature(float value, Date timestamp, int batchID);
-    void logVibration(float value, Date timestamp, int batchID);
-    void logHumidity(float value, Date timestamp, int batchID);
+    void logTemperature(float value, Date timestamp, int batchID, String factoryID);
+    void logVibration(float value, Date timestamp, int batchID, String factoryID);
+    void logHumidity(float value, Date timestamp, int batchID, String factoryID);
     void logOrder(IProductionOrder order);
 
     int getNextOrderID();
     int getNextBatchID();
 
     void deleteOrderByOrderID(int orderID);
-    void deleteBatchLogByBatchID(int BatchID);
+    void deleteBatchLogByBatchID(int BatchID, String factoryID);
     void deleteMachine(String machineID);
 
     HashMap<String, List<IMachineConnectionInformation>> getMachines();

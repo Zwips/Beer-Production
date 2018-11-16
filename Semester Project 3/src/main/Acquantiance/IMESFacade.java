@@ -7,7 +7,6 @@ import java.util.Set;
 
 public interface IMESFacade {
 
-    IMesMachine createMachine(String name, String address, String userID, String password);
     int getNextOrderID();
     List<IProductionOrder> getPendingOrders();
     HashMap<String, List<IMachineConnectionInformation>> getMachines();

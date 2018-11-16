@@ -47,16 +47,16 @@ public class MESOutFacade {
 
     public void SendPowerlossEmail(String machineName){  communicationFacade.SendPowerLossEmail(machineName);
     }
-    public void logTemperature(float value, Date timestamp, int batchID) {
-        this.communicationFacade.logTemperature(value, timestamp, batchID);
+    public void logTemperature(float value, Date timestamp, int batchID, String factoryID) {
+        this.communicationFacade.logTemperature(value, timestamp, batchID, factoryID);
     }
 
-    public void logVibration(float value, Date timestamp, int batchID) {
-        this.communicationFacade.logVibration(value, timestamp, batchID);
+    public void logVibration(float value, Date timestamp, int batchID, String factoryID) {
+        this.communicationFacade.logVibration(value, timestamp, batchID, factoryID);
     }
 
-    public void logHumidity(float value, Date timestamp, int batchID){
-        this.communicationFacade.logHumidity(value, timestamp, batchID);
+    public void logHumidity(float value, Date timestamp, int batchID, String factoryID){
+        this.communicationFacade.logHumidity(value, timestamp, batchID, factoryID);
     }
 
     int getNextOrderID(){

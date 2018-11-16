@@ -20,12 +20,12 @@ public class TemperatureInserter {
     public TemperatureInserter() {
         // "INSERT INTO temperature(batchid, timeOfReading, valueCelcius) VALUES (?,?,?)";
 
-        this.values = "(?,?,?)";
-        this.tables = "temperature(batchid, timeOfReading, valueCelcius)";
+        this.values = "(?,?,?,?)";
+        this.tables = "temperature(batchid, timeOfReading, valueCelcius, factoryid)";
         connection = new DatabaseConnector().openConnection();
     }
 
-    public void insert(int batchID, Timestamp timeOfReading, float value){
-        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values);
+    public void insert(int batchID, Timestamp timeOfReading, float value, String factoryID){
+        LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values, factoryID);
     }
 }

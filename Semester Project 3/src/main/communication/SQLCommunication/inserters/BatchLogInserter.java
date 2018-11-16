@@ -20,16 +20,17 @@ public class BatchLogInserter {
     private Connection connection;
 
     public BatchLogInserter() {
-        this.values = "(?,?,?)";
-        this.tables = "batch_log(batchid, machineid, orderid)";
+        this.values = "(?,?,?,?)";
+        this.tables = "batch_log(batchid, machineid, orderid, factoryid)";
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean insert(int batchID, String machineID, int orderID){
+    public boolean insert(int batchID, String machineID, int orderID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, machineID));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, orderID));
+        wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, factoryID));
 
         return new Insert().insertion(connection, tables, values, wildCardInfo);
     }

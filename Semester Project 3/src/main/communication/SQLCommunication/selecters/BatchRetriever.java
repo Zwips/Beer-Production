@@ -47,33 +47,33 @@ public class BatchRetriever {
     public BatchRetriever() {
         this.selectionsBatch = "BatchID, ProductType, Amount, Defective";
         this.tablesBatch = "Batch";
-        this.conditionsBatch = "BatchID = ?";
+        this.conditionsBatch = "BatchID = ? AND factoryid = ?";
 
         this.selectionsTemperature = "valuecelcius, timeofreading";
         this.tablesTemperature = "temperature";
-        this.conditionsTemperature = "BatchID = ?";
+        this.conditionsTemperature = "BatchID = ? AND factoryid = ?";
 
         this.selectionsVibration = "valuepbs, timeofreading";
         this.tablesVibration = "vibration";
-        this.conditionsVibration = "BatchID = ?";
+        this.conditionsVibration = "BatchID = ? AND factoryid = ?";
 
         this.selectionsHumidity = "valuepercent, timeofreading";
         this.tablesHumidity= "humidity";
-        this.conditionsHumidity = "BatchID = ?";
+        this.conditionsHumidity = "BatchID = ? AND factoryid = ?";
 
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public IBatch getBatch(int batchID){
+    public IBatch getBatch(int batchID, String factoryID){
         CommunicationBatch batch = new CommunicationBatch();;
 
-        this.getGeneralBatchInfo(batch, batchID);
+        this.getGeneralBatchInfo(batch, batchID, factoryID);
 
-        this.getTemperatureInfo(batch, batchID);
+        this.getTemperatureInfo(batch, batchID, factoryID);
 
-        this.getVibrationInfo(batch, batchID);
+        this.getVibrationInfo(batch, batchID, factoryID);
 
-        this.getHumidityInfo(batch, batchID);
+        this.getHumidityInfo(batch, batchID, factoryID);
 
         try {
             connection.close();
@@ -85,9 +85,10 @@ public class BatchRetriever {
         return batch;
     }
 
-    private void getGeneralBatchInfo(CommunicationBatch batch, int batchID){
+    private void getGeneralBatchInfo(CommunicationBatch batch, int batchID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selectionsBatch, tablesBatch, conditionsBatch, wildCardInfo);
 
@@ -105,9 +106,10 @@ public class BatchRetriever {
         }
     }
 
-    private void getTemperatureInfo(CommunicationBatch batch, int batchID){
+    private void getTemperatureInfo(CommunicationBatch batch, int batchID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selectionsTemperature, tablesTemperature, conditionsTemperature, wildCardInfo);
         Map<Date, Float> temperatureMeasurements = new HashMap<>();
@@ -124,9 +126,10 @@ public class BatchRetriever {
         batch.setTemperatures(temperatureMeasurements);
     }
 
-    private void getVibrationInfo(CommunicationBatch batch, int batchID){
+    private void getVibrationInfo(CommunicationBatch batch, int batchID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selectionsVibration, tablesVibration, conditionsVibration, wildCardInfo);
         Map<Date, Float> vibrationMeasurements = new HashMap<>();
@@ -143,9 +146,10 @@ public class BatchRetriever {
         batch.setVibrations(vibrationMeasurements);
     }
 
-    private void getHumidityInfo(CommunicationBatch batch, int batchID){
+    private void getHumidityInfo(CommunicationBatch batch, int batchID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selectionsHumidity, tablesHumidity, conditionsHumidity, wildCardInfo);
 

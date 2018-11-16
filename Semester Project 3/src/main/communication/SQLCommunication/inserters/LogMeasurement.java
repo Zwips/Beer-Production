@@ -14,11 +14,12 @@ import java.util.List;
 
 public class LogMeasurement {
 
-    static void logMeasurement(int batchID, Date timeOfReading, float value, Connection connection, String tables, String values) {
+    static void logMeasurement(int batchID, Date timeOfReading, float value, Connection connection, String tables, String values, String factoryID) {
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, timeOfReading));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.FLOAT, value));
+        wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, factoryID));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
     }
