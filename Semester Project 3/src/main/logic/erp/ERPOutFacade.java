@@ -29,11 +29,6 @@ public class ERPOutFacade {
         return mesFacade.createMachine(machineName,IPAddress, userID, password);
     }
 
-    boolean isConnected(IMesMachine machine)
-    {
-        return machine.isConnected();
-    }
-
     int getNextOrderID(){
         return mesFacade.getNextOrderID();
     }

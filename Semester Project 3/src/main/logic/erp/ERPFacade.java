@@ -56,8 +56,8 @@ public class ERPFacade implements IERPFacade {
     }
 
     @Override
-    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
-      return erp.changeOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID, status);
+    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
+      return erp.changeOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID);
     }
 
 

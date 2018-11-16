@@ -203,10 +203,10 @@ public class ERP {
         }
     }
 
-    public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
+    public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
         for (IProductionOrder productionOrder : this.productionOrders) {
             if (productionOrder.getOrderID()==orderID){
-                ProductionOrder changedOrder = null;
+                ProductionOrder changedOrder;
 
                 try {
                     changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);

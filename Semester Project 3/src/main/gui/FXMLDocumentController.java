@@ -21,8 +21,6 @@ import static java.lang.Thread.sleep;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -35,7 +33,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 
@@ -277,7 +274,7 @@ public class FXMLDocumentController implements Initializable  {
             orderSucceededLabel.setText("Order sent");
 
         }else if (allTrue&&event.getSource()==changeOrder){
-            GUIOutFacade.getInstance().updateOrder(amount,selectedType,earliestDeliveryDate,latestDeliveryDate,priority,currentlySelectedOrder.getOrderID(),currentlySelectedOrder.getStatus());
+            GUIOutFacade.getInstance().updateOrder(amount,selectedType,earliestDeliveryDate,latestDeliveryDate,priority,currentlySelectedOrder.getOrderID());
         }
 
     }

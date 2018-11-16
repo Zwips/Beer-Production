@@ -6,7 +6,6 @@ import Acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Queue;
 
 public class GUIOutFacade {
 
@@ -33,8 +32,8 @@ public class GUIOutFacade {
         return erpFacade.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
 
     }
-    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
-        return erpFacade.updateOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID, status);
+    public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
+        return erpFacade.updateOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID);
     }
     boolean addMachine(String machineName, String IPaddress, String userID, String password){
         return erpFacade.addMachine(machineName, IPaddress, userID, password);
