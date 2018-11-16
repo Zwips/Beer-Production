@@ -29,5 +29,5 @@ public interface IMESFacade {
 
     boolean removeMachine(String thePlant, String machineName);
 
-    Map<String, IProcessingCapacity> removeOrder(int orderID);
+    IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException;
 }

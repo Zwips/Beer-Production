@@ -11,12 +11,10 @@ package logic.erp;
  * @param removeMachine Method for removing a machine from the list of processing plants.
  */
 
-import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import logic.erp.scheduler.Scheduler_Facade;
-import logic.mes.ProcessingPlant;
 
 import java.security.InvalidParameterException;
 import java.util.*;
@@ -216,7 +214,8 @@ public class ERP {
             ProductionOrder changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             changedOrder.setOrderID(orderID);
 
-            this.processingCapacities.putAll(ERPOutFacade.getInstance().removeOrder(orderID));
+            String plantID = this.scheduler_facade.getOrderLocations(orderID);
+            this.processingCapacities.put(plantID, ERPOutFacade.getInstance().removeOrder(plantID, orderID));
 
             Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
 
@@ -224,7 +223,7 @@ public class ERP {
             //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
 
             return true;
-        } catch (InvalidParameterException ex){
+        } catch (InvalidParameterException | NoSuchFieldException ex){
             return false;
         }
     }

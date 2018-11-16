@@ -12,7 +12,6 @@ import Acquantiance.IMesMachine;
 import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
-import logic.erp.ERPOutFacade;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,7 +20,7 @@ public class ProcessingPlant {
 
     private HashMap<String, IMesMachine> machines;
     private String plantID;
-    private ConcurrentLinkedQueue<IProductionOrder> Queue;
+    private ConcurrentLinkedQueue<IProductionOrder> queue;
     private int nextBatchID;
     private ProcessingCapacity capacity;
 
@@ -80,7 +79,7 @@ public class ProcessingPlant {
     }
 
     boolean executeNextOrder(String machineID){
-        IProductionOrder order = this.Queue.poll();
+        IProductionOrder order = this.queue.poll();
 
         if (order != null) {
             return this.machines.get(machineID).executeOrder(order, this.nextBatchID);
@@ -98,14 +97,14 @@ public class ProcessingPlant {
     //TODO change to a plant scheduler
     ProcessingCapacity addOrders(List<IProductionOrder> orders){
 
-        if (this.Queue==null) {
-            this.Queue = new ConcurrentLinkedQueue<>();
+        if (this.queue ==null) {
+            this.queue = new ConcurrentLinkedQueue<>();
             for (IProductionOrder order : orders) {
-                this.Queue.add(order);
+                this.queue.add(order);
             }
         } else {
             for (IProductionOrder order : orders) {
-                this.Queue.add(order);
+                this.queue.add(order);
             }
         }
 
@@ -116,12 +115,27 @@ public class ProcessingPlant {
     List<IProductionOrder> getAllProductionOrders(){
 
         List<IProductionOrder> orders = new ArrayList<>();
-        for (IProductionOrder productionOrder : this.Queue) {
+        for (IProductionOrder productionOrder : this.queue) {
             orders.add(productionOrder);
         }
 
-        this.Queue = null;
+        this.queue = null;
         return orders;
     }
 
+    public IProcessingCapacity removeOrder(int orderID) throws NoSuchFieldException {
+
+        Iterator<IProductionOrder> iter = this.queue.iterator();
+        IProductionOrder order;
+
+        while (iter.hasNext()) {
+            order = iter.next();
+            if (order.getOrderID() == orderID){
+                iter.remove();
+                return new ProcessingCapacity();
+            }
+        }
+
+        throw new NoSuchFieldException();
+    }
 }

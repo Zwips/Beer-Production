@@ -83,7 +83,7 @@ public class ERPOutFacade {
         return this.mesFacade.removeMachine(thePlant, machineName);
     }
 
-    public Map<String, IProcessingCapacity> removeOrder(int orderID) {
-        return this.mesFacade.removeOrder(orderID);
+    public IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException {
+        return this.mesFacade.removeOrder(plantID, orderID);
     }
 }

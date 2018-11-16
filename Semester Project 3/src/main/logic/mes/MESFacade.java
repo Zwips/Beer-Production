@@ -100,8 +100,8 @@ public class MESFacade implements IMESFacade {
     }
 
     @Override
-    public Map<String, IProcessingCapacity> removeOrder(int orderID) {
-        return null;
+    public IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException {
+        return this.processingPlants.get(plantID).removeOrder(orderID);
     }
 
 
