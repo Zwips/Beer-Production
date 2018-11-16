@@ -5,6 +5,7 @@ import Acquantiance.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class MESOutFacade {
 
@@ -47,24 +48,23 @@ public class MESOutFacade {
     public void SendPowerlossEmail(String machineName){  communicationFacade.SendPowerLossEmail(machineName);
     }
     public void logTemperature(float value, Date timestamp, int batchID) {
-
+        this.communicationFacade.logTemperature(value, timestamp, batchID);
     }
 
     public void logVibration(float value, Date timestamp, int batchID) {
-
+        this.communicationFacade.logVibration(value, timestamp, batchID);
     }
 
     public void logHumidity(float value, Date timestamp, int batchID){
-
+        this.communicationFacade.logHumidity(value, timestamp, batchID);
     }
 
     int getNextOrderID(){
         return communicationFacade.getNextOrderID();
     }
-    int getNextBatchID(){
-        return communicationFacade.getNextBatchID();
+    int getNextBatchID(String plantID){
+        return communicationFacade.getNextBatchID(plantID);
     }
-
 
     public List<IProductionOrder> getPendingOrders() {
         return communicationFacade.getPendingOrders();
@@ -73,6 +73,11 @@ public class MESOutFacade {
     HashMap<String, List<IMachineConnectionInformation>> getMachines(){
         return communicationFacade.getMachines();
     }
+
+    List<IMachineConnectionInformation> getMachines(String plantID){
+        return communicationFacade.getMachines(plantID);
+    }
+
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
         communicationFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
     }
@@ -81,4 +86,7 @@ public class MESOutFacade {
         communicationFacade.deleteMachine(machineID);
     }
 
+    public Set<String> getPlantIDs() {
+        return this.communicationFacade.getPlantIDs();
+    }
 }

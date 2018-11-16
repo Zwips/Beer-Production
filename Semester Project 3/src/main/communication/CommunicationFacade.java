@@ -4,10 +4,7 @@ import Acquantiance.*;
 import communication.MailCommunication.MailCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommunicationFacade implements ICommunicationFacade {
 
@@ -147,6 +144,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
+    public int getNextBatchID(String plantID) {
+        return sqlFacade.getNextBatchID(plantID);
+    }
+
+    @Override
     public HashMap<String, List<IMachineConnectionInformation>> getMachines() {
         return sqlFacade.getMachines();
     }
@@ -159,6 +161,16 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public void deleteMachine(String machineID) {
         sqlFacade.deleteMachine(machineID);
+    }
+
+    @Override
+    public List<IMachineConnectionInformation> getMachines(String plantID) {
+        return sqlFacade.getMachines(plantID);
+    }
+
+    @Override
+    public Set<String> getPlantIDs() {
+        return sqlFacade.getPlantIDs();
     }
 
 

@@ -231,7 +231,6 @@ public class Machine implements IMachine, IMesMachine, Runnable{
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
-
         }
     }
 
@@ -396,25 +395,25 @@ public class Machine implements IMachine, IMesMachine, Runnable{
 
     }*/
 
-    void uploadBatchInfo()
-    {
+    void uploadBatchInfo() {
         float batchID = -1;
         int numberOfDefective = -1;
         float productsInBatch = -1;
         int currentProduct = -1;
         float machineSpeed = -1;
+
         try {
             batchID = readBatchIDCurrent();
-            currentProduct = (int)readCurrentProductID();
+            currentProduct = (int) readCurrentProductID();
             productsInBatch = readProductsInBatch();
             numberOfDefective = readNumberOfDefectiveProducts();
             machineSpeed = readMachineSpeedCurrent();
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+
         ProductTypeEnum product;
-        switch(currentProduct)
-        {
+        switch (currentProduct) {
             case 0:
                 product = ProductTypeEnum.PILSNER;
                 break;

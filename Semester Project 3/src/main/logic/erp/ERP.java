@@ -12,30 +12,43 @@ package logic.erp;
  */
 
 import Acquantiance.IMachineConnectionInformation;
+import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
+import logic.erp.scheduler.Scheduler_Facade;
+import logic.mes.ProcessingPlant;
 
 import java.security.InvalidParameterException;
 import java.util.*;
 
 public class ERP {
-    private List<IProductionOrder> productionOrders;
-    private HashMap<String, ProcessingPlant> processingPlants;
+
+    private Map<String, IProcessingCapacity> processingCapacities;
+    private Set<String> processingPlants;
     private int nextOrderID;
-    private int nextBatchID;
+    private IScheduler_Facade scheduler_facade;
 
     /** Constructer for ERP.
      *
      */
     public ERP() {
-        productionOrders = new ArrayList<IProductionOrder>();
-        processingPlants = new HashMap<>();
-        ProcessingPlant plant = new ProcessingPlant("THEPLANT");
-        processingPlants.put("THEPLANT",plant);
-        initialiseBatchID();
+        processingPlants = new HashSet<>();
+        processingCapacities = new HashMap<>();
+        this.scheduler_facade = new Scheduler_Facade();
+
         initialiseOrderID();
         initialiseOrders();
-        intitialiseFactories();
+        intitialisePlantIDs();
+        initialiseCapacities();
+    }
+
+
+    private void initialiseCapacities() {
+        this.processingCapacities = ERPOutFacade.getInstance().getProductionCapacities();
+    }
+
+    private void intitialisePlantIDs() {
+        processingPlants = ERPOutFacade.getInstance().getPlantIDs();
     }
 
     /**Method to add an order to the production order queue.
@@ -57,8 +70,11 @@ public class ERP {
         }
 
         order.setOrderID(nextOrderID++);
-        //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
-        return productionOrders.add(order);
+        Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(order, processingCapacities);
+
+        this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
+
+        return true;
     }
 
     /** Method to add a new processing plant to the list of processing plants.
@@ -66,8 +82,8 @@ public class ERP {
      * @param plantID the ID of the plant being added.
      */
     public void addProcessingPlant(String plantID){
-        ProcessingPlant plant = new ProcessingPlant(plantID);
-        processingPlants.put(plantID, plant);
+        processingPlants.add(plantID);
+        ERPOutFacade.getInstance().addPlant(plantID);
     }
 
     /** Method for removing a processing plant from the list of processing plants.
@@ -76,7 +92,10 @@ public class ERP {
      */
     public void removeProcessingPlant(String plantID)
     {
-        processingPlants.remove(plantID, processingPlants.get(plantID));
+        boolean removed = ERPOutFacade.getInstance().removePlant(plantID);
+        if (removed){
+            this.processingPlants.remove(plantID);
+        }
     }
 
     /** Method for checking if a processing plant exists.
@@ -85,21 +104,21 @@ public class ERP {
      * @return boolean if the ID exists in the list of processing plants.
      */
     public boolean checkForProcessingPlant(String plantID){
-        return processingPlants.containsKey(plantID);
+        return processingPlants.contains(plantID); //TODO should it call deeper??
     }
 
 
     /** Method for adding a Machine to a processing plant.
      *
-     * @param processingPantID the ID for the plant the machine is being added to.
-     * @param name the name of the machine being added.
-     * @param address the Ipaddress of the machine being added.
+     * @param processingPlantID the ID for the plant the machine is being added to.
+     * @param machineName the name of the machine being added.
+     * @param ipAddress the Ipaddress of the machine being added.
      * @param userID the userID to the machine.
      * @param password the password to the machine.
      * @return boolean if machine has properly been added to the right processing plant.
      */
-    public boolean addMachine(String processingPantID, String name, String address, String userID, String password){
-        return processingPlants.get(processingPantID).addMachine(name, address, userID, password);
+    public boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password){
+        return ERPOutFacade.getInstance().addMachine(processingPlantID, machineName, ipAddress, userID, password);
     }
 
     /** Method for adding a machine to THEPLANT processing plant.
@@ -111,7 +130,7 @@ public class ERP {
      * @return boolean if the machine has properly been added.
      */
     public boolean addMachine(String machineName, String IPAddress, String userID, String password){
-        return processingPlants.get("THEPLANT").addMachine(machineName, IPAddress, userID, password);
+        return ERPOutFacade.getInstance().addMachine("THEPLANT", machineName, IPAddress, userID, password);
     }
 
     /** Method to check if a machine already exists in the list of processing plants.
@@ -119,16 +138,16 @@ public class ERP {
      * @param machineName the name of the machine being checked for.
      * @return boolean if the machine already exists or not.
      */
-    public boolean checkForMachine(String machineName)
-    {
-        Set<Map.Entry<String, ProcessingPlant>> processingPlantSet = processingPlants.entrySet();
+    public boolean checkForMachine(String machineName) {
+        return ERPOutFacade.getInstance().checkForMachine(machineName);
+
+        /*Set<Map.Entry<String, ProcessingPlant>> processingPlantSet = processingPlants.entrySet();
         for (Map.Entry<String, ProcessingPlant> entrySet : processingPlantSet) {
-            if(entrySet.getValue().checkForMachine(machineName))
-            {
+            if (entrySet.getValue().checkForMachine(machineName)) {
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     /** Method for removing a machine from the list of processing plants.
@@ -137,7 +156,7 @@ public class ERP {
      * @return boolean if the machine has been removed or not.
      */
     public boolean removeMachine(String machineName) {
-        return processingPlants.get("THEPLANT").removeMachine(machineName);
+        return  ERPOutFacade.getInstance().removeMachine("THEPLANT", machineName);
     }
 
     /** Method for getting the production order queue.
@@ -145,12 +164,7 @@ public class ERP {
      * @return the production order list.
      */
     public List<IProductionOrder> getProductionOrders( ){
-        List<IProductionOrder> list = new ArrayList<>();
-
-        for (IProductionOrder order:this.productionOrders){
-            list.add(order.clone());
-        }
-        return list;
+        return ERPOutFacade.getInstance().getPendingOrders();
     }
 
     /** Method for removing a machine from a specific processing plant.
@@ -160,7 +174,7 @@ public class ERP {
      * @return boolean if the machine has been removed or not.
      */
     public boolean removeMachine(String processingPlantID, String machineName) {
-        return processingPlants.get(processingPlantID).removeMachine(machineName);
+        return ERPOutFacade.getInstance().removeMachine(processingPlantID, machineName);
     }
 
     /** Method for getting the next orderID
@@ -175,16 +189,9 @@ public class ERP {
      *
      * @return the next BatchID
      */
-    public int getNextBatchID() {
+    /*public int getNextBatchID() {
         return nextBatchID;
-    }
-
-    /** Method for initialising the next batchID
-     *
-     */
-    private void initialiseBatchID(){
-        nextBatchID = ERPOutFacade.getInstance().getNextBatchID();
-    }
+    }*/
 
     /** Method for initialising the next orderID
      *
@@ -193,52 +200,35 @@ public class ERP {
         nextOrderID = ERPOutFacade.getInstance().getNextOrderID();
     }
 
-    /** Method for initialising the order queue.
+    /** Method for initialising the orders for the system.
      *
      */
     private void initialiseOrders(){
-        List<IProductionOrder> orders = ERPOutFacade.getInstance().getPendingOrders();
-        for (IProductionOrder order: orders) {
-            productionOrders.add(order);
-        }
+        List<IProductionOrder> pendingOrders = ERPOutFacade.getInstance().getPendingOrders();
+
+        Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
+
+        this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
     }
 
     public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID, boolean status) {
-        for (IProductionOrder productionOrder : this.productionOrders) {
-            if (productionOrder.getOrderID()==orderID){
-                ProductionOrder changedOrder = null;
+        try {
+            ProductionOrder changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            changedOrder.setOrderID(orderID);
 
-                try {
-                    changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-                    changedOrder.setOrderID(orderID);
-                    productionOrders.remove(productionOrder);
-                    productionOrders.add(changedOrder);
-                    //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
-                    return true;
-                } catch (InvalidParameterException ex){
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
+            this.processingCapacities.putAll(ERPOutFacade.getInstance().removeOrder(orderID));
 
-    private void intitialiseFactories(){
-        Set<Map.Entry<String, List<IMachineConnectionInformation>>> entryList  = ERPOutFacade.getInstance().getMachines().entrySet();
-        for (Map.Entry<String, List<IMachineConnectionInformation>> entry: entryList) {
-            if(processingPlants.containsKey(entry.getKey())) {
-                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
-                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
-                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
-                }
-            } else {
-                processingPlants.put(entry.getKey(), new ProcessingPlant(entry.getKey()));
-                List<IMachineConnectionInformation> machineInfoList = entry.getValue();
-                for (IMachineConnectionInformation machineInfo : machineInfoList ) {
-                    processingPlants.get(entry.getKey()).addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
-                }
-            }
+            Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
+
+            ERPOutFacade.getInstance().addOrders(destinations);
+            //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
+
+            return true;
+        } catch (InvalidParameterException ex){
+            return false;
         }
     }
+
+
 
 }

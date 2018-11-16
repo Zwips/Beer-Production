@@ -16,6 +16,7 @@ public class MachineCurrentMachineStateReporter implements IDataChangeCatcher {
     {
         this.machine = machine;
     }
+
     @Override
     public void report(DataValue data) {
 

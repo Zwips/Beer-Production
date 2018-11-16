@@ -83,4 +83,35 @@ public class MachinesRetriever {
         }
         return map;
     }
+
+    @SuppressWarnings("Duplicates")
+    public List<IMachineConnectionInformation> getMachines(String plantID) {
+
+        String conditions = "factpryid = ?";
+        List<PrepareInfo> wildCardInfo = new ArrayList<>();
+        wildCardInfo.add(new PrepareInfo(1,PrepareType.STRING, plantID));
+
+        List<IMachineConnectionInformation> machineConnectionInformations = new ArrayList<>();
+        CommunicationMachineConnectionInformation machineConnectionInformation;
+
+        ResultSet results =  new Select().query(connection, selections, tables, conditions, wildCardInfo);
+
+        try {
+            while (results.next()) {
+                machineConnectionInformation = new CommunicationMachineConnectionInformation();
+
+                machineConnectionInformation.setMachineID(results.getString("machineid"));
+                machineConnectionInformation.setMachineIP(results.getString("machine_ip"));
+                machineConnectionInformation.setMachineUsername(results.getString("machineuserid"));
+                machineConnectionInformation.setMachinePassword(results.getString("machinepassword"));
+
+                machineConnectionInformations.add(machineConnectionInformation);
+            }
+
+        } catch (SQLException e) {
+
+        }
+
+        return machineConnectionInformations;
+    }
 }

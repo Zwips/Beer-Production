@@ -1,9 +1,6 @@
 package Acquantiance;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public interface ICommunicationFacade {
     IBatch getBatchByBatchID(int batchID);
@@ -38,7 +35,13 @@ public interface ICommunicationFacade {
     int getNextOrderID();
     int getNextBatchID();
 
+    int getNextBatchID(String plantID);
+
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
     void deleteMachine(String machineID);
+
+    List<IMachineConnectionInformation> getMachines(String plantID);
+
+    Set<String> getPlantIDs();
 }

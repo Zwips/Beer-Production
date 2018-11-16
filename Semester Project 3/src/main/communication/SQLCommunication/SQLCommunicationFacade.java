@@ -10,10 +10,7 @@ import communication.SQLCommunication.selecters.*;
 import communication.SQLCommunication.updaters.OrderStatusSetter;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
 Knows everything about the specific database, because communication with a database is not an industry standard
@@ -168,8 +165,22 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
+    public List<IMachineConnectionInformation> getMachines(String plantID) {
+        return new MachinesRetriever().getMachines(plantID);
+    }
+
+    @Override
     public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
         new MachineInserter().insert(factoryID,machineID,machine_IP,userID,password);
     }
 
+    @Override
+    public int getNextBatchID(String plantID) {
+        return new NextBatchIDRetrieverByPlant().getNextBatchID(plantID);
+    }
+
+    @Override
+    public Set<String> getPlantIDs() {
+        return new PlantIDRetriever().getPlantIDs();
+    }
 }

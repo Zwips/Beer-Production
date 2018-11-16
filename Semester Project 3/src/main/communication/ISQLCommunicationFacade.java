@@ -3,10 +3,7 @@ package communication;
 import Acquantiance.*;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public interface ISQLCommunicationFacade {
 
@@ -41,7 +38,11 @@ public interface ISQLCommunicationFacade {
     void deleteMachine(String machineID);
 
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
+    List<IMachineConnectionInformation> getMachines(String plantID);
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
 
 
-    }
+    int getNextBatchID(String plantID);
+
+    Set<String> getPlantIDs();
+}
