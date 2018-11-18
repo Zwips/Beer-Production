@@ -20,11 +20,12 @@ public class AutomaticOrderExecution {
         throw new PendingException();
     }
 
-    @And("^the machine is executing an order$")
-    public void theMachineIsExecutingAnOrder() throws Throwable {
+    @And("^the machine is executing an order with id -(\\d+)$")
+    public void theMachineIsExecutingAnOrderWithId(int arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
+
 
     @When("^the machine completes the order$")
     public void theMachineCompletesTheOrder() throws Throwable {
@@ -34,6 +35,24 @@ public class AutomaticOrderExecution {
 
     @Then("^the next order is executed$")
     public void theNextOrderIsExecuted() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^it's batch ID is (\\d+)$")
+    public void itSBatchIDIs(int arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^the batch log is updated$")
+    public void theBatchLogIsUpdated() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @And("^batch is updated in the database$")
+    public void batchIsUpdatedInTheDatabase() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

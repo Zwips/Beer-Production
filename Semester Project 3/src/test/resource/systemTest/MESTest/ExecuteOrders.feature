@@ -5,7 +5,9 @@ Feature: Machines execute the next order in the queue
 
   Scenario: A machine completes an order
     Given an order exists in the factory
-    And the machine is executing an order
+    And the machine is executing an order with id -1
     When the machine completes the order
     Then the next order is executed
-    And the batch log is updated??
+    And it's batch ID is 0
+    And the batch log is updated
+    And batch is updated in the database
