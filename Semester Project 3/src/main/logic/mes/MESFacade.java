@@ -1,8 +1,14 @@
 package logic.mes;
 
-import Acquantiance.*;
+import Acquantiance.IMESFacade;
+import Acquantiance.IMachineConnectionInformation;
+import Acquantiance.IProcessingCapacity;
+import Acquantiance.IProductionOrder;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MESFacade implements IMESFacade {
 
@@ -22,14 +28,12 @@ public class MESFacade implements IMESFacade {
         }
     }
 
-
-
     @Override
     public int getNextOrderID() {
         return MESOutFacade.getInstance().getNextOrderID();
     }
 
-        @Override
+    @Override
     public List<IProductionOrder> getPendingOrders() {
         return MESOutFacade.getInstance().getPendingOrders();
     }
@@ -62,16 +66,30 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public Map<String, IProcessingCapacity> getProductionsCapacities() {
-        return null;
+
+        Map<String, IProcessingCapacity> capacities = new HashMap<>();
+
+        for (Map.Entry<String, ProcessingPlant> plantEntry : this.processingPlants.entrySet()) {
+            capacities.put(plantEntry.getKey(), plantEntry.getValue().getCapacity());
+        }
+
+        return capacities;
     }
 
     @Override
     public void addPlant(String plantID) {
+        ProcessingPlant newPlant = new ProcessingPlant(plantID);
 
+        this.processingPlants.put(plantID, newPlant);
     }
 
     @Override
     public boolean removePlant(String plantID) {
+        if (this.processingPlants.get(plantID).isStopped()) {
+            this.processingPlants.remove(plantID);
+            return true;
+        }
+
         return false;
     }
 
@@ -91,11 +109,17 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password) {
-        return false;
+        return this.processingPlants.get(processingPlantID).addMachine(machineName, ipAddress, userID, password);
     }
 
     @Override
     public boolean checkForMachine(String machineName) {
+        for (Map.Entry<String, ProcessingPlant> plantEntry : this.processingPlants.entrySet()) {
+            if (plantEntry.getValue().checkForMachine(machineName)) {
+                return true;
+            }
+        }
+
         return false;
     }
 

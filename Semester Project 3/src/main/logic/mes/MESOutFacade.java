@@ -23,7 +23,6 @@ public class MESOutFacade {
         return MESOutFacade.instance;
     }
 
-
     public void injectCommunicationFacade(ICommunicationFacade communicationFacade){
         this.communicationFacade = communicationFacade;
     }
@@ -32,21 +31,26 @@ public class MESOutFacade {
         communicationFacade.logDefectives(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
     }
 
-    public void SendStopEmail(String machineName){
+    public void SendStopEmail(String machineName) {
         communicationFacade.SendStopEmail(machineName);
     }
 
-    public void SendInventoryEmail(String machineName) {communicationFacade.SendInventoryEmail(machineName);
+    public void SendInventoryEmail(String machineName) {
+        communicationFacade.SendInventoryEmail(machineName);
     }
 
-    public void SendAbortEmail(String machineName) { communicationFacade.SendAbortEMail(machineName);
+    public void SendAbortEmail(String machineName) {
+        communicationFacade.SendAbortEMail(machineName);
     }
+
     public void SendMaintenenceEmail(String machineName) {
         communicationFacade.SendMaintenenceEmail(machineName);
     }
 
-    public void SendPowerlossEmail(String machineName){  communicationFacade.SendPowerLossEmail(machineName);
+    public void SendPowerlossEmail(String machineName){
+        communicationFacade.SendPowerLossEmail(machineName);
     }
+
     public void logTemperature(float value, Date timestamp, int batchID, String factoryID) {
         this.communicationFacade.logTemperature(value, timestamp, batchID, factoryID);
     }
@@ -62,6 +66,7 @@ public class MESOutFacade {
     int getNextOrderID(){
         return communicationFacade.getNextOrderID();
     }
+
     int getNextBatchID(String plantID){
         return communicationFacade.getNextBatchID(plantID);
     }

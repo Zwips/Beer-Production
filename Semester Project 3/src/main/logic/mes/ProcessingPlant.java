@@ -68,13 +68,11 @@ public class ProcessingPlant {
         }
     }
 
-    boolean checkForMachine(String machineName)
-    {
+    boolean checkForMachine(String machineName) {
         return machines.containsKey(machineName);
     }
 
-    boolean removeMachine(String machineName)
-    {
+    boolean removeMachine(String machineName) {
         return machines.remove(machineName, machines.get(machineName));
     }
 
@@ -137,5 +135,16 @@ public class ProcessingPlant {
         }
 
         throw new NoSuchFieldException();
+    }
+
+    public ProcessingCapacity getCapacity() {
+        return capacity;
+    }
+
+    public boolean isStopped() {
+        //TODO Check for if the machines are all stopped, and that all entries realting to this plant is
+        // removed from the database or set to being deactivated
+
+        return true;
     }
 }

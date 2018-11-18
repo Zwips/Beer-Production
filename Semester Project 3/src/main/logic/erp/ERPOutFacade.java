@@ -1,9 +1,10 @@
 package logic.erp;
 
-import Acquantiance.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import Acquantiance.IMESFacade;
+import Acquantiance.IMachineConnectionInformation;
+import Acquantiance.IProcessingCapacity;
+import Acquantiance.IProductionOrder;
 
-import javax.management.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,6 @@ public class ERPOutFacade {
     public void injectCommunicationFacade(IMESFacade mesFacade){
         this.mesFacade = mesFacade;
     }
-
-
 
     int getNextOrderID(){
         return mesFacade.getNextOrderID();

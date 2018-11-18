@@ -1,6 +1,8 @@
 package logic.erp;
 
-/** Represents our ERP
+/**
+ * Represents our ERP
+ *
  * @author Asmus
  * @param addOrder method to add an order to the production order queue.
  * @param addProcessingPlant method to add a processing plant to the list of processing plants.
@@ -40,7 +42,6 @@ public class ERP {
         initialiseCapacities();
     }
 
-
     private void initialiseCapacities() {
         this.processingCapacities = ERPOutFacade.getInstance().getProductionCapacities();
     }
@@ -58,12 +59,12 @@ public class ERP {
      * @param priority how high of a priority the order has.
      * @return the production order queue with the added order.
      */
-    public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority){
+    public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
         ProductionOrder order = null;
 
         try {
             order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        } catch (InvalidParameterException ex){
+        } catch (InvalidParameterException ex) {
             return false;
         }
 
@@ -79,7 +80,7 @@ public class ERP {
      *
      * @param plantID the ID of the plant being added.
      */
-    public void addProcessingPlant(String plantID){
+    public void addProcessingPlant(String plantID) {
         processingPlants.add(plantID);
         ERPOutFacade.getInstance().addPlant(plantID);
     }
@@ -88,10 +89,9 @@ public class ERP {
      *
      * @param plantID the ID of the plant being removed.
      */
-    public void removeProcessingPlant(String plantID)
-    {
+    public void removeProcessingPlant(String plantID) {
         boolean removed = ERPOutFacade.getInstance().removePlant(plantID);
-        if (removed){
+        if (removed) {
             this.processingPlants.remove(plantID);
         }
     }
@@ -101,10 +101,9 @@ public class ERP {
      * @param plantID the ID for the plant being checked for.
      * @return boolean if the ID exists in the list of processing plants.
      */
-    public boolean checkForProcessingPlant(String plantID){
+    public boolean checkForProcessingPlant(String plantID) {
         return processingPlants.contains(plantID); //TODO should it call deeper??
     }
-
 
     /** Method for adding a Machine to a processing plant.
      *
@@ -115,7 +114,7 @@ public class ERP {
      * @param password the password to the machine.
      * @return boolean if machine has properly been added to the right processing plant.
      */
-    public boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password){
+    public boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password) {
         return ERPOutFacade.getInstance().addMachine(processingPlantID, machineName, ipAddress, userID, password);
     }
 
@@ -127,7 +126,7 @@ public class ERP {
      * @param password the password to the machine being added.
      * @return boolean if the machine has properly been added.
      */
-    public boolean addMachine(String machineName, String IPAddress, String userID, String password){
+    public boolean addMachine(String machineName, String IPAddress, String userID, String password) {
         return ERPOutFacade.getInstance().addMachine("THEPLANT", machineName, IPAddress, userID, password);
     }
 
@@ -138,14 +137,6 @@ public class ERP {
      */
     public boolean checkForMachine(String machineName) {
         return ERPOutFacade.getInstance().checkForMachine(machineName);
-
-        /*Set<Map.Entry<String, ProcessingPlant>> processingPlantSet = processingPlants.entrySet();
-        for (Map.Entry<String, ProcessingPlant> entrySet : processingPlantSet) {
-            if (entrySet.getValue().checkForMachine(machineName)) {
-                return true;
-            }
-        }
-        return false;*/
     }
 
     /** Method for removing a machine from the list of processing plants.
@@ -154,14 +145,14 @@ public class ERP {
      * @return boolean if the machine has been removed or not.
      */
     public boolean removeMachine(String machineName) {
-        return  ERPOutFacade.getInstance().removeMachine("THEPLANT", machineName);
+        return ERPOutFacade.getInstance().removeMachine("THEPLANT", machineName);
     }
 
     /** Method for getting the production order queue.
      *
      * @return the production order list.
      */
-    public List<IProductionOrder> getProductionOrders( ){
+    public List<IProductionOrder> getProductionOrders() {
         return ERPOutFacade.getInstance().getPendingOrders();
     }
 
@@ -183,25 +174,17 @@ public class ERP {
         return nextOrderID;
     }
 
-    /** Method for getting the next BatchID
-     *
-     * @return the next BatchID
-     */
-    /*public int getNextBatchID() {
-        return nextBatchID;
-    }*/
-
     /** Method for initialising the next orderID
      *
      */
-    private void initialiseOrderID(){
+    private void initialiseOrderID() {
         nextOrderID = ERPOutFacade.getInstance().getNextOrderID();
     }
 
     /** Method for initialising the orders for the system.
      *
      */
-    private void initialiseOrders(){
+    private void initialiseOrders() {
         List<IProductionOrder> pendingOrders = ERPOutFacade.getInstance().getPendingOrders();
 
         Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
@@ -223,11 +206,9 @@ public class ERP {
             //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
 
             return true;
-        } catch (InvalidParameterException | NoSuchFieldException ex){
+        } catch (InvalidParameterException | NoSuchFieldException ex) {
             return false;
         }
     }
-
-
 
 }
