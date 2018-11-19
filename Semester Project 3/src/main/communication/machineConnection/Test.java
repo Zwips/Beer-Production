@@ -14,7 +14,7 @@ import static java.lang.Thread.sleep;
 
 public class Test {
     static int numberOfRuns = 5;
-    static ProductTypeEnum productType = ProductTypeEnum.IPA;
+    static ProductTypeEnum productType = ProductTypeEnum.PILSNER;
 
     static MachineSpecifications specs = new MachineSpecifications();
     static int machineSpeed = (int)specs.getOptimalSpeed(productType);

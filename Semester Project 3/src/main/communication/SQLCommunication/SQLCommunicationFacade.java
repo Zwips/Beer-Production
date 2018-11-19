@@ -176,8 +176,23 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
+    public void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing) {
+        new LogOEEInserter().insert(factoryID,machineID,batchID,state,new Timestamp(timestamp.getTime()),isProducing);
+    }
+
+    @Override
     public int getNextBatchID(String plantID) {
         return new NextBatchIDRetrieverByPlant().getNextBatchID(plantID);
+    }
+
+    @Override
+    public IOEE getOEEByMachine(String machineID, String factoryID) {
+        return new OEEByMachineRetriever().getOEE(machineID,factoryID);
+    }
+
+    @Override
+    public IOEE getOEEByBatchID(int batchID, String factoryID) {
+        return new OEEByBatchIDRetriever().getOEE(batchID,factoryID);
     }
 
     @Override

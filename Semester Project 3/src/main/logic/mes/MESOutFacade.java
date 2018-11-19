@@ -102,4 +102,9 @@ public class MESOutFacade {
     public void updateOrders(List<IProductionOrder> orders) {
         this.communicationFacade.updateOrders(orders);
     }
+
+    public void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing){
+        communicationFacade.logOEE(factoryID, machineID, batchID, state, timestamp, isProducing);
+    }
+
 }

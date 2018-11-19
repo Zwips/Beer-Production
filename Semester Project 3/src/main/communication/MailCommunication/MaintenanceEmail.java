@@ -23,7 +23,7 @@ public class MaintenanceEmail {
 	private String password = "beer:123";
 	private String smtpport = "25";
 	private String port = "465";
-	private String recipient = "fartillucas@gmail.com";
+	private String recipient = "beerproductiontest@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
 	private Date date = new Date();
 
@@ -37,7 +37,7 @@ public class MaintenanceEmail {
 		props.put("mail.smtp.user", "beerproductiontest");
 		props.put("mail.smtp.host" ,"smtp.gmail.com");
 		props.put("mail.smtp.port" , smtpport);
-		props.put("mail.debug", "true");
+		props.put("mail.debug", "false");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.EnableSSL.enable", "true");
@@ -64,7 +64,7 @@ public class MaintenanceEmail {
 			Transport.send(message);
 
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 
 		}
 

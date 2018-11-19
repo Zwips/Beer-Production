@@ -41,13 +41,14 @@ public class Machine implements IMachine, IMesMachine, Runnable{
         this.password = password;
         createMachineConnection();
         specs = new MachineSpecifications();
-        setMachineSubscriptions();
         this.factoryID = factoryID;
+        setMachineSubscriptions();
     }
 
     private void setMachineSubscriptions(){
         try {
             subscribeToCurrentState(new MachineCurrentMachineStateReporter(this));
+            subscribeToCurrentState(new MachineOEE(this,factoryID));
             subscribeToHumidity(new MachineHumidityReporter(this,factoryID));
             subscribeToTemperature(new MachineTemperatureReporter(this,factoryID));
             subscribeToVibration(new MachineVibrationReporter(this,factoryID));

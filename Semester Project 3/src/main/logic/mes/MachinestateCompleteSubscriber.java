@@ -14,8 +14,8 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
     }
 
     @Override
-    public void report(DataValue data) {
-        if (data.getValue().intValue() == 17) {
+    public void report(DataValue newData) {
+        if (newData.getValue().intValue() == 17) {
             plant.executeNextOrder(machineID);
         }
     }

@@ -47,7 +47,7 @@ public class Insert {
 
                 pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 pStatement.setLong(2, i);
-                pStatement.setString(3, "MALTE");
+                pStatement.setString(3, "Michael");
 
 
                 pStatement.execute();
@@ -70,7 +70,7 @@ public class Insert {
             while(i<2000) {
                 pStatement.setTimestamp(1, new Timestamp(new java.util.Date().getTime()));
                 pStatement.setLong(2, i++);
-                pStatement.setString(3, "MALTE");
+                pStatement.setString(3, "Michael");
 
                 pStatement.execute();
             }

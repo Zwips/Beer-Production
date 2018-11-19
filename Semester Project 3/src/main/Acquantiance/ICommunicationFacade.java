@@ -48,4 +48,8 @@ public interface ICommunicationFacade {
     void logOrders(List<IProductionOrder> orders);
 
     void updateOrders(List<IProductionOrder> orders);
+
+    void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing);
+    IOEE getOEEByMachine(String machineID, String factoryID);
+    IOEE getOEEByBatchID(int batchID, String factoryID);
 }

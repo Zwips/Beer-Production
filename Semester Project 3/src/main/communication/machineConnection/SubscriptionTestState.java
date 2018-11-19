@@ -20,10 +20,10 @@ class SubscriptionTestState implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
+    public void report(DataValue newData) {
         try {
-            System.out.println(data.getValue());
-            if (data.getValue().intValue()==17) {
+            System.out.println(newData.getValue());
+            if (newData.getValue().intValue()==17) {
                 test.printProduction();
             }
         } catch (ServiceException e) {
