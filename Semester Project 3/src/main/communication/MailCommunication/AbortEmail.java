@@ -24,7 +24,7 @@ public class AbortEmail {
 	private String password = "beer:123";
 	private String smtpport = "25";
 	private String port = "465";
-	private String recipient = "fartillucas@gmail.com";
+	private String recipient = "beerproductiontest@gmail.com";
 	private String benefactor = "beerproductiontest@gmail.com";
 	private Date date = new Date();
 
