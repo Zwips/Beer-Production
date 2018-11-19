@@ -24,6 +24,7 @@ public class MachineCurrentMachineStateReporter implements IDataChangeCatcher {
         if(newData.getValue().intValue() == 17)
         {
             machine.uploadBatchInfo();
+            //machine.reportCompletion();
         }
     }
 }

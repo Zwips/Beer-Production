@@ -12,17 +12,20 @@ import Acquantiance.IMesMachine;
 import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
+import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ProcessingPlant {
 
+    private IPlantSchedulerFacade scheduler;
     private HashMap<String, IMesMachine> machines;
     private String plantID;
-    private ConcurrentLinkedQueue<IProductionOrder> queue;
     private int nextBatchID;
     private ProcessingCapacity capacity;
+    private Map<String, ConcurrentLinkedQueue<IProductionOrder>> machineSchedule;
+
 
     /**
      * processing plants containing a Map with Machines
@@ -35,9 +38,13 @@ public class ProcessingPlant {
     ProcessingPlant(String plantID, List<IMachineConnectionInformation> machines) {
         this.plantID = plantID;
         this.machines = new HashMap<>();
+        this.scheduler = new PlantSchedulerFacade();
+        this.machineSchedule = new HashMap<>();
+
         this.initialiseBatchID();
         this.initialiseMachines(machines);
         this.initialiseProcessingCapacity();
+
     }
 
     private void initialiseProcessingCapacity() {
@@ -62,6 +69,7 @@ public class ProcessingPlant {
 
         if(machine.isConnected()) {
             machines.put(machineName, machine);
+            this.machineSchedule.put(machineName, new ConcurrentLinkedQueue<>());
             return true;
         } else{
             return false;
@@ -77,7 +85,8 @@ public class ProcessingPlant {
     }
 
     boolean executeNextOrder(String machineID){
-        IProductionOrder order = this.queue.poll();
+        ConcurrentLinkedQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
+        IProductionOrder order = queue.poll();
 
         if (order != null) {
             return this.machines.get(machineID).executeOrder(order, this.nextBatchID);
@@ -93,16 +102,12 @@ public class ProcessingPlant {
     }
 
     //TODO change to a plant scheduler
+    @SuppressWarnings("Duplicates")
     ProcessingCapacity addOrders(List<IProductionOrder> orders){
 
-        if (this.queue ==null) {
-            this.queue = new ConcurrentLinkedQueue<>();
-            for (IProductionOrder order : orders) {
-                this.queue.add(order);
-            }
-        } else {
-            for (IProductionOrder order : orders) {
-                this.queue.add(order);
+        for (IProductionOrder order : orders) {
+            for (Map.Entry<String, List<IProductionOrder>> destination : this.scheduler.schedule(order, this.machines.values()).entrySet()) {
+                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
             }
         }
 
@@ -111,29 +116,31 @@ public class ProcessingPlant {
         return new ProcessingCapacity();
     }
 
-    //TODO or it should remove each element and leave an empty queue?
+    //TODO or it should remove each element and leave an empty queue, and how about machine queues?
     List<IProductionOrder> getAllProductionOrders(){
 
         List<IProductionOrder> orders = new ArrayList<>();
-        for (IProductionOrder productionOrder : this.queue) {
-            orders.add(productionOrder);
+
+        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+            orders.addAll(machineQueue.getValue());
+            machineQueue.getValue().clear();
         }
 
-        this.queue = null;
         return orders;
     }
 
     public IProcessingCapacity removeOrder(int orderID) throws NoSuchFieldException {
 
-        Iterator<IProductionOrder> iter = this.queue.iterator();
-        IProductionOrder order;
+        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+            Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
+            IProductionOrder order;
 
-        while (iter.hasNext()) {
-            order = iter.next();
-            if (order.getOrderID() == orderID){
-                iter.remove();
-                //MESOutFacade.getInstance().removeOrder(orderID);
-                return new ProcessingCapacity();
+            while (iter.hasNext()) {
+                order = iter.next();
+                if (order.getOrderID() == orderID){
+                    iter.remove();
+                    return new ProcessingCapacity();
+                }
             }
         }
 
@@ -153,29 +160,27 @@ public class ProcessingPlant {
 
     public IProductionOrder getOrder(int orderID) {
 
-        Iterator<IProductionOrder> iter = this.queue.iterator();
-        IProductionOrder order;
+        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+            Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
+            IProductionOrder order;
 
-        while (iter.hasNext()) {
-            order = iter.next();
-            if (order.getOrderID() == orderID){
-                return order;
+            while (iter.hasNext()) {
+                order = iter.next();
+                if (order.getOrderID() == orderID){
+                    return order;
+                }
             }
         }
 
         return null;
     }
 
+    @SuppressWarnings("Duplicates")
     public IProcessingCapacity changeOrders(List<IProductionOrder> orders) {
 
-        if (this.queue ==null) {
-            this.queue = new ConcurrentLinkedQueue<>();
-            for (IProductionOrder order : orders) {
-                this.queue.add(order);
-            }
-        } else {
-            for (IProductionOrder order : orders) {
-                this.queue.add(order);
+        for (IProductionOrder order : orders) {
+            for (Map.Entry<String, List<IProductionOrder>> destination : this.scheduler.schedule(order, this.machines.values()).entrySet()) {
+                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
             }
         }
 

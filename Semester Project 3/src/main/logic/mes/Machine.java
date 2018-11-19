@@ -15,7 +15,6 @@ package logic.mes;
  */
 
 import Acquantiance.IDataChangeCatcher;
-import Acquantiance.IMesMachine;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
@@ -24,7 +23,7 @@ import communication.machineConnection.MachineConnection;
 
 import static java.lang.Thread.sleep;
 
-public class Machine implements IMachine, IMesMachine, Runnable{
+public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
 
     private final String factoryID;
     private String name;

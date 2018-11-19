@@ -11,3 +11,6 @@ Feature: Machines execute the next order in the queue
     And it's batch ID is 0
     And the batch log is updated
     And batch is updated in the database
+
+    Scenario: execution starts when orders are added
+      Given derp
