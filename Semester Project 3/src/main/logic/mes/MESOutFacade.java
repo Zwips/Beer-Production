@@ -31,6 +31,10 @@ public class MESOutFacade {
         communicationFacade.logDefectives(machineID, numberOfDefective, productsInBatch, machineSpeed, product);
     }
 
+    public IBatch getBatch(int BatchID, String factoryID){
+        return communicationFacade.getBatchByBatchID(BatchID, factoryID);
+    }
+
     public void SendStopEmail(String machineName) {
         communicationFacade.SendStopEmail(machineName);
     }
