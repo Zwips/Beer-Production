@@ -173,5 +173,20 @@ public class CommunicationFacade implements ICommunicationFacade {
         return sqlFacade.getPlantIDs();
     }
 
+    @Override
+    public void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing) {
+        sqlFacade.logOEE(factoryID,machineID, batchID, state, timestamp, isProducing);
+    }
+
+    @Override
+    public IOEE getOEEByMachine(String machineID, String factoryID) {
+        return sqlFacade.getOEEByMachine(machineID,factoryID);
+    }
+
+    @Override
+    public IOEE getOEEByBatchID(int batchID, String factoryID) {
+        return sqlFacade.getOEEByBatchID(batchID,factoryID);
+    }
+
 
 }

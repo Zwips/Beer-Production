@@ -18,10 +18,10 @@ public class MachineCurrentMachineStateReporter implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
+    public void report(DataValue newData) {
 
 
-        if(data.getValue().intValue() == 17)
+        if(newData.getValue().intValue() == 17)
         {
             machine.uploadBatchInfo();
         }

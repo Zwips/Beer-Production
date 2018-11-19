@@ -21,11 +21,11 @@ public class MachineTemperatureReporter implements IDataChangeCatcher {
         this.machine = machine;
     }
     @Override
-    public void report(DataValue data) {
-        Date date = new Date(data.getServerTimestamp().getValue());
+    public void report(DataValue newData) {
+        Date date = new Date(newData.getServerTimestamp().getValue());
 
         try {
-            MESOutFacade.getInstance().logTemperature(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
+            MESOutFacade.getInstance().logTemperature(newData.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

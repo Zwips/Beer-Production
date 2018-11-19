@@ -94,4 +94,9 @@ public class MESOutFacade {
     public Set<String> getPlantIDs() {
         return this.communicationFacade.getPlantIDs();
     }
+
+    public void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing){
+        communicationFacade.logOEE(factoryID, machineID, batchID, state, timestamp, isProducing);
+    }
+
 }
