@@ -173,5 +173,15 @@ public class CommunicationFacade implements ICommunicationFacade {
         return sqlFacade.getPlantIDs();
     }
 
+    @Override
+    public void logOrders(List<IProductionOrder> orders) {
+        this.sqlFacade.logOrders(orders);
+    }
+
+    @Override
+    public void updateOrders(List<IProductionOrder> orders) {
+        this.sqlFacade.updateOrders(orders);
+    }
+
 
 }

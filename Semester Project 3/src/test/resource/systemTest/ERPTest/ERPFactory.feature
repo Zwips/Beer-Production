@@ -1,6 +1,6 @@
-Feature: Add or remove a factory from an ERP system
+Feature: Add or remove a factory from a system
 
-  Background: having an ERP system to work with
+  Background: having a system to work with
     Given there is an ERP system
 
   Scenario: Adding a factory with the name TestFactory

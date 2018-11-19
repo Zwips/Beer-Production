@@ -4,6 +4,7 @@ package communication.SQLCommunication.inserters;
  * @param Orderinserter constructor creates the object order containing amount, producttype, Earliestdeliverydate, latestdeliverydate, priority, status & orderID
  * @param insert method inserts the object into the order table in the database.
  */
+import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
@@ -21,6 +22,7 @@ public class OrderInserter {
     private String values;
     private String tables;
     private Connection connection;
+    private String fail;
 
 
     public OrderInserter() {
@@ -29,6 +31,7 @@ public class OrderInserter {
         this.values = "(?,?,?,?,?,?,?)";
         this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, orderID)";
         connection = new DatabaseConnector().openConnection();
+        //fail.length();
     }
 
 

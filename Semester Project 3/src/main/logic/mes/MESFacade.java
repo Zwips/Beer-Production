@@ -137,5 +137,19 @@ public class MESFacade implements IMESFacade {
         return this.processingPlants.get(plantID).getOrder(orderID);
     }
 
+    @Override
+    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations) {
+        Map<String, IProcessingCapacity> capacity = new HashMap<>();
+
+        for (Map.Entry<String, List<IProductionOrder>> destination : destinations.entrySet()) {
+            String plantID = destination.getKey();
+            List<IProductionOrder> orders = destination.getValue();
+
+            capacity.put(plantID, this.processingPlants.get(plantID).changeOrders(orders));
+        }
+
+        return capacity;
+    }
+
 
 }

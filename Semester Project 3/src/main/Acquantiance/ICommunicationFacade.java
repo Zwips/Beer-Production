@@ -44,4 +44,8 @@ public interface ICommunicationFacade {
     List<IMachineConnectionInformation> getMachines(String plantID);
 
     Set<String> getPlantIDs();
+
+    void logOrders(List<IProductionOrder> orders);
+
+    void updateOrders(List<IProductionOrder> orders);
 }

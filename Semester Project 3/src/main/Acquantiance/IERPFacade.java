@@ -18,4 +18,6 @@ public interface IERPFacade {
     boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID);
 
     IProductionOrder getOrder(int orderID);
+
+    int getNextOrderID();
 }

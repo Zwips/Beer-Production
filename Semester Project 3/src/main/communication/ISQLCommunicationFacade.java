@@ -44,4 +44,10 @@ public interface ISQLCommunicationFacade {
     int getNextBatchID(String plantID);
 
     Set<String> getPlantIDs();
+
+    void logOrders(List<IProductionOrder> orders);
+
+    void updateOrders(List<IProductionOrder> orders);
+
+    void updateOrder(IProductionOrder order);
 }

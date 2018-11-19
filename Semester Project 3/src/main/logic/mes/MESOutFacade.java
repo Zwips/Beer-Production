@@ -94,4 +94,12 @@ public class MESOutFacade {
     public Set<String> getPlantIDs() {
         return this.communicationFacade.getPlantIDs();
     }
+
+    public void saveOrders(List<IProductionOrder> orders) {
+        this.communicationFacade.logOrders(orders);
+    }
+
+    public void updateOrders(List<IProductionOrder> orders) {
+        this.communicationFacade.updateOrders(orders);
+    }
 }

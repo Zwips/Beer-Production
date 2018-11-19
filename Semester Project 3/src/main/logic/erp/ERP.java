@@ -189,7 +189,7 @@ public class ERP {
 
         Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
 
-        this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
+        this.processingCapacities.putAll(ERPOutFacade.getInstance().changeOrders(destinations));
     }
 
     public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
@@ -202,8 +202,7 @@ public class ERP {
 
             Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
 
-            ERPOutFacade.getInstance().addOrders(destinations);
-            //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
+            ERPOutFacade.getInstance().changeOrders(destinations);
 
             return true;
         } catch (InvalidParameterException | NoSuchFieldException |NullPointerException ex) {

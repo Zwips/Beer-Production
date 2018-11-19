@@ -21,6 +21,7 @@ public class Insert {
 
             pStatement.execute();
         } catch(SQLException e){
+
             System.out.println("Exception" + e);
             return false;
         } catch (java.io.IOException e) {

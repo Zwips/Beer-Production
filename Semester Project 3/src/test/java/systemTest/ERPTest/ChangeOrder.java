@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.HashSet;
 
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
@@ -32,7 +33,7 @@ public class ChangeOrder {
     private int priority;
     private int orderID;
     private boolean status;
-
+    private HashSet<Integer> orderIDsToBeRemoved = new HashSet<>();
 
     @Given("^a connection to the database, OrderChange$")
     public void aConnectionToTheDatabaseOrderChange() throws Throwable {
@@ -53,8 +54,8 @@ public class ChangeOrder {
     public void theProductionOrderInformationIsValid() throws Throwable {
         amount = 1;
         productType = ProductTypeEnum.ALE;
-        earliestDeliveryDate = new Date(Long.MAX_VALUE-1);
-        latestDeliveryDate = new Date(Long.MAX_VALUE);
+        earliestDeliveryDate = new Date(new Date().getTime()+500000);
+        latestDeliveryDate = new Date(new Date().getTime()+5000000);
         priority=1;
         orderID=1;
         status=false;
@@ -64,7 +65,6 @@ public class ChangeOrder {
     public void updatingTheOrder() throws Throwable {
         //TODO or should it return the order as an object?
         this.erpFacade.updateOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority,orderID);
-
     }
 
     @Then("^the updated order is not in the queue$")
@@ -105,50 +105,64 @@ public class ChangeOrder {
 
     @And("^the updated order is not in the database$")
     public void theUpdatedOrderIsNotInTheDatabase() throws Throwable {
-        PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
-        pStatement.setInt(1,this.orderID);
-        ResultSet results = pStatement.executeQuery();
+        try {
+            PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
 
-       boolean empty = !results.isBeforeFirst();
+            pStatement.setInt(1, this.orderID);
+            ResultSet results = pStatement.executeQuery();
 
-        if (empty){
-            assertTrue(empty);
-        } else{
-            results.next();
+            boolean empty = !results.isBeforeFirst();
 
-            assertEquals(orderID, results.getInt("orderid"));
+            if (empty) {
+                assertTrue(empty);
+            } else {
+                results.next();
 
-            boolean different = true;
-            if (amount != results.getInt("amount")){
-                different = false;
+                assertEquals(orderID, results.getInt("orderid"));
+
+                boolean different = false;
+                if (amount != results.getInt("amount")) {
+                    different = true;
+                }
+
+                if (priority != results.getInt("priority")) {
+                    different = true;
+                }
+
+                if (status != results.getBoolean("status")) {
+                    different = true;
+                }
+
+                if (!earliestDeliveryDate.equals(results.getDate("earliestdeliverydate"))) {
+                    different = true;
+                }
+
+                if (!latestDeliveryDate.equals(results.getDate("latestdeliverydate"))) {
+                    different = true;
+                }
+                if (!productType.equals(ProductTypeEnum.get(results.getString("producttype")))) {
+                    different = true;
+                }
+                assertTrue(different);
             }
-
-            if (priority != results.getInt("priority")){
-                different = false;
+        } finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            for (Integer ID : this.orderIDsToBeRemoved) {
+                pStatement.setInt(1,ID);
+                pStatement.execute();
             }
-
-            if (status != results.getBoolean("status")){
-                different = false;
-            }
-
-            if (!earliestDeliveryDate.equals(results.getDate("earliestdeliverydate"))){
-                different = false;
-            }
-
-            if (!latestDeliveryDate.equals(results.getDate("latestdeliverydate"))){
-                different = false;
-            }
-            if (!productType.equals(ProductTypeEnum.get(results.getString("producttype")))){
-                different = false;
-            }
-            assertTrue(different);
+            connection.close();
         }
     }
 
     @Given("^there is a production order with id (\\d+) in the queue$")
     public void thereIsAProductionOrderWithIdInTheQueue(int orderID) throws Throwable {
+        orderIDsToBeRemoved = new HashSet<>();
+        orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
         this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+        orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
         this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+        orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
         this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
     }
 
@@ -176,19 +190,29 @@ public class ChangeOrder {
 
     @And("^the updated order is in the database$")
     public void theUpdatedOrderIsInTheDatabase() throws Throwable {
-        PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
-        pStatement.setInt(1,this.orderID);
-        ResultSet results = pStatement.executeQuery();
+        try{
+            PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
+            pStatement.setInt(1,this.orderID);
+            ResultSet results = pStatement.executeQuery();
 
-        results.next();
+            results.next();
 
-        assertEquals(amount,results.getInt("amount"));
-        assertEquals(priority,results.getInt("priority"));
-        assertEquals(status,results.getBoolean("status"));
-        assertEquals(earliestDeliveryDate,results.getDate("earliestdeliverydate"));
-        assertEquals(latestDeliveryDate,results.getDate("latestdeliverydate"));
-        assertEquals(orderID,results.getInt("orderid"));
-        assertEquals(productType,ProductTypeEnum.get(results.getString("producttype")));
+            assertEquals(amount,results.getInt("amount"));
+            assertEquals(priority,results.getInt("priority"));
+            assertEquals(status,results.getBoolean("status"));
+            assertEquals(earliestDeliveryDate,new Date(results.getTimestamp("earliestdeliverydate").getTime()));
+            assertEquals(latestDeliveryDate,new Date(results.getTimestamp("latestdeliverydate").getTime()));
+            assertEquals(orderID,results.getInt("orderid"));
+            assertEquals(productType,ProductTypeEnum.get(results.getString("producttype")));
+        }   finally {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            for (Integer ID : this.orderIDsToBeRemoved) {
+                pStatement.setInt(1,ID);
+                pStatement.execute();
+            }
+            connection.close();
+        }
+
     }
 
     @And("^the production order information is invalid$")

@@ -8,6 +8,7 @@ import communication.SQLCommunication.deleters.RemoveOrdersByOrderID;
 import communication.SQLCommunication.inserters.*;
 import communication.SQLCommunication.selecters.*;
 import communication.SQLCommunication.updaters.OrderStatusSetter;
+import communication.SQLCommunication.updaters.OrderUpdater;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -182,5 +183,31 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public Set<String> getPlantIDs() {
         return new PlantIDRetriever().getPlantIDs();
+    }
+
+    @Override
+    public void logOrders(List<IProductionOrder> orders) {
+        for (IProductionOrder order : orders) {
+            this.logOrder(order);
+        }
+    }
+
+    @Override
+    public void updateOrders(List<IProductionOrder> orders) {
+        for (IProductionOrder order : orders) {
+            this.updateOrder(order);
+        }
+    }
+
+    @Override
+    public void updateOrder(IProductionOrder order){
+        int amount = order.getAmount();
+        ProductTypeEnum type = order.getProductType();
+        int priority = order.getPriority();
+        Timestamp earliestDate = new Timestamp(order.getEarliestDeliveryDate().getTime());
+        Timestamp latestDate = new Timestamp(order.getLatestDeliveryDate().getTime());
+        int orderID = order.getOrderID();
+        boolean status = order.getStatus();
+        new OrderUpdater().update(amount, type, earliestDate,latestDate,priority,status,orderID);
     }
 }

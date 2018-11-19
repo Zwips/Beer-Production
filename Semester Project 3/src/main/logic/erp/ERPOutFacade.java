@@ -90,4 +90,9 @@ public class ERPOutFacade {
 
         return this.mesFacade.getOrder(plantID, orderID);
     }
+
+    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations) {
+
+        return this.mesFacade.changeOrders(destinations);
+    }
 }

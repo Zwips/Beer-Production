@@ -65,5 +65,10 @@ public class ERPFacade implements IERPFacade {
         return this.erp.getOrder(orderID);
     }
 
+    @Override
+    public int getNextOrderID() {
+        return this.erp.getNextOrderID();
+    }
+
 
 }

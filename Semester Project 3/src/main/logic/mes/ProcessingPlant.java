@@ -106,6 +106,8 @@ public class ProcessingPlant {
             }
         }
 
+        MESOutFacade.getInstance().saveOrders(orders);
+
         return new ProcessingCapacity();
     }
 
@@ -130,6 +132,7 @@ public class ProcessingPlant {
             order = iter.next();
             if (order.getOrderID() == orderID){
                 iter.remove();
+                //MESOutFacade.getInstance().removeOrder(orderID);
                 return new ProcessingCapacity();
             }
         }
@@ -161,5 +164,23 @@ public class ProcessingPlant {
         }
 
         return null;
+    }
+
+    public IProcessingCapacity changeOrders(List<IProductionOrder> orders) {
+
+        if (this.queue ==null) {
+            this.queue = new ConcurrentLinkedQueue<>();
+            for (IProductionOrder order : orders) {
+                this.queue.add(order);
+            }
+        } else {
+            for (IProductionOrder order : orders) {
+                this.queue.add(order);
+            }
+        }
+
+        MESOutFacade.getInstance().updateOrders(orders);
+
+        return new ProcessingCapacity();
     }
 }

@@ -32,4 +32,6 @@ public interface IMESFacade {
     IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException;
 
     IProductionOrder getOrder(String plantID, int orderID);
+
+    Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations);
 }
