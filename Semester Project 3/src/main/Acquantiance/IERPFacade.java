@@ -16,4 +16,6 @@ public interface IERPFacade {
     List<IProductionOrder> getProductionOrderQueue();
 
     boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID);
+
+    IProductionOrder getOrder(int orderID);
 }

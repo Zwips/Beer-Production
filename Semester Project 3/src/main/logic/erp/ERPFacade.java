@@ -60,5 +60,10 @@ public class ERPFacade implements IERPFacade {
       return erp.changeOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID);
     }
 
+    @Override
+    public IProductionOrder getOrder(int orderID) {
+        return this.erp.getOrder(orderID);
+    }
+
 
 }

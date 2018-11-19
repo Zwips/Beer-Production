@@ -30,4 +30,6 @@ public interface IMESFacade {
     boolean removeMachine(String thePlant, String machineName);
 
     IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException;
+
+    IProductionOrder getOrder(String plantID, int orderID);
 }

@@ -56,7 +56,7 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public boolean removeMachine(String thePlant, String machineName) {
-        return false;
+        return this.processingPlants.get(thePlant).removeMachine(machineName);
     }
 
     @Override
@@ -85,9 +85,13 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public boolean removePlant(String plantID) {
-        if (this.processingPlants.get(plantID).isStopped()) {
-            this.processingPlants.remove(plantID);
-            return true;
+        ProcessingPlant plant = this.processingPlants.get(plantID);
+
+        if (plant != null) {
+            if (plant.isStopped()) {
+                this.processingPlants.remove(plantID);
+                return true;
+            }
         }
 
         return false;
@@ -126,6 +130,11 @@ public class MESFacade implements IMESFacade {
     @Override
     public IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException {
         return this.processingPlants.get(plantID).removeOrder(orderID);
+    }
+
+    @Override
+    public IProductionOrder getOrder(String plantID, int orderID) {
+        return this.processingPlants.get(plantID).getOrder(orderID);
     }
 
 

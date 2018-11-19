@@ -206,9 +206,14 @@ public class ERP {
             //ERPOutFacade.getInstance(). TODO: Should this go through the MES layer or directly to SQL communication
 
             return true;
-        } catch (InvalidParameterException | NoSuchFieldException ex) {
+        } catch (InvalidParameterException | NoSuchFieldException |NullPointerException ex) {
             return false;
         }
     }
 
+    public IProductionOrder getOrder(int orderID) {
+        String plantID = this.scheduler_facade.getOrderLocations(orderID);
+
+        return ERPOutFacade.getInstance().getOrder(plantID, orderID);
+    }
 }

@@ -85,4 +85,9 @@ public class ERPOutFacade {
     public IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException {
         return this.mesFacade.removeOrder(plantID, orderID);
     }
+
+    public IProductionOrder getOrder(String plantID, int orderID) {
+
+        return this.mesFacade.getOrder(plantID, orderID);
+    }
 }

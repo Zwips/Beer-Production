@@ -156,16 +156,17 @@ public class ChangeOrder {
     public void theUpdatedOrderIsInTheQueue() throws Throwable {
         boolean orderFound = false;
 
-        for (IProductionOrder order : this.erpFacade.getProductionOrderQueue()) {
-            if (order.getOrderID() == orderID){
-                assertEquals(amount,order.getAmount());
-                assertEquals(priority,order.getPriority());
-                assertEquals(status,order.getStatus());
-                assertEquals(earliestDeliveryDate,order.getEarliestDeliveryDate());
-                assertEquals(latestDeliveryDate,order.getLatestDeliveryDate());
-                assertEquals(productType,order.getProductType());
-                orderFound = true;
-            }
+        IProductionOrder order = this.erpFacade.getOrder(this.orderID);
+
+        if (order.getOrderID() == orderID){
+            assertEquals(orderID, order.getOrderID());
+            assertEquals(amount,order.getAmount());
+            assertEquals(priority,order.getPriority());
+            assertEquals(status,order.getStatus());
+            assertEquals(earliestDeliveryDate,order.getEarliestDeliveryDate());
+            assertEquals(latestDeliveryDate,order.getLatestDeliveryDate());
+            assertEquals(productType,order.getProductType());
+            orderFound = true;
         }
 
         if (!orderFound){

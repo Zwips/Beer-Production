@@ -7,4 +7,5 @@ Feature: The user can make a production order and save it in the queue
     Given all the parameters for an order
     When adding the order to the queue
     Then the order exists in the queue
+    And the order exists in the database
 

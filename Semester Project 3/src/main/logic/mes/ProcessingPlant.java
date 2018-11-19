@@ -147,4 +147,19 @@ public class ProcessingPlant {
 
         return true;
     }
+
+    public IProductionOrder getOrder(int orderID) {
+
+        Iterator<IProductionOrder> iter = this.queue.iterator();
+        IProductionOrder order;
+
+        while (iter.hasNext()) {
+            order = iter.next();
+            if (order.getOrderID() == orderID){
+                return order;
+            }
+        }
+
+        return null;
+    }
 }

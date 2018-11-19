@@ -86,7 +86,7 @@ public class MachinesRetriever {
     @SuppressWarnings("Duplicates")
     public List<IMachineConnectionInformation> getMachines(String plantID) {
 
-        String conditions = "factpryid = ?";
+        String conditions = "factoryid = ?";
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1,PrepareType.STRING, plantID));
 
