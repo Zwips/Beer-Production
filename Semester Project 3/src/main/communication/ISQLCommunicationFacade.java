@@ -39,9 +39,11 @@ public interface ISQLCommunicationFacade {
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
     List<IMachineConnectionInformation> getMachines(String plantID);
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
-
-
     int getNextBatchID(String plantID);
+
+    void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing);
+    IOEE getOEEByMachine(String machineID, String factoryID);
+    IOEE getOEEByBatchID(int batchID, String factoryID);
 
     Set<String> getPlantIDs();
 }

@@ -5,7 +5,7 @@ import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class GuiTemperatureReporter implements IDataChangeCatcher {
     @Override
-    public void report(DataValue data) {
+    public void report(DataValue newData) {
 
     }
 }

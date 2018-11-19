@@ -12,8 +12,8 @@ public class StopReasonSubscriber implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
-        test.setChangedStopReason(data.getValue().intValue());
+    public void report(DataValue newData) {
+        test.setChangedStopReason(newData.getValue().intValue());
     }
 
 }

@@ -22,8 +22,8 @@ public class MachineStopReasonIdReporter implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
-    int value = data.getValue().intValue();
+    public void report(DataValue newData) {
+    int value = newData.getValue().intValue();
 
     switch (value){
         case 10:

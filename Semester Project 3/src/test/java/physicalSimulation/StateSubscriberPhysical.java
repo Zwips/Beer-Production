@@ -2,7 +2,6 @@ package physicalSimulation;
 
 import Acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
-import physicalSimulation.SubscribePhysical;
 
 public class StateSubscriberPhysical implements IDataChangeCatcher {
 
@@ -13,8 +12,8 @@ public class StateSubscriberPhysical implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
-        test.setChangedState(data.getValue().intValue());
+    public void report(DataValue newData) {
+        test.setChangedState(newData.getValue().intValue());
     }
 
 }

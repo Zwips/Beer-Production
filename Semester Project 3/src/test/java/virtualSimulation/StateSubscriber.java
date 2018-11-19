@@ -12,8 +12,8 @@ public class StateSubscriber implements IDataChangeCatcher {
     }
 
     @Override
-    public void report(DataValue data) {
-        test.setChangedState(data.getValue().intValue());
+    public void report(DataValue newData) {
+        test.setChangedState(newData.getValue().intValue());
     }
 
 }

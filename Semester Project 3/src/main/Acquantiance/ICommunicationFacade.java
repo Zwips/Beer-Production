@@ -44,4 +44,8 @@ public interface ICommunicationFacade {
     List<IMachineConnectionInformation> getMachines(String plantID);
 
     Set<String> getPlantIDs();
+
+    void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing);
+    IOEE getOEEByMachine(String machineID, String factoryID);
+    IOEE getOEEByBatchID(int batchID, String factoryID);
 }

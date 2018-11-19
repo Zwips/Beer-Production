@@ -21,13 +21,13 @@ public class MachineVibrationReporter implements IDataChangeCatcher {
         this.factoryID = factoryID;
     }
     @Override
-    public void report(DataValue data) {
-        if(data.getValue().floatValue() < -2 ||data.getValue().floatValue() >2)
+    public void report(DataValue newData) {
+        if(newData.getValue().floatValue() < -2 || newData.getValue().floatValue() >2)
         {
-            Date date = new Date(data.getServerTimestamp().getValue());
+            Date date = new Date(newData.getServerTimestamp().getValue());
 
             try {
-                MESOutFacade.getInstance().logVibration(data.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
+                MESOutFacade.getInstance().logVibration(newData.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
