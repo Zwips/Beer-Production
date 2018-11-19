@@ -4,7 +4,6 @@ import Acquantiance.IOEE;
 import communication.SQLCommunication.selecters.OEEByMachineRetriever;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.machineConnection.MachineConnection;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,13 +11,10 @@ import cucumber.api.java.en.When;
 import logic.mes.Machine;
 import systemTest.ERPLevelInitializer;
 
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import static java.lang.Thread.sleep;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class OEE {
     Machine machine;
@@ -34,14 +30,22 @@ public class OEE {
 
     @When("^State changes to aborted$")
     public void stateChangesToAborted() throws Throwable {
-    new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(4);
-    sleep(100);
+        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(4);
+        sleep(500);
+        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(5);
+        sleep(500);
+        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(1);
+        sleep(500);
     }
 
     @And("^State changes to reset$")
     public void stateChangesToReset() throws Throwable {
+        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(4);
+        sleep(500);
+        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(5);
+        sleep(500);
         new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(1);
-
+        sleep(500);
     }
 
     @Then("^the state change is logged in the database$")

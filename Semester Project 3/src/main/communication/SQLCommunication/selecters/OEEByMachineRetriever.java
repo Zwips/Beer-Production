@@ -1,10 +1,7 @@
 package communication.SQLCommunication.selecters;
 
 import Acquantiance.IOEE;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.dataClasses.CommunicationOEE;
-import communication.SQLCommunication.dataClasses.CommunicationProductionOrder;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;
@@ -25,7 +22,7 @@ public class OEEByMachineRetriever {
     public OEEByMachineRetriever() {
         this.selections = "*";
         this.tables = "oee";
-        this.conditions = "machineid = ? AND factoryid = ?";
+        this.conditions = "machineid = ? AND factoryid = ? ORDER BY timeofchange";
 
         this.connection = new DatabaseConnector().openConnection();
     }
@@ -44,17 +41,22 @@ public class OEEByMachineRetriever {
         Map<Date, Boolean> downTimeMap = new HashMap<>();
         Map<Date,String> stateChangeMap = new HashMap<>();
         long startTime = 0;
+        boolean isProducing = false;
         try {
             results.next();
             factory = results.getString("factoryid");
             machine = results.getString("machineid");
-            startTime = results.getTime("timeofchange").getTime();
-            stateChangeMap.put(new Date(results.getTimestamp("timeofchange").getTime()),results.getString("state"));
-            downTimeMap.put(new Date(results.getTimestamp("timeofchange").getTime()), results.getBoolean("isproducing"));
+            startTime = new Date(results.getTimestamp("timeofchange").getTime()).getTime();
+            Date date = new Date(results.getTimestamp("timeofchange").getTime());
+            long dateLong = date.getTime();
+            stateChangeMap.put(date,results.getString("state"));
+            downTimeMap.put(date, results.getBoolean("isproducing"));
+            isProducing = results.getBoolean("isproducing");
             while(results.next())
             {
-                stateChangeMap.put(new Date(results.getTimestamp("timeofchange").getTime()),results.getString("state"));
-                downTimeMap.put(new Date(results.getTimestamp("timeofchange").getTime()), results.getBoolean("isproducing"));
+                date = new Date(results.getTimestamp("timeofchange").getTime());
+                stateChangeMap.put(date,results.getString("state"));
+                downTimeMap.put(date, results.getBoolean("isproducing"));
             }
 
         } catch (SQLException e) {
@@ -67,14 +69,18 @@ public class OEEByMachineRetriever {
             e.printStackTrace();
         }
         long totalUptime = 0;
-        long totalDowntime = 0;
+        long totalDowntime = 1;
         for (Map.Entry<Date,Boolean> entry: downTimeMap.entrySet()) {
-            if (entry.getValue())
+            if (isProducing)
             {
                 totalUptime += entry.getKey().getTime() - startTime;
+                startTime = entry.getKey().getTime();
+                isProducing = entry.getValue();
             }
             else {
                 totalDowntime += entry.getKey().getTime() - startTime;
+                startTime = entry.getKey().getTime();
+                isProducing = entry.getValue();
             }
         }
         oeePercent = totalUptime  / (totalUptime + totalDowntime);

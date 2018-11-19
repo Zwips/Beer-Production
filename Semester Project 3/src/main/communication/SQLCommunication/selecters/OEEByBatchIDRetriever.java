@@ -25,7 +25,7 @@ public class OEEByBatchIDRetriever {
     public OEEByBatchIDRetriever() {
         this.selections = "*";
         this.tables = "oee";
-        this.conditions = "batchid = ? AND factoryid = ? ORDER BY timeofchange";
+        this.conditions = "batchid = ? AND factoryid = ? ORDER BY timeofchange ORDER BY timeofchange";
 
         this.connection = new DatabaseConnector().openConnection();
     }
@@ -72,9 +72,11 @@ public class OEEByBatchIDRetriever {
             if (entry.getValue())
             {
                 totalUptime += entry.getKey().getTime() - startTime;
+                startTime = entry.getKey().getTime();
             }
             else {
                 totalDowntime += entry.getKey().getTime() - startTime;
+                startTime = entry.getKey().getTime();
             }
         }
         oeePercent = totalUptime  / (totalUptime + totalDowntime);
