@@ -61,8 +61,7 @@ public class StopEmail {
 			Transport.send(message);
 
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-
+			e.printStackTrace();
 		}
 
 

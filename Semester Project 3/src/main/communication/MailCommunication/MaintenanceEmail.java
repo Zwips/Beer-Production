@@ -64,7 +64,7 @@ public class MaintenanceEmail {
 			Transport.send(message);
 
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 
 		}
 
