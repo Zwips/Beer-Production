@@ -15,7 +15,9 @@ import com.prosysopc.ua.ServiceException;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProcessingPlant {
 
@@ -25,7 +27,7 @@ public class ProcessingPlant {
     private String plantID;
     private int nextBatchID;
     private ProcessingCapacity capacity;
-    private Map<String, ConcurrentLinkedQueue<IProductionOrder>> machineSchedule;
+    private Map<String, BlockingQueue<IProductionOrder>> machineSchedule;
 
 
     /**
@@ -71,7 +73,7 @@ public class ProcessingPlant {
 
         if(machine.isConnected()) {
             machines.put(machineName, machine);
-            this.machineSchedule.put(machineName, new ConcurrentLinkedQueue<>());
+            this.machineSchedule.put(machineName, new LinkedBlockingQueue<>());
 
             //TODO change to specifications
             switch ((int) machine.readCurrentState()) {
@@ -99,7 +101,7 @@ public class ProcessingPlant {
     }
 
     boolean executeNextOrder(String machineID){
-        ConcurrentLinkedQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
+        BlockingQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
         IProductionOrder order = queue.poll();
 
         if (order != null) {
@@ -143,7 +145,7 @@ public class ProcessingPlant {
 
         List<IProductionOrder> orders = new ArrayList<>();
 
-        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
             orders.addAll(machineQueue.getValue());
             machineQueue.getValue().clear();
         }
@@ -153,7 +155,7 @@ public class ProcessingPlant {
 
     public IProcessingCapacity removeOrder(int orderID) throws NoSuchFieldException {
 
-        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
             Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
             IProductionOrder order;
 
@@ -182,7 +184,14 @@ public class ProcessingPlant {
 
     public IProductionOrder getOrder(int orderID) {
 
-        for (Map.Entry<String, ConcurrentLinkedQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
+            System.out.println("ProcessingPlant machineName: " + machineQueue.getKey());
+            System.out.println("\tProcessingPlant Queue size: " + machineQueue.getValue().size());
+
+            for (IProductionOrder order : machineQueue.getValue()) {
+                System.out.println("\tProcessingPlant order: " + order);
+            }
+
             Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
             IProductionOrder order;
 

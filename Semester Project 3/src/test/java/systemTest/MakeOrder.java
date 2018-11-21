@@ -10,6 +10,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.erp.ERP;
 import logic.erp.ERPOutFacade;
+import org.junit.Assert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -39,7 +41,7 @@ public class MakeOrder {
 
     @Given("^all the parameters for an order$")
     public void allTheParametersForAnOrder() throws Throwable {
-        this.amount = 100;
+        this.amount = 10000;
         this.productType = ProductTypeEnum.ALCOHOLFREE;
         this.earliestDeliveryDate = new Date(0);
         this.latestDeliveryDate = new Date();
@@ -50,11 +52,11 @@ public class MakeOrder {
     public void addingTheOrderToTheQueue() throws Throwable {
  //       this.orderID = ERPOutFacade.getInstance().getNextOrderID()+2;
         orderIDsToBeRemoved = new HashSet<>();
-        orderIDsToBeRemoved.add(ERPOutFacade.getInstance().getNextOrderID());
+        orderIDsToBeRemoved.add(this.erp.getNextOrderID());
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        orderIDsToBeRemoved.add(ERPOutFacade.getInstance().getNextOrderID());
+        orderIDsToBeRemoved.add(this.erp.getNextOrderID());
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        this.orderID = ERPOutFacade.getInstance().getNextOrderID();
+        this.orderID = this.erp.getNextOrderID();
         orderIDsToBeRemoved.add(orderID);
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
     }
@@ -62,31 +64,25 @@ public class MakeOrder {
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
         try{
-//            List<IProductionOrder> orders = erp.getProductionOrders();
-
             IProductionOrder order;
 
             boolean correctOrder = false;
-//            int i = 1;
+            //sleep(20000);
+            order = erp.getOrder(this.orderID);
+            System.out.println("MakeOrder order: " + order);
 
-  //          do {
-                order = erp.getOrder(this.orderID);
-
-                if (order != null) {
-                    if (order.getAmount() == this.amount && order.getProductType() == this.productType
-                            && order.getEarliestDeliveryDate() == this.earliestDeliveryDate
-                            && order.getLatestDeliveryDate() == this.latestDeliveryDate
-                            && order.getPriority() == this.priority) {
-                        this.orderID = order.getOrderID();
-                        correctOrder = true;
-         //               break;
-                    }
+            if (order != null) {
+                if (order.getAmount() == this.amount && order.getProductType() == this.productType
+                        && order.getEarliestDeliveryDate() == this.earliestDeliveryDate
+                        && order.getLatestDeliveryDate() == this.latestDeliveryDate
+                        && order.getPriority() == this.priority) {
+                    this.orderID = order.getOrderID();
+                    correctOrder = true;
                 }
-    //            i++;
-      //      } while (order != null);
+            }
 
             assertTrue(correctOrder);
-        }finally {
+        }catch (Exception| AssertionError e){
             Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             for (Integer ID : this.orderIDsToBeRemoved) {
@@ -94,6 +90,7 @@ public class MakeOrder {
                 pStatement.execute();
             }
             connection.close();
+            throw e;
         }
     }
 
@@ -116,8 +113,10 @@ public class MakeOrder {
             assertEquals(productType,ProductTypeEnum.get(results.getString("producttype")));
         }   finally {
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
-            pStatement.setInt(1,orderID);
-            pStatement.execute();
+            for (Integer ID : this.orderIDsToBeRemoved) {
+                pStatement.setInt(1, ID);
+                pStatement.execute();
+            }
             connection.close();
         }
     }

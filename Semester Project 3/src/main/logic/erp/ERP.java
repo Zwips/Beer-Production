@@ -212,6 +212,7 @@ public class ERP {
 
     public IProductionOrder getOrder(int orderID) {
         String plantID = this.scheduler_facade.getOrderLocations(orderID);
+        System.out.println("ERP plantID: " + plantID);
 
         return ERPOutFacade.getInstance().getOrder(plantID, orderID);
     }

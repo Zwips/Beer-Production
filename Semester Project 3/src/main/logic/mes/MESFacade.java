@@ -134,6 +134,7 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public IProductionOrder getOrder(String plantID, int orderID) {
+        System.out.println("MESFacade plant: " + this.processingPlants.get(plantID));
         return this.processingPlants.get(plantID).getOrder(orderID);
     }
 
