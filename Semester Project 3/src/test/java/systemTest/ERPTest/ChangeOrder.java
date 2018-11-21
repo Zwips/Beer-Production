@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashSet;
 
+import static java.lang.Thread.sleep;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
@@ -169,7 +170,7 @@ public class ChangeOrder {
     @Then("^the updated order is in the queue$")
     public void theUpdatedOrderIsInTheQueue() throws Throwable {
         boolean orderFound = false;
-
+        sleep(300);
         IProductionOrder order = this.erpFacade.getOrder(this.orderID);
 
         if (order.getOrderID() == orderID){
@@ -184,6 +185,12 @@ public class ChangeOrder {
         }
 
         if (!orderFound){
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            for (Integer ID : this.orderIDsToBeRemoved) {
+                pStatement.setInt(1, ID);
+                pStatement.execute();
+            }
+            connection.close();
             fail();
         }
     }
