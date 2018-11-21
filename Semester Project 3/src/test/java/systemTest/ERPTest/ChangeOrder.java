@@ -4,6 +4,7 @@ import Acquantiance.IERPFacade;
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -53,15 +54,19 @@ public class ChangeOrder {
         assertEquals(0,erpFacade.getProductionOrderQueue().size());
     }
 
-    @And("^the production order information is valid$")
+    @Given("^the production order information is valid$")
     public void theProductionOrderInformationIsValid() throws Throwable {
         amount = 1;
         productType = ProductTypeEnum.ALE;
         earliestDeliveryDate = new Date(new Date().getTime()+500000);
         latestDeliveryDate = new Date(new Date().getTime()+5000000);
         priority=1;
-        orderID = ERPOutFacade.getInstance().getNextOrderID();
         status=false;
+    }
+
+    @And("^the order ID is not in use$")
+    public void theOrderIDIsNotInUse() throws Throwable {
+        orderID = ERPOutFacade.getInstance().getNextOrderID()+1000;
     }
 
     @When("^updating the order$")
@@ -162,11 +167,15 @@ public class ChangeOrder {
     @Given("^there is a production order with id (\\d+) in the queue$")
     public void thereIsAProductionOrderWithIdInTheQueue(int orderID) throws Throwable {
         orderIDsToBeRemoved = new HashSet<>();
+
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
         this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
         this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
+        this.orderID = this.erpFacade.getNextOrderID();
         this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
     }
 

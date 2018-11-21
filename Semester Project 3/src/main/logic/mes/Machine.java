@@ -82,6 +82,9 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
         try {
             while(!(currentState == 6 || currentState == -1)){
                 switch(currentState){
+                    /*case 0:
+                        machineConnection.setControlCommand(2);
+                        break;*/
                     case 2:
                         machineConnection.setControlCommand(1);
                         break;

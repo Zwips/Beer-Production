@@ -4,9 +4,10 @@ Feature: Changing pending orders
     Given a connection to the database, OrderChange
     And the system is initialized, at ERP level
 
-  Scenario: There is no production orders in the queue
-    Given there are no production orders in the queue
-    And the production order information is valid
+  Scenario: Updating an order that doesn't exist with valid information
+#    Given there are no production orders in the queue
+    Given the production order information is valid
+    And the order ID is not in use
     When updating the order
     Then the updated order is not in the queue
     And the updated order is not in the database
