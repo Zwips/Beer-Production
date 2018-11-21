@@ -80,7 +80,7 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
         }
 
         try {
-            while(currentState != 6 || currentState != -1){
+            while(!(currentState == 6 || currentState == -1)){
                 switch(currentState){
                     case 2:
                         machineConnection.setControlCommand(1);
@@ -312,10 +312,10 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
     }
 
     @Override
-    public float readCurrentState() throws ServiceException {
+    public float readCurrentState() {
         try {
             return machineConnection.readCurrentState();
-        } catch (StatusException e) {
+        } catch (StatusException|ServiceException e) {
             try {
                 sleep(1000);
                 reconnectMachine();

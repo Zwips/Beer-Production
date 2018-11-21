@@ -29,9 +29,9 @@ public class ERPInitialize {
     private ERP erp;
     private int maxOrderID;
 
-    @Given("^A orderID with int max is in batch_log in  the database$")
-    public void aOrderIDWithIntMaxIsInBatch_logInTheDatabase()  throws Throwable {
-        maxOrderID = Integer.MAX_VALUE;
+    @Given("^A orderID with one below int max is in batch_log in  the database$")
+    public void aOrderIDWithOneBelowIntMaxIsInBatch_logInTheDatabase()  throws Throwable {
+        maxOrderID = Integer.MAX_VALUE-1;
         int amount = 1;
         ProductTypeEnum productType = ProductTypeEnum.ALE;
         Date earliestDeliveryDate = new Date(1000000);
@@ -51,9 +51,10 @@ public class ERPInitialize {
     @Then("^nextOrderID will be int max$")
     public void nextorderidWillBeIntMax() throws Throwable {
         try{
-            assertEquals(this.maxOrderID,erp.getNextOrderID());
+            assertEquals(Integer.MAX_VALUE, erp.getNextOrderID());
         } finally {
             sql.deleteOrderByOrderID(Integer.MAX_VALUE);
+            sql.deleteOrderByOrderID(Integer.MAX_VALUE-1);
             erp = null;
         }
     }

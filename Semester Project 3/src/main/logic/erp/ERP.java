@@ -36,10 +36,10 @@ public class ERP {
         processingCapacities = new HashMap<>();
         this.scheduler_facade = new Scheduler_Facade();
 
-        initialiseOrderID();
-        initialiseOrders();
         intitialisePlantIDs();
         initialiseCapacities();
+        initialiseOrderID();
+        initialiseOrders();
     }
 
     private void initialiseCapacities() {
@@ -178,7 +178,7 @@ public class ERP {
      *
      */
     private void initialiseOrderID() {
-        nextOrderID = ERPOutFacade.getInstance().getNextOrderID();
+        nextOrderID = ERPOutFacade.getInstance().getNextOrderID()+1;
     }
 
     /** Method for initialising the orders for the system.

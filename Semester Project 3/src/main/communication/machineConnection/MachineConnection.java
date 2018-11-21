@@ -386,4 +386,9 @@ public class MachineConnection implements IMachineConnection {
         client.disconnect();
     }
     //</editor-fold>
+
+    @Override
+    public void finalize(){
+        this.disconnect();
+    }
 }

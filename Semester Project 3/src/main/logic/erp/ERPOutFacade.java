@@ -34,7 +34,7 @@ public class ERPOutFacade {
         this.mesFacade = mesFacade;
     }
 
-    int getNextOrderID(){
+    public int getNextOrderID(){
         return mesFacade.getNextOrderID();
     }
 

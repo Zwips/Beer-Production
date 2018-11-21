@@ -8,6 +8,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import logic.erp.ERPOutFacade;
 import systemTest.ERPLevelInitializer;
 
 import java.sql.Connection;
@@ -57,13 +58,12 @@ public class ChangeOrder {
         earliestDeliveryDate = new Date(new Date().getTime()+500000);
         latestDeliveryDate = new Date(new Date().getTime()+5000000);
         priority=1;
-        orderID=1;
+        orderID = ERPOutFacade.getInstance().getNextOrderID()-1;
         status=false;
     }
 
     @When("^updating the order$")
     public void updatingTheOrder() throws Throwable {
-        //TODO or should it return the order as an object?
         this.erpFacade.updateOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority,orderID);
     }
 
@@ -159,11 +159,11 @@ public class ChangeOrder {
     public void thereIsAProductionOrderWithIdInTheQueue(int orderID) throws Throwable {
         orderIDsToBeRemoved = new HashSet<>();
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
-        this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+        this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
-        this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+        this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
         orderIDsToBeRemoved.add(this.erpFacade.getNextOrderID());
-        this.erpFacade.addOrder(2, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
+        this.erpFacade.addOrder(10000, ProductTypeEnum.IPA, new Date(0), new Date(), 2);
     }
 
     @Then("^the updated order is in the queue$")

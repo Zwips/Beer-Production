@@ -12,5 +12,9 @@ Feature: Machines execute the next order in the queue
     And the batch log is updated
     And batch is updated in the database
 
-    Scenario: execution starts when orders are added
-      Given derp
+  Scenario: execution starts when orders are added
+    Given That a machine is not producing
+    When adding an order
+    And that machine recieves that order
+    Then the machine executes the order
+

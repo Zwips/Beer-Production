@@ -21,6 +21,7 @@ public class ProcessingPlant {
 
     private IPlantSchedulerFacade scheduler;
     private HashMap<String, IMesMachine> machines;
+    private Set<String> idleMachines;
     private String plantID;
     private int nextBatchID;
     private ProcessingCapacity capacity;
@@ -40,6 +41,7 @@ public class ProcessingPlant {
         this.machines = new HashMap<>();
         this.scheduler = new PlantSchedulerFacade();
         this.machineSchedule = new HashMap<>();
+        this.idleMachines = new HashSet<>();
 
         this.initialiseBatchID();
         this.initialiseMachines(machines);
@@ -70,6 +72,18 @@ public class ProcessingPlant {
         if(machine.isConnected()) {
             machines.put(machineName, machine);
             this.machineSchedule.put(machineName, new ConcurrentLinkedQueue<>());
+
+            //TODO change to specifications
+            switch ((int) machine.readCurrentState()) {
+                case 3:
+                case 6:
+                case 10:
+                case 11:
+                    break;
+                default:
+                    this.idleMachines.add(machineName);
+            }
+
             return true;
         } else{
             return false;
@@ -90,8 +104,11 @@ public class ProcessingPlant {
 
         if (order != null) {
             return this.machines.get(machineID).executeOrder(order, this.nextBatchID);
+        } else{
+            this.idleMachines.add(machineID);
+            //this.machines.get(machineID).reset();
+            return false;
         }
-        return false;
     }
 
     /** Method for initialising the next batchID
@@ -101,22 +118,27 @@ public class ProcessingPlant {
         nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID);
     }
 
-    //TODO change to a plant scheduler
-    @SuppressWarnings("Duplicates")
     ProcessingCapacity addOrders(List<IProductionOrder> orders){
+        Set<String> startMachines = new HashSet<>();
 
         for (IProductionOrder order : orders) {
-            for (Map.Entry<String, List<IProductionOrder>> destination : this.scheduler.schedule(order, this.machines.values()).entrySet()) {
+            Set<Map.Entry<String, List<IProductionOrder>>> destinations = this.scheduler.schedule(order, this.machines.values()).entrySet();
+            for (Map.Entry<String, List<IProductionOrder>> destination : destinations) {
                 this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
+                startMachines.add(destination.getKey());
             }
         }
 
         MESOutFacade.getInstance().saveOrders(orders);
 
+        startMachines.retainAll(this.idleMachines);
+        for (String startMachine : startMachines) {
+            this.executeNextOrder(startMachine);
+        }
+
         return new ProcessingCapacity();
     }
 
-    //TODO or it should remove each element and leave an empty queue, and how about machine queues?
     List<IProductionOrder> getAllProductionOrders(){
 
         List<IProductionOrder> orders = new ArrayList<>();
@@ -175,16 +197,23 @@ public class ProcessingPlant {
         return null;
     }
 
-    @SuppressWarnings("Duplicates")
     public IProcessingCapacity changeOrders(List<IProductionOrder> orders) {
+        Set<String> startMachines = new HashSet<>();
 
         for (IProductionOrder order : orders) {
             for (Map.Entry<String, List<IProductionOrder>> destination : this.scheduler.schedule(order, this.machines.values()).entrySet()) {
                 this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
+                startMachines.add(destination.getKey());
             }
         }
 
         MESOutFacade.getInstance().updateOrders(orders);
+
+        startMachines.retainAll(this.idleMachines);
+        for (String startMachine : startMachines) {
+            this.executeNextOrder(startMachine);
+        }
+
 
         return new ProcessingCapacity();
     }

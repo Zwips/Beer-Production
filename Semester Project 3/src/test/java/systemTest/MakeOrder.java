@@ -9,11 +9,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.erp.ERP;
+import logic.erp.ERPOutFacade;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -27,6 +29,7 @@ public class MakeOrder {
     private Date latestDeliveryDate;
     private int priority;
     private int orderID;
+    private HashSet<Integer> orderIDsToBeRemoved;
 
     @Given("^the system is initialized$")
     public void theSystemIsInitialized() throws Throwable {
@@ -45,33 +48,53 @@ public class MakeOrder {
 
     @When("^adding the order to the queue$")
     public void addingTheOrderToTheQueue() throws Throwable {
+        this.orderID = ERPOutFacade.getInstance().getNextOrderID()+2;
+        orderIDsToBeRemoved = new HashSet<>();
+        orderIDsToBeRemoved.add(ERPOutFacade.getInstance().getNextOrderID());
+        this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+        orderIDsToBeRemoved.add(ERPOutFacade.getInstance().getNextOrderID());
+        this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+        this.orderID = ERPOutFacade.getInstance().getNextOrderID();
+        orderIDsToBeRemoved.add(orderID);
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
     }
 
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
-        List<IProductionOrder> orders = erp.getProductionOrders();
+        try{
+            List<IProductionOrder> orders = erp.getProductionOrders();
 
-        IProductionOrder order;
+            IProductionOrder order;
 
-        boolean correctOrder = false;
-        int i = 0;
+            boolean correctOrder = false;
+            int i = 1;
 
-        do {
-            order = erp.getOrder(i);
+            do {
+                order = erp.getOrder(this.orderID);
 
-            if (order.getAmount() == this.amount && order.getProductType() == this.productType
-                    && order.getEarliestDeliveryDate() == this.earliestDeliveryDate
-                    && order.getLatestDeliveryDate() == this.latestDeliveryDate
-                    && order.getPriority() == this.priority) {
-                this.orderID = order.getOrderID();
-                correctOrder = true;
-                break;
+                if (order != null) {
+                    if (order.getAmount() == this.amount && order.getProductType() == this.productType
+                            && order.getEarliestDeliveryDate() == this.earliestDeliveryDate
+                            && order.getLatestDeliveryDate() == this.latestDeliveryDate
+                            && order.getPriority() == this.priority) {
+                        this.orderID = order.getOrderID();
+                        correctOrder = true;
+                        break;
+                    }
+                }
+                i++;
+            } while (order != null);
+
+            assertTrue(correctOrder);
+        }finally {
+            Connection connection = new DatabaseConnector().openConnection();
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            for (Integer ID : this.orderIDsToBeRemoved) {
+                pStatement.setInt(1, ID);
+                pStatement.execute();
             }
-            i++;
-        }while (order != null);
-
-        assertTrue(correctOrder);
+            connection.close();
+        }
     }
 
     @And("^the order exists in the database$")

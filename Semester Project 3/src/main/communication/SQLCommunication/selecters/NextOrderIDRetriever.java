@@ -39,7 +39,6 @@ public class NextOrderIDRetriever {
             results.next();
             int nextOrderID = results.getInt(1);
 
-            new DatabaseConnector().closeConnection(connection);
             return nextOrderID;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,6 +50,6 @@ public class NextOrderIDRetriever {
             e.printStackTrace();
         }
 
-        return 1;
+        return 0;
     }
 }

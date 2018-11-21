@@ -94,10 +94,16 @@ public class CommunicationProductionOrder implements IProductionOrder {
     public boolean getStatus() {
         return this.status;
     }
+
     @Override
     public IProductionOrder clone() {
         CommunicationProductionOrder order = new CommunicationProductionOrder(this.amount,type, earliestDeliveryDate, latestDeliveryDate, priority, status, orderID);
         return order;
+    }
+
+    @Override
+    public String toString(){
+        return "Order ID: " + this.orderID;
     }
 
 }
