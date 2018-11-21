@@ -192,15 +192,12 @@ public class ProcessingPlant {
                 System.out.println("\tProcessingPlant order: " + order);
             }
 
-            Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
-            IProductionOrder order;
-
-            while (iter.hasNext()) {
-                order = iter.next();
+            for (IProductionOrder order : machineQueue.getValue()) {
                 if (order.getOrderID() == orderID){
                     return order;
                 }
             }
+
         }
 
         return null;

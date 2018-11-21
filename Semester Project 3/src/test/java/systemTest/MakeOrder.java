@@ -67,7 +67,7 @@ public class MakeOrder {
             IProductionOrder order;
 
             boolean correctOrder = false;
-            //sleep(20000);
+
             order = erp.getOrder(this.orderID);
             System.out.println("MakeOrder order: " + order);
 
