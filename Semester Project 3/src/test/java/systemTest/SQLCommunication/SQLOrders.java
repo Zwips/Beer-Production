@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class SQLOrders {
 
     private ISQLCommunicationFacade sqlModule;
-    private Connection connection;
+//    private Connection connection;
     private int orderID;
     private int amount;
     private ProductTypeEnum productType;
@@ -39,7 +39,7 @@ public class SQLOrders {
 
     @Given("^a connection to the database,orders$")
     public void aConnectionToTheDatabaseOrders() throws Throwable {
-        this.connection = new DatabaseConnector().openConnection();
+        //this.connection = new DatabaseConnector().openConnection();
     }
 
     @Given("^that an order with ID -(\\d+) exists$")
@@ -51,13 +51,15 @@ public class SQLOrders {
         this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
-        pStatement.setInt(1,this.orderID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()){
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1,this.orderID);
+            pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(this.orderID);
-        this.sqlModule.logOrder(order);
+            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            order.setOrderID(this.orderID);
+            this.sqlModule.logOrder(order);
+        }
     }
 
     @When("^retrieving an order with ID -(\\d+)$")
@@ -76,9 +78,11 @@ public class SQLOrders {
             assertEquals(this.priority,this.order.getPriority());
             assertEquals(this.orderID,this.order.getOrderID());
         } finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             pStatement.setInt(1,this.orderID);
             pStatement.execute();
+            connection.close();
         }
     }
 
@@ -92,14 +96,16 @@ public class SQLOrders {
         this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
-        pStatement.setInt(1,this.orderID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1, this.orderID);
+            pStatement.execute();
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(this.orderID);
-        order.setStatus(false);
-        this.sqlModule.logOrder(order);
+            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            order.setOrderID(this.orderID);
+            order.setStatus(false);
+            this.sqlModule.logOrder(order);
+        }
     }
 
     @When("^retrieving a pending orders$")
@@ -124,9 +130,11 @@ public class SQLOrders {
             assertEquals(this.orderID,this.order.getOrderID());
             assertEquals(false,this.order.getStatus());
         }  finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             pStatement.setInt(1,this.orderID);
             pStatement.execute();
+            connection.close();
         }
     }
 
@@ -139,14 +147,17 @@ public class SQLOrders {
         this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
-        pStatement.setInt(1,this.orderID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(this.orderID);
-        this.sqlModule.logOrder(order);
-        this.sqlModule.setOrderCompleted(this.orderID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1, this.orderID);
+            pStatement.execute();
+
+            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            order.setOrderID(this.orderID);
+            this.sqlModule.logOrder(order);
+            this.sqlModule.setOrderCompleted(this.orderID);
+        }
     }
 
     @When("^retrieving completed orders$")
@@ -172,9 +183,11 @@ public class SQLOrders {
             assertEquals(this.orderID,this.order.getOrderID());
             assertTrue(this.order.getStatus());
         }  finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             pStatement.setInt(1,this.orderID);
             pStatement.execute();
+            connection.close();
         }
     }
 
@@ -188,14 +201,17 @@ public class SQLOrders {
         this.latestDeliveryDate = new Date(5000000);
         this.priority = 1;
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
-        pStatement.setInt(1,this.orderID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
-        order.setOrderID(this.orderID);
-        order.setStatus(false);
-        this.sqlModule.logOrder(order);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1, this.orderID);
+            pStatement.execute();
+
+            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            order.setOrderID(this.orderID);
+            order.setStatus(false);
+            this.sqlModule.logOrder(order);
+        }
     }
 
     @When("^setting the order with ID -(\\d+) to completed$")
@@ -217,6 +233,7 @@ public class SQLOrders {
             assertEquals(this.orderID,this.order.getOrderID());
             assertTrue(this.order.getStatus());
         }  finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             pStatement.setInt(1,this.orderID);
             pStatement.execute();

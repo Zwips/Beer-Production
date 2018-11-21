@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
  * @author HCHB
  *
  */
-public class MachineConnection implements IMachineConnection {
+public class MachineConnection implements IMachineConnection, AutoCloseable {
 
     private String identifier="::Program:Cube.";
     private UaClient client;
@@ -389,6 +389,11 @@ public class MachineConnection implements IMachineConnection {
 
     @Override
     public void finalize(){
+        this.disconnect();
+    }
+
+    @Override
+    public void close() throws Exception {
         this.disconnect();
     }
 }

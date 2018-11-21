@@ -48,7 +48,7 @@ public class MakeOrder {
 
     @When("^adding the order to the queue$")
     public void addingTheOrderToTheQueue() throws Throwable {
-        this.orderID = ERPOutFacade.getInstance().getNextOrderID()+2;
+ //       this.orderID = ERPOutFacade.getInstance().getNextOrderID()+2;
         orderIDsToBeRemoved = new HashSet<>();
         orderIDsToBeRemoved.add(ERPOutFacade.getInstance().getNextOrderID());
         this.erp.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
@@ -62,14 +62,14 @@ public class MakeOrder {
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
         try{
-            List<IProductionOrder> orders = erp.getProductionOrders();
+//            List<IProductionOrder> orders = erp.getProductionOrders();
 
             IProductionOrder order;
 
             boolean correctOrder = false;
-            int i = 1;
+//            int i = 1;
 
-            do {
+  //          do {
                 order = erp.getOrder(this.orderID);
 
                 if (order != null) {
@@ -79,11 +79,11 @@ public class MakeOrder {
                             && order.getPriority() == this.priority) {
                         this.orderID = order.getOrderID();
                         correctOrder = true;
-                        break;
+         //               break;
                     }
                 }
-                i++;
-            } while (order != null);
+    //            i++;
+      //      } while (order != null);
 
             assertTrue(correctOrder);
         }finally {

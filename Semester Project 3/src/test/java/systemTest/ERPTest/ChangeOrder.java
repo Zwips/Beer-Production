@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class ChangeOrder {
 
-    private Connection connection;
+   // private Connection connection;
     private IERPFacade erpFacade;
     private int amount;
     private ProductTypeEnum productType;
@@ -39,7 +39,8 @@ public class ChangeOrder {
 
     @Given("^a connection to the database, OrderChange$")
     public void aConnectionToTheDatabaseOrderChange() throws Throwable {
-        this.connection = new DatabaseConnector().openConnection();
+        //TODO should this be removed
+        // this.connection = new DatabaseConnector().openConnection();
     }
 
     @And("^the system is initialized, at ERP level$")
@@ -59,7 +60,7 @@ public class ChangeOrder {
         earliestDeliveryDate = new Date(new Date().getTime()+500000);
         latestDeliveryDate = new Date(new Date().getTime()+5000000);
         priority=1;
-        orderID = ERPOutFacade.getInstance().getNextOrderID()-1;
+        orderID = ERPOutFacade.getInstance().getNextOrderID();
         status=false;
     }
 
@@ -106,7 +107,9 @@ public class ChangeOrder {
 
     @And("^the updated order is not in the database$")
     public void theUpdatedOrderIsNotInTheDatabase() throws Throwable {
+        Connection connection = null;
         try {
+            connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
 
             pStatement.setInt(1, this.orderID);
@@ -169,35 +172,41 @@ public class ChangeOrder {
 
     @Then("^the updated order is in the queue$")
     public void theUpdatedOrderIsInTheQueue() throws Throwable {
-        boolean orderFound = false;
-        sleep(300);
-        IProductionOrder order = this.erpFacade.getOrder(this.orderID);
+        try{
+            boolean orderFound = false;
+            sleep(300);
+            IProductionOrder order = this.erpFacade.getOrder(this.orderID);
 
-        if (order.getOrderID() == orderID){
-            assertEquals(orderID, order.getOrderID());
-            assertEquals(amount,order.getAmount());
-            assertEquals(priority,order.getPriority());
-            assertEquals(status,order.getStatus());
-            assertEquals(earliestDeliveryDate,order.getEarliestDeliveryDate());
-            assertEquals(latestDeliveryDate,order.getLatestDeliveryDate());
-            assertEquals(productType,order.getProductType());
-            orderFound = true;
-        }
+            if (order.getOrderID() == orderID){
+                assertEquals(orderID, order.getOrderID());
+                assertEquals(amount,order.getAmount());
+                assertEquals(priority,order.getPriority());
+                assertEquals(status,order.getStatus());
+                assertEquals(earliestDeliveryDate,order.getEarliestDeliveryDate());
+                assertEquals(latestDeliveryDate,order.getLatestDeliveryDate());
+                assertEquals(productType,order.getProductType());
+                orderFound = true;
+            }
 
-        if (!orderFound){
+            if (!orderFound){
+                fail();
+            }
+        } catch(Exception e) {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
             for (Integer ID : this.orderIDsToBeRemoved) {
                 pStatement.setInt(1, ID);
                 pStatement.execute();
             }
             connection.close();
-            fail();
         }
     }
 
     @And("^the updated order is in the database$")
     public void theUpdatedOrderIsInTheDatabase() throws Throwable {
+        Connection connection = null;
         try{
+            connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
             pStatement.setInt(1,this.orderID);
             ResultSet results = pStatement.executeQuery();

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class SQLCommunication {
 
     private ISQLCommunicationFacade sqlModule;
-    private Connection connection;
+    //private Connection connection;
 
     private IBatch batch;
     private int batchID;
@@ -55,7 +55,7 @@ public class SQLCommunication {
 
     @Given("^a connection to the database$")
     public void aConnectionToTheDatabase() throws Throwable {
-        this.connection = new DatabaseConnector().openConnection();
+        //this.connection = new DatabaseConnector().openConnection();
     }
 
     @Given("^that a batch with ID -(\\d+) exists$")
@@ -65,46 +65,56 @@ public class SQLCommunication {
         this.batchDefective = 1;
         this.batchType = ProductTypeEnum.ALE;
         this.factoryID = "TestFactory";
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, this.batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,this.batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
-
-        this.sqlModule.InsertIntoBatch(this.batchID, ProductTypeEnum.ALE, batchAmount, batchDefective, factoryID);
+            this.sqlModule.InsertIntoBatch(this.batchID, ProductTypeEnum.ALE, batchAmount, batchDefective, factoryID);
+        }
     }
 
     @And("^that temperatures with batch -(\\d+) exists$")
     public void thatTemperaturesWithBatchExists(int batchID) throws Throwable {
         batchID = -batchID;
         this.temperature = 1F;
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
-        this.sqlModule.logTemperature(this.temperature,timestamp, batchID, factoryID);
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+            this.sqlModule.logTemperature(this.temperature, timestamp, batchID, factoryID);
+        }
     }
 
     @And("^that vibrations with batch -(\\d+) exists$")
     public void thatVibrationsWithBatchExists(int batchID) throws Throwable {
         batchID = -batchID;
         this.vibration = 1F;
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
-        this.sqlModule.logVibration(this.vibration,timestamp, batchID, factoryID);
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+            this.sqlModule.logVibration(this.vibration, timestamp, batchID, factoryID);
+        }
     }
 
     @And("^that humidities with batch -(\\d+) exists$")
     public void thatHumiditiesWithBatchExists(int batchID) throws Throwable {
         batchID = -batchID;
         this.humidity = 1F;
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
-        this.sqlModule.logHumidity(this.humidity,timestamp, batchID, factoryID);
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+            this.sqlModule.logHumidity(this.humidity, timestamp, batchID, factoryID);
+        }
     }
 
     @When("^retrieving a batch with ID -(\\d+)$")
@@ -125,25 +135,28 @@ public class SQLCommunication {
             assertEquals(this.humidity,this.batch.getHumidity().get(this.timestamp));
             assertEquals(this.vibration,this.batch.getVibrations().get(this.timestamp));
         } finally {
-            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+            try(Connection connection = new DatabaseConnector().openConnection()) {
 
-            pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
 
-            pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
 
-            pStatement = connection.prepareStatement("DELETE FROM batch WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+
+                pStatement = connection.prepareStatement("DELETE FROM batch WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+            }
         }
     }
 
@@ -153,12 +166,14 @@ public class SQLCommunication {
         this.batchID = -batchID;
         this.orderID = -1;
         this.factoryID = "TestFactory";
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
-        pStatement.setString(1,this.machineID);
-        pStatement.execute();
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
+            pStatement.setString(1, this.machineID);
+            pStatement.execute();
 
-        this.sqlModule.InsertIntoBatch_log(this.batchID, this.machineID,this.orderID,factoryID);
+            this.sqlModule.InsertIntoBatch_log(this.batchID, this.machineID, this.orderID, factoryID);
+        }
     }
 
     @When("^retrieving a batchlog entry with batchID -(\\d+)$")
@@ -173,10 +188,12 @@ public class SQLCommunication {
             assertEquals(this.orderID,this.batchLogEntry.getOrderID());
             assertEquals(this.machineID,this.batchLogEntry.getMachineID());
         } finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
             pStatement.setInt(1,this.batchID);
             pStatement.setString(2,this.factoryID);
             pStatement.execute();
+            connection.close();
         }
     }
 
@@ -187,11 +204,14 @@ public class SQLCommunication {
         this.orderID = -1;
         this.factoryID ="TestFactory";
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
-        pStatement.setString(1,this.machineID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.InsertIntoBatch_log(batchID, this.machineID,this.orderID,factoryID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
+            pStatement.setString(1, this.machineID);
+            pStatement.execute();
+
+            this.sqlModule.InsertIntoBatch_log(batchID, this.machineID, this.orderID, factoryID);
+        }
     }
 
     @When("^retrieving a batchlog entry with machineID -(\\d+)$")
@@ -212,10 +232,12 @@ public class SQLCommunication {
             assertEquals(this.orderID,this.batchLogEntry.getOrderID());
             assertEquals(this.machineID,this.batchLogEntry.getMachineID());
         }  finally {
+            Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
             pStatement.setInt(1,this.batchID);
             pStatement.setString(2,this.factoryID);
             pStatement.execute();
+            connection.close();
         }
     }
 
@@ -226,11 +248,14 @@ public class SQLCommunication {
         this.orderID = -1;
         this.factoryID = "TestFactory";
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
-        pStatement.setString(1,this.machineID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.InsertIntoBatch_log(batchID, this.machineID,this.orderID,factoryID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE machineid = ?;");
+            pStatement.setString(1, this.machineID);
+            pStatement.execute();
+
+            this.sqlModule.InsertIntoBatch_log(batchID, this.machineID, this.orderID, factoryID);
+        }
     }
 
     @And("^And that temperatures with batch -(\\d+) exists$")
@@ -240,12 +265,15 @@ public class SQLCommunication {
         this.batchID = -batchID;
         this.factoryID = "TestFactory";
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,this.batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.logTemperature(temperature, measurementsTime, this.batchID,factoryID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, this.batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+
+            this.sqlModule.logTemperature(temperature, measurementsTime, this.batchID, factoryID);
+        }
     }
 
     @When("^retrieving temperatures for the machine$")
@@ -266,15 +294,18 @@ public class SQLCommunication {
             assertEquals(temperatureMeasurement.getKey(),this.measurementsTime);
             assertEquals(temperatureMeasurement.getValue(),this.temperature);
         } finally {
-            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+            try(Connection connection = new DatabaseConnector().openConnection()) {
 
-            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                PreparedStatement pStatement = connection.prepareStatement("DELETE FROM temperature WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+
+                pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+            }
         }
     }
 
@@ -285,12 +316,15 @@ public class SQLCommunication {
         this.batchID = -batchID;
         this.factoryID = "TestFactory";
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,this.batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.logVibration(vibration, measurementsTime, this.batchID,factoryID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, this.batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+
+            this.sqlModule.logVibration(vibration, measurementsTime, this.batchID, factoryID);
+        }
     }
 
     @When("^retrieving vibrations for the machine$")
@@ -311,15 +345,18 @@ public class SQLCommunication {
             assertEquals(vibrationMeasurement.getKey(),this.measurementsTime);
             assertEquals(vibrationMeasurement.getValue(),this.vibration);
         } finally {
-            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+            try(Connection connection = new DatabaseConnector().openConnection()) {
 
-            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                PreparedStatement pStatement = connection.prepareStatement("DELETE FROM vibration WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+
+                pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+            }
         }
     }
 
@@ -330,12 +367,15 @@ public class SQLCommunication {
         this.batchID = -batchID;
         this.factoryID = "TestFactory";
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
-        pStatement.setInt(1,this.batchID);
-        pStatement.setString(2,this.factoryID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.logHumidity(humidity, measurementsTime, this.batchID,factoryID);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
+            pStatement.setInt(1, this.batchID);
+            pStatement.setString(2, this.factoryID);
+            pStatement.execute();
+
+            this.sqlModule.logHumidity(humidity, measurementsTime, this.batchID, factoryID);
+        }
     }
 
     @When("^retrieving humidity for the machine$")
@@ -356,15 +396,18 @@ public class SQLCommunication {
             assertEquals(humidityMeasurement.getKey(),this.measurementsTime);
             assertEquals(humidityMeasurement.getValue(),this.humidity);
         } finally {
-            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+            try(Connection connection = new DatabaseConnector().openConnection()) {
 
-            pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
-            pStatement.setInt(1,this.batchID);
-            pStatement.setString(2,this.factoryID);
-            pStatement.execute();
+                PreparedStatement pStatement = connection.prepareStatement("DELETE FROM humidity WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+
+                pStatement = connection.prepareStatement("DELETE FROM batch_log WHERE batchid = ? AND factoryid = ?;");
+                pStatement.setInt(1, this.batchID);
+                pStatement.setString(2, this.factoryID);
+                pStatement.execute();
+            }
         }
     }
 
@@ -376,26 +419,32 @@ public class SQLCommunication {
         this.machineSpeed = 1F;
         this.productType = ProductTypeEnum.ALE;
 
-        PreparedStatement pStatement = connection.prepareStatement("DELETE FROM defectives WHERE machineID = ?;");
-        pStatement.setString(1,this.machineID);
-        pStatement.execute();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        this.sqlModule.logDefectives(this.machineID, numberOfDefectives, productsInBatch, machineSpeed, productType);
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM defectives WHERE machineID = ?;");
+            pStatement.setString(1, this.machineID);
+            pStatement.execute();
+
+            this.sqlModule.logDefectives(this.machineID, numberOfDefectives, productsInBatch, machineSpeed, productType);
+        }
     }
 
     @Then("^the date is correctly inserted into the database$")
     public void theDateIsCorrectlyInsertedIntoTheDatabase() throws Throwable {
-        PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM defectives WHERE machineid = ?");
-        pStatement.setString(1,this.machineID);
-        ResultSet results = pStatement.executeQuery();
+        try(Connection connection = new DatabaseConnector().openConnection()) {
 
-        results.next();
-        assertEquals(this.machineID,results.getString("machineid"));
-        assertEquals(this.numberOfDefectives,results.getInt("numberofdefective"));
-        assertEquals(this.productsInBatch,results.getFloat("productsinbatch"),0);
-        assertEquals(this.machineSpeed,results.getFloat("machinespeed"),0);
+            PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM defectives WHERE machineid = ?");
+            pStatement.setString(1, this.machineID);
+            ResultSet results = pStatement.executeQuery();
 
-        ProductTypeEnum type = ProductTypeEnum.get(results.getString("Product"));
-        assertEquals(this.productType,type);
+            results.next();
+            assertEquals(this.machineID, results.getString("machineid"));
+            assertEquals(this.numberOfDefectives, results.getInt("numberofdefective"));
+            assertEquals(this.productsInBatch, results.getFloat("productsinbatch"), 0);
+            assertEquals(this.machineSpeed, results.getFloat("machinespeed"), 0);
+
+            ProductTypeEnum type = ProductTypeEnum.get(results.getString("Product"));
+            assertEquals(this.productType, type);
+        }
     }
 }
