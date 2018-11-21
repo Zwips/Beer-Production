@@ -30,22 +30,26 @@ public class OEE {
 
     @When("^State changes to aborted$")
     public void stateChangesToAborted() throws Throwable {
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(4);
+        MachineConnection connection = new MachineConnection("127.0.0.1:4840","sdu","1234");
+        connection.setControlCommand(4);
         sleep(500);
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(5);
+        connection.setControlCommand(5);
         sleep(500);
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(1);
+        connection.setControlCommand(1);
         sleep(500);
+        connection.disconnect();
     }
 
     @And("^State changes to reset$")
     public void stateChangesToReset() throws Throwable {
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(4);
+        MachineConnection connection = new MachineConnection("127.0.0.1:4840","sdu","1234");
+        connection.setControlCommand(4);
         sleep(500);
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(5);
+        connection.setControlCommand(5);
         sleep(500);
-        new MachineConnection("127.0.0.1:4840","sdu","1234").setControlCommand(1);
+        connection.setControlCommand(1);
         sleep(500);
+        connection.disconnect();
     }
 
     @Then("^the state change is logged in the database$")

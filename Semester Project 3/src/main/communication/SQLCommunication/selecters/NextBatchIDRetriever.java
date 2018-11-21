@@ -33,13 +33,12 @@ import java.util.*;
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-
+        int nextBatchID = 1;
         try {
             results.next();
-            int nextBatchID = results.getInt(1);
+            nextBatchID = results.getInt(1);
 
             new DatabaseConnector().closeConnection(connection);
-            return nextBatchID;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +50,6 @@ import java.util.*;
         }
 
         new DatabaseConnector().closeConnection(connection);
-        return 1;
+        return nextBatchID;
     }
 }
