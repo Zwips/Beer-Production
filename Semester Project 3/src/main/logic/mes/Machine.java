@@ -20,6 +20,7 @@ import Acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import communication.machineConnection.MachineConnection;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
 
@@ -32,6 +33,7 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
     private String password;
     private IMachineConnection machineConnection;
     private MachineSpecifications specs;
+    private int currentOrderID;
 
     public Machine(String name, String IPAddress, String userID, String password, String factoryID){
         this.name = name;
@@ -82,9 +84,6 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
         try {
             while(!(currentState == 6 || currentState == -1)){
                 switch(currentState){
-                    /*case 0:
-                        machineConnection.setControlCommand(2);
-                        break;*/
                     case 2:
                         machineConnection.setControlCommand(1);
                         break;
@@ -98,6 +97,7 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
                         machineConnection.setBatchIDForNextBatch(batchId);
                         sleep(100);
                         machineConnection.setControlCommand(2);
+                        this.currentOrderID = order.getOrderID();
                         return true;
                     case 9:
                         machineConnection.setControlCommand(5);
@@ -118,7 +118,7 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
 
     @Override
     public boolean abandonOrder() {
-        return false;
+        throw new NotImplementedException();
     }
 
     @Override
@@ -146,7 +146,6 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
         }
         return -1;
     }
-
 
     @Override
     public int readNumberOfDefectiveProducts() throws ServiceException {
@@ -395,11 +394,6 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
 
     }
 
-    //skal flyttes til persistens
-    /*private removeMachine(String address){
-
-    }*/
-
     void uploadBatchInfo() {
         float batchID = -1;
         int numberOfDefective = -1;
@@ -417,35 +411,18 @@ public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
             e.printStackTrace();
         }
 
-        ProductTypeEnum product;
-        switch (currentProduct) {
-            case 0:
-                product = ProductTypeEnum.PILSNER;
-                break;
-
-            case 1:
-                product = ProductTypeEnum.WHEAT;
-                break;
-
-            case 2:
-                product = ProductTypeEnum.IPA;
-                break;
-
-            case 3:
-                product = ProductTypeEnum.STOUT;
-                break;
-
-            case 4:
-                product = ProductTypeEnum.ALE;
-                break;
-
-            default:
-                product = ProductTypeEnum.ALCOHOLFREE;
-        }
+        ProductTypeEnum product = this.specs.getProductType(currentProduct);
 
         MESOutFacade.getInstance().logDefective(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
-
     }
 
+    @Override
+    public int getCurrentOrderID() {
+        return currentOrderID;
+    }
 
+    @Override
+    public ProductTypeEnum getProductType(float productTypeID){
+        return this.specs.getProductType(productTypeID);
+    }
 }

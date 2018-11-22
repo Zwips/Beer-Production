@@ -1,6 +1,7 @@
 package logic.mes;
 
 import Acquantiance.IDataChangeCatcher;
+import communication.SQLCommunication.selecters.BatchLogByBatchIDRetriever;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
@@ -15,9 +16,19 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
 
     @Override
     public void report(DataValue newData) {
-        if (newData.getValue().intValue() == 17) {
-            plant.executeNextOrder(machineID);
+
+        switch (newData.getValue().intValue()) {
+            case 17:
+                plant.uploadBatchData(machineID);
+
+                plant.executeNextOrder(machineID);
+                break;
         }
+
+
+
+
+
     }
 
 

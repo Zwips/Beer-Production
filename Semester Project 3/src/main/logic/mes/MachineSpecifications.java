@@ -76,7 +76,7 @@ public class MachineSpecifications {
         }
     }
 
-    public float getProductTypeCode(ProductTypeEnum productType){
+    public float getProductTypeCode(ProductTypeEnum productType) {
         switch (productType) {
             case PILSNER:
                 return 0;
@@ -94,4 +94,25 @@ public class MachineSpecifications {
                 return -1;
         }
     }
+
+    public ProductTypeEnum getProductType(float productID){
+        int currentProduct = (int)productID;
+
+        switch (currentProduct) {
+            case 0:
+                return ProductTypeEnum.PILSNER;
+            case 1:
+                return ProductTypeEnum.WHEAT;
+            case 2:
+                return ProductTypeEnum.IPA;
+            case 3:
+                return ProductTypeEnum.STOUT;
+            case 4:
+                return ProductTypeEnum.ALE;
+            default:
+                return ProductTypeEnum.ALCOHOLFREE;
+        }
+    }
+
+
 }

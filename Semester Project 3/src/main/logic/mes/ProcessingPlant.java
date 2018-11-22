@@ -7,10 +7,8 @@ package logic.mes;
  * @param removeMachine Method for removing a machine from the list of machines.
  */
 
-import Acquantiance.IMachineConnectionInformation;
+import Acquantiance.*;
 import Acquantiance.IMesMachine;
-import Acquantiance.IProcessingCapacity;
-import Acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
@@ -102,10 +100,15 @@ public class ProcessingPlant {
 
     boolean executeNextOrder(String machineID){
         BlockingQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
-        IProductionOrder order = queue.poll();
+        int queueSize = queue.size();
 
-        if (order != null) {
-            return this.machines.get(machineID).executeOrder(order, this.nextBatchID);
+        if (queueSize > 0) {
+            IProductionOrder order = queue.poll();
+            boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            if (started) {
+                this.idleMachines.remove(machineID);
+            }
+            return started;
         } else{
             this.idleMachines.add(machineID);
             //this.machines.get(machineID).reset();
@@ -117,7 +120,7 @@ public class ProcessingPlant {
      *
      */
     private void initialiseBatchID(){
-        nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID);
+        nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID)+1;
     }
 
     ProcessingCapacity addOrders(List<IProductionOrder> orders){
@@ -222,5 +225,38 @@ public class ProcessingPlant {
 
 
         return new ProcessingCapacity();
+    }
+
+    public void uploadBatchData(String machineID) {
+
+        IMesMachine machine = this.machines.get(machineID);
+
+        try {
+            //batch
+            float batchSize = machine.readProductsInBatch();
+            int defectives = machine.readNumberOfDefectiveProducts();
+            float productTypeID = machine.readCurrentProductID();
+            float batchID = machine.readBatchIDCurrent();
+            ProductTypeEnum product = machine.getProductType(productTypeID);
+            MESOutFacade.getInstance().insertIntoBatch((int)batchID, product, (int)batchSize, defectives, this.plantID);
+
+
+            //batch_log
+            int completedOrderID = machine.getCurrentOrderID();
+            MESOutFacade.getInstance().insertIntoBatch_Log((int)batchID, machineID, completedOrderID, this.plantID);
+
+            //defectives
+            float machineSpeed = machine.readMachineSpeedCurrent();
+            //TODO reactivate this when ready to connect to physical machine
+            //MESOutFacade.getInstance().logDefective(machineID, defectives, batchSize, machineSpeed, product);
+
+
+            //update status order
+            MESOutFacade.getInstance().setOrderCompleted(completedOrderID);
+
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
     }
 }

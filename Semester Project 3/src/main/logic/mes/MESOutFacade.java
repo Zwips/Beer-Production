@@ -111,4 +111,15 @@ public class MESOutFacade {
         communicationFacade.logOEE(factoryID, machineID, batchID, state, timestamp, isProducing);
     }
 
+    public void insertIntoBatch(int batchID, ProductTypeEnum product, int batchSize, int defectives, String plantID) {
+        this.communicationFacade.insertIntoBatch(batchID, product, batchSize, defectives, plantID);
+    }
+
+    public void insertIntoBatch_Log(int batchID, String machineID, int completedOrderID, String plantID) {
+        this.communicationFacade.insertIntoBatch_log(batchID, machineID, completedOrderID, machineID);
+    }
+
+    public void setOrderCompleted(int completedOrderID) {
+        this.communicationFacade.setOrderCompleted(completedOrderID);
+    }
 }

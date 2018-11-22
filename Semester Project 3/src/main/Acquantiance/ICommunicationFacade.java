@@ -17,9 +17,9 @@ public interface ICommunicationFacade {
     List<IProductionOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
-    void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
+    void insertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
 
-    void InsertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID);
+    void insertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID, String factoryID);
     void logVibration(float value, Date timestamp, int batchID, String factoryID);

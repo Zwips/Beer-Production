@@ -41,6 +41,10 @@ public interface IMesMachine {
     float readMachineSpeedCurrent() throws ServiceException;
     float readTemperature() throws ServiceException;
     float readVibration() throws ServiceException;
+
+    int getCurrentOrderID();
+
+    ProductTypeEnum getProductType(float productTypeID);
     //</editor-fold>
 
 

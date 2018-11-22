@@ -73,12 +73,12 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID) {
+    public void insertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID) {
         sqlFacade.InsertIntoBatch(batchID,productType,amount,defective,factoryID);
     }
 
     @Override
-    public void InsertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID) {
+    public void insertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID) {
         sqlFacade.InsertIntoBatch_log(batchID,machineID,orderID,factoryID);
     }
 
