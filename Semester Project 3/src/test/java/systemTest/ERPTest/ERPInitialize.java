@@ -1,9 +1,13 @@
 package systemTest.ERPTest;
 
+import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 import communication.SQLCommunication.inserters.MachineInserter;
+import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.SQLCommunication.tools.PrepareInfo;
+import communication.SQLCommunication.tools.PrepareType;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -12,22 +16,31 @@ import cucumber.api.java.en.When;
 import logic.erp.ERP;
 import logic.erp.ERPOutFacade;
 import logic.erp.ProductionOrder;
+import logic.mes.MESOutFacade;
+import logic.mes.Machine;
 import systemTest.ERPLevelInitializer;
 import systemTest.SQLCommunication.SQLCommunication;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ERPInitialize {
     private ISQLCommunicationFacade sql = new SQLCommunicationFacade();
 
     private ERP erp;
     private int maxOrderID;
+    private int orderID;
 
     @Given("^A orderID with one below int max is in batch_log in  the database$")
     public void aOrderIDWithOneBelowIntMaxIsInBatch_logInTheDatabase()  throws Throwable {
@@ -45,7 +58,17 @@ public class ERPInitialize {
 
     @When("^an ERP system initialises$")
     public void anERPSystemInitialises() throws Throwable {
-        erp = new ERP();
+        try{
+            erp = new ERP();
+        } catch (Exception e){
+            Connection connection = new DatabaseConnector().openConnection();
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1, this.orderID);
+            pStatement.execute();
+
+            connection.close();
+            throw e;
+        }
     }
 
     @Then("^nextOrderID will be int max$")
@@ -59,4 +82,63 @@ public class ERPInitialize {
         }
     }
 
+    @Given("^that pending orders exist in the database$")
+    public void thatPendingOrdersExistInTheDatabase() throws Throwable {
+        try(Connection connection = new DatabaseConnector().openConnection()) {
+
+            orderID = 500000000;
+            PreparedStatement pStatement = connection.prepareStatement("INSERT INTO Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, orderID) VALUES (?,?,?,?,?,?,?)");
+            pStatement.setInt(1,100);
+            pStatement.setString(2,ProductTypeEnum.PILSNER.getType());
+            pStatement.setTimestamp(3,new Timestamp(0));
+            pStatement.setTimestamp(4, new Timestamp(1000000000));
+            pStatement.setInt(5, 1);
+            pStatement.setBoolean(6, false);
+            pStatement.setInt(7, orderID);
+
+            pStatement.execute();
+        }
+    }
+
+    @And("^that a machine is connnected$")
+    public void thatAMachineIsConnnected() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        //TODO considering removing all of this type of conditions, and starting the simulation manually
+        //throw new PendingException();
+    }
+
+    @Then("^at least one machine starts executing orders$")
+    public void atLeastOneMachineStartsExecutingOrders() throws Throwable {
+        try{
+
+            Set<Machine> machines = new HashSet<>();
+
+            for (List<IMachineConnectionInformation> infos : ERPOutFacade.getInstance().getMachines().values()) {
+                for (IMachineConnectionInformation info : infos) {
+                    machines.add(new Machine(info.getMachineID(), info.getMachineIP(), info.getMachineUsername(), info.getMachinePassword(),"derp"));
+                }
+            }
+
+            boolean started = false;
+            int i = 1;
+            while (!started || i<10){
+                for (Machine machine : machines) {
+                    if (machine.readCurrentState() == 6){
+                        started = true;
+                    }
+                }
+                i++;
+            }
+
+            assertTrue(started);
+        } finally {
+            Connection connection = new DatabaseConnector().openConnection();
+            PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");
+            pStatement.setInt(1, this.orderID);
+            pStatement.execute();
+
+            connection.close();
+        }
+
+    }
 }

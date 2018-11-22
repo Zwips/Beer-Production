@@ -1,4 +1,4 @@
-package systemTest;
+package systemTest.ERPTest;
 
 import Acquantiance.IProductionOrder;
 import Acquantiance.ProductTypeEnum;
@@ -11,6 +11,7 @@ import cucumber.api.java.en.When;
 import logic.erp.ERP;
 import logic.erp.ERPOutFacade;
 import org.junit.Assert;
+import systemTest.ERPLevelInitializer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

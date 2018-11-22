@@ -42,7 +42,7 @@ public class ERPOutFacade {
         return mesFacade.getPendingOrders();
     }
 
-    HashMap<String, List<IMachineConnectionInformation>> getMachines(){
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines(){
         return mesFacade.getMachines();
     }
 
