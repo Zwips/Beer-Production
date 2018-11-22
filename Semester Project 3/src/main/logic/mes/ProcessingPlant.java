@@ -14,7 +14,6 @@ import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProcessingPlant {
