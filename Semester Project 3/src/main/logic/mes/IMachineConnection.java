@@ -16,6 +16,7 @@ import com.prosysopc.ua.StatusException;
 public interface IMachineConnection {
 
 
+
     //read status commands
     float readCurrentProductID() throws ServiceException, StatusException;
     int readNumberOfDefectiveProducts() throws ServiceException, StatusException;
