@@ -1,6 +1,6 @@
 package communication.SQLCommunication.dataClasses;
 
-import Acquantiance.IBatchLog;
+import acquantiance.IBatchLog;
 
 public class CommunicationBatchLog implements IBatchLog {
 

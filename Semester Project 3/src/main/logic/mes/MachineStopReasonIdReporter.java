@@ -5,7 +5,7 @@ package logic.mes;
  * @param report Method for sending a mail with a stopReason dependent on the stopReasonID.
  */
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 

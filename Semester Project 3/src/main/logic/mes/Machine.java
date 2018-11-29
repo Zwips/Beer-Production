@@ -14,9 +14,9 @@ package logic.mes;
  * @param uploadBatchInfo Method for all information about a Batch.
  */
 
-import Acquantiance.IDataChangeCatcher;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IDataChangeCatcher;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import communication.machineConnection.MachineConnection;
@@ -24,7 +24,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
 
-public class Machine implements IMesMachine, Acquantiance.IMesMachine, Runnable{
+public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
 
     private final String factoryID;
     private String name;

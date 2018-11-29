@@ -1,7 +1,7 @@
 package communication.SQLCommunication.dataClasses;
 
-import Acquantiance.IBatch;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IBatch;
+import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.Map;

@@ -13,9 +13,9 @@ package logic.erp;
  * @param removeMachine Method for removing a machine from the list of processing plants.
  */
 
-import Acquantiance.IProcessingCapacity;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProcessingCapacity;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 import logic.erp.scheduler.Scheduler_Facade;
 
 import java.security.InvalidParameterException;

@@ -4,8 +4,8 @@ package communication.SQLCommunication.dataClasses;
  * @param OrdersRemoveByOrderID constructor creates the object CommunicationProductionOrder.
  * @param clone method clones the object CommunicationProductionOrder.
  */
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 

@@ -1,22 +1,14 @@
 package systemTest.MESTest;
 
-import Acquantiance.IERPFacade;
-import Acquantiance.IMachineConnectionInformation;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IERPFacade;
+import acquantiance.IMachineConnectionInformation;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.machineConnection.MachineConnection;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import logic.erp.ERP;
-import logic.erp.ERPOutFacade;
-import logic.mes.MESFacade;
 import logic.mes.MESOutFacade;
 import systemTest.ERPLevelInitializer;
 
-import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

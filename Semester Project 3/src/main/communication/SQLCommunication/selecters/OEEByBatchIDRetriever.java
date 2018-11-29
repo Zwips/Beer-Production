@@ -1,10 +1,7 @@
 package communication.SQLCommunication.selecters;
 
-import Acquantiance.IOEE;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IOEE;
 import communication.SQLCommunication.dataClasses.CommunicationOEE;
-import communication.SQLCommunication.dataClasses.CommunicationProductionOrder;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;
 import communication.SQLCommunication.tools.PrepareType;

@@ -1,7 +1,7 @@
 package communication.SQLCommunication.dataClasses;
 
-import Acquantiance.IMachineConnectionInformation;
-import Acquantiance.IMachineSpecification;
+import acquantiance.IMachineConnectionInformation;
+import acquantiance.IMachineSpecification;
 
 public class CommunicationMachineConnectionInformation implements IMachineConnectionInformation {
     private String machineID;

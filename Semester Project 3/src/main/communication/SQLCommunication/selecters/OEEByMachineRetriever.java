@@ -1,6 +1,6 @@
 package communication.SQLCommunication.selecters;
 
-import Acquantiance.IOEE;
+import acquantiance.IOEE;
 import communication.SQLCommunication.dataClasses.CommunicationOEE;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.PrepareInfo;

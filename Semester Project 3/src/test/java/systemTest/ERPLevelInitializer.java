@@ -1,6 +1,6 @@
 package systemTest;
 
-import Acquantiance.IERPFacade;
+import acquantiance.IERPFacade;
 import communication.CommunicationFacade;
 import gui.GUIOutFacade;
 import logic.erp.ERPFacade;

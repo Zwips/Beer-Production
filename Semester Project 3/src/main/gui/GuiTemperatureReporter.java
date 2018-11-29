@@ -1,6 +1,6 @@
 package gui;
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class GuiTemperatureReporter implements IDataChangeCatcher {

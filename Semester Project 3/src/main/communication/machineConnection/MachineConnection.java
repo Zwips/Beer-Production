@@ -5,7 +5,7 @@
  */
 package communication.machineConnection;
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import logic.mes.IMachineConnection;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;

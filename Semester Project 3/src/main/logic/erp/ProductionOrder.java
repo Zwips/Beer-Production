@@ -6,8 +6,8 @@ package logic.erp;
  * @param clone Method for cloning everything from productionOrder to a new order.
  */
 
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 
 import java.security.InvalidParameterException;
 import java.util.Date;

@@ -1,8 +1,8 @@
 package logic.mes;
 
-import Acquantiance.IProductionOrder;
+import acquantiance.IProductionOrder;
 import logic.mes.scheduler.PlantSchedulerTypesEnum;
-import Acquantiance.IMesMachine;
+import acquantiance.IMesMachine;
 
 import java.util.Collection;
 import java.util.List;

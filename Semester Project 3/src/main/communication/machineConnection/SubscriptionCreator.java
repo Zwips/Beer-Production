@@ -5,7 +5,7 @@ package communication.machineConnection;
  * @param createSubscription Method for the creation of a subscription to a client.
  */
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.MonitoredDataItem;

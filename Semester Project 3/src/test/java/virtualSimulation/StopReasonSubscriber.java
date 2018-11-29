@@ -1,6 +1,6 @@
 package virtualSimulation;
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class StopReasonSubscriber implements IDataChangeCatcher {

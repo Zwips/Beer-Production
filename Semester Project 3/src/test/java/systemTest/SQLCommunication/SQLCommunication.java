@@ -1,8 +1,8 @@
 package systemTest.SQLCommunication;
 
-import Acquantiance.IBatch;
-import Acquantiance.IBatchLog;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IBatch;
+import acquantiance.IBatchLog;
+import acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 import communication.SQLCommunication.tools.DatabaseConnector;

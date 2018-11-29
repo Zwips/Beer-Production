@@ -1,8 +1,5 @@
 package communication.SQLCommunication;
 
-import Acquantiance.IBatch;
-import communication.SQLCommunication.selecters.BatchRetriever;
-
 import static java.lang.Thread.sleep;
 
 public class tester {

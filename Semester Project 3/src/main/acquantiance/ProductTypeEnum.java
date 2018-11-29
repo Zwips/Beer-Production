@@ -1,4 +1,4 @@
-package Acquantiance;
+package acquantiance;
 
 import java.util.HashMap;
 import java.util.Map;

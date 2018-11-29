@@ -1,7 +1,7 @@
 
 package communication.machineConnection;
 
-import Acquantiance.ProductTypeEnum;
+import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import communication.ISQLCommunicationFacade;

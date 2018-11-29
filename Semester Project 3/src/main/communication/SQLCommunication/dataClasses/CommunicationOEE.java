@@ -1,6 +1,6 @@
 package communication.SQLCommunication.dataClasses;
 
-import Acquantiance.IOEE;
+import acquantiance.IOEE;
 
 import java.util.Date;
 import java.util.Map;

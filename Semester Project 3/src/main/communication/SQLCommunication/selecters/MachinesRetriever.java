@@ -1,13 +1,9 @@
 package communication.SQLCommunication.selecters;
 
-import Acquantiance.IMachineConnectionInformation;
-import Acquantiance.IMachineSpecification;
+import acquantiance.IMachineConnectionInformation;
 import communication.SQLCommunication.dataClasses.CommunicationMachineConnectionInformation;
 import communication.SQLCommunication.tools.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

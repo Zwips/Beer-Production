@@ -4,7 +4,7 @@ package communication.machineConnection;
  *
  */
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import org.opcfoundation.ua.builtintypes.DataValue;

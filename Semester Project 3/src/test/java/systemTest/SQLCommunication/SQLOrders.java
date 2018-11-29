@@ -1,7 +1,7 @@
 package systemTest.SQLCommunication;
 
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.SQLCommunicationFacade;
 import communication.SQLCommunication.tools.DatabaseConnector;

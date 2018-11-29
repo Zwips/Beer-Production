@@ -1,6 +1,6 @@
 package systemTest.MESTest;
 
-import Acquantiance.IOEE;
+import acquantiance.IOEE;
 import communication.SQLCommunication.selecters.OEEByMachineRetriever;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.machineConnection.MachineConnection;

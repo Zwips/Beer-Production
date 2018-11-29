@@ -1,6 +1,6 @@
 package communication;
 
-import Acquantiance.*;
+import acquantiance.*;
 
 import java.util.*;
 
