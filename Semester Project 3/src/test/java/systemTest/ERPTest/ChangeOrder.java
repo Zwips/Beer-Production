@@ -213,9 +213,8 @@ public class ChangeOrder {
 
     @And("^the updated order is in the database$")
     public void theUpdatedOrderIsInTheDatabase() throws Throwable {
-        Connection connection = null;
+        Connection connection = new DatabaseConnector().openConnection();
         try{
-            connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
             pStatement.setInt(1,this.orderID);
             ResultSet results = pStatement.executeQuery();

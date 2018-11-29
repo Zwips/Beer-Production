@@ -79,7 +79,7 @@ public class MESOutFacade {
         return communicationFacade.getPendingOrders();
     }
 
-    HashMap<String, List<IMachineConnectionInformation>> getMachines(){
+    public HashMap<String, List<IMachineConnectionInformation>> getMachines(){
         return communicationFacade.getMachines();
     }
 

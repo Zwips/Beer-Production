@@ -5,10 +5,7 @@ import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.IProcessingCapacity;
 import Acquantiance.IProductionOrder;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MESFacade implements IMESFacade {
 
@@ -56,7 +53,7 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public boolean removeMachine(String thePlant, String machineName) {
-        return this.processingPlants.get(thePlant).removeMachine(machineName);
+        return this.processingPlants.get(thePlant.toLowerCase()).removeMachine(machineName);
     }
 
     @Override
@@ -113,7 +110,7 @@ public class MESFacade implements IMESFacade {
 
     @Override
     public boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password) {
-        return this.processingPlants.get(processingPlantID).addMachine(machineName, ipAddress, userID, password);
+        return this.processingPlants.get(processingPlantID.toLowerCase()).addMachine(machineName, ipAddress, userID, password);
     }
 
     @Override
@@ -150,6 +147,17 @@ public class MESFacade implements IMESFacade {
         }
 
         return capacity;
+    }
+
+    @Override
+    public List<IProductionOrder> getAllProductionOrdersInPlants(){
+
+        List<IProductionOrder> orders = new ArrayList<>();
+        for (ProcessingPlant plant : this.processingPlants.values()) {
+            orders.addAll(plant.getAllProductionOrders());
+        }
+
+        return orders;
     }
 
 

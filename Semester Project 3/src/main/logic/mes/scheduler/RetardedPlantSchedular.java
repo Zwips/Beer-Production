@@ -5,7 +5,7 @@ import Acquantiance.IMesMachine;
 
 import java.util.*;
 
-public class RetardedPlantSchedular extends PlantSchedulerType {
+public class RetardedPlantSchedular implements PlantScheduler {
 
     @Override
     public Map<String, List<IProductionOrder>> schedule(IProductionOrder order, Collection<IMesMachine> machines) {
@@ -18,6 +18,10 @@ public class RetardedPlantSchedular extends PlantSchedulerType {
             return destinations;
         }
 
+//        IMesMachine[] machine = machines.toArray(new IMesMachine[machines.size()]);
+//
+//        destinations.put(machine[(int)Math.random()*machines.size()].getMachineID(), orders);
+//        return destinations;
         return null;
     }
 

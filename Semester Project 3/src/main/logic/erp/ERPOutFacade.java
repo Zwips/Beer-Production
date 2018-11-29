@@ -95,4 +95,8 @@ public class ERPOutFacade {
 
         return this.mesFacade.changeOrders(destinations);
     }
+
+    public List<IProductionOrder> getAllProductionOrders(){
+        return this.mesFacade.getAllProductionOrdersInPlants();
+    }
 }

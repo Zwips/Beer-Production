@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class Scheduler_Facade implements IScheduler_Facade {
 
-    private SchedulerType scheduler;
+    private Scheduler scheduler;
     private Map<Integer, String> ordersSentTo;
 
     public Scheduler_Facade() {

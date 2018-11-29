@@ -34,4 +34,6 @@ public interface IMESFacade {
     IProductionOrder getOrder(String plantID, int orderID);
 
     Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations);
+
+    List<IProductionOrder> getAllProductionOrdersInPlants();
 }

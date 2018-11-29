@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class PlantSchedulerFacade implements IPlantSchedulerFacade {
 
-    private PlantSchedulerType scheduler;
+    private PlantScheduler scheduler;
     private Map<Integer, String> ordersSentTo;
 
     public PlantSchedulerFacade() {

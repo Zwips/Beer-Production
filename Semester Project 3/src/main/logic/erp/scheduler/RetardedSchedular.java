@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RetardedSchedular extends SchedulerType {
+public class RetardedSchedular implements Scheduler {
 
     @Override
     public Map<String, List<IProductionOrder>> schedule(IProductionOrder order, Map<String, IProcessingCapacity> processingCapacities) {

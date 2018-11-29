@@ -1,5 +1,6 @@
 package systemTest.ERPTest;
 
+import Acquantiance.IERPFacade;
 import Acquantiance.IMachineConnectionInformation;
 import Acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
@@ -38,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 public class ERPInitialize {
     private ISQLCommunicationFacade sql = new SQLCommunicationFacade();
 
-    private ERP erp;
+    private IERPFacade erp;
     private int maxOrderID;
     private int orderID;
 
@@ -59,7 +60,7 @@ public class ERPInitialize {
     @When("^an ERP system initialises$")
     public void anERPSystemInitialises() throws Throwable {
         try{
-            erp = new ERP();
+            erp = ERPLevelInitializer.glue();
         } catch (Exception e){
             Connection connection = new DatabaseConnector().openConnection();
             PreparedStatement pStatement = connection.prepareStatement("DELETE FROM orders WHERE orderid = ?;");

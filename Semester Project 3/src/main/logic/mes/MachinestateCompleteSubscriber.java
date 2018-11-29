@@ -4,6 +4,8 @@ import Acquantiance.IDataChangeCatcher;
 import communication.SQLCommunication.selecters.BatchLogByBatchIDRetriever;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
+import static java.lang.Thread.sleep;
+
 public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
 
     private String machineID;

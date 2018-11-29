@@ -12,6 +12,7 @@ import Acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -99,10 +100,16 @@ public class ProcessingPlant {
 
     boolean executeNextOrder(String machineID){
         BlockingQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
-        int queueSize = queue.size();
+        IProductionOrder order = null;
 
-        if (queueSize > 0) {
-            IProductionOrder order = queue.poll();
+        synchronized(queue){
+            int queueSize = queue.size();
+            if (queueSize > 0) {
+                order = queue.poll();
+            }
+        }
+
+       if(order != null){
             boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
             if (started) {
                 this.idleMachines.remove(machineID);
@@ -192,9 +199,6 @@ public class ProcessingPlant {
 
             for (IProductionOrder order : machineQueue.getValue()) {
                 System.out.println("\tProcessingPlant order: " + order);
-            }
-
-            for (IProductionOrder order : machineQueue.getValue()) {
                 if (order.getOrderID() == orderID){
                     return order;
                 }

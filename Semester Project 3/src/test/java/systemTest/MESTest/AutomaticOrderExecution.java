@@ -1,59 +1,100 @@
 package systemTest.MESTest;
 
+import Acquantiance.IERPFacade;
+import Acquantiance.IMachineConnectionInformation;
+import Acquantiance.ProductTypeEnum;
+import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.machineConnection.MachineConnection;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import logic.erp.ERP;
+import logic.erp.ERPOutFacade;
+import logic.mes.MESFacade;
+import logic.mes.MESOutFacade;
+import systemTest.ERPLevelInitializer;
+
+import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import static java.lang.Thread.sleep;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AutomaticOrderExecution {
 
+    private IERPFacade erp;
+
     @Given("^there is an ERP system, execute orders$")
     public void thereIsAnERPSystemExecuteOrders() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        erp = ERPLevelInitializer.glue();
     }
 
     @Given("^an order exists in the factory$")
     public void anOrderExistsInTheFactory() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        this.clearOrders();
+
+        erp.addOrder(20, ProductTypeEnum.PILSNER, new Date(0), new Date(), 1);
+        erp.addOrder(20, ProductTypeEnum.PILSNER, new Date(0), new Date(), 1);
+        erp.addOrder(20, ProductTypeEnum.PILSNER, new Date(0), new Date(), 1);
+        erp.addOrder(20, ProductTypeEnum.PILSNER, new Date(0), new Date(), 1);
+        erp.addOrder(20, ProductTypeEnum.PILSNER, new Date(0), new Date(), 1);
     }
 
-    @And("^the machine is executing an order with id -(\\d+)$")
-    public void theMachineIsExecutingAnOrderWithId(int arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @When("^the machine completes an order$")
+    public void theMachineCompletesAnOrder() throws Throwable {
+
+        HashMap<String, List<IMachineConnectionInformation>> machines = MESOutFacade.getInstance().getMachines();
+
+        boolean completed = false;
+        //MachineConnection machineConnection = new MachineConnection(IPAddress, userID, password);
+
+//        for (int i = 0; i < ; i++) {
+//            if (MESOutFacade.getInstance().){
+//                completed = true;
+//                break;
+//            }
+//            sleep(100);
+//        }
+
+
+
+        assertTrue(completed);
     }
 
 
-    @When("^the machine completes the order$")
-    public void theMachineCompletesTheOrder() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 
-    @Then("^the next order is executed$")
-    public void theNextOrderIsExecuted() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 
-    @And("^it's batch ID is (\\d+)$")
-    public void itSBatchIDIs(int arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 
-    @And("^the batch log is updated$")
-    public void theBatchLogIsUpdated() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 
-    @And("^batch is updated in the database$")
-    public void batchIsUpdatedInTheDatabase() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
+
+
+
+
+
+    private void clearOrders(){
+        Connection connection = new DatabaseConnector().openConnection();
+        PreparedStatement pStatement = null;
+        try {
+            pStatement = connection.prepareStatement("DELETE FROM orders");
+            pStatement.execute();
+        } catch (SQLException e) {
+            try {
+                connection.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+
+
     }
 }
