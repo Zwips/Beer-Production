@@ -32,6 +32,15 @@ public class Test {
         Test.startMachine();
 
         connection.subscribeToCurrentState(new SubscriptionTestState(new Test()));
+        connection.subscribeToCurrentState(new SubscribtionTestOEE(new Test(), "testFactory"));
+    }
+    public int getBatchID(){
+        try {
+            return (int)connection.readBatchIDCurrent();
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
@@ -106,7 +115,9 @@ public class Test {
 
     private void printToFile() throws IOException, ServiceException, StatusException {
         ISQLCommunicationFacade sql = new SQLCommunicationFacade();
-        sql.logDefectives("speedTest", connection.readNumberOfDefectiveProducts(), connection.readProductsInBatch(), machineSpeed, productType);
+        sql.logDefectives("speedTest", connection.readNumberOfDefectiveProducts(),
+                connection.readProductsInBatch(), connection.readMachineSpeedCurrent(),
+                specs.getProductType(connection.readCurrentProductID()));
     }
 }
 

@@ -1,4 +1,4 @@
-package communication.MailCommunication;
+package communication.mailcommunication;
 
 import communication.IMailCommunicationFacade;
 

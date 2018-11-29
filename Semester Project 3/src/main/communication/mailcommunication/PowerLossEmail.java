@@ -1,4 +1,4 @@
-package communication.MailCommunication;
+package communication.mailcommunication;
 /** Represents an power loss notification.
  * @author Michael P
  * @param SendPowerLossEmail method creates a smtp

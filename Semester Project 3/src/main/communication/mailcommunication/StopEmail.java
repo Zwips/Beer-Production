@@ -1,4 +1,4 @@
-package communication.MailCommunication;
+package communication.mailcommunication;
 /** Represents an manual Stop notification.
  * @author Michael P
  * @param SendStopEmail method creates a smtp

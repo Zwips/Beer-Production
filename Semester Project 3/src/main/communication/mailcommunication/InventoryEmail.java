@@ -1,4 +1,4 @@
-package communication.MailCommunication;
+package communication.mailcommunication;
 /** Represents an Inventory notification.
  * @author Michael P
  * @param SendInventoryEmail method creates a smtp
