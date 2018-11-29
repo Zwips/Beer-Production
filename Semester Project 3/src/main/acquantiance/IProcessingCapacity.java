@@ -1,4 +1,4 @@
-package Acquantiance;
+package acquantiance;
 
 public interface IProcessingCapacity {
 }

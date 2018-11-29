@@ -1,4 +1,4 @@
-package Acquantiance;
+package acquantiance;
 
 import org.opcfoundation.ua.builtintypes.DataValue;
 
