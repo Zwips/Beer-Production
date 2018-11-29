@@ -4,7 +4,7 @@ import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.SQLCommunicationFacade;
+import communication.sqlcommunication.SQLCommunicationFacade;
 import logic.mes.MachineSpecifications;
 
 import java.io.*;

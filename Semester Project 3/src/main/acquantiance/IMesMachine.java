@@ -14,7 +14,6 @@ public interface IMesMachine {
     String getMachineID();
     boolean isConnected();
 
-
     //</editor-fold>
 
 

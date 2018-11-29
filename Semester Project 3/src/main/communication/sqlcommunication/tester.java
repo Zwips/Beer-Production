@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
+package communication.SQLCommunication;
+=======
 package communication.sqlcommunication;
+>>>>>>> Stashed changes
 
 import static java.lang.Thread.sleep;
 

@@ -1,11 +1,19 @@
 package communication.sqlcommunication.selecters;
 
 import acquantiance.IOEE;
+<<<<<<< Updated upstream
+import communication.SQLCommunication.dataClasses.CommunicationOEE;
+import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.SQLCommunication.tools.PrepareInfo;
+import communication.SQLCommunication.tools.PrepareType;
+import communication.SQLCommunication.tools.Select;
+=======
 import communication.sqlcommunication.dataclasses.CommunicationOEE;
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Select;
+>>>>>>> Stashed changes
 
 import java.sql.Connection;
 import java.sql.ResultSet;

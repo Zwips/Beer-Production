@@ -7,7 +7,11 @@ package communication.sqlcommunication.updaters;
  * from false to true=completed.
  */
 import acquantiance.ProductTypeEnum;
+<<<<<<< Updated upstream
+import communication.SQLCommunication.tools.*;
+=======
 import communication.sqlcommunication.tools.*;
+>>>>>>> Stashed changes
 
 import java.sql.Connection;
 import java.sql.Timestamp;
