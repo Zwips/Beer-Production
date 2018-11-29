@@ -17,15 +17,13 @@ package gui;
  * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
  */
 
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -38,7 +36,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import logic.erp.ProductionOrder;
 
 import static javafx.application.Application.launch;
 

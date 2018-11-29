@@ -1,7 +1,6 @@
 package logic.mes;
 
-import Acquantiance.IDataChangeCatcher;
-import communication.SQLCommunication.selecters.BatchLogByBatchIDRetriever;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 import static java.lang.Thread.sleep;

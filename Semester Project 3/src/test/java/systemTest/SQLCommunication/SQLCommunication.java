@@ -1,11 +1,11 @@
 package systemTest.SQLCommunication;
 
-import Acquantiance.IBatch;
-import Acquantiance.IBatchLog;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IBatch;
+import acquantiance.IBatchLog;
+import acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
-import communication.SQLCommunication.SQLCommunicationFacade;
-import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.sqlcommunication.SQLCommunicationFacade;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

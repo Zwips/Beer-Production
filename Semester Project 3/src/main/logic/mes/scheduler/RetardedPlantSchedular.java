@@ -1,7 +1,7 @@
 package logic.mes.scheduler;
 
-import Acquantiance.IProductionOrder;
-import Acquantiance.IMesMachine;
+import acquantiance.IProductionOrder;
+import acquantiance.IMesMachine;
 
 import java.util.*;
 

@@ -1,13 +1,3 @@
-import communication.SQLCommunication.inserters.MachineInserter;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import logic.erp.ERPOutFacade;
-import systemTest.ERPLevelInitializer;
-
-import java.io.File;
-import java.io.IOException;
-
 import static java.lang.Thread.sleep;
 import static org.junit.Assert.assertEquals;
 

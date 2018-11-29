@@ -1,9 +1,8 @@
 package logic.mes;
 
-import Acquantiance.IDataChangeCatcher;
-import Acquantiance.IProductionOrder;
+import acquantiance.IDataChangeCatcher;
+import acquantiance.IProductionOrder;
 import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.StatusException;
 
 public interface IMesMachine {
 

@@ -4,7 +4,7 @@ package logic.mes;
  * @author Asmus
  */
 
-import Acquantiance.ProductTypeEnum;
+import acquantiance.ProductTypeEnum;
 
 import java.util.HashMap;
 

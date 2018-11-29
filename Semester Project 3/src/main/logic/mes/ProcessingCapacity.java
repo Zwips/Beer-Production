@@ -1,7 +1,7 @@
 package logic.mes;
 
-import Acquantiance.IProcessingCapacity;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProcessingCapacity;
+import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.Map;

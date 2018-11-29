@@ -1,7 +1,6 @@
 package virtualSimulation;
 
-import communication.machineConnection.MachineConnection;
-import cucumber.api.PendingException;
+import communication.machineconnection.MachineConnection;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

@@ -1,14 +1,13 @@
 package physicalSimulation;
 
 import com.prosysopc.ua.client.UaClient;
-import communication.machineConnection.Connection;
-import communication.machineConnection.MachineConnection;
-import communication.machineConnection.command.Amount;
-import communication.machineConnection.command.BatchID;
-import communication.machineConnection.command.MachineSpeed;
-import communication.machineConnection.command.ProductID;
-import communication.machineConnection.status.CurrentState;
-import cucumber.api.PendingException;
+import communication.machineconnection.Connection;
+import communication.machineconnection.MachineConnection;
+import communication.machineconnection.command.Amount;
+import communication.machineconnection.command.BatchID;
+import communication.machineconnection.command.MachineSpeed;
+import communication.machineconnection.command.ProductID;
+import communication.machineconnection.status.CurrentState;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

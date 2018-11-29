@@ -6,7 +6,7 @@ package logic.mes;
  *
  */
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class MachineCurrentMachineStateReporter implements IDataChangeCatcher {

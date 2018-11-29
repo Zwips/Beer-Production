@@ -7,8 +7,8 @@ package logic.mes;
  * @param removeMachine Method for removing a machine from the list of machines.
  */
 
-import Acquantiance.*;
-import Acquantiance.IMesMachine;
+import acquantiance.*;
+import acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.scheduler.PlantSchedulerFacade;
 

@@ -1,6 +1,6 @@
 package physicalSimulation;
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class StopReasonSubscriberPhysical implements IDataChangeCatcher {

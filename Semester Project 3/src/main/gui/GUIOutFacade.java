@@ -1,8 +1,8 @@
 package gui;
 
-import Acquantiance.IERPFacade;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IERPFacade;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.List;

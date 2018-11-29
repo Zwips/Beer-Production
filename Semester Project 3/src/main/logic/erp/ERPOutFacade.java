@@ -1,9 +1,9 @@
 package logic.erp;
 
-import Acquantiance.IMESFacade;
-import Acquantiance.IMachineConnectionInformation;
-import Acquantiance.IProcessingCapacity;
-import Acquantiance.IProductionOrder;
+import acquantiance.IMESFacade;
+import acquantiance.IMachineConnectionInformation;
+import acquantiance.IProcessingCapacity;
+import acquantiance.IProductionOrder;
 
 import java.util.HashMap;
 import java.util.List;

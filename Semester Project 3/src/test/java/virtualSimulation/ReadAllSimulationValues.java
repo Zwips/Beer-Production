@@ -1,12 +1,12 @@
 package virtualSimulation;
 
 import com.prosysopc.ua.client.UaClient;
-import communication.machineConnection.Connection;
-import communication.machineConnection.MachineConnection;
-import communication.machineConnection.command.BatchID;
-import communication.machineConnection.command.Control;
-import communication.machineConnection.command.MachineSpeed;
-import communication.machineConnection.command.ProductID;
+import communication.machineconnection.Connection;
+import communication.machineconnection.MachineConnection;
+import communication.machineconnection.command.BatchID;
+import communication.machineconnection.command.Control;
+import communication.machineconnection.command.MachineSpeed;
+import communication.machineconnection.command.ProductID;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

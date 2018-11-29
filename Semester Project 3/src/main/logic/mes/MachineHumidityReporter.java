@@ -5,7 +5,7 @@ package logic.mes;
  * @param report Method for logging humidity.
  */
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import org.opcfoundation.ua.builtintypes.DataValue;
 

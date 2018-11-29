@@ -1,7 +1,7 @@
 package logic.erp.scheduler;
 
-import Acquantiance.IProcessingCapacity;
-import Acquantiance.IProductionOrder;
+import acquantiance.IProcessingCapacity;
+import acquantiance.IProductionOrder;
 
 import java.util.List;
 import java.util.Map;

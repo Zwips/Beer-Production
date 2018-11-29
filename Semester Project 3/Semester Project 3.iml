@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/communication/SQLCommunication/postgresql-42.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/communication/sqlcommunication/postgresql-42.2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

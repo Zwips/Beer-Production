@@ -1,9 +1,9 @@
 package systemTest.MESTest;
 
-import Acquantiance.IOEE;
-import communication.SQLCommunication.selecters.OEEByMachineRetriever;
-import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.machineConnection.MachineConnection;
+import acquantiance.IOEE;
+import communication.sqlcommunication.selecters.OEEByMachineRetriever;
+import communication.sqlcommunication.tools.DatabaseConnector;
+import communication.machineconnection.MachineConnection;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

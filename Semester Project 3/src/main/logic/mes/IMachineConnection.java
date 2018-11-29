@@ -5,7 +5,7 @@
  */
 package logic.mes;
 
-import Acquantiance.IDataChangeCatcher;
+import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 

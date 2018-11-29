@@ -1,10 +1,9 @@
 package systemTest.ERPTest;
 
-import Acquantiance.IERPFacade;
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
-import communication.SQLCommunication.tools.DatabaseConnector;
-import cucumber.api.PendingException;
+import acquantiance.IERPFacade;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

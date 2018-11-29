@@ -1,7 +1,6 @@
 package logic.mes;
 
-import Acquantiance.IBatch;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IBatch;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -10,10 +9,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class BatchReport {
 
