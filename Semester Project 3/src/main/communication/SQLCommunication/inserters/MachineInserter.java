@@ -1,7 +1,5 @@
 package communication.SQLCommunication.inserters;
 
-import Acquantiance.IMachineSpecification;
-import Acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
 import communication.SQLCommunication.tools.PrepareInfo;

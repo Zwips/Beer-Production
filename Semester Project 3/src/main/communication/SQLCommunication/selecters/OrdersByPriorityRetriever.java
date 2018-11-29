@@ -4,8 +4,8 @@ package communication.SQLCommunication.selecters;
  * @param OrdersByPriorityRetriever method retrieves the orders from the database with priority 1-3
  * @param getOrdersByPriority creates the ArrayList orders with the priority from 1-3 returns it.                     .
  */
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.dataClasses.CommunicationProductionOrder;
 import communication.SQLCommunication.tools.PrepareInfo;

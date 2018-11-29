@@ -4,7 +4,7 @@ package communication.SQLCommunication.inserters;
  * @param BatchLogInserter constructor creates the batch containing batchid, Producttype, amount & defective.
  * @param insert method inserts the batch into the Batch table in the database.
  */
-import Acquantiance.ProductTypeEnum;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
 import communication.SQLCommunication.tools.PrepareInfo;

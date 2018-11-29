@@ -4,8 +4,8 @@ package communication.SQLCommunication.selecters;
  * @param PendingOrdersRetriever method retrieves the pending orders from the database where status=false
  * @param getPendingOrders creates the ArrayList orders containing pending orders and returns it.                     .
  */
-import Acquantiance.IProductionOrder;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IProductionOrder;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.dataClasses.CommunicationProductionOrder;
 import communication.SQLCommunication.tools.PrepareInfo;

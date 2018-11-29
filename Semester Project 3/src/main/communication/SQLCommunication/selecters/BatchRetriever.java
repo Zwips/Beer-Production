@@ -9,8 +9,8 @@ package communication.SQLCommunication.selecters;
  * @param getHumidityInfo retrieves the valuepercent & timestamp from communicationsbatch
  *
  */
-import Acquantiance.IBatch;
-import Acquantiance.ProductTypeEnum;
+import acquantiance.IBatch;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.dataClasses.CommunicationBatch;
 import communication.SQLCommunication.tools.PrepareInfo;

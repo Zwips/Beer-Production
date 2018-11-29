@@ -6,7 +6,7 @@ package communication.SQLCommunication.updaters;
  * @param updateStatus method changes the default value
  * from false to true=completed.
  */
-import Acquantiance.ProductTypeEnum;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.*;
 
 import java.sql.Connection;

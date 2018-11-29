@@ -1,6 +1,6 @@
 package communication.SQLCommunication;
 
-import Acquantiance.*;
+import acquantiance.*;
 import communication.ISQLCommunicationFacade;
 import communication.SQLCommunication.deleters.RemoveBatchLogByBatchID;
 import communication.SQLCommunication.deleters.RemoveMachine;

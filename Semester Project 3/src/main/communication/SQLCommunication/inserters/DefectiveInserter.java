@@ -4,7 +4,7 @@ package communication.SQLCommunication.inserters;
  * @param DefectiveInserter constructor creates the object containing machineid, numberofdefectives, productsinbatch, machinespeed & producttype.
  * @param insert method inserts the object into the the defectives table in the database.
  */
-import Acquantiance.ProductTypeEnum;
+import acquantiance.ProductTypeEnum;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.tools.Insert;
 import communication.SQLCommunication.tools.PrepareInfo;

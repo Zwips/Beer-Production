@@ -4,7 +4,7 @@ package communication.SQLCommunication.selecters;
  * @param BatchLogByBatchIDRetriever method retrieves the batchlogs from the database with the given BatchID
  * @param getBatchLog creates the ArrayList Batchlog and returns it.                     .
  */
-import Acquantiance.IBatchLog;
+import acquantiance.IBatchLog;
 import communication.SQLCommunication.tools.DatabaseConnector;
 import communication.SQLCommunication.dataClasses.CommunicationBatchLog;
 import communication.SQLCommunication.tools.PrepareInfo;
