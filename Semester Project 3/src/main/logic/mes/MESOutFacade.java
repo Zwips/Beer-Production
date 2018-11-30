@@ -126,4 +126,12 @@ public class MESOutFacade {
     public IMachineConnection connectToMachine(String IPAddress,String userID,String password){
         return communicationFacade.connectToMachine(IPAddress, userID, password);
     }
+
+    public void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type) {
+        communicationFacade.updateStorageCurrentAmount(currentAmount, factoryID, type);
+    }
+
+    public void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type) {
+        communicationFacade.updateStorageTargetAmount(targetAmount, factoryID, type);
+    }
 }

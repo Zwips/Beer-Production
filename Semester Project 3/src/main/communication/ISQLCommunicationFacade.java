@@ -52,4 +52,7 @@ public interface ISQLCommunicationFacade {
     void updateOrders(List<IProductionOrder> orders);
 
     void updateOrder(IProductionOrder order);
+
+    void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type);
+    void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type);
 }

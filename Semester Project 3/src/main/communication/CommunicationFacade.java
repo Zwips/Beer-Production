@@ -204,5 +204,15 @@ public class CommunicationFacade implements ICommunicationFacade {
         return new MachineConnection(IPAddress,userID,password);
     }
 
+    @Override
+    public void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type) {
+        sqlFacade.updateStorageCurrentAmount(currentAmount, factoryID, type);
+    }
+
+    @Override
+    public void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type) {
+        sqlFacade.updateStorageTargetAmount(targetAmount, factoryID, type);
+    }
+
 
 }

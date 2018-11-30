@@ -9,6 +9,8 @@ import communication.sqlcommunication.inserters.*;
 import communication.sqlcommunication.selecters.*;
 import communication.sqlcommunication.updaters.OrderStatusSetter;
 import communication.sqlcommunication.updaters.OrderUpdater;
+import communication.sqlcommunication.updaters.StorageCurrentAmountUpdater;
+import communication.sqlcommunication.updaters.StorageTargetAmountUpdater;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -224,5 +226,15 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
         int orderID = order.getOrderID();
         boolean status = order.getStatus();
         new OrderUpdater().update(amount, type, earliestDate,latestDate,priority,status,orderID);
+    }
+
+    @Override
+    public void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type) {
+        new StorageCurrentAmountUpdater().updateStatus(currentAmount,factoryID, type);
+    }
+
+    @Override
+    public void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type) {
+        new StorageTargetAmountUpdater().updateStatus(targetAmount, factoryID, type);
     }
 }
