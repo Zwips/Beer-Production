@@ -1,5 +1,8 @@
 package communication.sqlcommunication.tools;
-
+/** Represents an prepared statement builder
+ * @author Michael P
+ * @param setIntoStatement builds the prepared statements with correct data types for the database
+ */
 import java.io.*;
 /** Represents a prepaired statement setter
  * @author Michael P

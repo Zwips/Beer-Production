@@ -1,5 +1,8 @@
 package communication.sqlcommunication.deleters;
-
+/** Represents an machine remover
+ * @author Michael P
+ * @param delete deletes machines and returns true if successful
+ */
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.Delete;
 import communication.sqlcommunication.tools.PrepareInfo;

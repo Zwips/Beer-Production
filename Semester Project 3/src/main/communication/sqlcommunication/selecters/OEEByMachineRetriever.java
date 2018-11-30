@@ -1,5 +1,8 @@
 package communication.sqlcommunication.selecters;
-
+/** Represents an machine oee Retriever
+ * @author Michael P
+ * @param getOEE retrieves the OEE depend on machineid from the database
+ */
 import acquantiance.IOEE;
 import communication.sqlcommunication.dataclasses.CommunicationOEE;
 import communication.sqlcommunication.tools.DatabaseConnector;
