@@ -134,4 +134,8 @@ public class MESOutFacade {
     public void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type) {
         communicationFacade.updateStorageTargetAmount(targetAmount, factoryID, type);
     }
+
+    public IStorage getStorage(String factoryID) {
+        return communicationFacade.getStorage(factoryID);
+    }
 }

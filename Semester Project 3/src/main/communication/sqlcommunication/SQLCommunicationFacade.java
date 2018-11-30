@@ -237,4 +237,9 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     public void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type) {
         new StorageTargetAmountUpdater().updateStatus(targetAmount, factoryID, type);
     }
+
+    @Override
+    public IStorage getStorage(String factoryID) {
+        return new StorageRetriever().getStorage(factoryID);
+    }
 }

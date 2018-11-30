@@ -214,5 +214,10 @@ public class CommunicationFacade implements ICommunicationFacade {
         sqlFacade.updateStorageTargetAmount(targetAmount, factoryID, type);
     }
 
+    @Override
+    public IStorage getStorage(String factoryID) {
+        return sqlFacade.getStorage(factoryID);
+    }
+
 
 }
