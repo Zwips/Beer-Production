@@ -6,7 +6,7 @@
 package communication.machineconnection;
 
 import acquantiance.IDataChangeCatcher;
-import logic.mes.IMachineConnection;
+import acquantiance.IMachineConnection;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;

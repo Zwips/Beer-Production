@@ -15,11 +15,11 @@ package logic.mes;
  */
 
 import acquantiance.IDataChangeCatcher;
+import acquantiance.IMachineConnection;
 import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
-import communication.machineconnection.MachineConnection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
@@ -60,8 +60,8 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
     }
 
     private void createMachineConnection(){
-        machineConnection = new MachineConnection(IPAddress, userID, password);
-    };
+        machineConnection = MESOutFacade.getInstance().connectToMachine(IPAddress, userID, password);
+    }
 
     @Override
     public void reconnectMachine() {

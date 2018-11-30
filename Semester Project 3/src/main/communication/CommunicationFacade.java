@@ -1,6 +1,7 @@
 package communication;
 
 import acquantiance.*;
+import communication.machineconnection.MachineConnection;
 import communication.mailcommunication.MailCommunicationFacade;
 import communication.sqlcommunication.SQLCommunicationFacade;
 
@@ -196,6 +197,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public IOEE getOEEByBatchID(int batchID, String factoryID) {
         return sqlFacade.getOEEByBatchID(batchID,factoryID);
+    }
+
+    @Override
+    public IMachineConnection connectToMachine(String IPAddress, String userID, String password) {
+        return new MachineConnection(IPAddress,userID,password);
     }
 
 

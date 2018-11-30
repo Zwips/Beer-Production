@@ -52,4 +52,5 @@ public interface ICommunicationFacade {
     void logOEE(String factoryID, String machineID, int batchID, String state, Date timestamp, boolean isProducing);
     IOEE getOEEByMachine(String machineID, String factoryID);
     IOEE getOEEByBatchID(int batchID, String factoryID);
+    IMachineConnection connectToMachine(String IPAddress, String userID, String password);
 }

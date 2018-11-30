@@ -122,4 +122,8 @@ public class MESOutFacade {
     public void setOrderCompleted(int completedOrderID) {
         this.communicationFacade.setOrderCompleted(completedOrderID);
     }
+
+    public IMachineConnection connectToMachine(String IPAddress,String userID,String password){
+        return communicationFacade.connectToMachine(IPAddress, userID, password);
+    }
 }

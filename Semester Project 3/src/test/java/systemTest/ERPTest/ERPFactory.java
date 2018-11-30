@@ -42,7 +42,7 @@ public class ERPFactory {
 
     @When("^removing a factory with name the TestFactory$")
     public void removingAFactoryWithNameTheTestFactory() throws Throwable {
-        erp.removeProcessingPlant("TestFactory");;
+        erp.removeProcessingPlant("TestFactory");
     }
 
     @Then("^the factory is removed$")

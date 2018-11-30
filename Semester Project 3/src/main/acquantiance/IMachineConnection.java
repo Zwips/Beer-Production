@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logic.mes;
+package acquantiance;
 
 import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
