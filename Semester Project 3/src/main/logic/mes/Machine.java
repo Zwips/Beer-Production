@@ -19,7 +19,7 @@ import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
-import communication.machineConnection.MachineConnection;
+import communication.machineconnection.MachineConnection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;

@@ -3,7 +3,7 @@ package systemTest.MESTest;
 import acquantiance.IERPFacade;
 import acquantiance.IMachineConnectionInformation;
 import acquantiance.ProductTypeEnum;
-import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import logic.mes.MESOutFacade;
@@ -46,7 +46,7 @@ public class AutomaticOrderExecution {
         HashMap<String, List<IMachineConnectionInformation>> machines = MESOutFacade.getInstance().getMachines();
 
         boolean completed = false;
-        //MachineConnection machineConnection = new MachineConnection(IPAddress, userID, password);
+        //MachineConnection machineconnection = new MachineConnection(IPAddress, userID, password);
 
 //        for (int i = 0; i < ; i++) {
 //            if (MESOutFacade.getInstance().){

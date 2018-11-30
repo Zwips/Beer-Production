@@ -1,8 +1,8 @@
 package communication;
 
 import acquantiance.*;
-import communication.MailCommunication.MailCommunicationFacade;
-import communication.SQLCommunication.SQLCommunicationFacade;
+import communication.mailcommunication.MailCommunicationFacade;
+import communication.sqlcommunication.SQLCommunicationFacade;
 
 import java.util.*;
 

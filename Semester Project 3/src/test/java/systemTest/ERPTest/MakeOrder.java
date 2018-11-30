@@ -2,7 +2,7 @@ package systemTest.ERPTest;
 
 import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
-import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

@@ -1,11 +1,10 @@
 package virtualSimulation;
 
 import com.prosysopc.ua.client.UaClient;
-import communication.machineConnection.Connection;
-import communication.machineConnection.MachineConnection;
-import communication.machineConnection.command.*;
-import communication.machineConnection.status.CurrentState;
-import cucumber.api.PendingException;
+import communication.machineconnection.Connection;
+import communication.machineconnection.MachineConnection;
+import communication.machineconnection.command.*;
+import communication.machineconnection.status.CurrentState;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
