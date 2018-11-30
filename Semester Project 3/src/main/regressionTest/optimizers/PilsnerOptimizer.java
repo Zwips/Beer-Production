@@ -1,9 +1,7 @@
 package regressionTest.optimizers;
 
-import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.SimpleCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
-import regressionTest.ExponentialFunction;
 import regressionTest.errorfunctions.PilsnerErrorFunction;
 
 public class PilsnerOptimizer {

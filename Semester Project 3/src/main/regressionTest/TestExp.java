@@ -136,9 +136,9 @@ public class TestExp {
 
         PilsnerOptimizer pilsnerOptimizer = new PilsnerOptimizer();
         WeightedObservedPoints weightedData = new WeightedObservedPoints();
-        double[] guess1 = {0, 0, 0};
+        double[] guess1 = {0, 2.05, 0.04};
 
-        List<Defectives> data = test.getDefectiveData("Pilsner");
+        List<Defectives> data = test.getDefectiveData("Ale");
 
         double sumY = 0;
         for (Defectives defectives : data) {
