@@ -1,18 +1,9 @@
-<<<<<<< Updated upstream
-package communication.SQLCommunication.inserters;
-
-import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.SQLCommunication.tools.Insert;
-import communication.SQLCommunication.tools.PrepareInfo;
-import communication.SQLCommunication.tools.PrepareType;
-=======
 package communication.sqlcommunication.inserters;
 
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.Insert;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
->>>>>>> Stashed changes
 
 import java.sql.Connection;
 import java.util.ArrayList;

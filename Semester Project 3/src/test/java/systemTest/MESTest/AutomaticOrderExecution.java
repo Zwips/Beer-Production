@@ -3,7 +3,7 @@ package systemTest.MESTest;
 import acquantiance.IERPFacade;
 import acquantiance.IMachineConnectionInformation;
 import acquantiance.ProductTypeEnum;
-import communication.SQLCommunication.tools.DatabaseConnector;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import logic.mes.MESOutFacade;

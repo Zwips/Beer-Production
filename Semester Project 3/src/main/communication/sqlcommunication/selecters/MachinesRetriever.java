@@ -1,13 +1,8 @@
 package communication.sqlcommunication.selecters;
 
 import acquantiance.IMachineConnectionInformation;
-<<<<<<< Updated upstream
-import communication.SQLCommunication.dataClasses.CommunicationMachineConnectionInformation;
-import communication.SQLCommunication.tools.*;
-=======
 import communication.sqlcommunication.dataclasses.CommunicationMachineConnectionInformation;
 import communication.sqlcommunication.tools.*;
->>>>>>> Stashed changes
 
 import java.sql.Connection;
 import java.sql.ResultSet;

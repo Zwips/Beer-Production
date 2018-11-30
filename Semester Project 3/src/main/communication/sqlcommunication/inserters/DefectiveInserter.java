@@ -5,17 +5,10 @@ package communication.sqlcommunication.inserters;
  * @param insert method inserts the object into the the defectives table in the database.
  */
 import acquantiance.ProductTypeEnum;
-<<<<<<< Updated upstream
-import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.SQLCommunication.tools.Insert;
-import communication.SQLCommunication.tools.PrepareInfo;
-import communication.SQLCommunication.tools.PrepareType;
-=======
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.Insert;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
->>>>>>> Stashed changes
 
 import java.sql.Connection;
 import java.util.ArrayList;

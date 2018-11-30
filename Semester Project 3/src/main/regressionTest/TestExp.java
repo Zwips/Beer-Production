@@ -1,8 +1,6 @@
 package regressionTest;
 
-import communication.CommunicationFacade;
-import communication.SQLCommunication.tools.DatabaseConnector;
-import communication.SQLCommunication.tools.SetPreparedStatement;
+import communication.sqlcommunication.tools.DatabaseConnector;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.SimpleCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
