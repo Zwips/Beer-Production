@@ -1,5 +1,8 @@
 package communication.sqlcommunication.selecters;
-
+/** Represents an plant id Retriever
+ * @author Michael P
+ * @param getPlantIDs retrieves a hashset with plant ids from the database
+ */
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.Select;

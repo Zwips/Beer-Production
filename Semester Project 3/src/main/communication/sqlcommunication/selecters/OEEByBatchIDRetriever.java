@@ -1,5 +1,8 @@
 package communication.sqlcommunication.selecters;
-
+/** Represents an Batch OEE Retriever
+ * @author Michael P
+ * @param getOEE retrieves the OEE depend on the batch from the database
+ */
 import acquantiance.IOEE;
 import communication.sqlcommunication.dataclasses.CommunicationOEE;
 import communication.sqlcommunication.tools.DatabaseConnector;

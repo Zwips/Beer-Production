@@ -1,5 +1,8 @@
 package communication.sqlcommunication.inserters;
-
+/** Represents an logOEE remover
+ * @author Michael P
+ * @param insert inserts OEE log into the database
+ */
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.Insert;
 import communication.sqlcommunication.tools.PrepareInfo;

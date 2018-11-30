@@ -1,5 +1,8 @@
 package communication.sqlcommunication.inserters;
-
+/** Represents an machine inserter
+ * @author Michael P
+ * @param insert inserts a new machine into the database
+ */
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.Insert;
 import communication.sqlcommunication.tools.PrepareInfo;

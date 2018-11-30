@@ -1,5 +1,8 @@
 package communication.sqlcommunication.selecters;
-
+/** Represents an machine Retriever
+ * @author Michael P
+ * @param getmachines retrieves the machines from the database
+ */
 import acquantiance.IMachineConnectionInformation;
 import communication.sqlcommunication.dataclasses.CommunicationMachineConnectionInformation;
 import communication.sqlcommunication.tools.*;
