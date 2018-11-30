@@ -8,7 +8,7 @@ import acquantiance.ProductTypeEnum;
 
 import java.util.HashMap;
 
-public class MachineSpecifications {
+public class MachineSpecifications implements IMachineSpecificationReadable{
 
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
@@ -37,7 +37,7 @@ public class MachineSpecifications {
     String[] getAllowedCommands(int state){
         return allowedCommands.get(state);
     }
-
+    @Override
     public float getOptimalSpeed(ProductTypeEnum productType){
         switch (productType) {
             case PILSNER:
