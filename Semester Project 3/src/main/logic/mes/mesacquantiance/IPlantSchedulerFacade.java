@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.mesacquantiance;
 
 import acquantiance.IProductionOrder;
 import logic.mes.scheduler.PlantSchedulerTypesEnum;

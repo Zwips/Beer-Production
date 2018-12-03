@@ -2,7 +2,7 @@ package logic.mes.scheduler;
 
 import acquantiance.IProductionOrder;
 import acquantiance.IMesMachine;
-import logic.mes.IPlantSchedulerFacade;
+import logic.mes.mesacquantiance.IPlantSchedulerFacade;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,65 +1,65 @@
 package logic.mes.pid;
 
-import acquantiance.IStorage;
 import acquantiance.ProductTypeEnum;
-import logic.mes.IMachineSpecificationReadable;
-import logic.mes.IOrder;
-import logic.mes.IStorageReadable;
+import logic.mes.mesacquantiance.IMachineSpecificationReadable;
+import logic.mes.mesacquantiance.IOrder;
+import logic.mes.mesacquantiance.IStorageReadable;
 
-public class SimplePID {
+public class SimplePID implements PIDType {
 
-    private IStorageReadable storage;
-    private IMachineSpecificationReadable machineSpecification;
-
-    public SimplePID(IStorageReadable storage, IMachineSpecificationReadable machineSpecification) {
-        this.storage = storage;
-        this.machineSpecification = machineSpecification;
-
+    public SimplePID() {
     }
-    public IOrder getIPIDOrder(){
+
+    @Override
+    public IOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification){
         PIDOrder pidOrder = new PIDOrder();
-        ProductTypeEnum productType = findProductType();
+        ProductTypeEnum productType = findProductType(storage);
+
         if(productType==null){
             return null;
         }
-        float productionSpeed = chooseMachineSpeed(productType);
+
+        float productionSpeed = chooseMachineSpeed(productType, machineSpecification);
+
         pidOrder.setProductTypeEnum(productType);
         pidOrder.setProductionSpeed(productionSpeed);
-        pidOrder.setAmount(calculateAmount(productionSpeed,productType));
+        pidOrder.setAmount(calculateAmount(productionSpeed, productType, storage));
+
         return pidOrder;
-
-
-
     }
-    private int calculateAmount(float productionSpeed, ProductTypeEnum productType) {
+
+    private int calculateAmount(float productionSpeed, ProductTypeEnum productType, IStorageReadable storage) {
 
         if ((int) productionSpeed < storage.getTargetAmount(productType) - storage.getCurrentAmount(productType)) {
+            return (int) productionSpeed;
+        }
 
-
-        return (int) productionSpeed;
+        return storage.getTargetAmount(productType)-storage.getCurrentAmount(productType);
     }
-    return storage.getTargetAmount(productType)-storage.getCurrentAmount(productType);
-    }
 
-    private float chooseMachineSpeed(ProductTypeEnum productType){
+    private float chooseMachineSpeed(ProductTypeEnum productType, IMachineSpecificationReadable machineSpecification){
         return machineSpecification.getOptimalSpeed(productType);
-
     }
 
-    private ProductTypeEnum findProductType(){
-        int max = 0;
+    private ProductTypeEnum findProductType(IStorageReadable storage){
+        double max = 0;
         ProductTypeEnum productType = null;
+
         for (ProductTypeEnum typeEnum : ProductTypeEnum.values()) {
             double storagePercent = storage.getCurrentAmount(typeEnum)/storage.getTargetAmount(typeEnum);
-         if( getRelativeSpeed(typeEnum)*(1-storagePercent)>max){
-             productType = typeEnum;
 
-         }
-
+            double typeWeight = getRelativeSpeed(typeEnum)*(1-storagePercent);
+            if( typeWeight>max){
+                productType = typeEnum;
+                max = typeWeight;
+            }
         }
+
         return productType;
     }
+
     private double getRelativeSpeed(ProductTypeEnum productType){
+        //TODO move to table object in ProcessingPlant
         return 1.0;
     }
 

@@ -10,9 +10,11 @@ package logic.mes;
 import acquantiance.*;
 import acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
+import logic.mes.mesacquantiance.IPlantSchedulerFacade;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.time.LocalDate;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -247,7 +249,6 @@ public class ProcessingPlant {
             //batch_log
             int completedOrderID = machine.getCurrentOrderID();
             MESOutFacade.getInstance().insertIntoBatch_Log((int)batchID, machineID, completedOrderID, this.plantID);
-
             //defectives
             float machineSpeed = machine.readMachineSpeedCurrent();
             //TODO reactivate this when ready to connect to physical machine
@@ -256,8 +257,9 @@ public class ProcessingPlant {
 
             //update status order
             MESOutFacade.getInstance().setOrderCompleted(completedOrderID);
+            new BatchReport((int)batchID, this.plantID);
 
-        } catch (ServiceException e) {
+        } catch (ServiceException | IOException e) {
             e.printStackTrace();
         }
 

@@ -4,18 +4,19 @@ Feature: PID gives PidOrder when system is idle and the processingplants storage
 
 
   Scenario: PID is queried for next PIDOrder
-    Given All types but "<input>" is full capacity
-    When the PID is queried for next PIDOrder
-    Then the product type for the PIDOrder is "<output>"
+    Given All types but Pilsner is full capacity
+    Then the product type for the PIDOrder is Pilsner
 
 
-    #TODO
+  Scenario: The storage is full
+    Given full storage
+    Then the PIDorder is null
 
-    Examples
-    | input           | output |
-    | "Pilsner"       | "Pilsner" |
-    | "Ale"           | "Ale" |
-    | "Wheat"         | "Wheat" |
-    | "Stout"         | "Stout" |
-    | "Ipa"           | "Ipa" |
-    | "Alcohol Free"  | "Alcohol Free" |
+#Examples:
+#    | input | output |
+#    | "Pilsner" | "Pilsner" |
+#    | "Ale" | "Ale" |
+#    | "Wheat" | "Wheat" |
+#    | "Stout" | "Stout" |
+#    | "Ipa" | "Ipa" |
+#    | "Alcohol Free" | "Alcohol Free" |
