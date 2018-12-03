@@ -39,6 +39,7 @@ public class PID {
     @Then("^the product type for the PIDOrder is \"([^\"]*)\"$")
     public void theProductTypeForThePIDOrderIs(String arg0) throws Throwable {
         ProductTypeEnum type = ProductTypeEnum.get(arg0);
-        //TODO assertEquals(type, pidOrder.getType); eller noget andet i den stil
+        //TODO IOrder order = PID.getOrder(); eller hvilket kald der skal til
+        //TODO assertEquals(type, order.getProductTypeEnum); eller noget andet i den stil
     }
 }
