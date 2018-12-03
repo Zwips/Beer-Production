@@ -127,6 +127,11 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
     }
 
     @Override
+    public IMachineSpecificationReadable getMachineSpecificationReadable() {
+        return specs;
+    }
+
+    @Override
     public boolean isConnected() {
         return machineConnection.isConnected();
     }

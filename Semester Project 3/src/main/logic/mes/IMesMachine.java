@@ -12,6 +12,7 @@ public interface IMesMachine {
     boolean executeOrder(IProductionOrder order, float batchId);
     boolean abandonOrder();
     String getMachineID();
+    IMachineSpecificationReadable getMachineSpecificationReadable();
 
 
     //</editor-fold>
