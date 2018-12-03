@@ -7,13 +7,7 @@ import logic.mes.IStorageReadable;
 
 public class PIDFacade implements IPIDFacade {
 
-    private static SimplePID simplePID;
-
     private static PIDFacade pidFacade;
-
-    private PIDFacade(){
-
-    }
 
     public static PIDFacade getInstance(){
         if(pidFacade == null)
@@ -24,6 +18,12 @@ public class PIDFacade implements IPIDFacade {
         return pidFacade;
     }
 
+    private PIDType pid;
+
+    private PIDFacade(){
+        this.pid = new SimplePID();
+    }
+
     /**
      * Method for querying the PID for the next order
      * @param storage IStorageReadable for the processing plant
@@ -32,7 +32,18 @@ public class PIDFacade implements IPIDFacade {
      */
     @Override
     public IOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification) {
-        return new SimplePID(storage,machinespecification).getIPIDOrder();
+        return this.pid.getIPIDOrder(storage,machinespecification);
     }
+
+    @Override
+    public void setPIDType(IPIDType type){
+
+        switch (type){
+            case SIMPLE:
+                this.pid = new SimplePID();
+        }
+    }
+
+
 }
 
