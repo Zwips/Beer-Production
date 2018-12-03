@@ -9,6 +9,10 @@ Feature: PID gives PidOrder when system is idle and the processingplants storage
     Then the product type for the PIDOrder is Pilsner
 
 
+  Scenario: The storage is full
+    Given full storage
+    Then the PIDorder is null
+
 #Examples:
 #    | input | output |
 #    | "Pilsner" | "Pilsner" |

@@ -8,11 +8,13 @@ import cucumber.api.java.en.When;
 import logic.mes.MESOutFacade;
 import logic.mes.pid.PIDFacade;
 import org.junit.Assert;
+import org.junit.Test;
 import systemTest.DummyClasses.DummyMachineSpecification;
 import systemTest.DummyClasses.DummyStorage;
 import systemTest.ERPLevelInitializer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class PID {
     private DummyStorage dummyStorage;
@@ -47,5 +49,18 @@ public class PID {
         ProductTypeEnum type = ProductTypeEnum.get("Pilsner");
         //TODO IOrder order = PID.getOrder(); eller hvilket kald der skal til
         assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductTypeEnum());
+    }
+
+    @Given("^full storage$")
+    public void fullStorage() throws Throwable {
+        for (ProductTypeEnum value : ProductTypeEnum.values()) {
+            dummyStorage.setTargetAmount(10, value);
+            dummyStorage.setCurrentAmount(10, value);
+        }
+    }
+
+    @Then("^the PIDorder is null$")
+    public void thePIDorderIsNull() throws Throwable {
+        assertNull(PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification));
     }
 }
