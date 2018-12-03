@@ -47,14 +47,14 @@ public class SimplePID {
     }
 
     private ProductTypeEnum findProductType(){
-        int max = 0;
+        double max = 0;
         ProductTypeEnum productType = null;
         for (ProductTypeEnum typeEnum : ProductTypeEnum.values()) {
             double storagePercent = storage.getCurrentAmount(typeEnum)/storage.getTargetAmount(typeEnum);
-         if( getRelativeSpeed(typeEnum)*(1-storagePercent)>max){
-             productType = typeEnum;
-
-         }
+            if( getRelativeSpeed(typeEnum)*(1-storagePercent)>max){
+                productType = typeEnum;
+                max = getRelativeSpeed(typeEnum)*(1-storagePercent);
+            }
 
         }
         return productType;
