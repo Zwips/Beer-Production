@@ -37,13 +37,6 @@ public class PID {
 
     }
 
-    @When("^the PID is queried for next PIDOrder$")
-    public void thePIDIsQueriedForNextPIDOrder() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification);
-        //TODO her skal i selv skrive ind hvilke kald PID tager imod for at få det rigtige resultat i næste Then skridtet
-    }
-
     @Then("^the product type for the PIDOrder is ([^\"]*)$")
     public void theProductTypeForThePIDOrderIs(String arg0) throws Throwable {
         ProductTypeEnum type = ProductTypeEnum.get("Pilsner");

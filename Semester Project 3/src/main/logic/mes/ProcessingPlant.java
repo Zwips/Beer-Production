@@ -10,6 +10,7 @@ package logic.mes;
 import acquantiance.*;
 import acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
+import logic.mes.mesacquantiance.IPlantSchedulerFacade;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.util.*;

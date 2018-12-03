@@ -20,6 +20,8 @@ import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
+import logic.mes.mesacquantiance.IMachineSpecificationReadable;
+import logic.mes.mesacquantiance.IMesMachine;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
@@ -124,6 +126,11 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
     @Override
     public String getMachineID() {
         return name;
+    }
+
+    @Override
+    public IMachineSpecificationReadable getMachineSpecificationReadable() {
+        return specs;
     }
 
     @Override

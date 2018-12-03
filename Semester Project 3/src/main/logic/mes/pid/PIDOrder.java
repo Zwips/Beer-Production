@@ -1,7 +1,7 @@
 package logic.mes.pid;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.IOrder;
+import logic.mes.mesacquantiance.IOrder;
 
 public class PIDOrder implements IOrder {
     private ProductTypeEnum productTypeEnum;

@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.mesacquantiance;
 
 import acquantiance.IDataChangeCatcher;
 import acquantiance.IProductionOrder;
@@ -12,6 +12,7 @@ public interface IMesMachine {
     boolean executeOrder(IProductionOrder order, float batchId);
     boolean abandonOrder();
     String getMachineID();
+    IMachineSpecificationReadable getMachineSpecificationReadable();
 
 
     //</editor-fold>
