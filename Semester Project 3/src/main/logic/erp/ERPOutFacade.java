@@ -1,9 +1,8 @@
 package logic.erp;
 
-import acquantiance.IMESFacade;
-import acquantiance.IMachineConnectionInformation;
-import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.*;
+import communication.ISQLCommunicationFacade;
+import logic.mes.MESFacade;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,7 @@ public class ERPOutFacade {
 
     private static ERPOutFacade instance = null;
     private IMESFacade mesFacade;
+    private ISQLCommunicationFacade sQLCommunationFacade;
 
     private ERPOutFacade(){
     }
@@ -24,6 +24,10 @@ public class ERPOutFacade {
         }
 
         return ERPOutFacade.instance;
+    }
+    public void injectSQLFacade(ISQLCommunicationFacade iSQLCommunationFacade){
+      this.sQLCommunationFacade = iSQLCommunationFacade;
+
     }
 
     public Set<String> getPlantIDs() {
@@ -95,8 +99,19 @@ public class ERPOutFacade {
 
         return this.mesFacade.changeOrders(destinations);
     }
+    public IOEE getOEEByMachine(String machineID, String factoryID) {
+        return this.sQLCommunationFacade.getOEEByMachine(machineID, factoryID);
+    }
+
 
     public List<IProductionOrder> getAllProductionOrders(){
         return this.mesFacade.getAllProductionOrdersInPlants();
+    }
+
+    public Set<String> getMachineIDsByFactoryID(String factoryID) {
+        return mesFacade.getMachineIDsByFactoryID(factoryID);
+    }
+    public IOEEToGUI getOEE(String machineID,String factoryID) {
+        return mesFacade.getOEE(machineID,factoryID);
     }
 }

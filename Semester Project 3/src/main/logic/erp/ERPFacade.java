@@ -1,11 +1,10 @@
 package logic.erp;
 
-import acquantiance.IERPFacade;
-import acquantiance.IProductionOrder;
-import acquantiance.ProductTypeEnum;
+import acquantiance.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class ERPFacade implements IERPFacade {
 
@@ -66,8 +65,24 @@ public class ERPFacade implements IERPFacade {
     }
 
     @Override
+    public IOEE getOEEByMachine(String machineID, String factoryID) {
+        return ERPOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
+    }
+
+    @Override
     public int getNextOrderID() {
         return this.erp.getNextOrderID();
+    }
+
+    public Set<String> getProcessingPlants(){
+        return  erp.getProcessingPlants();
+    }
+    @Override
+    public Set<String> getMachineIDsByFactoryID(String factoryID) {
+        return ERPOutFacade.getInstance().getMachineIDsByFactoryID(factoryID);
+    }
+    public IOEEToGUI getOEE(String machineID, String factoryID) {
+        return ERPOutFacade.getInstance().getOEE(machineID,factoryID);
     }
 
 

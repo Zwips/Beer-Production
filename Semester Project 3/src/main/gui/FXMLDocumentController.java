@@ -17,6 +17,8 @@ package gui;
  * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
  */
 
+import acquantiance.IOEE;
+import acquantiance.IOEEToGUI;
 import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
 
@@ -34,6 +36,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
@@ -145,6 +148,24 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button changeOrder;
     private IProductionOrder currentlySelectedOrder;
+    @FXML
+    private ListView<String> factoryListView;
+
+    @FXML
+    private ListView<String> machineListView;
+
+    @FXML
+    private TextField machineStateTextField;
+
+    private String factoryID;
+    @FXML
+    private PieChart pieChartOEE;
+    @FXML
+    private Label oEEpercentLabel;
+
+
+
+
 
 
     @FXML
@@ -162,6 +183,14 @@ public class FXMLDocumentController implements Initializable {
         productToggleMap.put(alchoholFreeRadioBtn, ProductTypeEnum.ALCOHOLFREE);
         productToggleMap.put(stoutRadioBtn, ProductTypeEnum.STOUT);
 
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Grapefruit", 13),
+                        new PieChart.Data("Oranges", 25),
+                        new PieChart.Data("Plums", 10),
+                        new PieChart.Data("Pears", 22),
+                        new PieChart.Data("Apples", 30));
+         pieChartOEE = new PieChart(pieChartData);
 
 
         ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
@@ -176,6 +205,32 @@ public class FXMLDocumentController implements Initializable {
                     loadOrderInformationActionHandler(newValue);
                 }
             }
+        });
+
+
+        ObservableList<String> data1 = FXCollections.observableArrayList();
+        factoryListView.setItems(data1);
+
+        factoryListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                factoryID = newValue;
+                if(newValue!=null) {
+                    loadMachine(newValue);
+                }
+            }
+        });
+
+        ObservableList<String> data2 = FXCollections.observableArrayList();
+        machineListView.setItems(data2);
+
+        machineListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            loadOEE(newValue);
+                }
+
         });
 
     }
@@ -314,8 +369,40 @@ public class FXMLDocumentController implements Initializable {
         productionOrderListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProductionOrderQueue()));
     }
 
+    @FXML
+    void loadFactioresBtnHandler(ActionEvent event) {
+
+        factoryListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProcessingPlants()));
+
+    }
+    void loadMachine(String factoryID){
+    machineListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getMachineIDsByFactoryID(factoryID)));
+
+    }
+    void loadOEE(String machineID) {
+        IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
+        oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
+        pieChartOEE = new PieChart();
+
+       // ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Map.Entry<String, Long> entry : oee.getStatistics().entrySet()) {
+           pieChartOEE.getData().add(new PieChart.Data(entry.getKey(),entry.getValue()));
+
+        }
+
+        pieChartOEE.setTitle("OEE for " + machineID);
+
+        pieChartOEE.setVisible(true);
+
+
+    }
 
 }
+
+
+
+
+
 
 
 

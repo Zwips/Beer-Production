@@ -42,7 +42,7 @@ public class OEEByMachineRetriever {
         String machine = "";
         long oeePercent = 0;
         Map<Date, Boolean> downTimeMap = new HashMap<>();
-        Map<Date,String> stateChangeMap = new HashMap<>();
+        Map<Date,String> stateChangeMap = new TreeMap<>();
         long startTime = 0;
         boolean isProducing = false;
         try {

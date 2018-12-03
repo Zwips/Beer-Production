@@ -36,4 +36,7 @@ public interface IMESFacade {
     Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations);
 
     List<IProductionOrder> getAllProductionOrdersInPlants();
+
+    Set<String> getMachineIDsByFactoryID(String factoryID);
+    IOEEToGUI getOEE(String machineID,String factoryID);
 }

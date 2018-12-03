@@ -216,4 +216,8 @@ public class ERP {
 
         return ERPOutFacade.getInstance().getOrder(plantID, orderID);
     }
+
+    public Set<String>getProcessingPlants(){
+      return  processingPlants;
+    }
 }

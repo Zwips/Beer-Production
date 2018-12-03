@@ -12,6 +12,7 @@ import acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -260,5 +261,37 @@ public class ProcessingPlant {
             e.printStackTrace();
         }
 
+    }
+
+    public Set<String> getMachineIDs(){
+        return machines.keySet();
+    }
+    public IOEEToGUI getOEE(String machineID) {
+        OEE oee = new OEE();
+        IOEE ioee = MESOutFacade.getInstance().getOEE(machineID, plantID);
+        HashMap<String, Long> statisitcsMap = new HashMap<>();
+
+
+        long lastCheckedTime = Long.MAX_VALUE;
+        for (Date date : ioee.getStateChangeMap().keySet()) {
+            if(date.getTime() < lastCheckedTime){
+                lastCheckedTime = date.getTime();
+            }
+        }
+
+        for (Map.Entry<Date, String> entry : ioee.getStateChangeMap().entrySet()) {
+            if(!statisitcsMap.containsKey(entry.getValue())){
+                statisitcsMap.put(entry.getValue(), entry.getKey().getTime() - lastCheckedTime);
+                lastCheckedTime = entry.getKey().getTime();
+            }
+            else{
+                Long newValue = statisitcsMap.get(entry.getValue()) + entry.getKey().getTime() - lastCheckedTime;
+                statisitcsMap.replace(entry.getValue(),newValue);
+            }
+        }
+        oee.setStatisticsMap(statisitcsMap);
+        oee.setoEEValue(ioee.getOEE());
+
+        return oee;
     }
 }

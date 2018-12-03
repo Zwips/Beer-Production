@@ -138,4 +138,10 @@ public class MESOutFacade {
     public IStorage getStorage(String factoryID) {
         return communicationFacade.getStorage(factoryID);
     }
+
+    public IOEE getOEE(String machineID,String factoryID){
+        return communicationFacade.getOEEByMachine(machineID,factoryID);
+    }
+
+
 }
