@@ -10,7 +10,7 @@ import logic.mes.functions.LinearFunction;
 
 import java.util.HashMap;
 
-public abstract class MachineSpecifications implements ISpeedOptimizable, IMachineSpecificationReadable {
+public class MachineSpecifications implements ISpeedOptimizable, IMachineSpecificationReadable {
 
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
