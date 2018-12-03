@@ -24,7 +24,12 @@ public class PIDFacade implements IPIDFacade {
         return pidFacade;
     }
 
-
+    /**
+     * Method for querying the PID for the next order
+     * @param storage IStorageReadable for the processing plant
+     * @param machinespecification IMachineSpecificationReadable for the machine the order is targeted for.
+     * @return IOrder or null if the storage is full
+     */
     @Override
     public IOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification) {
         return new SimplePID(storage,machinespecification).getIPIDOrder();
