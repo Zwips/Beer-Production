@@ -24,6 +24,7 @@ import acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.ZoneId;
@@ -35,10 +36,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import static javafx.application.Application.launch;
 
@@ -162,6 +168,13 @@ public class FXMLDocumentController implements Initializable {
     private PieChart pieChartOEE;
     @FXML
     private Label oEEpercentLabel;
+
+    @FXML
+    private StackPane pieChartPane;
+
+
+
+
 
 
 
@@ -380,21 +393,29 @@ public class FXMLDocumentController implements Initializable {
 
     }
     void loadOEE(String machineID) {
-        IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
-        oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
-        pieChartOEE = new PieChart();
-
-       // ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for (Map.Entry<String, Long> entry : oee.getStatistics().entrySet()) {
-           pieChartOEE.getData().add(new PieChart.Data(entry.getKey(),entry.getValue()));
-
-        }
-
-        pieChartOEE.setTitle("OEE for " + machineID);
-
-        pieChartOEE.setVisible(true);
 
 
+
+            Stage stage = new Stage();
+            IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
+            oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
+            pieChartOEE = new PieChart();
+
+            for (Map.Entry<String, Long> entry : oee.getStatistics().entrySet()) {
+                pieChartOEE.getData().add(new PieChart.Data(entry.getKey(),entry.getValue()));
+
+            }
+
+            pieChartOEE.setTitle("OEE for " + machineID);
+
+            pieChartOEE.setVisible(true);
+
+            pieChartPane = new StackPane(pieChartOEE);
+
+            Scene scene = new Scene(pieChartPane, 400, 200);
+
+            stage.setScene(scene);
+            stage.show();
     }
 
 }

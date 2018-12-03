@@ -111,6 +111,8 @@ public class ProcessingPlant {
             }
         }
 
+
+
        if(order != null){
             boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
             if (started) {
