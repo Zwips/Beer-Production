@@ -10,7 +10,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import java.io.File;
 import java.io.IOException;
 
-public class BatchReport {
+public class  BatchReport {
 
     int Batch;
 
