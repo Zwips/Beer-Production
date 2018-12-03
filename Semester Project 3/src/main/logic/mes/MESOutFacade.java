@@ -2,6 +2,7 @@ package logic.mes;
 
 import acquantiance.*;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -116,7 +117,7 @@ public class MESOutFacade {
     }
 
     public void insertIntoBatch_Log(int batchID, String machineID, int completedOrderID, String plantID) {
-        this.communicationFacade.insertIntoBatch_log(batchID, machineID, completedOrderID, machineID);
+        this.communicationFacade.insertIntoBatch_log(batchID, machineID, completedOrderID, plantID);
     }
 
     public void setOrderCompleted(int completedOrderID) {
@@ -137,5 +138,9 @@ public class MESOutFacade {
 
     public IStorage getStorage(String factoryID) {
         return communicationFacade.getStorage(factoryID);
+    }
+
+    public void saveBatchReport(int batchID, String factoryID, File file) {
+        communicationFacade.saveBatchReport(batchID, factoryID, file);
     }
 }
