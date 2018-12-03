@@ -5,16 +5,27 @@ package logic.mes;
  */
 
 import acquantiance.ProductTypeEnum;
+import logic.mes.functions.ExponentialFunction;
+import logic.mes.functions.LinearFunction;
 
 import java.util.HashMap;
 
-public class MachineSpecifications implements IMachineSpecificationReadable{
+public abstract class MachineSpecifications implements ISpeedOptimizable, IMachineSpecificationReadable {
 
     private HashMap<String,Integer> commandNumbers;
     private HashMap<Integer,String[]> allowedCommands;
+    private HashMap<ProductTypeEnum, ErrorFunction> errorFunctions;
+    private HashMap<ProductTypeEnum, ProductionSpeeds> productionsSpeeds;
+
+    final private float PILSNERMAXSPEED = 600;
+    final private float WHEATMAXSPEED = 300;
+    final private float IPAMAXSPEED = 150;
+    final private float STOUTMAXSPEED = 200;
+    final private float ALEMAXSPEED = 100;
+    final private float ALCOHOLFREEMAXSPEED = 125;
 
     public MachineSpecifications(){
-        commandNumbers = new HashMap<String, Integer>();
+        commandNumbers = new HashMap<>();
         commandNumbers.put("",0);
         commandNumbers.put("Reset",1);
         commandNumbers.put("Start",2);
@@ -28,6 +39,28 @@ public class MachineSpecifications implements IMachineSpecificationReadable{
         allowedCommands.put(17,new String[]{"Stop","Abort","Reset"});
         allowedCommands.put(9,new String[]{"Clear"});
         allowedCommands.put(2,new String[]{"Reset"});
+
+        errorFunctions = new HashMap<>();
+        double[] initialGuessPilsner = {0, 0.27, 0.2};
+        errorFunctions.put(ProductTypeEnum.PILSNER, new ErrorFunction(new ExponentialFunction(), initialGuessPilsner,600));
+        double[] initialGuessAle = {0, 2, 0.2};
+        errorFunctions.put(ProductTypeEnum.ALE, new ErrorFunction(new ExponentialFunction(), initialGuessAle,100));
+        double[] initialGuessIPA = {0, 0.23, 0.2};
+        errorFunctions.put(ProductTypeEnum.IPA, new ErrorFunction(new ExponentialFunction(), initialGuessIPA,150));
+        double[] initialGuessStout = {0, 700, -0.1};
+        errorFunctions.put(ProductTypeEnum.STOUT, new ErrorFunction(new ExponentialFunction(), initialGuessStout,200));
+        double[] initialGuessWheat = {0, 0};
+        errorFunctions.put(ProductTypeEnum.WHEAT, new ErrorFunction(new LinearFunction(), initialGuessWheat, 300));
+        double[] initialGuessAlcoholFree= {0, 30, 0.1};
+        errorFunctions.put(ProductTypeEnum.ALCOHOLFREE, new ErrorFunction(new ExponentialFunction(), initialGuessAlcoholFree,125));
+
+        productionsSpeeds = new HashMap<>();
+        productionsSpeeds.put(ProductTypeEnum.PILSNER, new ProductionSpeeds(this.PILSNERMAXSPEED, this.PILSNERMAXSPEED, this.PILSNERMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.ALE, new ProductionSpeeds(this.ALEMAXSPEED, this.ALEMAXSPEED, this.ALEMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.IPA, new ProductionSpeeds(this.IPAMAXSPEED, this.IPAMAXSPEED, this.IPAMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.STOUT, new ProductionSpeeds(this.STOUTMAXSPEED, this.STOUTMAXSPEED, this.STOUTMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.WHEAT, new ProductionSpeeds(this.WHEATMAXSPEED, this.WHEATMAXSPEED, this.WHEATMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.ALE, new ProductionSpeeds(this.ALEMAXSPEED, this.ALEMAXSPEED, this.ALEMAXSPEED));
     }
 
     int getCommandNumber(String command){
@@ -37,40 +70,21 @@ public class MachineSpecifications implements IMachineSpecificationReadable{
     String[] getAllowedCommands(int state){
         return allowedCommands.get(state);
     }
-    @Override
-    public float getOptimalSpeed(ProductTypeEnum productType){
-        switch (productType) {
-            case PILSNER:
-                return 599;
-            case WHEAT:
-                return 300;
-            case IPA:
-                return 150;
-            case STOUT:
-                return 200;
-            case ALE:
-                return 100;
-            case ALCOHOLFREE:
-                return 125;
-            default:
-                return 100;
-        }
-    }
 
-    float maxSpeed(ProductTypeEnum productType) {
+    float getMaxSpeed(ProductTypeEnum productType) {
         switch (productType) {
             case PILSNER:
-                return 600;
+                return this.PILSNERMAXSPEED;
             case WHEAT:
-                return 300;
+                return this.WHEATMAXSPEED;
             case IPA:
-                return 150;
+                return this.IPAMAXSPEED;
             case STOUT:
-                return 200;
+                return this.STOUTMAXSPEED;
             case ALE:
-                return 100;
+                return this.ALEMAXSPEED;
             case ALCOHOLFREE:
-                return 125;
+                return this.ALCOHOLFREEMAXSPEED;
             default:
                 return 100;
         }
@@ -114,5 +128,32 @@ public class MachineSpecifications implements IMachineSpecificationReadable{
         }
     }
 
+    public double getLowSpeed(ProductTypeEnum type){
+        return this.productionsSpeeds.get(type).getLow();
+    }
+
+    @Override
+    public float getOptimalSpeed(ProductTypeEnum type){
+        return (float)this.productionsSpeeds.get(type).getOptimal();
+    }
+
+    public double getHighSpeed(ProductTypeEnum type){
+        return this.productionsSpeeds.get(type).getHigh();
+    }
+
+    @Override
+    public IErrorFunction getErrorFunction(ProductTypeEnum type){
+        return this.errorFunctions.get(type);
+    }
+
+    @Override
+    public void setErrorFunctionParameters(double[] parameters, ProductTypeEnum type){
+        this.errorFunctions.get(type).setParameters(parameters);
+    }
+
+    @Override
+    public void setProductionsSpeeds(double speedLow, double speedOptimal, double speedHigh, ProductTypeEnum type){
+        this.productionsSpeeds.put(type, new ProductionSpeeds(speedLow, speedOptimal, speedHigh));
+    }
 
 }
