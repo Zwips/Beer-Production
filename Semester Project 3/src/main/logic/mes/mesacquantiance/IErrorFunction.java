@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.mesacquantiance;
 
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 

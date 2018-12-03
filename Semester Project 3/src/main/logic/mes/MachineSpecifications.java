@@ -7,6 +7,9 @@ package logic.mes;
 import acquantiance.ProductTypeEnum;
 import logic.mes.functions.ExponentialFunction;
 import logic.mes.functions.LinearFunction;
+import logic.mes.mesacquantiance.IErrorFunction;
+import logic.mes.mesacquantiance.IMachineSpecificationReadable;
+import logic.mes.mesacquantiance.ISpeedOptimizable;
 
 import java.util.HashMap;
 

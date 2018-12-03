@@ -1,7 +1,7 @@
 package logic.mes.scheduler;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.IOrder;
+import logic.mes.mesacquantiance.IOrder;
 
 public class DeliveryOrder implements IOrder {
 

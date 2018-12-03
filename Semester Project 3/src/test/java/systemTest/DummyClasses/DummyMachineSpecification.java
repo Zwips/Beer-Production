@@ -1,7 +1,7 @@
 package systemTest.DummyClasses;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.IMachineSpecificationReadable;
+import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 
 public class DummyMachineSpecification implements IMachineSpecificationReadable {
 

@@ -1,10 +1,10 @@
 package logic.mes.speedoptimizer;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.ISpeedOptimizable;
-import logic.mes.ISpeedOptimizerFacade;
+import logic.mes.mesacquantiance.ISpeedOptimizable;
+import logic.mes.mesacquantiance.ISpeedOptimizerFacade;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
-import logic.mes.IErrorFunction;
+import logic.mes.mesacquantiance.IErrorFunction;
 
 public class SpeedOptimizerFacade implements ISpeedOptimizerFacade {
 

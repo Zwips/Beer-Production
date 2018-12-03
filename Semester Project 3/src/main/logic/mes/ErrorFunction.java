@@ -1,5 +1,6 @@
 package logic.mes;
 
+import logic.mes.mesacquantiance.IErrorFunction;
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 
 public class ErrorFunction implements IErrorFunction {

@@ -4,7 +4,7 @@ import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 import org.apache.commons.math3.fitting.SimpleCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
-import logic.mes.IErrorFunction;
+import logic.mes.mesacquantiance.IErrorFunction;
 
 import java.util.List;
 

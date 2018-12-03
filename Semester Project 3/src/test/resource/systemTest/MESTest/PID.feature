@@ -5,7 +5,6 @@ Feature: PID gives PidOrder when system is idle and the processingplants storage
 
   Scenario: PID is queried for next PIDOrder
     Given All types but Pilsner is full capacity
-    When the PID is queried for next PIDOrder
     Then the product type for the PIDOrder is Pilsner
 
 

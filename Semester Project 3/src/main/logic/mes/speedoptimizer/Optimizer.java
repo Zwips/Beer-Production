@@ -1,7 +1,7 @@
 package logic.mes.speedoptimizer;
 
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
-import logic.mes.IErrorFunction;
+import logic.mes.mesacquantiance.IErrorFunction;
 
 public interface Optimizer {
 

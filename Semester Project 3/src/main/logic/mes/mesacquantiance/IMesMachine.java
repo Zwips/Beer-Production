@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.mesacquantiance;
 
 import acquantiance.IDataChangeCatcher;
 import acquantiance.IProductionOrder;
