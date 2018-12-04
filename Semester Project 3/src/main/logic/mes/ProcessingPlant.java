@@ -294,9 +294,24 @@ public class ProcessingPlant {
             }
         }
         oee.setStatisticsMap(statisitcsMap);
-        oee.setoEEValue(ioee.getOEE());
         oee.setTimeOfChangeMap(ioee.getStateChangeMap());
 
+        long runningTime = 0;
+        long downTime = 1;
+        for (Map.Entry<String, Long> entry : statisitcsMap.entrySet()) {
+            if(entry.getKey().equals("Execute"))
+            {
+                runningTime = entry.getValue();
+            }
+            else
+            {
+                downTime += entry.getValue();
+            }
+        }
+        double totalTime = runningTime + downTime;
+        double oeePercent = runningTime/totalTime;
+
+        oee.setoEEValue((float)oeePercent);
         return oee;
     }
 }
