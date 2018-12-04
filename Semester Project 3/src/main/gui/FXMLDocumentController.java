@@ -35,6 +35,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,6 +45,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import static javafx.application.Application.launch;
@@ -203,7 +205,7 @@ public class FXMLDocumentController implements Initializable {
                         new PieChart.Data("Plums", 10),
                         new PieChart.Data("Pears", 22),
                         new PieChart.Data("Apples", 30));
-         pieChartOEE = new PieChart(pieChartData);
+        pieChartOEE = new PieChart(pieChartData);
 
 
         ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
@@ -214,7 +216,7 @@ public class FXMLDocumentController implements Initializable {
             public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
 
                 currentlySelectedOrder = newValue;
-                if(newValue!=null) {
+                if (newValue != null) {
                     loadOrderInformationActionHandler(newValue);
                 }
             }
@@ -229,7 +231,7 @@ public class FXMLDocumentController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
                 factoryID = newValue;
-                if(newValue!=null) {
+                if (newValue != null) {
                     loadMachine(newValue);
                 }
             }
@@ -241,11 +243,10 @@ public class FXMLDocumentController implements Initializable {
         machineListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            loadOEE(newValue);
-                }
+                loadOEE(newValue);
+            }
 
         });
-
     }
 
     /**
@@ -394,17 +395,22 @@ public class FXMLDocumentController implements Initializable {
     }
     void loadOEE(String machineID) {
 
-
-
             Stage stage = new Stage();
             IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
             oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
             pieChartOEE = new PieChart();
+            HashMap<String, Double> relativeStatistics = new HashMap<>();
+            double totalTime = 0;
+        for (Map.Entry<String, Long> longEntry : oee.getStatistics().entrySet()) {
+            totalTime += longEntry.getValue();
+
+        }
 
             for (Map.Entry<String, Long> entry : oee.getStatistics().entrySet()) {
-                pieChartOEE.getData().add(new PieChart.Data(entry.getKey(),entry.getValue()));
-
+                pieChartOEE.getData().add(new PieChart.Data(entry.getKey()+": "+String.format("%.3g",entry.getValue()/totalTime*100)+"%",entry.getValue()/totalTime));
             }
+
+
 
             pieChartOEE.setTitle("OEE for " + machineID);
 
@@ -412,7 +418,7 @@ public class FXMLDocumentController implements Initializable {
 
             pieChartPane = new StackPane(pieChartOEE);
 
-            Scene scene = new Scene(pieChartPane, 400, 200);
+            Scene scene = new Scene(pieChartPane, 800, 600);
 
             stage.setScene(scene);
             stage.show();
