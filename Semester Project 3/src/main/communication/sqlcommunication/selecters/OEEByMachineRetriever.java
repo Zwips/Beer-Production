@@ -40,8 +40,8 @@ public class OEEByMachineRetriever {
         CommunicationOEE oee = new CommunicationOEE();
         String factory = "";
         String machine = "";
-        long oeePercent = 0;
-        Map<Date, Boolean> downTimeMap = new HashMap<>();
+        double oeePercent = 0;
+        Map<Date, Boolean> downTimeMap = new TreeMap<>();
         Map<Date,String> stateChangeMap = new TreeMap<>();
         long startTime = 0;
         boolean isProducing = false;
@@ -71,16 +71,22 @@ public class OEEByMachineRetriever {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        long totalUptime = 0;
-        long totalDowntime = 1;
+        double totalUptime = 0;
+        double totalDowntime = 1;
         for (Map.Entry<Date,Boolean> entry: downTimeMap.entrySet()) {
             if (isProducing)
             {
+                long newTime = entry.getKey().getTime();
+                long startTimeAgain = startTime;
+                long timeAdded = newTime - startTime;
                 totalUptime += entry.getKey().getTime() - startTime;
                 startTime = entry.getKey().getTime();
                 isProducing = entry.getValue();
             }
             else {
+                long newTime = entry.getKey().getTime();
+                long startTimeAgain = startTime;
+                long timeAdded = newTime - startTime;
                 totalDowntime += entry.getKey().getTime() - startTime;
                 startTime = entry.getKey().getTime();
                 isProducing = entry.getValue();
@@ -90,7 +96,7 @@ public class OEEByMachineRetriever {
 
         oee.setFactoryID(factory);
         oee.setMachineID(machine);
-        oee.setOee(oeePercent);
+        oee.setOee((float)oeePercent);
         oee.setStateChangeMap(stateChangeMap);
 
 
