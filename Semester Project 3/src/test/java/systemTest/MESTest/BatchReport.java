@@ -2,11 +2,13 @@ package systemTest.MESTest;
 
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
-import logic.erp.ProductionOrder;
 import org.junit.Test;
 import systemTest.ERPLevelInitializer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 
 public class BatchReport {

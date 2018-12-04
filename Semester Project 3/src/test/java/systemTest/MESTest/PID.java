@@ -40,7 +40,7 @@ public class PID {
     @Then("^the product type for the PIDOrder is ([^\"]*)$")
     public void theProductTypeForThePIDOrderIs(String arg0) throws Throwable {
         ProductTypeEnum type = ProductTypeEnum.get("Pilsner");
-        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductTypeEnum());
+        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductType());
     }
 
     @Given("^full storage$")
