@@ -4,6 +4,7 @@ import acquantiance.IMESFacade;
 import acquantiance.IMachineConnectionInformation;
 import acquantiance.IProcessingCapacity;
 import acquantiance.IBusinessOrder;
+import acquantiance.*;
 
 import java.util.*;
 
@@ -158,6 +159,18 @@ public class MESFacade implements IMESFacade {
 
         return orders;
     }
+
+    @Override
+    public Set<String> getMachineIDsByFactoryID(String factoryID) {
+        return processingPlants.get(factoryID).getMachineIDs();
+    }
+
+    @Override
+    public IOEEToGUI getOEE(String machineID,String factoryID) {
+        return processingPlants.get(factoryID).getOEE(machineID);
+    }
+
+
 
 
 }

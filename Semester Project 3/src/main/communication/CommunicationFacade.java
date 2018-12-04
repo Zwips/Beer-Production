@@ -5,6 +5,7 @@ import communication.machineconnection.MachineConnection;
 import communication.mailcommunication.MailCommunicationFacade;
 import communication.sqlcommunication.SQLCommunicationFacade;
 
+import java.io.File;
 import java.util.*;
 
 public class CommunicationFacade implements ICommunicationFacade {
@@ -217,6 +218,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public IStorage getStorage(String factoryID) {
         return sqlFacade.getStorage(factoryID);
+    }
+
+    @Override
+    public void saveBatchReport(int batchID, String factoryID, File file) {
+        sqlFacade.saveBatchReport(batchID, factoryID, file);
     }
 
 

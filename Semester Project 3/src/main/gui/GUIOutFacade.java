@@ -6,6 +6,7 @@ import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class GUIOutFacade {
 
@@ -60,5 +61,16 @@ public class GUIOutFacade {
 
         return erpFacade.getProductionOrderQueue();
     }
+    public IOEEToGUI getOEEByMachine(String machineID, String factoryID) {
+        return erpFacade.getOEE(machineID,factoryID);
+    }
+    public Set<String> getProcessingPlants(){
+        return this.erpFacade.getProcessingPlants();
+    }
+    public Set<String> getMachineIDsByFactoryID(String factoryID) {
+        return this.erpFacade.getMachineIDsByFactoryID(factoryID);
+    }
+
+
 
 }

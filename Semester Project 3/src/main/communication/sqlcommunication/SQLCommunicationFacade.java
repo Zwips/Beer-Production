@@ -12,6 +12,7 @@ import communication.sqlcommunication.updaters.OrderUpdater;
 import communication.sqlcommunication.updaters.StorageCurrentAmountUpdater;
 import communication.sqlcommunication.updaters.StorageTargetAmountUpdater;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -241,5 +242,10 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public IStorage getStorage(String factoryID) {
         return new StorageRetriever().getStorage(factoryID);
+    }
+
+    @Override
+    public void saveBatchReport(int batchID, String factoryID, File batchReport) {
+        new BatchReportInserter().insert(batchID, factoryID, batchReport);
     }
 }

@@ -1,5 +1,6 @@
 package acquantiance;
 
+import java.io.File;
 import java.util.*;
 
 public interface ICommunicationFacade {
@@ -57,4 +58,6 @@ public interface ICommunicationFacade {
     void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type);
     void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type);
     IStorage getStorage(String factoryID);
+
+    void saveBatchReport(int batchID, String factoryID, File file);
 }

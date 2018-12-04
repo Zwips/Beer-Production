@@ -1,6 +1,8 @@
 package gluecode;
 
 import communication.CommunicationFacade;
+import communication.ISQLCommunicationFacade;
+import communication.sqlcommunication.SQLCommunicationFacade;
 import gui.GUIOutFacade;
 import gui.SemesterProject3;
 import logic.erp.ERPFacade;
@@ -14,7 +16,7 @@ public class Starter {
         ERPOutFacade erpOutFacade = ERPOutFacade.getInstance();
         MESOutFacade mesOutFacade = MESOutFacade.getInstance();
         GUIOutFacade guiOutFacade = GUIOutFacade.getInstance();
-
+        ERPOutFacade.getInstance().injectSQLFacade(new SQLCommunicationFacade());
         CommunicationFacade communicationFacade = new CommunicationFacade();
         mesOutFacade.injectCommunicationFacade(communicationFacade);
 

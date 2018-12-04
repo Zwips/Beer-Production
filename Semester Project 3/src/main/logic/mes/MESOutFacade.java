@@ -2,6 +2,7 @@ package logic.mes;
 
 import acquantiance.*;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -137,5 +138,15 @@ public class MESOutFacade {
 
     public IStorage getStorage(String factoryID) {
         return communicationFacade.getStorage(factoryID);
+    }
+
+    public IOEE getOEE(String machineID,String factoryID){
+        return communicationFacade.getOEEByMachine(machineID,factoryID);
+    }
+
+
+
+    public void saveBatchReport(int batchID, String factoryID, File file) {
+        communicationFacade.saveBatchReport(batchID, factoryID, file);
     }
 }

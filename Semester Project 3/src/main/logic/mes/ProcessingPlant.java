@@ -18,6 +18,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.time.LocalDate;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProcessingPlant {
 
@@ -156,10 +161,61 @@ public class ProcessingPlant {
                 MESOutFacade.getInstance().setOrderCompleted(completedOrderID);
             }
 
-        } catch (ServiceException e) {
+            new BatchReport((int)batchID, this.plantID);
+
+        } catch (ServiceException | IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public Set<String> getMachineIDs(){
+        return machines.keySet();
+    }
+
+    public IOEEToGUI getOEE(String machineID) {
+        OEE oee = new OEE();
+        IOEE ioee = MESOutFacade.getInstance().getOEE(machineID, plantID);
+        HashMap<String, Long> statisitcsMap = new HashMap<>();
+
+
+        long lastCheckedTime = Long.MAX_VALUE;
+        for (Date date : ioee.getStateChangeMap().keySet()) {
+            if(date.getTime() < lastCheckedTime){
+                lastCheckedTime = date.getTime();
+            }
+        }
+
+        for (Map.Entry<Date, String> entry : ioee.getStateChangeMap().entrySet()) {
+            if(!statisitcsMap.containsKey(entry.getValue())){
+                statisitcsMap.put(entry.getValue(), entry.getKey().getTime() - lastCheckedTime);
+                lastCheckedTime = entry.getKey().getTime();
+            }
+            else{
+                Long newValue = statisitcsMap.get(entry.getValue()) + entry.getKey().getTime() - lastCheckedTime;
+                statisitcsMap.replace(entry.getValue(),newValue);
+            }
+        }
+        oee.setStatisticsMap(statisitcsMap);
+        oee.setTimeOfChangeMap(ioee.getStateChangeMap());
+
+        long runningTime = 0;
+        long downTime = 1;
+        for (Map.Entry<String, Long> entry : statisitcsMap.entrySet()) {
+            if(entry.getKey().equals("Execute"))
+            {
+                runningTime = entry.getValue();
+            }
+            else
+            {
+                downTime += entry.getValue();
+            }
+        }
+        double totalTime = runningTime + downTime;
+        double oeePercent = runningTime/totalTime;
+
+        oee.setoEEValue((float)oeePercent);
+        return oee;
     }
 
 

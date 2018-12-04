@@ -18,6 +18,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -28,7 +29,36 @@
             <tabs>
             <Tab text="Visualization">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="212.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="770.0" />
+                        <Line endX="666.0" startX="-110.0" strokeWidth="3.0" />
+                        <ListView fx:id="factoryListView" layoutX="35.0" layoutY="89.0" prefHeight="100.0" prefWidth="120.0" />
+                        <ListView fx:id="machineListView" layoutX="184.0" layoutY="89.0" prefHeight="100.0" prefWidth="120.0" />
+                        <Label layoutX="71.0" layoutY="69.0" text="Factory" />
+                        <Label layoutX="221.0" layoutY="69.0" text="Machine" />
+                        <Line endX="666.0" layoutX="106.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
+                        <Label layoutX="328.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Select">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="568.0" layoutY="46.0" pickOnBounds="true">
+                           <image>
+
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="machineStateTextField" layoutX="22.0" layoutY="276.0" prefHeight="44.0" prefWidth="147.0" />
+                        <Label layoutX="39.0" layoutY="240.0" text="Machine State">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="347.0" layoutY="164.0" mnemonicParsing="false" onAction="#loadFactioresBtnHandler" text="Load factories" />
+                        <Label fx:id="oEEpercentLabel" layoutX="110.0" layoutY="410.0" text="Label" />
+                        <Label layoutX="14.0" layoutY="410.0" text="OEE Percent:" />
+                        <StackPane fx:id="pieChartPane" layoutX="455.0" layoutY="344.0" prefHeight="150.0" prefWidth="200.0" />
+                     </children></AnchorPane>
                </content>
             </Tab>
                 <Tab text="Add Machine">
@@ -75,9 +105,9 @@
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="205.0" fitWidth="255.0" layoutX="509.0" layoutY="54.0" pickOnBounds="true">
+                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="556.0" layoutY="54.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../../../../../../Desktop/Unavngivet.png" />
+
                            </image>
                         </ImageView>
                         <Label fx:id="typeLabel12" layoutX="339.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Login">
@@ -161,9 +191,9 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView fitHeight="173.0" fitWidth="187.0" layoutX="584.0" layoutY="66.0" pickOnBounds="true">
+                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="570.0" layoutY="66.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../../../../../../Desktop/Unavngivet.png" />
+
                            </image>
                         </ImageView>
                         <Label fx:id="orderSucceededLabel" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
