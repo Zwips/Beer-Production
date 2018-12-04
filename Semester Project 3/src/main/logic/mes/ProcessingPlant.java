@@ -295,6 +295,7 @@ public class ProcessingPlant {
         }
         oee.setStatisticsMap(statisitcsMap);
         oee.setoEEValue(ioee.getOEE());
+        oee.setTimeOfChangeMap(ioee.getStateChangeMap());
 
         return oee;
     }
