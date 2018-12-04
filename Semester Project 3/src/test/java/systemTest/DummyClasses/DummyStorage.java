@@ -1,7 +1,7 @@
 package systemTest.DummyClasses;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.mesacquantiance.IStorageReadable;
+import acquantiance.IStorageReadable;
 
 import java.util.HashMap;
 import java.util.Map;

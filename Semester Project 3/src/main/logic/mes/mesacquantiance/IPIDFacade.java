@@ -1,9 +1,10 @@
 package logic.mes.mesacquantiance;
 
+import acquantiance.IStorageReadable;
 import logic.mes.pid.IPIDType;
 
 public interface IPIDFacade {
-    IOrder getOrder(IStorageReadable storage ,IMachineSpecificationReadable machinespecification);
+    IProductionOrder getOrder(IStorageReadable storage , IMachineSpecificationReadable machinespecification);
 
     void setPIDType(IPIDType type);
 }

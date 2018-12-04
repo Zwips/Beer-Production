@@ -11,7 +11,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.erp.ERPOutFacade;
-import logic.erp.ProductionOrder;
+import logic.erp.BusinessOrder;
 import logic.mes.Machine;
 import systemTest.ERPLevelInitializer;
 
@@ -43,7 +43,7 @@ public class ERPInitialize {
         Date latestDeliveryDate = new Date(5000000);
         int priority = 1;
 
-        ProductionOrder order = new ProductionOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority);
+        BusinessOrder order = new BusinessOrder(amount,productType,earliestDeliveryDate,latestDeliveryDate,priority);
         order.setOrderID(maxOrderID);
         sql.logOrder(order);
     }

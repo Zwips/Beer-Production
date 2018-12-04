@@ -2,8 +2,8 @@ package logic.mes.pid;
 
 import acquantiance.ProductTypeEnum;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
-import logic.mes.mesacquantiance.IOrder;
-import logic.mes.mesacquantiance.IStorageReadable;
+import logic.mes.mesacquantiance.IProductionOrder;
+import acquantiance.IStorageReadable;
 
 public class SimplePID implements PIDType {
 
@@ -11,7 +11,7 @@ public class SimplePID implements PIDType {
     }
 
     @Override
-    public IOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification){
+    public IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification){
         PIDOrder pidOrder = new PIDOrder();
         ProductTypeEnum productType = findProductType(storage);
 

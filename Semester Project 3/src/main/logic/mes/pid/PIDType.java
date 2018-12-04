@@ -1,10 +1,10 @@
 package logic.mes.pid;
 
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
-import logic.mes.mesacquantiance.IOrder;
-import logic.mes.mesacquantiance.IStorageReadable;
+import logic.mes.mesacquantiance.IProductionOrder;
+import acquantiance.IStorageReadable;
 
 public interface PIDType {
 
-    IOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification);
+    IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification);
 }

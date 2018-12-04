@@ -2,7 +2,7 @@ package logic.mes;
 
 import acquantiance.IStorage;
 import acquantiance.ProductTypeEnum;
-import logic.mes.mesacquantiance.IStorageReadable;
+import acquantiance.IStorageReadable;
 
 import java.util.HashMap;
 import java.util.Map;

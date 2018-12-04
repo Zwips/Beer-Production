@@ -4,10 +4,10 @@ package communication.sqlcommunication.selecters;
  * @param orderRetriever method retrieves the orders from the database with given orderid
  * @param getOrder creates the ArrayList CommunicationProductionOrder with the orders & returns it.                     .
  */
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
-import communication.sqlcommunication.dataclasses.CommunicationProductionOrder;
+import communication.sqlcommunication.dataclasses.CommunicationBusinessOrder;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Select;
@@ -34,13 +34,13 @@ public class OrderRetriever {
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public IProductionOrder getOrder(int batchid){
+    public IBusinessOrder getOrder(int batchid){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchid));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        CommunicationProductionOrder order = new CommunicationProductionOrder();
+        CommunicationBusinessOrder order = new CommunicationBusinessOrder();
 
         try {
             results.next();

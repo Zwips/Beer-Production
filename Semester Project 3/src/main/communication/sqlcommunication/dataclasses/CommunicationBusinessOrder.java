@@ -4,12 +4,12 @@ package communication.sqlcommunication.dataclasses;
  * @param OrdersRemoveByOrderID constructor creates the object CommunicationProductionOrder.
  * @param clone method clones the object CommunicationProductionOrder.
  */
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 
-public class CommunicationProductionOrder implements IProductionOrder {
+public class CommunicationBusinessOrder implements IBusinessOrder {
 
     private int amount;
     private ProductTypeEnum type;
@@ -19,10 +19,10 @@ public class CommunicationProductionOrder implements IProductionOrder {
     private boolean status;
     private int orderID;
 
-    public CommunicationProductionOrder() {
+    public CommunicationBusinessOrder() {
     }
 
-    public CommunicationProductionOrder(int amount, ProductTypeEnum type, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, boolean status, int orderID) {
+    public CommunicationBusinessOrder(int amount, ProductTypeEnum type, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, boolean status, int orderID) {
         this.amount = amount;
         this.type = type;
         this.earliestDeliveryDate = earliestDeliveryDate;
@@ -96,8 +96,8 @@ public class CommunicationProductionOrder implements IProductionOrder {
     }
 
     @Override
-    public IProductionOrder clone() {
-        CommunicationProductionOrder order = new CommunicationProductionOrder(this.amount,type, earliestDeliveryDate, latestDeliveryDate, priority, status, orderID);
+    public IBusinessOrder clone() {
+        CommunicationBusinessOrder order = new CommunicationBusinessOrder(this.amount,type, earliestDeliveryDate, latestDeliveryDate, priority, status, orderID);
         return order;
     }
 

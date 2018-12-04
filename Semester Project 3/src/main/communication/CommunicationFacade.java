@@ -49,22 +49,22 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public IProductionOrder selectFromOrder(int orderID) {
+    public IBusinessOrder selectFromOrder(int orderID) {
         return sqlFacade.selectFromOrder(orderID);
     }
 
     @Override
-    public List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo) {
+    public List<IBusinessOrder> getPendingOrders(Date dateFrom, Date dateTo) {
         return sqlFacade.getPendingOrders(dateFrom,dateTo);
     }
 
     @Override
-    public List<IProductionOrder> getPendingOrders() {
+    public List<IBusinessOrder> getPendingOrders() {
         return sqlFacade.getPendingOrders();
     }
 
     @Override
-    public List<IProductionOrder> getCompletedOrders() {
+    public List<IBusinessOrder> getCompletedOrders() {
         return sqlFacade.getCompletedOrders();
     }
 
@@ -104,7 +104,7 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void logOrder(IProductionOrder order) {
+    public void logOrder(IBusinessOrder order) {
         sqlFacade.logOrder(order);
     }
 
@@ -175,12 +175,12 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void logOrders(List<IProductionOrder> orders) {
+    public void logOrders(List<IBusinessOrder> orders) {
         this.sqlFacade.logOrders(orders);
     }
 
     @Override
-    public void updateOrders(List<IProductionOrder> orders) {
+    public void updateOrders(List<IBusinessOrder> orders) {
         this.sqlFacade.updateOrders(orders);
     }
 

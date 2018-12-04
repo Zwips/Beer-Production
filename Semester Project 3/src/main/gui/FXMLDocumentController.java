@@ -17,7 +17,7 @@ package gui;
  * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
  */
 
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import static java.lang.Thread.sleep;
@@ -141,10 +141,10 @@ public class FXMLDocumentController implements Initializable {
     private DatePicker latestDeliveryDatePicker;
 
     @FXML
-    private ListView<IProductionOrder> productionOrderListView;
+    private ListView<IBusinessOrder> productionOrderListView;
     @FXML
     private Button changeOrder;
-    private IProductionOrder currentlySelectedOrder;
+    private IBusinessOrder currentlySelectedOrder;
 
 
     @FXML
@@ -164,12 +164,12 @@ public class FXMLDocumentController implements Initializable {
 
 
 
-        ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
+        ObservableList<IBusinessOrder> data = FXCollections.observableArrayList();
         productionOrderListView.setItems(data);
 
-        productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IProductionOrder>() {
+        productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IBusinessOrder>() {
             @Override
-            public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
+            public void changed(ObservableValue<? extends IBusinessOrder> observable, IBusinessOrder oldValue, IBusinessOrder newValue) {
 
                 currentlySelectedOrder = newValue;
                 if(newValue!=null) {
@@ -182,16 +182,16 @@ public class FXMLDocumentController implements Initializable {
 
     /**
      * Method for loading information from an IProductionOrder and setting the corresponding fields
-     * @param iProductionOrder
+     * @param iBusinessOrder
      */
-    void loadOrderInformationActionHandler(IProductionOrder iProductionOrder) {
+    void loadOrderInformationActionHandler(IBusinessOrder iBusinessOrder) {
 
-        orderAmountTextField.setText(iProductionOrder.getAmount() + "");
-        latestDeliveryDatePicker.setValue(iProductionOrder.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        earliestDeliveryDatePicker.setValue(iProductionOrder.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        priorityChoiceBox.setValue(iProductionOrder.getPriority());
+        orderAmountTextField.setText(iBusinessOrder.getAmount() + "");
+        latestDeliveryDatePicker.setValue(iBusinessOrder.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        earliestDeliveryDatePicker.setValue(iBusinessOrder.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        priorityChoiceBox.setValue(iBusinessOrder.getPriority());
 
-        switch (iProductionOrder.getProductType()) {
+        switch (iBusinessOrder.getProductType()) {
             case ALE:
                 aleRadioBtn.setSelected(true);
                 break;

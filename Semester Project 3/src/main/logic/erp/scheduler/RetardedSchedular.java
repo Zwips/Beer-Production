@@ -1,7 +1,7 @@
 package logic.erp.scheduler;
 
 import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +11,11 @@ import java.util.Map;
 public class RetardedSchedular implements Scheduler {
 
     @Override
-    public Map<String, List<IProductionOrder>> schedule(IProductionOrder order, Map<String, IProcessingCapacity> processingCapacities) {
-        HashMap<String, List<IProductionOrder>> orders = new HashMap<String, List<IProductionOrder>>();
+    public Map<String, List<IBusinessOrder>> schedule(IBusinessOrder order, Map<String, IProcessingCapacity> processingCapacities) {
+        HashMap<String, List<IBusinessOrder>> orders = new HashMap<String, List<IBusinessOrder>>();
 
         for (String plant : processingCapacities.keySet()) {
-            List<IProductionOrder> ordersForPlant = new ArrayList<>();
+            List<IBusinessOrder> ordersForPlant = new ArrayList<>();
             ordersForPlant.add(order);
             orders.put(plant, ordersForPlant);
         }
@@ -23,8 +23,8 @@ public class RetardedSchedular implements Scheduler {
     }
 
     @Override
-    public Map<String, List<IProductionOrder>> reSchedule(List<IProductionOrder> pendingOrders, Map<String, IProcessingCapacity> processingCapacities) {
-        Map<String, List<IProductionOrder>> destinations = new HashMap<>();
+    public Map<String, List<IBusinessOrder>> reSchedule(List<IBusinessOrder> pendingOrders, Map<String, IProcessingCapacity> processingCapacities) {
+        Map<String, List<IBusinessOrder>> destinations = new HashMap<>();
 
         for (String plant : processingCapacities.keySet()) {
             destinations.put(plant,pendingOrders);

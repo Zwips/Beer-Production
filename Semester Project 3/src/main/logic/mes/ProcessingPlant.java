@@ -8,25 +8,31 @@ package logic.mes;
  */
 
 import acquantiance.*;
-import acquantiance.IMesMachine;
 import com.prosysopc.ua.ServiceException;
-import logic.mes.mesacquantiance.IPlantSchedulerFacade;
+import logic.mes.mesacquantiance.*;
+import logic.mes.pid.IPIDType;
+import logic.mes.pid.PIDFacade;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
-import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ProcessingPlant {
 
-    private IPlantSchedulerFacade scheduler;
-    private HashMap<String, IMesMachine> machines;
-    private Set<String> idleMachines;
     private String plantID;
     private int nextBatchID;
-    private ProcessingCapacity capacity;
-    private Map<String, BlockingQueue<IProductionOrder>> machineSchedule;
 
+    private IPlantSchedulerFacade scheduler;
+    private IPIDFacade pidFacade;
+    private ISpeedOptimizerFacade speedOptimizerFacade;
+
+    private HashMap<String, IMesMachine> machines;
+    private Set<String> idleMachines;
+
+    private ProcessingCapacity capacity;
+    private IStorage storage;
 
     /**
      * processing plants containing a Map with Machines
@@ -40,13 +46,18 @@ public class ProcessingPlant {
         this.plantID = plantID;
         this.machines = new HashMap<>();
         this.scheduler = new PlantSchedulerFacade();
-        this.machineSchedule = new HashMap<>();
         this.idleMachines = new HashSet<>();
+        this.pidFacade = new PIDFacade();
 
+        this.initialiseStorage();
         this.initialiseBatchID();
         this.initialiseMachines(machines);
         this.initialiseProcessingCapacity();
 
+    }
+
+    private void initialiseStorage() {
+        this.storage = MESOutFacade.getInstance().getStorage(this.plantID);
     }
 
     private void initialiseProcessingCapacity() {
@@ -58,6 +69,14 @@ public class ProcessingPlant {
             this.addMachine(machineInfo.getMachineID(), machineInfo.getMachineIP(), machineInfo.getMachineUsername(), machineInfo.getMachinePassword());
         }
     }
+
+    /** Method for initialising the next batchID
+     *
+     */
+    private void initialiseBatchID(){
+        nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID)+1;
+    }
+
 
     boolean addMachine(String machineName, String IPAddress, String userID, String password){
         Machine machine = new Machine(machineName, IPAddress, userID, password,plantID);
@@ -71,7 +90,7 @@ public class ProcessingPlant {
 
         if(machine.isConnected()) {
             machines.put(machineName, machine);
-            this.machineSchedule.put(machineName, new LinkedBlockingQueue<>());
+            this.scheduler.addQueue(machineName);
 
             //TODO change to specifications
             switch ((int) machine.readCurrentState()) {
@@ -98,88 +117,6 @@ public class ProcessingPlant {
         return machines.remove(machineName, machines.get(machineName));
     }
 
-    boolean executeNextOrder(String machineID){
-        BlockingQueue<IProductionOrder> queue = this.machineSchedule.get(machineID);
-        IProductionOrder order = null;
-
-        synchronized(queue){
-            int queueSize = queue.size();
-            if (queueSize > 0) {
-                order = queue.poll();
-            }
-        }
-
-       if(order != null){
-            boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
-            if (started) {
-                this.idleMachines.remove(machineID);
-            }
-            return started;
-        } else{
-            this.idleMachines.add(machineID);
-            //this.machines.get(machineID).reset();
-            return false;
-        }
-    }
-
-    /** Method for initialising the next batchID
-     *
-     */
-    private void initialiseBatchID(){
-        nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID)+1;
-    }
-
-    ProcessingCapacity addOrders(List<IProductionOrder> orders){
-        Set<String> startMachines = new HashSet<>();
-
-        for (IProductionOrder order : orders) {
-            Set<Map.Entry<String, List<IProductionOrder>>> destinations = this.scheduler.schedule(order, this.machines.values()).entrySet();
-            for (Map.Entry<String, List<IProductionOrder>> destination : destinations) {
-                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
-                startMachines.add(destination.getKey());
-            }
-        }
-
-        MESOutFacade.getInstance().saveOrders(orders);
-
-        startMachines.retainAll(this.idleMachines);
-        for (String startMachine : startMachines) {
-            this.executeNextOrder(startMachine);
-        }
-
-        return new ProcessingCapacity();
-    }
-
-    List<IProductionOrder> getAllProductionOrders(){
-
-        List<IProductionOrder> orders = new ArrayList<>();
-
-        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
-            orders.addAll(machineQueue.getValue());
-            machineQueue.getValue().clear();
-        }
-
-        return orders;
-    }
-
-    public IProcessingCapacity removeOrder(int orderID) throws NoSuchFieldException {
-
-        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
-            Iterator<IProductionOrder> iter = machineQueue.getValue().iterator();
-            IProductionOrder order;
-
-            while (iter.hasNext()) {
-                order = iter.next();
-                if (order.getOrderID() == orderID){
-                    iter.remove();
-                    return new ProcessingCapacity();
-                }
-            }
-        }
-
-        throw new NoSuchFieldException();
-    }
-
     public ProcessingCapacity getCapacity() {
         return capacity;
     }
@@ -189,45 +126,6 @@ public class ProcessingPlant {
         // removed from the database or set to being deactivated
 
         return true;
-    }
-
-    public IProductionOrder getOrder(int orderID) {
-
-        for (Map.Entry<String, BlockingQueue<IProductionOrder>> machineQueue : this.machineSchedule.entrySet()) {
-            System.out.println("ProcessingPlant machineName: " + machineQueue.getKey());
-            System.out.println("\tProcessingPlant Queue size: " + machineQueue.getValue().size());
-
-            for (IProductionOrder order : machineQueue.getValue()) {
-                System.out.println("\tProcessingPlant order: " + order);
-                if (order.getOrderID() == orderID){
-                    return order;
-                }
-            }
-
-        }
-
-        return null;
-    }
-
-    public IProcessingCapacity changeOrders(List<IProductionOrder> orders) {
-        Set<String> startMachines = new HashSet<>();
-
-        for (IProductionOrder order : orders) {
-            for (Map.Entry<String, List<IProductionOrder>> destination : this.scheduler.schedule(order, this.machines.values()).entrySet()) {
-                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
-                startMachines.add(destination.getKey());
-            }
-        }
-
-        MESOutFacade.getInstance().updateOrders(orders);
-
-        startMachines.retainAll(this.idleMachines);
-        for (String startMachine : startMachines) {
-            this.executeNextOrder(startMachine);
-        }
-
-
-        return new ProcessingCapacity();
     }
 
     public void uploadBatchData(String machineID) {
@@ -243,9 +141,8 @@ public class ProcessingPlant {
             ProductTypeEnum product = machine.getProductType(productTypeID);
             MESOutFacade.getInstance().insertIntoBatch((int)batchID, product, (int)batchSize, defectives, this.plantID);
 
-
             //batch_log
-            int completedOrderID = machine.getCurrentOrderID();
+            Integer completedOrderID = machine.getCurrentOrderID();
             MESOutFacade.getInstance().insertIntoBatch_Log((int)batchID, machineID, completedOrderID, this.plantID);
 
             //defectives
@@ -255,11 +152,77 @@ public class ProcessingPlant {
 
 
             //update status order
-            MESOutFacade.getInstance().setOrderCompleted(completedOrderID);
+            if (completedOrderID != null){
+                MESOutFacade.getInstance().setOrderCompleted(completedOrderID);
+            }
 
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
     }
+
+
+
+
+
+
+    boolean executeNextOrder(String machineID){
+        IProductionOrder order = this.scheduler.getNextOrder(machineID);
+
+        if (order == null) {
+            order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
+        }
+
+        if(order != null){
+            boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            if (started) {
+                this.idleMachines.remove(machineID);
+            }
+            return started;
+        } else{
+            this.idleMachines.add(machineID);
+            //this.machines.get(machineID).reset();
+            return false;
+        }
+    }
+
+
+
+    ProcessingCapacity addOrders(List<IBusinessOrder> orders){
+        Set<String> startMachines = this.scheduler.addOrders(orders, this.machines.values());
+        startMachines.retainAll(this.idleMachines);
+
+        for (String startMachine : startMachines) {
+            this.executeNextOrder(startMachine);
+        }
+
+        return new ProcessingCapacity();
+    }
+
+    List<IBusinessOrder> getAllProductionOrders(){
+        return this.scheduler.getAllProductionOrders();
+    }
+
+    public IProcessingCapacity removeOrder(int orderID) throws NoSuchFieldException {
+        this.idleMachines.add(this.scheduler.removeOrder(orderID));
+        return new ProcessingCapacity();
+    }
+
+    public IBusinessOrder getOrder(int orderID) {
+        return this.scheduler.getOrder(orderID);
+    }
+
+    public IProcessingCapacity changeOrders(List<IBusinessOrder> orders) {
+
+        Set<String> startMachines = this.scheduler.changeOrders(orders, this.machines.values());
+
+        startMachines.retainAll(this.idleMachines);
+        for (String startMachine : startMachines) {
+            this.executeNextOrder(startMachine);
+        }
+
+        return new ProcessingCapacity();
+    }
+
 }

@@ -3,7 +3,7 @@ package logic.mes;
 import acquantiance.IMESFacade;
 import acquantiance.IMachineConnectionInformation;
 import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 
 import java.util.*;
 
@@ -31,7 +31,7 @@ public class MESFacade implements IMESFacade {
     }
 
     @Override
-    public List<IProductionOrder> getPendingOrders() {
+    public List<IBusinessOrder> getPendingOrders() {
         return MESOutFacade.getInstance().getPendingOrders();
     }
 
@@ -95,12 +95,12 @@ public class MESFacade implements IMESFacade {
     }
 
     @Override
-    public Map<String, IProcessingCapacity> addOrders(Map<String, List<IProductionOrder>> destinations) {
+    public Map<String, IProcessingCapacity> addOrders(Map<String, List<IBusinessOrder>> destinations) {
         Map<String, IProcessingCapacity> capacity = new HashMap<>();
 
-        for (Map.Entry<String, List<IProductionOrder>> destination : destinations.entrySet()) {
+        for (Map.Entry<String, List<IBusinessOrder>> destination : destinations.entrySet()) {
             String plantID = destination.getKey();
-            List<IProductionOrder> orders = destination.getValue();
+            List<IBusinessOrder> orders = destination.getValue();
 
             capacity.put(plantID, this.processingPlants.get(plantID).addOrders(orders));
         }
@@ -130,18 +130,17 @@ public class MESFacade implements IMESFacade {
     }
 
     @Override
-    public IProductionOrder getOrder(String plantID, int orderID) {
-        System.out.println("MESFacade plant: " + this.processingPlants.get(plantID));
+    public IBusinessOrder getOrder(String plantID, int orderID) {
         return this.processingPlants.get(plantID).getOrder(orderID);
     }
 
     @Override
-    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations) {
+    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations) {
         Map<String, IProcessingCapacity> capacity = new HashMap<>();
 
-        for (Map.Entry<String, List<IProductionOrder>> destination : destinations.entrySet()) {
+        for (Map.Entry<String, List<IBusinessOrder>> destination : destinations.entrySet()) {
             String plantID = destination.getKey();
-            List<IProductionOrder> orders = destination.getValue();
+            List<IBusinessOrder> orders = destination.getValue();
 
             capacity.put(plantID, this.processingPlants.get(plantID).changeOrders(orders));
         }
@@ -150,9 +149,9 @@ public class MESFacade implements IMESFacade {
     }
 
     @Override
-    public List<IProductionOrder> getAllProductionOrdersInPlants(){
+    public List<IBusinessOrder> getAllProductionOrdersInPlants(){
 
-        List<IProductionOrder> orders = new ArrayList<>();
+        List<IBusinessOrder> orders = new ArrayList<>();
         for (ProcessingPlant plant : this.processingPlants.values()) {
             orders.addAll(plant.getAllProductionOrders());
         }

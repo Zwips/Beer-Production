@@ -4,10 +4,10 @@ package communication.sqlcommunication.selecters;
  * @param PendingOrdersRetriever method retrieves the pending orders from the database where status=false
  * @param getPendingOrders creates the ArrayList orders containing pending orders and returns it.                     .
  */
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
-import communication.sqlcommunication.dataclasses.CommunicationProductionOrder;
+import communication.sqlcommunication.dataclasses.CommunicationBusinessOrder;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Select;
@@ -34,7 +34,7 @@ public class PendingOrdersRetriever {
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public List<IProductionOrder> getPendingOrders(Timestamp after, Timestamp before){
+    public List<IBusinessOrder> getPendingOrders(Timestamp after, Timestamp before){
 
         String conditions = this.conditions+" AND latestdeliverydate < ? AND latestdeliverydate > ?";
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
@@ -42,11 +42,11 @@ public class PendingOrdersRetriever {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, after));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<IProductionOrder> orders = new ArrayList<>();
+        List<IBusinessOrder> orders = new ArrayList<>();
 
         try {
             while(results.next()){
-                CommunicationProductionOrder order = new CommunicationProductionOrder();
+                CommunicationBusinessOrder order = new CommunicationBusinessOrder();
 
                 order.setAmount(results.getInt("amount"));
                 order.setOrderID(results.getInt("orderid"));
@@ -74,16 +74,16 @@ public class PendingOrdersRetriever {
         new DatabaseConnector().closeConnection(connection);
         return orders;
     }
-    public List<IProductionOrder> getPendingOrders(){
+    public List<IBusinessOrder> getPendingOrders(){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<IProductionOrder> orders = new ArrayList<>();
+        List<IBusinessOrder> orders = new ArrayList<>();
 
         try {
             while(results.next()){
-                CommunicationProductionOrder order = new CommunicationProductionOrder();
+                CommunicationBusinessOrder order = new CommunicationBusinessOrder();
 
                 order.setAmount(results.getInt("amount"));
                 order.setOrderID(results.getInt("orderid"));

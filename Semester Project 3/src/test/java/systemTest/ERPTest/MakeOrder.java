@@ -1,6 +1,6 @@
 package systemTest.ERPTest;
 
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.And;
@@ -61,7 +61,7 @@ public class MakeOrder {
     @Then("^the order exists in the queue$")
     public void theOrderExistsInTheQueue() throws Throwable {
         try{
-            IProductionOrder order;
+            IBusinessOrder order;
 
             boolean correctOrder = false;
 

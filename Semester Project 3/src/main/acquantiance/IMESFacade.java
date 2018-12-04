@@ -8,7 +8,7 @@ import java.util.Set;
 public interface IMESFacade {
 
     int getNextOrderID();
-    List<IProductionOrder> getPendingOrders();
+    List<IBusinessOrder> getPendingOrders();
     HashMap<String, List<IMachineConnectionInformation>> getMachines();
     void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password);
     void deleteMachine(String machineID);
@@ -21,7 +21,7 @@ public interface IMESFacade {
 
     boolean removePlant(String plantID);
 
-    Map<String, IProcessingCapacity> addOrders(Map<String, List<IProductionOrder>> destinations);
+    Map<String, IProcessingCapacity> addOrders(Map<String, List<IBusinessOrder>> destinations);
 
     boolean addMachine(String processingPlantID, String machineName, String ipAddress, String userID, String password);
 
@@ -31,9 +31,9 @@ public interface IMESFacade {
 
     IProcessingCapacity removeOrder(String plantID, int orderID) throws NoSuchFieldException;
 
-    IProductionOrder getOrder(String plantID, int orderID);
+    IBusinessOrder getOrder(String plantID, int orderID);
 
-    Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations);
+    Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations);
 
-    List<IProductionOrder> getAllProductionOrdersInPlants();
+    List<IBusinessOrder> getAllProductionOrdersInPlants();
 }

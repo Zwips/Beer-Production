@@ -1,7 +1,7 @@
 package gui;
 
 import acquantiance.IERPFacade;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
@@ -56,7 +56,7 @@ public class GUIOutFacade {
     }
 
 
-    List<IProductionOrder> getProductionOrderQueue(){
+    List<IBusinessOrder> getProductionOrderQueue(){
 
         return erpFacade.getProductionOrderQueue();
     }

@@ -1,7 +1,7 @@
 package logic.erp;
 
 import acquantiance.IERPFacade;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
@@ -51,7 +51,7 @@ public class ERPFacade implements IERPFacade {
     }
 
     @Override
-    public List<IProductionOrder> getProductionOrderQueue() {
+    public List<IBusinessOrder> getProductionOrderQueue() {
       return this.erp.getProductionOrders();
     }
 
@@ -61,7 +61,7 @@ public class ERPFacade implements IERPFacade {
     }
 
     @Override
-    public IProductionOrder getOrder(int orderID) {
+    public IBusinessOrder getOrder(int orderID) {
         return this.erp.getOrder(orderID);
     }
 

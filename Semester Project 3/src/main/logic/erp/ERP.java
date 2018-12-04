@@ -14,7 +14,7 @@ package logic.erp;
  */
 
 import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import logic.erp.scheduler.Scheduler_Facade;
 
@@ -60,16 +60,16 @@ public class ERP {
      * @return the production order queue with the added order.
      */
     public boolean addOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) {
-        ProductionOrder order = null;
+        BusinessOrder order = null;
 
         try {
-            order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            order = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
         } catch (InvalidParameterException ex) {
             return false;
         }
 
         order.setOrderID(nextOrderID++);
-        Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(order, processingCapacities);
+        Map<String, List<IBusinessOrder>> destinations = this.scheduler_facade.schedule(order, processingCapacities);
 
         this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
 
@@ -152,7 +152,7 @@ public class ERP {
      *
      * @return the production order list.
      */
-    public List<IProductionOrder> getProductionOrders() {
+    public List<IBusinessOrder> getProductionOrders() {
         return ERPOutFacade.getInstance().getPendingOrders();
     }
 
@@ -185,22 +185,22 @@ public class ERP {
      *
      */
     private void initialiseOrders() {
-        List<IProductionOrder> pendingOrders = ERPOutFacade.getInstance().getPendingOrders();
+        List<IBusinessOrder> pendingOrders = ERPOutFacade.getInstance().getPendingOrders();
 
-        Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
+        Map<String, List<IBusinessOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
 
         this.processingCapacities.putAll(ERPOutFacade.getInstance().changeOrders(destinations));
     }
 
     public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
         try {
-            ProductionOrder changedOrder = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            BusinessOrder changedOrder = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             changedOrder.setOrderID(orderID);
 
             String plantID = this.scheduler_facade.getOrderLocations(orderID);
             this.processingCapacities.put(plantID, ERPOutFacade.getInstance().removeOrder(plantID, orderID));
 
-            Map<String, List<IProductionOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
+            Map<String, List<IBusinessOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
 
             ERPOutFacade.getInstance().changeOrders(destinations);
 
@@ -210,9 +210,8 @@ public class ERP {
         }
     }
 
-    public IProductionOrder getOrder(int orderID) {
+    public IBusinessOrder getOrder(int orderID) {
         String plantID = this.scheduler_facade.getOrderLocations(orderID);
-        System.out.println("ERP plantID: " + plantID);
 
         return ERPOutFacade.getInstance().getOrder(plantID, orderID);
     }

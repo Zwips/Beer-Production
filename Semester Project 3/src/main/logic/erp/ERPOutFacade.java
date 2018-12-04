@@ -3,7 +3,7 @@ package logic.erp;
 import acquantiance.IMESFacade;
 import acquantiance.IMachineConnectionInformation;
 import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ERPOutFacade {
         return mesFacade.getNextOrderID();
     }
 
-    List<IProductionOrder> getPendingOrders(){
+    List<IBusinessOrder> getPendingOrders(){
         return mesFacade.getPendingOrders();
     }
 
@@ -66,7 +66,7 @@ public class ERPOutFacade {
         return this.mesFacade.removePlant(plantID);
     }
 
-    public Map<String, IProcessingCapacity> addOrders(Map<String, List<IProductionOrder>> destinations) {
+    public Map<String, IProcessingCapacity> addOrders(Map<String, List<IBusinessOrder>> destinations) {
         return this.mesFacade.addOrders(destinations);
     }
 
@@ -86,17 +86,17 @@ public class ERPOutFacade {
         return this.mesFacade.removeOrder(plantID, orderID);
     }
 
-    public IProductionOrder getOrder(String plantID, int orderID) {
+    public IBusinessOrder getOrder(String plantID, int orderID) {
 
         return this.mesFacade.getOrder(plantID, orderID);
     }
 
-    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IProductionOrder>> destinations) {
+    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations) {
 
         return this.mesFacade.changeOrders(destinations);
     }
 
-    public List<IProductionOrder> getAllProductionOrders(){
+    public List<IBusinessOrder> getAllProductionOrders(){
         return this.mesFacade.getAllProductionOrdersInPlants();
     }
 }

@@ -22,7 +22,7 @@ public class StorageRetriever {
     public StorageRetriever() {
         this.selections = "*";
         this.tables = "storage";
-        this.conditions = "factoryid = ?";
+        this.conditions = "factory_id = ?";
 
         this.connection = new DatabaseConnector().openConnection();
     }

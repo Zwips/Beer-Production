@@ -1,7 +1,7 @@
 package systemTest.ERPTest;
 
 import acquantiance.IERPFacade;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.And;
@@ -76,7 +76,7 @@ public class ChangeOrder {
     @Then("^the updated order is not in the queue$")
     public void theUpdatedOrderIsNotInTheQueue() throws Throwable {
         boolean exists = false;
-        for (IProductionOrder order : this.erpFacade.getProductionOrderQueue()) {
+        for (IBusinessOrder order : this.erpFacade.getProductionOrderQueue()) {
             if(order.getOrderID() == this.orderID){
 
                 exists = true;
@@ -183,7 +183,7 @@ public class ChangeOrder {
         try{
             boolean orderFound = false;
             sleep(300);
-            IProductionOrder order = this.erpFacade.getOrder(this.orderID);
+            IBusinessOrder order = this.erpFacade.getOrder(this.orderID);
 
             if (order.getOrderID() == orderID){
                 assertEquals(orderID, order.getOrderID());

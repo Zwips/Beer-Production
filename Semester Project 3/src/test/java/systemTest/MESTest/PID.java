@@ -41,7 +41,7 @@ public class PID {
     public void theProductTypeForThePIDOrderIs(String arg0) throws Throwable {
         ProductTypeEnum type = ProductTypeEnum.get("Pilsner");
         //TODO IOrder order = PID.getOrder(); eller hvilket kald der skal til
-        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductTypeEnum());
+        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductType());
     }
 
     @Given("^full storage$")

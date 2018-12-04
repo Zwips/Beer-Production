@@ -4,10 +4,10 @@ package communication.sqlcommunication.selecters;
  * @param OrdersByPriorityRetriever method retrieves the orders from the database with priority 1-3
  * @param getOrdersByPriority creates the ArrayList orders with the priority from 1-3 returns it.                     .
  */
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.DatabaseConnector;
-import communication.sqlcommunication.dataclasses.CommunicationProductionOrder;
+import communication.sqlcommunication.dataclasses.CommunicationBusinessOrder;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Select;
@@ -34,17 +34,17 @@ public class OrdersByPriorityRetriever {
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public List<IProductionOrder> getOrdersByPriority(int priority){
+    public List<IBusinessOrder> getOrdersByPriority(int priority){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, priority));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<IProductionOrder> orders = new ArrayList<>();
+        List<IBusinessOrder> orders = new ArrayList<>();
 
         try {
             while(results.next()){
-                CommunicationProductionOrder order = new CommunicationProductionOrder();
+                CommunicationBusinessOrder order = new CommunicationBusinessOrder();
 
                 order.setAmount(results.getInt("amount"));
                 order.setOrderID(results.getInt("orderid"));

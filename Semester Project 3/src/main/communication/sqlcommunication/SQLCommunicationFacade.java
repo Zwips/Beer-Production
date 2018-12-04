@@ -59,14 +59,14 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public IProductionOrder selectFromOrder(int orderID) {
+    public IBusinessOrder selectFromOrder(int orderID) {
         OrderRetriever retriever = new OrderRetriever();
-        IProductionOrder order = retriever.getOrder(orderID);
+        IBusinessOrder order = retriever.getOrder(orderID);
         return order;
     }
 
     @Override
-    public List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo) {
+    public List<IBusinessOrder> getPendingOrders(Date dateFrom, Date dateTo) {
         PendingOrdersRetriever retriever = new PendingOrdersRetriever();
         Timestamp _dateFrom = new Timestamp(dateFrom.getTime());
         Timestamp _dateTo = new Timestamp(dateTo.getTime());
@@ -75,12 +75,12 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public List<IProductionOrder> getPendingOrders() {
+    public List<IBusinessOrder> getPendingOrders() {
         return new PendingOrdersRetriever().getPendingOrders();
     }
 
     @Override
-    public List<IProductionOrder> getCompletedOrders() {
+    public List<IBusinessOrder> getCompletedOrders() {
         CompletedOrdersRetriever retriever = new CompletedOrdersRetriever();
         return retriever.getCompletedOrders();
     }
@@ -126,7 +126,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void logOrder(IProductionOrder order) {
+    public void logOrder(IBusinessOrder order) {
         int amount = order.getAmount();
         ProductTypeEnum type = order.getProductType();
         int priority = order.getPriority();
@@ -203,21 +203,21 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void logOrders(List<IProductionOrder> orders) {
-        for (IProductionOrder order : orders) {
+    public void logOrders(List<IBusinessOrder> orders) {
+        for (IBusinessOrder order : orders) {
             this.logOrder(order);
         }
     }
 
     @Override
-    public void updateOrders(List<IProductionOrder> orders) {
-        for (IProductionOrder order : orders) {
+    public void updateOrders(List<IBusinessOrder> orders) {
+        for (IBusinessOrder order : orders) {
             this.updateOrder(order);
         }
     }
 
     @Override
-    public void updateOrder(IProductionOrder order){
+    public void updateOrder(IBusinessOrder order){
         int amount = order.getAmount();
         ProductTypeEnum type = order.getProductType();
         int priority = order.getPriority();
