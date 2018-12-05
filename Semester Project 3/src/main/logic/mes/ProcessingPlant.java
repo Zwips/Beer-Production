@@ -11,6 +11,7 @@ import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.mesacquantiance.*;
 import logic.mes.pid.PIDFacade;
+import logic.mes.scheduler.DeliveryOrder;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
 import java.io.IOException;
@@ -144,8 +145,11 @@ public class ProcessingPlant {
 
             //storage
             int completedProducts = (int) (batchSize - defectives);
-            MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product );
-            this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
+            synchronized (this.storage){
+                this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
+            }
+            MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product);
+
 
             //defectives
             float machineSpeed = machine.readMachineSpeedCurrent();
@@ -221,11 +225,36 @@ public class ProcessingPlant {
 
 
     boolean executeNextOrder(String machineID){
-        IProductionOrder order = this.scheduler.getNextOrder(machineID);
+        IProductionOrder order;
+        boolean anotherOrder = false;
 
-        if (order == null) {
-            order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
-        }
+        do{
+            order = this.scheduler.getNextOrder(machineID);
+
+            if (order == null) {
+                order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
+                anotherOrder = false;
+            } else {
+                int productAmount = order.getAmount();
+                int stock;
+                synchronized (this.storage){
+                    stock = this.storage.getCurrentAmount(order.getProductType());
+
+                    if (productAmount>stock){
+                        this.storage.setCurrentAmount(0, order.getProductType());
+                    } else {
+                        this.storage.setCurrentAmount(stock-productAmount, order.getProductType());
+                        anotherOrder = true;
+                    }
+                }
+                ((DeliveryOrder)order).setAmount(productAmount-stock);
+                MESOutFacade.getInstance().updateStorageCurrentAmount(order.getAmount()-productAmount, plantID, order.getProductType());
+
+                if (anotherOrder){
+                    MESOutFacade.getInstance().setOrderCompleted(order.getOrderID());
+                }
+            }
+        }while(anotherOrder);
 
         if(order != null){
             boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);

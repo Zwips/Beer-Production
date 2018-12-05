@@ -31,7 +31,6 @@ public class DeliveryOrder implements IProductionOrder {
         return this.getPlannedStart();
     }
 
-
     @Override
     public ProductTypeEnum getProductType() {
         return this.productType;
@@ -45,5 +44,13 @@ public class DeliveryOrder implements IProductionOrder {
     @Override
     public float getProductionSpeed() {
         return this.productionSpeed;
+    }
+
+    public void setAmount(int newAmount) {
+        if (newAmount>0){
+            this.amount = newAmount;
+        } else {
+            this.amount = 0;
+        }
     }
 }

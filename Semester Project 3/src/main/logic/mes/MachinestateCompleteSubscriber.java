@@ -3,8 +3,6 @@ package logic.mes;
 import acquantiance.IDataChangeCatcher;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
-import static java.lang.Thread.sleep;
-
 public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
 
     private String machineID;

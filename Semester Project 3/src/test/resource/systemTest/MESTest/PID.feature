@@ -1,12 +1,11 @@
 Feature: PID gives PidOrder when system is idle and the processingplants storage capacity is not full
+
   Background:
     Given the system is initialized, atleast at MES level
-
 
   Scenario: PID is queried for next PIDOrder
     Given All types but Pilsner is full capacity
     Then the product type for the PIDOrder is Pilsner
-
 
   Scenario: The storage is full
     Given full storage
