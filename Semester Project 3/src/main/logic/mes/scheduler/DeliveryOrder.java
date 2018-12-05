@@ -28,7 +28,7 @@ public class DeliveryOrder implements IProductionOrder {
     }
 
     public Date getPlannedStart(){
-        return this.getPlannedStart();
+        return this.deliveryTime;
     }
 
     @Override

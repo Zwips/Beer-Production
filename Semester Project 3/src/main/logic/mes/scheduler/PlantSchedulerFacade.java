@@ -185,11 +185,11 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
         synchronized(queue){
             int queueSize = queue.size();
             if (queueSize > 0) {
-
-                DeliveryOrder order = queue.poll();
-
-                this.startedOrders.add(order.getOrderID());
-                return order;
+                if (queue.peek().getPlannedStart().before(new Date(System.currentTimeMillis()+60000))) {
+                    DeliveryOrder order = queue.poll();
+                    this.startedOrders.add(order.getOrderID());
+                    return order;
+                }
             }
         }
 
