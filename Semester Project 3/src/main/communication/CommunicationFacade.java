@@ -80,7 +80,7 @@ public class CommunicationFacade implements ICommunicationFacade {
     }
 
     @Override
-    public void insertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID) {
+    public void insertIntoBatch_log(int batchID, String machineID, Integer orderID, String factoryID) {
         sqlFacade.InsertIntoBatch_log(batchID,machineID,orderID,factoryID);
     }
 

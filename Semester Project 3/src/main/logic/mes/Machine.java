@@ -395,7 +395,7 @@ public class Machine implements IMesMachine, IMachine {
     }
 
     @Override
-    public int getCurrentOrderID() {
+    public Integer getCurrentOrderID() {
         return currentOrderID;
     }
 

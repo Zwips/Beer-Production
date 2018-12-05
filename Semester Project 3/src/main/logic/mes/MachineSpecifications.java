@@ -63,7 +63,7 @@ public class MachineSpecifications implements ISpeedOptimizable, IMachineSpecifi
         productionsSpeeds.put(ProductTypeEnum.IPA, new ProductionSpeeds(this.IPAMAXSPEED, this.IPAMAXSPEED, this.IPAMAXSPEED));
         productionsSpeeds.put(ProductTypeEnum.STOUT, new ProductionSpeeds(this.STOUTMAXSPEED, this.STOUTMAXSPEED, this.STOUTMAXSPEED));
         productionsSpeeds.put(ProductTypeEnum.WHEAT, new ProductionSpeeds(this.WHEATMAXSPEED, this.WHEATMAXSPEED, this.WHEATMAXSPEED));
-        productionsSpeeds.put(ProductTypeEnum.ALE, new ProductionSpeeds(this.ALEMAXSPEED, this.ALEMAXSPEED, this.ALEMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.ALCOHOLFREE, new ProductionSpeeds(this.ALCOHOLFREEMAXSPEED, this.ALCOHOLFREEMAXSPEED, this.ALCOHOLFREEMAXSPEED));
     }
 
     int getCommandNumber(String command){

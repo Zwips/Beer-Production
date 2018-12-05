@@ -10,19 +10,11 @@ package logic.mes;
 import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.mesacquantiance.*;
-import logic.mes.pid.IPIDType;
 import logic.mes.pid.PIDFacade;
 import logic.mes.scheduler.PlantSchedulerFacade;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.time.LocalDate;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProcessingPlant {
 
@@ -149,6 +141,11 @@ public class ProcessingPlant {
             //batch_log
             Integer completedOrderID = machine.getCurrentOrderID();
             MESOutFacade.getInstance().insertIntoBatch_Log((int)batchID, machineID, completedOrderID, this.plantID);
+
+            //storage
+            int completedProducts = (int) (batchSize - defectives);
+            MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product );
+            this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
 
             //defectives
             float machineSpeed = machine.readMachineSpeedCurrent();

@@ -88,7 +88,7 @@ public class BatchReport implements Serializable{
         PDImageXObject pdfChartImageTemperature = JPEGFactory.createFromImage(d, chartImageTemperature, 1f);
         contentStream.drawImage(pdfChartImageTemperature, 50, 60);
 
-        System.out.println("Content added");
+        //System.out.println("Content added");
 
         contentStream.close();
         d.save(file);

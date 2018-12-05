@@ -13,6 +13,7 @@ import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.List;
 
 public class SetPreparedStatement {
@@ -26,7 +27,11 @@ public class SetPreparedStatement {
             switch (prepareInfo.getType()){
                 case INT:
                     Integer intValue = (Integer) prepareInfo.getData();
-                    statement.setInt(prepareInfo.getPlace(), intValue);
+                    if (intValue != null){
+                        statement.setInt(prepareInfo.getPlace(), intValue);
+                    } else {
+                        statement.setNull(prepareInfo.getPlace(), Types.INTEGER);
+                    }
                     break;
                 case FLOAT:
                     Float floatValue = (Float) prepareInfo.getData();

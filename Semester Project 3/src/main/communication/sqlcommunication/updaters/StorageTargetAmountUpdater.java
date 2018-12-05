@@ -19,7 +19,7 @@ public class StorageTargetAmountUpdater {
     public StorageTargetAmountUpdater() {
         this.tables = "storage";
         this.values = "target_amount = ?";
-        this.conditions = "factoryid = ? AND type = ?";
+        this.conditions = "factory_id = ? AND type = ?";
 
         connection = new DatabaseConnector().openConnection();
     }

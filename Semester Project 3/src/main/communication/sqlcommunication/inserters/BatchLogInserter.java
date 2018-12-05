@@ -25,7 +25,7 @@ public class BatchLogInserter {
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean insert(int batchID, String machineID, int orderID, String factoryID){
+    public boolean insert(int batchID, String machineID, Integer orderID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, machineID));

@@ -18,8 +18,8 @@ public class StorageCurrentAmountUpdater {
 
     public StorageCurrentAmountUpdater() {
         this.tables = "storage";
-        this.values = "current_amount = ?";
-        this.conditions = "factoryid = ? AND type = ?";
+        this.values = "current_amount = current_amount+?";
+        this.conditions = "factory_id = ? AND type = ?";
 
         connection = new DatabaseConnector().openConnection();
     }

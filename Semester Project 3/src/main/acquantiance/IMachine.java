@@ -41,7 +41,7 @@ public interface IMachine {
     float readTemperature() throws ServiceException;
     float readVibration() throws ServiceException;
 
-    int getCurrentOrderID();
+    Integer getCurrentOrderID();
 
     ProductTypeEnum getProductType(float productTypeID);
     //</editor-fold>

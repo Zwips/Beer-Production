@@ -26,11 +26,6 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
                 break;
         }
 
-
-
-
-
     }
-
 
 }
