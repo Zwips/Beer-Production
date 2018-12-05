@@ -1,129 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXMLDocumentController">
     <children>
-        <TabPane layoutX="10.0" layoutY="2.0" prefHeight="600.0" prefWidth="801.0" side="LEFT" style="-fx-border-color: white; -fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
+        <TabPane prefHeight="600.0" prefWidth="800.0" style="-fx-border-color: #FF8C00; -fx-border-width: 3; -fx-background-color: black;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
-            <Tab text="Visualization">
+            <Tab style="-fx-background-color: linear-gradient(aliceblue, lightslategray); -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Visualization">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="539.0" prefWidth="794.0" style="-fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0));">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="212.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="770.0" />
-                        <Line endX="666.0" startX="-110.0" strokeWidth="3.0" />
-                        <ListView fx:id="factoryListView" layoutX="35.0" layoutY="89.0" prefHeight="100.0" prefWidth="120.0" />
-                        <ListView fx:id="machineListView" layoutX="184.0" layoutY="89.0" prefHeight="100.0" prefWidth="120.0" />
-                        <Label layoutX="71.0" layoutY="69.0" text="Factory" />
-                        <Label layoutX="221.0" layoutY="69.0" text="Machine" />
-                        <Line endX="666.0" layoutX="106.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
-                        <Label layoutX="328.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Select">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="796.0">
+                           <fill>
+                              <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#acaeb0" offset="0.007662835249042145" />
+                                    <Stop color="#aaabad" offset="0.007662835249042145" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Rectangle>
+                        <ListView fx:id="factoryListView" layoutX="31.0" layoutY="96.0" prefHeight="103.0" prefWidth="129.0" style="-fx-background-color: rgb(235, 235, 235),    rgb(0, 0, 0),    rgb(255, 255, 255); -fx-border-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4;" />
+                        <ListView fx:id="machineListView" layoutX="182.0" layoutY="97.0" prefHeight="103.0" prefWidth="129.0" style="-fx-background-color: rgb(235, 235, 235),    rgb(0, 0, 0),    rgb(255, 255, 255); -fx-border-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4;" />
+                        <Label layoutX="51.0" layoutY="69.0" style="-fx-font-family: &quot;Arial&quot;; -fx-text-fill: lightgoldenrodyellow; -fx-font-size: 14;" text="Select Factory" />
+                        <Label layoutX="194.0" layoutY="69.0" style="-fx-font-family: &quot;Arial&quot;; -fx-text-fill: lightgoldenrodyellow; -fx-font-size: 14;" text="Select Machine" />
+                        <Label layoutX="198.0" layoutY="5.0" prefHeight="33.0" prefWidth="428.0" text="Overall Equipment Effectiveness">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Bodoni MT" size="26.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="568.0" layoutY="46.0" pickOnBounds="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="machineStateTextField" layoutX="22.0" layoutY="276.0" prefHeight="44.0" prefWidth="147.0" />
-                        <Label layoutX="39.0" layoutY="240.0" text="Machine State">
+                        <PieChart fx:id="pieChartOEE" layoutX="502.0" layoutY="276.0" prefHeight="223.0" prefWidth="236.0" />
+                        <Button layoutX="33.0" layoutY="217.0" mnemonicParsing="false" onAction="#loadFactioresBtnHandler" prefHeight="34.0" prefWidth="125.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4; -fx-border-color: black; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-text-fill: white; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Load factories" />
+                        <Label fx:id="oEEpercentLabel" layoutX="488.0" layoutY="94.0" prefHeight="27.0" prefWidth="132.0" textFill="#fffefe">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="347.0" layoutY="164.0" mnemonicParsing="false" onAction="#loadFactioresBtnHandler" text="Load factories" />
-                        <Label fx:id="oEEpercentLabel" layoutX="110.0" layoutY="410.0" text="Label" />
-                        <Label layoutX="14.0" layoutY="410.0" text="OEE Percent:" />
-                        <StackPane fx:id="pieChartPane" layoutX="455.0" layoutY="344.0" prefHeight="150.0" prefWidth="200.0" />
+                        <Label layoutX="356.0" layoutY="97.0" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;;" text="OEE Percent:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
                </content>
             </Tab>
-                <Tab text="Add Machine">
+                <Tab style="-fx-background-color: linear-gradient(aliceblue, lightslategray); -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Machine">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="810.0" style="-fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0));">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="326.0" layoutY="256.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="771.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="253.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="771.0" />
-                        <Label fx:id="machineNameLabel" layoutX="16.0" layoutY="358.0" text="Machine name">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="260.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="798.0">
+                           <fill>
+                              <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#acaeb0" offset="0.007662835249042145" />
+                                    <Stop color="#aaabad" offset="0.007662835249042145" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Rectangle>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="798.0">
+                           <fill>
+                              <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#acaeb0" offset="0.007662835249042145" />
+                                    <Stop color="#aaabad" offset="0.007662835249042145" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Rectangle>
+                        <Label fx:id="machineNameLabel" layoutX="16.0" layoutY="358.0" style="-fx-font-family: &quot;Arial&quot;;" text="Machine name:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="iPAdressLabel" layoutX="16.0" layoutY="441.0" text="IP address">
+                        <Label fx:id="iPAdressLabel" layoutX="16.0" layoutY="441.0" style="-fx-font-family: &quot;Arial&quot;;" text="IP address:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="portNumberLabel" layoutX="16.0" layoutY="519.0" text="Port number">
+                        <Label fx:id="portNumberLabel" layoutX="16.0" layoutY="519.0" style="-fx-font-family: &quot;Arial&quot;;" text="Port number:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
-                              <Font name="Bell MT" size="18.0" />
+                              <Font name="Arial" size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="machineNameTextField" layoutX="192.0" layoutY="354.0" prefHeight="35.0" prefWidth="185.0">
+                        <TextField fx:id="machineNameTextField" layoutX="192.0" layoutY="354.0" prefHeight="30.0" prefWidth="174.0" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="iPaddressTextField" layoutX="192.0" layoutY="437.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Label fx:id="userNameLabel" layoutX="16.0" layoutY="87.0" text="Username">
+                        <TextField fx:id="iPaddressTextField" layoutX="192.0" layoutY="437.0" prefHeight="30.0" prefWidth="174.0" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;" />
+                        <Label fx:id="userNameLabel" layoutX="24.0" layoutY="94.0" style="-fx-font-family: &quot;Arial&quot;;" text="Username:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="passWordLabel" layoutX="16.0" layoutY="160.0" text="Password">
+                        <Label fx:id="passWordLabel" layoutX="24.0" layoutY="179.0" style="-fx-font-family: &quot;Arial&quot;;" text="Password:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="portNumberTextField" layoutX="192.0" layoutY="509.0" prefHeight="35.0" prefWidth="185.0" />
-                        <TextField fx:id="userNameTextField" layoutX="162.0" layoutY="87.0" prefHeight="35.0" prefWidth="185.0" />
-                        <Button fx:id="addMachineBtn" layoutX="609.0" layoutY="453.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="130.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Add Machine">
+                        <TextField fx:id="portNumberTextField" layoutX="192.0" layoutY="509.0" prefHeight="30.0" prefWidth="174.0" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;" />
+                        <TextField fx:id="userNameTextField" layoutX="164.0" layoutY="87.0" prefHeight="30.0" prefWidth="174.0" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;" />
+                        <Button fx:id="addMachineBtn" layoutX="578.0" layoutY="448.0" mnemonicParsing="false" onAction="#addMachineActionHandler" prefHeight="38.0" prefWidth="159.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4; -fx-border-color: black; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-text-fill: white; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Add Machine">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="556.0" layoutY="54.0" pickOnBounds="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                        <Label fx:id="typeLabel12" layoutX="339.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Login">
+                        <Label fx:id="typeLabel12" layoutX="329.0" layoutY="5.0" prefHeight="32.0" prefWidth="209.0" text="Login">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Bodoni MT" size="26.0" />
                            </font>
                         </Label>
-                        <Line endX="666.0" layoutX="112.0" layoutY="54.0" startX="-110.0" strokeWidth="3.0" />
-                        <Label layoutX="273.0" layoutY="265.0" prefHeight="32.0" prefWidth="209.0" text="Machine information">
+                        <Label layoutX="273.0" layoutY="265.0" prefHeight="33.0" prefWidth="255.0" text="Machine information">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Bodoni MT" size="26.0" />
                            </font>
                         </Label>
-                        <Line endX="666.0" layoutX="112.0" layoutY="306.0" startX="-110.0" strokeWidth="3.0" />
-                        <PasswordField fx:id="passWordTextField" layoutX="162.0" layoutY="161.0" prefHeight="36.0" prefWidth="182.0" />
-                        <Button fx:id="addMachineBtn1" layoutX="578.0" layoutY="511.0" mnemonicParsing="false" onAction="#removeMachineActionHandler" prefHeight="39.0" prefWidth="161.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove Machine">
+                        <PasswordField fx:id="passWordTextField" layoutX="164.0" layoutY="172.0" prefHeight="30.0" prefWidth="174.0" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;" />
+                        <Button fx:id="addMachineBtn1" layoutX="578.0" layoutY="511.0" mnemonicParsing="false" onAction="#removeMachineActionHandler" prefHeight="39.0" prefWidth="161.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4; -fx-border-color: black; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-text-fill: white; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Remove Machine">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -131,12 +148,35 @@
                      </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Orders">
+                <Tab style="-fx-background-color: linear-gradient(aliceblue, lightslategray); -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Orders">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="564.0" prefWidth="798.0" style="-fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0));">
                             <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="320.0" layoutX="-1.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="774.0" />
-                          <RadioButton fx:id="pilsnerRadioBtn" layoutX="158.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Pilsner">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="798.0">
+                           <fill>
+                              <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#acaeb0" offset="0.007662835249042145" />
+                                    <Stop color="#aaabad" offset="0.007662835249042145" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Rectangle>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="326.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="798.0">
+                           <fill>
+                              <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#acaeb0" offset="0.007662835249042145" />
+                                    <Stop color="#aaabad" offset="0.007662835249042145" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </fill>
+                        </Rectangle>
+                          <RadioButton fx:id="pilsnerRadioBtn" layoutX="133.0" layoutY="178.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Pilsner">
                            <toggleGroup>
                                         <ToggleGroup fx:id="TypeToggleGroup" />
                            </toggleGroup>
@@ -144,76 +184,75 @@
                               <Font name="Bell MT" size="18.0" />
                            </font>
                         </RadioButton>
-                          <RadioButton fx:id="wheatRadioBtn" layoutX="20.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="wheatRadioBtn" layoutX="22.0" layoutY="103.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Wheat" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="stoutRadioBtn" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Stout" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="stoutRadioBtn" layoutX="22.0" layoutY="136.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Stout" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="aleRadioBtn" layoutX="158.0" layoutY="123.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Ale" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="aleRadioBtn" layoutX="133.0" layoutY="106.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Ale" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="158.0" layoutY="156.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                          <RadioButton fx:id="alchoholFreeRadioBtn" layoutX="133.0" layoutY="139.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Alcoholfree" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                                <RadioButton fx:id="iPARadioBtn" layoutX="20.0" layoutY="195.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" text="IPA" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
+                                <RadioButton fx:id="iPARadioBtn" layoutX="22.0" layoutY="175.0" mnemonicParsing="false" onAction="#TypeBtnHandleAction" prefHeight="17.0" prefWidth="149.0" selected="true" style="-fx-text-fill: lightgoldenrodyellow; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="IPA" textFill="#001f3f" toggleGroup="$TypeToggleGroup">
                            <font>
                               <Font name="Bell MT" size="18.0" />
                            </font></RadioButton>
-                        <Label fx:id="typeLabel" layoutX="16.0" layoutY="75.0" prefHeight="31.0" prefWidth="128.0" text="Product type">
+                        <Label fx:id="typeLabel" layoutX="22.0" layoutY="59.0" prefHeight="31.0" prefWidth="128.0" text="Type:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Arial" size="18.0" />
                            </font>
                         </Label>
-                                <TextField fx:id="orderAmountTextField" layoutX="186.0" layoutY="260.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="145.0" promptText="Required format: Integer" />
-                                <Label fx:id="orderAmountLabel" layoutX="16.0" layoutY="260.0" text="Product amount" textFill="#001f3f">
+                                <TextField fx:id="orderAmountTextField" layoutX="112.0" layoutY="250.0" onMouseClicked="#MouseClickedActionAction" prefHeight="25.0" prefWidth="174.0" promptText="Required format: Integer" style="-fx-background-color: rgba(255, 255, 255, 0.3), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) 50%), rgb(218, 226, 224); -fx-border-color: black;">
+                           <font>
+                              <Font size="13.0" />
+                           </font></TextField>
+                                <Label fx:id="orderAmountLabel" layoutX="18.0" layoutY="252.0" style="-fx-font-family: &quot;Arial&quot;;" text="Amount:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <ChoiceBox fx:id="priorityChoiceBox" layoutX="200.0" layoutY="401.0" prefHeight="25.0" prefWidth="148.0" />
-                                <Label fx:id="priorityLabel" layoutX="24.0" layoutY="401.0" prefHeight="27.0" prefWidth="77.0" text="Priority">
+                                <ChoiceBox fx:id="priorityChoiceBox" layoutX="434.0" layoutY="407.0" prefHeight="25.0" prefWidth="148.0" style=" -fx-border-color: white; -fx-background-insets: 0 0 -1 0, 0, 1.5;" />
+                                <Label fx:id="priorityLabel" alignment="TOP_LEFT" layoutX="321.0" layoutY="405.0" prefHeight="29.0" prefWidth="95.0" style="-fx-font-family: &quot;Arial&quot;;" text="Priority:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                                <Button fx:id="sendOrderBtn" layoutX="634.0" layoutY="522.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Send Order" textFill="#001f3f">
+                                <Button fx:id="sendOrderBtn" layoutX="450.0" layoutY="511.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" prefHeight="31.0" prefWidth="132.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4; -fx-border-color: black; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-text-fill: white; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Send Order" textFill="#cdccb0">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <Label layoutX="24.0" layoutY="514.0" text="Latest delivery ">
+                        <Label layoutX="3.0" layoutY="494.0" style="-fx-font-family: &quot;Arial&quot;;" text="Latest Date:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <Label layoutX="24.0" layoutY="458.0" text="Earliest delivery">
+                        <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="405.0" prefHeight="29.0" prefWidth="142.0" style="-fx-font-family: &quot;Arial&quot;;" text="Earliest Date:" textFill="LIGHTGOLDENRODYELLOW">
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ImageView fitHeight="170.0" fitWidth="200.0" layoutX="570.0" layoutY="66.0" pickOnBounds="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                        <Label fx:id="orderSucceededLabel" layoutX="647.0" layoutY="483.0" prefHeight="17.0" prefWidth="89.0" />
-                        <Label layoutX="282.0" layoutY="14.0" prefHeight="32.0" prefWidth="209.0" text="Product information">
+                        <Label fx:id="orderSucceededLabel" layoutX="582.0" layoutY="519.0" prefHeight="17.0" prefWidth="89.0" />
+                        <Label layoutX="284.0" layoutY="4.0" prefHeight="32.0" prefWidth="263.0" text="Product information">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Bodoni MT" size="26.0" />
                            </font>
                         </Label>
-                        <Label layoutX="282.0" layoutY="331.0" prefHeight="32.0" prefWidth="209.0" text="Delivery information">
+                        <Label layoutX="284.0" layoutY="330.0" prefHeight="33.0" prefWidth="272.0" text="Delivery information">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="Bodoni MT" size="26.0" />
                            </font>
                         </Label>
-                        <Line endX="666.0" layoutX="108.0" layoutY="55.0" startX="-110.0" strokeWidth="3.0" />
-                        <Line endX="666.0" layoutX="105.0" layoutY="371.0" startX="-110.0" strokeWidth="3.0" />
-                        <ListView fx:id="productionOrderListView" layoutX="383.0" layoutY="80.0" prefHeight="200.0" prefWidth="171.0" />
-                        <Button fx:id="loadProductionOrdersBtn" layoutX="387.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" text="Load" />
-                        <DatePicker fx:id="earliestDeliveryDatePicker" layoutX="187.0" layoutY="459.0" />
-                        <DatePicker fx:id="latestDeliveryDatePicker" layoutX="186.0" layoutY="515.0" />
-                        <Button fx:id="changeOrder" layoutX="624.0" layoutY="464.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Change Order" textFill="#001f3f">
+                        <ListView fx:id="productionOrderListView" layoutX="576.0" layoutY="71.0" prefHeight="160.0" prefWidth="191.0" style="-fx-background-color: rgb(235, 235, 235),    rgb(0, 0, 0),    rgb(255, 255, 255); -fx-border-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4;" />
+                        <Button fx:id="loadProductionOrdersBtn" layoutX="670.0" layoutY="246.0" mnemonicParsing="false" onAction="#loadProductionOrdersActionHandler" prefHeight="34.0" prefWidth="82.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 2; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-border-color: black; -fx-font-family: &quot;Arial&quot;; -fx-text-fill: white; -fx-font-size: 16;" text="Load">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Button>
+                        <DatePicker fx:id="earliestDeliveryDatePicker" layoutX="132.0" layoutY="406.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-border-color: #333333;" />
+                        <DatePicker fx:id="latestDeliveryDatePicker" layoutX="133.0" layoutY="492.0" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #FF8C00;" />
+                        <Button fx:id="changeOrder" layoutX="647.0" layoutY="511.0" mnemonicParsing="false" onAction="#SendOrderHandleActionBtn" prefHeight="30.0" prefWidth="129.0" style="-fx-background-radius: 7, 6, 5, 4, 3, 5; -fx-border-radius: 4; -fx-background-color: rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.8),#090a0c,    linear-gradient(#4a5661 0%, #1f2429 20%, #1f242a 100%), linear-gradient(#242a2e,    #23282e),    radial-gradient(center 50% 0%, radius 100%, rgba(135,142,148,0.9), rgba(255,255,255,0)); -fx-border-color: black; -fx-text-fill: white; -fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Change Order">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -227,24 +266,5 @@
             <Insets />
          </opaqueInsets>
         </TabPane>
-      <MenuBar layoutX="-1.0" layoutY="-3.0" prefHeight="28.0" prefWidth="800.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
     </children>
 </AnchorPane>
