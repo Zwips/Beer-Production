@@ -181,19 +181,23 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     public IProductionOrder getNextOrder(String machineID) {
 
         BlockingQueue<DeliveryOrder> queue = this.machineSchedule.get(machineID);
+        DeliveryOrder order = null;
 
         synchronized(queue){
             int queueSize = queue.size();
             if (queueSize > 0) {
-                if (queue.peek().getPlannedStart().before(new Date(System.currentTimeMillis()+60000))) {
-                    DeliveryOrder order = queue.poll();
-                    this.startedOrders.add(order.getOrderID());
-                    return order;
+                for (DeliveryOrder deliveryOrder : queue) { //TODO this is only a stopgap, correct order should be in top.
+                    if (deliveryOrder.getPlannedStart().before(new Date(System.currentTimeMillis()+60000))) {
+                        order = deliveryOrder;
+                        queue.remove(order);
+                        this.startedOrders.add(order.getOrderID());
+                        break;
+                    }
                 }
             }
         }
 
-        return null;
+        return order;
     }
 
     @Override
