@@ -20,6 +20,8 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
             case 17:
                 plant.uploadBatchData(machineID);
 
+                plant.analyseProduction(machineID);
+
                 plant.executeNextOrder(machineID);
                 break;
         }

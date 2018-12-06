@@ -6,6 +6,8 @@ public interface IMesMachine extends IMachine {
 
     boolean executeOrder(IProductionOrder order, float batchId);
 
+
     IMachineSpecificationReadable getMachineSpecificationReadable();
 
+    ISpeedOptimizable getMachineSpecificationOptimizable();
 }

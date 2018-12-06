@@ -149,4 +149,9 @@ public class MESOutFacade {
     public void saveBatchReport(int batchID, String factoryID, File file) {
         communicationFacade.saveBatchReport(batchID, factoryID, file);
     }
+
+    public List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type) {
+        return this.communicationFacade.getDefectivesByMachine(machineID, type);
+
+    }
 }

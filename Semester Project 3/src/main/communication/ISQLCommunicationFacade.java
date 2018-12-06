@@ -1,6 +1,7 @@
 package communication;
 
 import acquantiance.*;
+import acquantiance.IErrorRateDataPoint;
 
 import java.io.File;
 import java.util.*;
@@ -59,4 +60,6 @@ public interface ISQLCommunicationFacade {
     IStorage getStorage(String factoryID);
 
     void saveBatchReport(int batchID, String factoryID, File file);
+
+    List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
 }

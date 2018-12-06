@@ -86,6 +86,10 @@ public class ProcessingPlant {
             return false;
         }
 
+        for (ProductTypeEnum type : ProductTypeEnum.values()) {
+            this.analyseProduction(machineName, type);
+        }
+
         if(machine.isConnected()) {
             machines.put(machineName, machine);
             this.scheduler.addQueue(machineName);
@@ -307,4 +311,23 @@ public class ProcessingPlant {
         return new ProcessingCapacity();
     }
 
+    private ISpeedOptimizerFacade optimizer;
+
+    public void analyseProduction(String machineID) {
+        //TODO read real cost and sell values
+        try {
+            float productID = this.machines.get(machineID).readCurrentProductID();
+            ProductTypeEnum type = this.machines.get(machineID).getProductType(productID);
+            List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
+            this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void analyseProduction(String machineID, ProductTypeEnum type) {
+        //TODO read real cost and sell values
+        List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
+        this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+    }
 }
