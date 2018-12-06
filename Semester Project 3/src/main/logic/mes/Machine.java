@@ -20,6 +20,7 @@ import com.prosysopc.ua.StatusException;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IMesMachine;
 import logic.mes.mesacquantiance.IProductionOrder;
+import logic.mes.mesacquantiance.ISpeedOptimizable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
@@ -128,6 +129,11 @@ public class Machine implements IMesMachine, IMachine {
 
     @Override
     public IMachineSpecificationReadable getMachineSpecificationReadable() {
+        return specs;
+    }
+
+    @Override
+    public ISpeedOptimizable getMachineSpecificationOptimizable() {
         return specs;
     }
 

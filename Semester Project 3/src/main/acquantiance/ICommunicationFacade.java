@@ -61,4 +61,6 @@ public interface ICommunicationFacade {
     IStorage getStorage(String factoryID);
 
     void saveBatchReport(int batchID, String factoryID, File file);
+
+    List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
 }

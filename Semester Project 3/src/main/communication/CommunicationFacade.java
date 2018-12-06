@@ -4,6 +4,7 @@ import acquantiance.*;
 import communication.machineconnection.MachineConnection;
 import communication.mailcommunication.MailCommunicationFacade;
 import communication.sqlcommunication.SQLCommunicationFacade;
+import acquantiance.IErrorRateDataPoint;
 
 import java.io.File;
 import java.util.*;
@@ -223,6 +224,11 @@ public class CommunicationFacade implements ICommunicationFacade {
     @Override
     public void saveBatchReport(int batchID, String factoryID, File file) {
         sqlFacade.saveBatchReport(batchID, factoryID, file);
+    }
+
+    @Override
+    public List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type) {
+        return this.sqlFacade.getDefectivesByMachine(machineID, type);
     }
 
 
