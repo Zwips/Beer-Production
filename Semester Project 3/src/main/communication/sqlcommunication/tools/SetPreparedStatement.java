@@ -58,7 +58,14 @@ public class SetPreparedStatement {
                     byte[] byteA = byteArrayOS.toByteArray();
                     statement.setBytes(prepareInfo.getPlace(), byteA);
                     break;
-
+                case DOUBLE:
+                    Double doubleValue = (Double) prepareInfo.getData();
+                    if (doubleValue != null){
+                        statement.setDouble(prepareInfo.getPlace(), doubleValue);
+                    } else {
+                        statement.setNull(prepareInfo.getPlace(), Types.DOUBLE);
+                    }
+                    break;
 
             }
         }
