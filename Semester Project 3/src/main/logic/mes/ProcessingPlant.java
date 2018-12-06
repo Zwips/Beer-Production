@@ -13,6 +13,7 @@ import logic.mes.mesacquantiance.*;
 import logic.mes.pid.PIDFacade;
 import logic.mes.scheduler.DeliveryOrder;
 import logic.mes.scheduler.PlantSchedulerFacade;
+import logic.mes.speedoptimizer.SpeedOptimizerFacade;
 
 import java.io.IOException;
 import java.util.*;
@@ -46,6 +47,7 @@ public class ProcessingPlant {
         this.scheduler = new PlantSchedulerFacade();
         this.idleMachines = new HashSet<>();
         this.pidFacade = new PIDFacade();
+        this.optimizer = new SpeedOptimizerFacade();
 
         this.initialiseStorage();
         this.initialiseBatchID();
@@ -86,9 +88,6 @@ public class ProcessingPlant {
             return false;
         }
 
-        for (ProductTypeEnum type : ProductTypeEnum.values()) {
-            this.analyseProduction(machineName, type);
-        }
 
         if(machine.isConnected()) {
             machines.put(machineName, machine);
@@ -104,7 +103,9 @@ public class ProcessingPlant {
                 default:
                     this.idleMachines.add(machineName);
             }
-
+            for (ProductTypeEnum type : ProductTypeEnum.values()) {
+                this.analyseProduction(machineName, type);
+            }
             return true;
         } else{
             return false;
@@ -328,6 +329,8 @@ public class ProcessingPlant {
     public void analyseProduction(String machineID, ProductTypeEnum type) {
         //TODO read real cost and sell values
         List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
-        this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+        if (data.size()>0) {
+            this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 6, 10,type);
+        }
     }
 }

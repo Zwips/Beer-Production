@@ -17,12 +17,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class PlantSchedulerFacade implements IPlantSchedulerFacade {
 
     private PlantScheduler scheduler;
-    private Map<Integer, String> ordersSentTo;
+    private Map<String, TreeSet<DeliveryOrder>> machineSchedule;
+    private Map<Integer, IBusinessOrder> businessOrders;
+    private Set<Integer> startedOrders;
+
 
     public PlantSchedulerFacade() {
         this.scheduler = new RetardedPlantSchedular();
-        this.ordersSentTo = new HashMap<>();
-
         this.machineSchedule = new HashMap<>();
         this.businessOrders = new HashMap<>();
         this.startedOrders = new HashSet<>();
@@ -48,57 +49,43 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     }
 
     @Override
-    public Map<String, List<DeliveryOrder>> schedule(IBusinessOrder order, Collection<IMesMachine> machines) {
-        Map<String, List<DeliveryOrder>> destinations = this.scheduler.schedule(order, machines);
+    public boolean schedule(IBusinessOrder order, Collection<IMesMachine> machines) {
 
-        this.setOrdersSentTo(destinations);
+        boolean success = this.scheduler.schedule(order, machines, this.machineSchedule);
 
-        return destinations;
-    }
-
-    @Override
-    public Map<String, List<DeliveryOrder>> reSchedule(List<IBusinessOrder> pendingOrders, Collection<IMesMachine> machines) {
-        this.ordersSentTo.clear();
-
-        Map<String, List<DeliveryOrder>> destinations = this.scheduler.reSchedule(pendingOrders, machines);
-
-        this.setOrdersSentTo(destinations);
-
-        return destinations;
-    }
-
-    private void setOrdersSentTo(Map<String, List<DeliveryOrder>> destinations){
-        for (Map.Entry<String, List<DeliveryOrder>> destination : destinations.entrySet()) {
-            for (DeliveryOrder order : destination.getValue()) {
-                this.ordersSentTo.put(order.getOrderID(), destination.getKey());
-            }
+        if (!success){
+            success = this.scheduler.reSchedule(this.businessOrders.values(), machines, machineSchedule);
         }
+
+        return success;
     }
 
+    @Override
+    public boolean reSchedule(List<IBusinessOrder> pendingOrders, Collection<IMesMachine> machines) {
 
-
-
-    private Map<String, BlockingQueue<DeliveryOrder>> machineSchedule;
-    private Map<Integer, IBusinessOrder> businessOrders;
-    private Set<Integer> startedOrders;
+        return this.scheduler.reSchedule(pendingOrders, machines, machineSchedule);
+    }
 
     @Override
-    public Set<String> addOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines){
+    public Set<String> addOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines){ //TODO return list of not scheduled orders
 
         Set<String> startMachines = new HashSet<>();
+        List<IBusinessOrder> addedOrders = new ArrayList<>();
+        boolean success;
 
         for (IBusinessOrder order : orders) {
-            this.businessOrders.put(order.getOrderID(),order);
 
-            Set<Map.Entry<String, List<DeliveryOrder>>> destinations = this.schedule(order, machines).entrySet();
-            for (Map.Entry<String, List<DeliveryOrder>> destination : destinations) {
-                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
+            success = this.schedule(order, machines);
+
+            if (success){
+                this.businessOrders.put(order.getOrderID(),order);
+                addedOrders.add(order);
             }
         }
 
-        MESOutFacade.getInstance().saveOrders(orders);
+        MESOutFacade.getInstance().saveOrders(addedOrders);
 
-        for (Map.Entry<String, BlockingQueue<DeliveryOrder>> queues : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, TreeSet<DeliveryOrder>> queues : this.machineSchedule.entrySet()) {
             if (queues.getValue().size()!=0){
                 startMachines.add(queues.getKey());
             }
@@ -110,7 +97,7 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     @Override
     public List<IBusinessOrder> getAllProductionOrders(){
 
-        for (Map.Entry<String, BlockingQueue<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, TreeSet<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
             machineQueue.getValue().clear();
         }
 
@@ -125,7 +112,7 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     public String removeOrder(int orderID) throws NoSuchFieldException {
 
         if (!this.startedOrders.contains(orderID)) {
-            for (Map.Entry<String, BlockingQueue<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
+            for (Map.Entry<String, TreeSet<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
                 Iterator<DeliveryOrder> iter = machineQueue.getValue().iterator();
                 DeliveryOrder order;
 
@@ -150,7 +137,7 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     @Override
     public IBusinessOrder getOrder(int orderID) {
 
-        for (Map.Entry<String, BlockingQueue<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
+        for (Map.Entry<String, TreeSet<DeliveryOrder>> machineQueue : this.machineSchedule.entrySet()) {
             for (DeliveryOrder order : machineQueue.getValue()) {
                 if (order.getOrderID() == orderID){
                     return this.businessOrders.get(orderID);
@@ -163,24 +150,13 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
 
     @Override
     public Set<String> changeOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines) {
-        Set<String> startMachines = new HashSet<>();
-
-        for (IBusinessOrder order : orders) {
-            for (Map.Entry<String, List<DeliveryOrder>> destination : this.schedule(order, machines).entrySet()) {
-                this.machineSchedule.get(destination.getKey()).addAll(destination.getValue());
-                startMachines.add(destination.getKey());
-            }
-        }
-
-        MESOutFacade.getInstance().updateOrders(orders);
-
-        return startMachines;
+        return this.addOrders(orders, machines);
     }
 
     @Override
     public IProductionOrder getNextOrder(String machineID) {
 
-        BlockingQueue<DeliveryOrder> queue = this.machineSchedule.get(machineID);
+        TreeSet<DeliveryOrder> queue = this.machineSchedule.get(machineID);
         DeliveryOrder order = null;
 
         synchronized(queue){
@@ -202,9 +178,7 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
 
     @Override
     public void addQueue(String machineName){
-        this.machineSchedule.put(machineName, new LinkedBlockingQueue<>());
+        this.machineSchedule.put(machineName, new TreeSet<>());
     }
-
-
 
 }

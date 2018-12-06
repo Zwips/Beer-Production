@@ -9,55 +9,88 @@ import java.util.*;
 public class RetardedPlantSchedular implements PlantScheduler {
 
     @Override
-    public Map<String, List<DeliveryOrder>> schedule(IBusinessOrder order, Collection<IMesMachine> machines) {
-        Map<String, List<DeliveryOrder>> destinations = new HashMap<>();
-        List<DeliveryOrder> orders = new ArrayList<>();
+    public boolean schedule(IBusinessOrder order, Collection<IMesMachine> machines, Map<String, TreeSet<DeliveryOrder>> machineSchedule) {
+        DeliveryOrder deliveryOrder;
 
         for (IMesMachine machine : machines) {
 
-            int amount = order.getAmount();
+            int amount = (int)(order.getAmount()*1.1);
             int orderID = order.getOrderID();
             ProductTypeEnum type = order.getProductType();
             Date earlyDeliveryDate = order.getEarliestDeliveryDate();
             float speed = machine.getMachineSpecificationReadable().getOptimalSpeed(order.getProductType());
+            Date lateDeliveryDate = order.getLatestDeliveryDate();
+            long production = (long)(1.1*60*1000*amount/speed);
 
-            DeliveryOrder deliveryOrder = new DeliveryOrder(earlyDeliveryDate, orderID, type, amount, speed);
+            TreeSet<DeliveryOrder> queue = machineSchedule.get(machine.getMachineID());
+            synchronized (queue){
 
-            orders.add(deliveryOrder);
-            destinations.put(machine.getMachineID(), orders);
-            return destinations;
+                Iterator<DeliveryOrder> iterator = queue.iterator();
+
+                DeliveryOrder checkedOrder1 = null;
+                DeliveryOrder checkedOrder2;
+                boolean onlyFirstValue = true;
+
+                while (iterator.hasNext()) {
+                    if(onlyFirstValue){
+                        checkedOrder1 = iterator.next();
+                        onlyFirstValue = false;
+
+                        if ((new Date(new Date().getTime()+production)).before(checkedOrder1.getPlannedStart())
+                                && earlyDeliveryDate.before(checkedOrder1.getPlannedStart())){
+
+                            deliveryOrder = new DeliveryOrder(new Date(), orderID, type, amount, speed, lateDeliveryDate);
+                            queue.add(deliveryOrder);
+                            return true;
+                        }
+                    } else {
+                        checkedOrder2 = iterator.next();
+
+                        if (checkedOrder2.getPlannedStart().getTime()>(checkedOrder1.getPlannedStart().getTime()+checkedOrder1.getProductionTime())+production){
+                            deliveryOrder = new DeliveryOrder(new Date(checkedOrder1.getPlannedStart().getTime()+checkedOrder1.getProductionTime()), orderID, type, amount, speed, lateDeliveryDate);
+                            queue.add(deliveryOrder);
+                            return true;
+                        }
+
+                        checkedOrder1 = checkedOrder2;
+                    }
+
+                    if(!iterator.hasNext()){
+                        if (checkedOrder1.getPlannedStart().getTime()+checkedOrder1.getProductionTime()+production < lateDeliveryDate.getTime()){
+                            deliveryOrder = new DeliveryOrder(new Date(checkedOrder1.getPlannedStart().getTime()+checkedOrder1.getProductionTime()), orderID, type, amount, speed, lateDeliveryDate);
+                            queue.add(deliveryOrder);
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
-//        IMesMachine[] machine = machines.toArray(new IMesMachine[machines.size()]);
-//
-//        destinations.put(machine[(int)Math.random()*machines.size()].getMachineID(), orders);
-//        return destinations;
-        return null;
+        return false;
     }
 
     @Override
-    public Map<String, List<DeliveryOrder>> reSchedule(List<IBusinessOrder> pendingOrders, Collection<IMesMachine> machines) {
+    public boolean reSchedule(Collection<IBusinessOrder> pendingOrders, Collection<IMesMachine> machines, Map<String, TreeSet<DeliveryOrder>> machineSchedule) {
 
-        Map<String, List<DeliveryOrder>> destinations = new HashMap<>();
-        List<DeliveryOrder> orders = new ArrayList<>();
+        boolean success = true;
+        HashMap<String, TreeSet<DeliveryOrder>> tempSchedule = new HashMap<>();
 
-        for (IMesMachine machine : machines) {
-            for (IBusinessOrder pendingOrder : pendingOrders) {
-                int amount = pendingOrder.getAmount();
-                int orderID = pendingOrder.getOrderID();
-                ProductTypeEnum type = pendingOrder.getProductType();
-                Date earlyDeliveryDate = pendingOrder.getEarliestDeliveryDate();
-                float speed = machine.getMachineSpecificationReadable().getOptimalSpeed(pendingOrder.getProductType());
-
-                DeliveryOrder deliveryOrder = new DeliveryOrder(earlyDeliveryDate, orderID, type, amount, speed);
-
-                orders.add(deliveryOrder);
-
-            }
-            destinations.put(machine.getMachineID(), orders);
-            return destinations;
+        for (Map.Entry<String, TreeSet<DeliveryOrder>> entry : machineSchedule.entrySet()) {
+            tempSchedule.put(entry.getKey(), new TreeSet<>());
         }
 
-        return null;
+        for (IBusinessOrder pendingOrder : pendingOrders) {
+            success = this.schedule(pendingOrder, machines, tempSchedule);
+
+            if (!success){
+                break;
+            }
+        }
+
+        if (success){
+            machineSchedule = tempSchedule;
+        }
+
+        return success;
     }
 }
