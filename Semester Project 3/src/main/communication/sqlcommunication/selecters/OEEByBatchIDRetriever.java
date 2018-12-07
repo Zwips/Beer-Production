@@ -37,6 +37,7 @@ public class OEEByBatchIDRetriever {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
+
         CommunicationOEE oee = new CommunicationOEE();
         String factory = "";
         String machineID = "";
@@ -44,6 +45,7 @@ public class OEEByBatchIDRetriever {
         Map<Date, Boolean> downTimeMap = new HashMap<>();
         Map<Date,String> stateChangeMap = new HashMap<>();
         long startTime = 0;
+
         try {
             results.next();
             factory = results.getString("factoryid");
@@ -56,16 +58,10 @@ public class OEEByBatchIDRetriever {
                 stateChangeMap.put(new Date(results.getTimestamp("timeofchange").getTime()),results.getString("state"));
                 downTimeMap.put(new Date(results.getTimestamp("timeofchange").getTime()), results.getBoolean("isproducing"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         long totalUptime = 0;
         long totalDowntime = 0;
         for (Map.Entry<Date,Boolean> entry: downTimeMap.entrySet()) {
@@ -86,8 +82,11 @@ public class OEEByBatchIDRetriever {
         oee.setOee(oeePercent);
         oee.setStateChangeMap(stateChangeMap);
 
-
-        new DatabaseConnector().closeConnection(connection);
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return oee;
     }

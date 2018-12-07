@@ -12,6 +12,7 @@ import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Update;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,14 @@ public class OrderStatusSetter {
         wildCardInfo.add(new PrepareInfo(1, PrepareType.BOOLEAN, true));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.INT, orderID));
 
+        boolean success = new Update().update(connection, tables, values, conditions, wildCardInfo);
 
-        new Update().update(connection, tables, values, conditions, wildCardInfo);
-        return true;
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 }

@@ -15,11 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MachinesRetriever {
+
     private String selections;
     private String tables;
     private String conditions;
     private Connection connection;
-
 
     public MachinesRetriever() {
         this.selections = "*";
@@ -59,8 +59,9 @@ public class MachinesRetriever {
                 }
 
             }
-
+            connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return map;
     }

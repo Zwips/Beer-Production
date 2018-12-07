@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class StorageRetriever {
+
     private String selections;
     private String tables;
     private String conditions;
@@ -36,7 +37,6 @@ public class StorageRetriever {
         wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-
 
         try {
             while (results.next()) {

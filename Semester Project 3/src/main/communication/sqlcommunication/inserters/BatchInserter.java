@@ -11,14 +11,15 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BatchInserter {
+
     private String values;
     private String tables;
     private Connection connection;
-
 
     public BatchInserter() {
         this.values = "(?,?,?,?,?)";
@@ -35,8 +36,13 @@ public class BatchInserter {
         wildCardInfo.add(new PrepareInfo(4, PrepareType.INT, defective));
         wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, factoryID));
 
-
         new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

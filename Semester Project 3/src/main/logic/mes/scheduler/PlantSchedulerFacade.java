@@ -54,6 +54,7 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
         boolean success = this.scheduler.schedule(order, machines, this.machineSchedule);
 
         if (!success){
+            this.businessOrders.put(order.getOrderID(), order);
             success = this.scheduler.reSchedule(this.businessOrders.values(), machines, machineSchedule);
         }
 
@@ -80,6 +81,9 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
             if (success){
                 this.businessOrders.put(order.getOrderID(),order);
                 addedOrders.add(order);
+            }
+            else {
+                this.businessOrders.remove(order.getOrderID());
             }
         }
 
@@ -162,13 +166,12 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
         synchronized(queue){
             int queueSize = queue.size();
             if (queueSize > 0) {
-                for (DeliveryOrder deliveryOrder : queue) { //TODO this is only a stopgap, correct order should be in top.
-                    if (deliveryOrder.getPlannedStart().before(new Date(System.currentTimeMillis()+60000))) {
-                        order = deliveryOrder;
-                        queue.remove(order);
-                        this.startedOrders.add(order.getOrderID());
-                        break;
-                    }
+                Date startOfNextOrder = queue.first().getPlannedStart();
+                Date endOfNextPID = new Date(System.currentTimeMillis()+60000);
+
+                if (startOfNextOrder.before(endOfNextPID)) {
+                    order = queue.pollFirst();
+                    this.startedOrders.add(order.getOrderID());
                 }
             }
         }

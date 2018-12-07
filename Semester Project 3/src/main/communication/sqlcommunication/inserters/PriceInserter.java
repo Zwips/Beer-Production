@@ -7,6 +7,7 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class PriceInserter {
 
     public PriceInserter() {
 
-        this.values = "(?,?,?,?)";
         this.tables = "prices(product_type, sales_price, production_cost, profit)";
+        this.values = "(?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
 
     }
@@ -34,6 +35,11 @@ public class PriceInserter {
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
 
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

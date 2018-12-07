@@ -9,18 +9,19 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MachineInserter {
+
     private String values;
     private String tables;
     private Connection connection;
 
-
     public MachineInserter() {
-        this.values = "(?,?,?,?,?)";
         this.tables = "machines(factoryid, machineid, machine_ip, machineuserid, machinepassword)";
+        this.values = "(?,?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
     }
 
@@ -33,8 +34,12 @@ public class MachineInserter {
         wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, userID));
         wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, password));
 
+        new Insert().insertion(connection, tables, values, wildCardInfo);
 
-       new Insert().insertion(connection, tables, values, wildCardInfo);
-
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

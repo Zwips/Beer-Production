@@ -37,6 +37,7 @@ public class OEEByMachineRetriever {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
+
         CommunicationOEE oee = new CommunicationOEE();
         String factory = "";
         String machine = "";
@@ -45,49 +46,48 @@ public class OEEByMachineRetriever {
         Map<Date,String> stateChangeMap = new TreeMap<>();
         long startTime = 0;
         boolean isProducing = false;
+
         try {
             results.next();
             factory = results.getString("factoryid");
             machine = results.getString("machineid");
             startTime = new Date(results.getTimestamp("timeofchange").getTime()).getTime();
             Date date = new Date(results.getTimestamp("timeofchange").getTime());
+
             long dateLong = date.getTime();
+
             stateChangeMap.put(date,results.getString("state"));
-            downTimeMap.put(date, results.getBoolean("isproducing"));
             isProducing = results.getBoolean("isproducing");
-            while(results.next())
-            {
+            downTimeMap.put(date, isProducing);
+
+            while(results.next()){
                 date = new Date(results.getTimestamp("timeofchange").getTime());
                 stateChangeMap.put(date,results.getString("state"));
                 downTimeMap.put(date, results.getBoolean("isproducing"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         double totalUptime = 0;
         double totalDowntime = 1;
-        for (Map.Entry<Date,Boolean> entry: downTimeMap.entrySet()) {
-            if (isProducing)
-            {
+        for (Map.Entry<Date, Boolean> entry : downTimeMap.entrySet()) {
+            if (isProducing) {
                 long newTime = entry.getKey().getTime();
                 long startTimeAgain = startTime;
                 long timeAdded = newTime - startTime;
+
                 totalUptime += entry.getKey().getTime() - startTime;
+
                 startTime = entry.getKey().getTime();
                 isProducing = entry.getValue();
-            }
-            else {
+            } else {
                 long newTime = entry.getKey().getTime();
                 long startTimeAgain = startTime;
                 long timeAdded = newTime - startTime;
+
                 totalDowntime += entry.getKey().getTime() - startTime;
+
                 startTime = entry.getKey().getTime();
                 isProducing = entry.getValue();
             }
@@ -99,8 +99,11 @@ public class OEEByMachineRetriever {
         oee.setOee((float)oeePercent);
         oee.setStateChangeMap(stateChangeMap);
 
-
-        new DatabaseConnector().closeConnection(connection);
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return oee;
     }

@@ -9,6 +9,7 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,14 @@ public class RemoveMachine {
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, machineID));
 
-
         new Delete().delete(connection, tables,  conditions, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 }

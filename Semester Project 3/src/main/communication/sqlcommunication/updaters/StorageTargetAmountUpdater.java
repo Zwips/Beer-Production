@@ -7,10 +7,12 @@ import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Update;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StorageTargetAmountUpdater {
+
     private String values;
     private String tables;
     private String conditions;
@@ -31,9 +33,15 @@ public class StorageTargetAmountUpdater {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.STRING, type.getType()));
 
+        boolean success = new Update().update(connection, tables, values, conditions, wildCardInfo);
 
-        new Update().update(connection, tables, values, conditions, wildCardInfo);
-        return true;
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 }
 

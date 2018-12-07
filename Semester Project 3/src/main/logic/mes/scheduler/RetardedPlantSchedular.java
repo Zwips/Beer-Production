@@ -39,7 +39,15 @@ public class RetardedPlantSchedular implements PlantScheduler {
                         if ((new Date(new Date().getTime()+production)).before(checkedOrder1.getPlannedStart())
                                 && earlyDeliveryDate.before(checkedOrder1.getPlannedStart())){
 
-                            deliveryOrder = new DeliveryOrder(new Date(), orderID, type, amount, speed, lateDeliveryDate);
+                            Date date;
+
+                            if (earlyDeliveryDate.before(new Date())){
+                                date = new Date();
+                            } else {
+                                date = earlyDeliveryDate;
+                            }
+
+                            deliveryOrder = new DeliveryOrder(date, orderID, type, amount, speed, lateDeliveryDate);
                             queue.add(deliveryOrder);
                             return true;
                         }
@@ -61,6 +69,24 @@ public class RetardedPlantSchedular implements PlantScheduler {
                             queue.add(deliveryOrder);
                             return true;
                         }
+                    }
+                }
+
+                if (onlyFirstValue){
+                    if (earlyDeliveryDate.getTime()+production<lateDeliveryDate.getTime()
+                            && new Date(new Date().getTime()+production).before(lateDeliveryDate)){
+
+                        Date date;
+
+                        if (earlyDeliveryDate.before(new Date())){
+                            date = new Date();
+                        } else {
+                            date = earlyDeliveryDate;
+                        }
+
+                        deliveryOrder = new DeliveryOrder(date, orderID, type, amount, speed, lateDeliveryDate);
+                        queue.add(deliveryOrder);
+                        return true;
                     }
                 }
             }

@@ -8,18 +8,19 @@ import communication.sqlcommunication.tools.PrepareType;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BatchReportInserter {
+
     private String values;
     private String tables;
     private Connection connection;
 
-
     public BatchReportInserter() {
-        this.values = "(?, ?, ?)";
         this.tables = "batchreport(BatchID, FactoryID, BatchReport)";
+        this.values = "(?, ?, ?)";
         connection = new DatabaseConnector().openConnection();
     }
 
@@ -30,7 +31,12 @@ public class BatchReportInserter {
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.BYTEARRAY, batchReport));
 
-
         new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

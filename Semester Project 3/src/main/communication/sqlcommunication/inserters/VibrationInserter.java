@@ -7,23 +7,19 @@ package communication.sqlcommunication.inserters;
 import communication.sqlcommunication.tools.DatabaseConnector;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class VibrationInserter {
-
 
     private String values;
     private String tables;
     private Connection connection;
 
-
     public VibrationInserter() {
-        // "INSERT INTO temperature(batchid, timeOfReading, ValuePBS) VALUES (?,?,?)";
-
-        this.values = "(?,?,?,?)";
         this.tables = "vibration(batchid, timeOfReading, ValuePBS, factoryid)";
+        this.values = "(?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
-
     }
 
 
@@ -31,6 +27,11 @@ public class VibrationInserter {
 
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values, factoryID);
 
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

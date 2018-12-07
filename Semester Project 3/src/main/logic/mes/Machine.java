@@ -35,6 +35,7 @@ public class Machine implements IMesMachine, IMachine {
     private IMachineConnection machineConnection;
     private MachineSpecifications specs;
     private Integer currentOrderID;
+    private boolean deliveryOrder;
 
     public Machine(String name, String IPAddress, String userID, String password, String factoryID){
         this.name = name;
@@ -71,6 +72,9 @@ public class Machine implements IMesMachine, IMachine {
 
     @Override
     public boolean executeOrder(IProductionOrder order, float batchId) {
+
+        this.deliveryOrder = false;
+
         int amount = order.getAmount();
         ProductTypeEnum productType = order.getProductType();
         float speed = specs.getOptimalSpeed(productType);
@@ -115,6 +119,13 @@ public class Machine implements IMesMachine, IMachine {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean executeDeliveryOrder(IProductionOrder order, float batchId) {
+        boolean success = this.executeOrder(order, batchId);
+        this.deliveryOrder = true;
+        return success;
     }
 
     @Override
@@ -430,5 +441,10 @@ public class Machine implements IMesMachine, IMachine {
         ProductTypeEnum product = this.specs.getProductType(currentProduct);
 
         MESOutFacade.getInstance().logDefective(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
+    }
+
+    @Override
+    public boolean isDeliveryOrder() {
+        return deliveryOrder;
     }
 }

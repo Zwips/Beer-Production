@@ -19,7 +19,6 @@ import java.util.List;
 
 public class BatchLogByMachineRetriever {
 
-
     private String selections;
     private String tables;
     private String conditions;
@@ -63,7 +62,6 @@ public class BatchLogByMachineRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return batchLogs;
     }
 }

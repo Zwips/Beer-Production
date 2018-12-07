@@ -53,7 +53,13 @@ public class ProcessingPlant {
         this.initialiseBatchID();
         this.initialiseMachines(machines);
         this.initialiseProcessingCapacity();
+        this.startMachines();
+    }
 
+    private void startMachines() {
+        for (String idleMachine : this.idleMachines) {
+            this.executeNextOrder(idleMachine);
+        }
     }
 
     private void initialiseStorage() {
@@ -76,7 +82,6 @@ public class ProcessingPlant {
     private void initialiseBatchID(){
         nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID)+1;
     }
-
 
     boolean addMachine(String machineName, String IPAddress, String userID, String password){
         Machine machine = new Machine(machineName, IPAddress, userID, password,plantID);
@@ -150,11 +155,12 @@ public class ProcessingPlant {
 
             //storage
             int completedProducts = (int) (batchSize - defectives);
-            synchronized (this.storage){
-                this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
+            if (!machine.isDeliveryOrder()){
+                synchronized (this.storage){
+                    this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
+                }
+                MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product);
             }
-            MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product);
-
 
             //defectives
             float machineSpeed = machine.readMachineSpeedCurrent();
@@ -224,14 +230,10 @@ public class ProcessingPlant {
         return oee;
     }
 
-
-
-
-
-
     boolean executeNextOrder(String machineID){
         IProductionOrder order;
         boolean anotherOrder = false;
+        boolean delivery = false;
 
         do{
             order = this.scheduler.getNextOrder(machineID);
@@ -242,16 +244,19 @@ public class ProcessingPlant {
             } else {
                 int productAmount = order.getAmount();
                 int stock;
+
                 synchronized (this.storage){
                     stock = this.storage.getCurrentAmount(order.getProductType());
 
                     if (productAmount>stock){
                         this.storage.setCurrentAmount(0, order.getProductType());
+                        delivery = true;
                     } else {
                         this.storage.setCurrentAmount(stock-productAmount, order.getProductType());
                         anotherOrder = true;
                     }
                 }
+
                 ((DeliveryOrder)order).setAmount(productAmount-stock);
                 MESOutFacade.getInstance().updateStorageCurrentAmount(order.getAmount()-productAmount, plantID, order.getProductType());
 
@@ -261,8 +266,14 @@ public class ProcessingPlant {
             }
         }while(anotherOrder);
 
+
         if(order != null){
-            boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            boolean started;
+            if (delivery){
+                started = this.machines.get(machineID).executeDeliveryOrder(order, this.nextBatchID++);
+            } else {
+                started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            }
             if (started) {
                 this.idleMachines.remove(machineID);
             }
@@ -320,7 +331,9 @@ public class ProcessingPlant {
             float productID = this.machines.get(machineID).readCurrentProductID();
             ProductTypeEnum type = this.machines.get(machineID).getProductType(productID);
             List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
-            this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+            if (data.size()>0){
+                this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+            }
         } catch (ServiceException e) {
             e.printStackTrace();
         }

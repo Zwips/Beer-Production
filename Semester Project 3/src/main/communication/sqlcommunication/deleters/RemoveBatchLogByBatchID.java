@@ -7,6 +7,7 @@ package communication.sqlcommunication.deleters;
 import communication.sqlcommunication.tools.*;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,14 @@ public class RemoveBatchLogByBatchID {
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
 
-
         new Delete().delete(connection, tables,  conditions, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 }

@@ -68,7 +68,6 @@ public class CompletedOrdersRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

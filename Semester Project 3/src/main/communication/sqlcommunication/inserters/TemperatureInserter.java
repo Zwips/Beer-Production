@@ -7,25 +7,28 @@ package communication.sqlcommunication.inserters;
 import communication.sqlcommunication.tools.DatabaseConnector;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class TemperatureInserter {
-
 
     private String values;
     private String tables;
     private Connection connection;
 
-
     public TemperatureInserter() {
-        // "INSERT INTO temperature(batchid, timeOfReading, valueCelcius) VALUES (?,?,?)";
-
-        this.values = "(?,?,?,?)";
         this.tables = "temperature(batchid, timeOfReading, valueCelcius, factoryid)";
+        this.values = "(?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
     }
 
     public void insert(int batchID, Timestamp timeOfReading, float value, String factoryID){
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values, factoryID);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

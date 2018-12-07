@@ -49,7 +49,6 @@ import java.util.*;
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return nextBatchID;
     }
 }

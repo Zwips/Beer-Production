@@ -58,8 +58,6 @@ public class DefectivesByMachineRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
-
         return defectiveList;
     }
 }

@@ -63,7 +63,6 @@ public class OrderRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return order;
     }
 }

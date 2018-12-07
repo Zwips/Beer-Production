@@ -54,7 +54,6 @@ public class NextBatchIDRetrieverByPlant {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return 1;
     }
 }

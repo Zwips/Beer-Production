@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class PriceRetriever {
+
     private String selections;
     private String tables;
     private String conditions;
@@ -48,7 +49,6 @@ public class PriceRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return price;
     }
 }
