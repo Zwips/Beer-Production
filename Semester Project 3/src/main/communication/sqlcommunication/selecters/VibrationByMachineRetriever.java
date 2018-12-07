@@ -61,7 +61,6 @@ public class VibrationByMachineRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return vibrationMeasurements;
     }
 }

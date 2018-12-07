@@ -10,19 +10,13 @@ package logic.mes;
 import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
 import logic.mes.mesacquantiance.*;
-import logic.mes.pid.IPIDType;
 import logic.mes.pid.PIDFacade;
+import logic.mes.scheduler.DeliveryOrder;
 import logic.mes.scheduler.PlantSchedulerFacade;
+import logic.mes.speedoptimizer.SpeedOptimizerFacade;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.time.LocalDate;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class ProcessingPlant {
 
@@ -53,12 +47,19 @@ public class ProcessingPlant {
         this.scheduler = new PlantSchedulerFacade();
         this.idleMachines = new HashSet<>();
         this.pidFacade = new PIDFacade();
+        this.optimizer = new SpeedOptimizerFacade();
 
         this.initialiseStorage();
         this.initialiseBatchID();
         this.initialiseMachines(machines);
         this.initialiseProcessingCapacity();
+        this.startMachines();
+    }
 
+    private void startMachines() {
+        for (String idleMachine : this.idleMachines) {
+            this.executeNextOrder(idleMachine);
+        }
     }
 
     private void initialiseStorage() {
@@ -82,7 +83,6 @@ public class ProcessingPlant {
         nextBatchID = MESOutFacade.getInstance().getNextBatchID(this.plantID)+1;
     }
 
-
     boolean addMachine(String machineName, String IPAddress, String userID, String password){
         Machine machine = new Machine(machineName, IPAddress, userID, password,plantID);
 
@@ -92,6 +92,7 @@ public class ProcessingPlant {
             e.printStackTrace();
             return false;
         }
+
 
         if(machine.isConnected()) {
             machines.put(machineName, machine);
@@ -107,7 +108,9 @@ public class ProcessingPlant {
                 default:
                     this.idleMachines.add(machineName);
             }
-
+            for (ProductTypeEnum type : ProductTypeEnum.values()) {
+                this.analyseProduction(machineName, type);
+            }
             return true;
         } else{
             return false;
@@ -149,6 +152,15 @@ public class ProcessingPlant {
             //batch_log
             Integer completedOrderID = machine.getCurrentOrderID();
             MESOutFacade.getInstance().insertIntoBatch_Log((int)batchID, machineID, completedOrderID, this.plantID);
+
+            //storage
+            int completedProducts = (int) (batchSize - defectives);
+            if (!machine.isDeliveryOrder()){
+                synchronized (this.storage){
+                    this.storage.setCurrentAmount(this.storage.getCurrentAmount(product)+completedProducts, product);
+                }
+                MESOutFacade.getInstance().updateStorageCurrentAmount(completedProducts, plantID, product);
+            }
 
             //defectives
             float machineSpeed = machine.readMachineSpeedCurrent();
@@ -218,20 +230,50 @@ public class ProcessingPlant {
         return oee;
     }
 
-
-
-
-
-
     boolean executeNextOrder(String machineID){
-        IProductionOrder order = this.scheduler.getNextOrder(machineID);
+        IProductionOrder order;
+        boolean anotherOrder = false;
+        boolean delivery = false;
 
-        if (order == null) {
-            order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
-        }
+        do{
+            order = this.scheduler.getNextOrder(machineID);
+
+            if (order == null) {
+                order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
+                anotherOrder = false;
+            } else {
+                int productAmount = order.getAmount();
+                int stock;
+
+                synchronized (this.storage){
+                    stock = this.storage.getCurrentAmount(order.getProductType());
+
+                    if (productAmount>stock){
+                        this.storage.setCurrentAmount(0, order.getProductType());
+                        delivery = true;
+                    } else {
+                        this.storage.setCurrentAmount(stock-productAmount, order.getProductType());
+                        anotherOrder = true;
+                    }
+                }
+
+                ((DeliveryOrder)order).setAmount(productAmount-stock);
+                MESOutFacade.getInstance().updateStorageCurrentAmount(order.getAmount()-productAmount, plantID, order.getProductType());
+
+                if (anotherOrder){
+                    MESOutFacade.getInstance().setOrderCompleted(order.getOrderID());
+                }
+            }
+        }while(anotherOrder);
+
 
         if(order != null){
-            boolean started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            boolean started;
+            if (delivery){
+                started = this.machines.get(machineID).executeDeliveryOrder(order, this.nextBatchID++);
+            } else {
+                started = this.machines.get(machineID).executeOrder(order, this.nextBatchID++);
+            }
             if (started) {
                 this.idleMachines.remove(machineID);
             }
@@ -281,4 +323,27 @@ public class ProcessingPlant {
         return new ProcessingCapacity();
     }
 
+    private ISpeedOptimizerFacade optimizer;
+
+    public void analyseProduction(String machineID) {
+        //TODO read real cost and sell values
+        try {
+            float productID = this.machines.get(machineID).readCurrentProductID();
+            ProductTypeEnum type = this.machines.get(machineID).getProductType(productID);
+            List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
+            if (data.size()>0){
+                this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+            }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void analyseProduction(String machineID, ProductTypeEnum type) {
+        //TODO read real cost and sell values
+        List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
+        if (data.size()>0) {
+            this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 6, 10,type);
+        }
+    }
 }

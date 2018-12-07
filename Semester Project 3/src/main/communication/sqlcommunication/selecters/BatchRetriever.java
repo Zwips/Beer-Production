@@ -25,8 +25,6 @@ import java.util.*;
 
 public class BatchRetriever {
 
-    //TODO is this supposed to correspond to the batchReport??
-
     private String selectionsVibration;
     private String tablesVibration;
     private String conditionsVibration;
@@ -82,7 +80,6 @@ public class BatchRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return batch;
     }
 

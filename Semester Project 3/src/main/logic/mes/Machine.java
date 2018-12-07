@@ -20,6 +20,7 @@ import com.prosysopc.ua.StatusException;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IMesMachine;
 import logic.mes.mesacquantiance.IProductionOrder;
+import logic.mes.mesacquantiance.ISpeedOptimizable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
@@ -34,6 +35,7 @@ public class Machine implements IMesMachine, IMachine {
     private IMachineConnection machineConnection;
     private MachineSpecifications specs;
     private Integer currentOrderID;
+    private boolean deliveryOrder;
 
     public Machine(String name, String IPAddress, String userID, String password, String factoryID){
         this.name = name;
@@ -70,6 +72,9 @@ public class Machine implements IMesMachine, IMachine {
 
     @Override
     public boolean executeOrder(IProductionOrder order, float batchId) {
+
+        this.deliveryOrder = false;
+
         int amount = order.getAmount();
         ProductTypeEnum productType = order.getProductType();
         float speed = specs.getOptimalSpeed(productType);
@@ -117,6 +122,13 @@ public class Machine implements IMesMachine, IMachine {
     }
 
     @Override
+    public boolean executeDeliveryOrder(IProductionOrder order, float batchId) {
+        boolean success = this.executeOrder(order, batchId);
+        this.deliveryOrder = true;
+        return success;
+    }
+
+    @Override
     public boolean abandonOrder() {
         throw new NotImplementedException();
     }
@@ -128,6 +140,11 @@ public class Machine implements IMesMachine, IMachine {
 
     @Override
     public IMachineSpecificationReadable getMachineSpecificationReadable() {
+        return specs;
+    }
+
+    @Override
+    public ISpeedOptimizable getMachineSpecificationOptimizable() {
         return specs;
     }
 
@@ -395,7 +412,7 @@ public class Machine implements IMesMachine, IMachine {
     }
 
     @Override
-    public int getCurrentOrderID() {
+    public Integer getCurrentOrderID() {
         return currentOrderID;
     }
 
@@ -424,5 +441,10 @@ public class Machine implements IMesMachine, IMachine {
         ProductTypeEnum product = this.specs.getProductType(currentProduct);
 
         MESOutFacade.getInstance().logDefective(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
+    }
+
+    @Override
+    public boolean isDeliveryOrder() {
+        return deliveryOrder;
     }
 }

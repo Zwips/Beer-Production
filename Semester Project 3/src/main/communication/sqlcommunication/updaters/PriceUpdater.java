@@ -11,27 +11,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StorageTargetAmountUpdater {
+public class PriceUpdater {
 
     private String values;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public StorageTargetAmountUpdater() {
-        this.tables = "storage";
-        this.values = "target_amount = ?";
-        this.conditions = "factory_id = ? AND type = ?";
+    public PriceUpdater() {
+        this.tables = "prices";
+        this.values = "sales_price = ?, production_cost = ?, profit = ?";
+        this.conditions = "product_type = ?";
 
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean updateStatus(int targetAmount, String factoryID, ProductTypeEnum type) {
+    public boolean update(double salesPrice, double productionCost, double profit, ProductTypeEnum productType){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, targetAmount));
-        wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, factoryID));
-        wildCardInfo.add(new PrepareInfo(3, PrepareType.STRING, type.getType()));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.DOUBLE, salesPrice));
+        wildCardInfo.add(new PrepareInfo(2, PrepareType.DOUBLE, productionCost));
+        wildCardInfo.add(new PrepareInfo(3, PrepareType.DOUBLE, profit));
+        wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, productType.getType()));
 
         boolean success = new Update().update(connection, tables, values, conditions, wildCardInfo);
 
@@ -43,5 +44,5 @@ public class StorageTargetAmountUpdater {
 
         return success;
     }
-}
 
+}

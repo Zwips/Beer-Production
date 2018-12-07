@@ -69,7 +69,6 @@ public class OrdersByPriorityRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
 }

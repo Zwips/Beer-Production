@@ -11,26 +11,22 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderInserter {
 
-
     private String values;
     private String tables;
     private Connection connection;
     private String fail;
 
-
     public OrderInserter() {
-        // "INSERT INTO Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, BatchID) VALUES (?,?,?,?,?,?,?)";
-
-        this.values = "(?,?,?,?,?,?,?)";
         this.tables = "Orders(Amount, ProductType, EarliestDeliveryDate, LatestDeliveryDate, Priority, Status, orderID)";
+        this.values = "(?,?,?,?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
-        //fail.length();
     }
 
 
@@ -46,5 +42,11 @@ public class OrderInserter {
         wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, orderID));
 
         new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

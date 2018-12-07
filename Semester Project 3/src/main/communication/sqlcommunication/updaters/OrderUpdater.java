@@ -10,6 +10,7 @@ import acquantiance.ProductTypeEnum;
 import communication.sqlcommunication.tools.*;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,6 @@ public class OrderUpdater {
         this.tables = "Orders";
         this.conditions = "orderid = ?";
         connection = new DatabaseConnector().openConnection();
-        //fail.length();
     }
 
 
@@ -41,7 +41,14 @@ public class OrderUpdater {
         wildCardInfo.add(new PrepareInfo(6, PrepareType.BOOLEAN, status)); // false because it is not yet done
         wildCardInfo.add(new PrepareInfo(7, PrepareType.INT, orderID));
 
-        new Update().update(connection, tables, values, conditions, wildCardInfo);
-        return true;
+        boolean success = new Update().update(connection, tables, values, conditions, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 }

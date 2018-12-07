@@ -7,6 +7,7 @@ package communication.sqlcommunication.inserters;
 import communication.sqlcommunication.tools.DatabaseConnector;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class HumidityInserter {
@@ -15,20 +16,20 @@ public class HumidityInserter {
     private String tables;
     private Connection connection;
 
-
     public HumidityInserter() {
-        // "INSERT INTO temperature(batchid, timeOfReading, valuePercent) VALUES (?,?,?)";
-
-        this.values = "(?,?,?,?)";
         this.tables = "humidity(batchid, timeOfReading, valuePercent, factoryid)";
+        this.values = "(?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
-
     }
-
 
     public void insert(int batchID, Timestamp timeOfReading, float value, String factoryID){
 
         LogMeasurement.logMeasurement(batchID, timeOfReading, value, connection, tables, values,factoryID);
 
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

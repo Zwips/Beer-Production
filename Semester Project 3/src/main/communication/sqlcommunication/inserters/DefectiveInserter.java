@@ -11,25 +11,21 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DefectiveInserter {
 
-
     private String values;
     private String tables;
     private Connection connection;
 
-
     public DefectiveInserter() {
-        // "INSERT INTO defectives(machineid, numberofdefective, productsinbatch, machinespeed, product) VALUES (?,?,?,?,?)";
-
-        this.values = "(?,?,?,?,?)";
         this.tables = "defectives(machineid, numberofdefective, productsinbatch, machinespeed, product)";
+        this.values = "(?,?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
     }
-
 
     public void insert(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product){
 
@@ -40,6 +36,12 @@ public class DefectiveInserter {
         wildCardInfo.add(new PrepareInfo(4, PrepareType.FLOAT, machineSpeed));
         wildCardInfo.add(new PrepareInfo(5, PrepareType.STRING, product.getType()));
 
-       new Insert().insertion(connection, tables, values, wildCardInfo);
+        new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

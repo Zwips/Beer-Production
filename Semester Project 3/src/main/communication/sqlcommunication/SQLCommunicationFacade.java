@@ -11,6 +11,7 @@ import communication.sqlcommunication.updaters.OrderStatusSetter;
 import communication.sqlcommunication.updaters.OrderUpdater;
 import communication.sqlcommunication.updaters.StorageCurrentAmountUpdater;
 import communication.sqlcommunication.updaters.StorageTargetAmountUpdater;
+import acquantiance.IErrorRateDataPoint;
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -98,7 +99,7 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     }
 
     @Override
-    public void InsertIntoBatch_log(int batchID, String MachineID, int orderID, String factoryID) {
+    public void InsertIntoBatch_log(int batchID, String MachineID, Integer orderID, String factoryID) {
         new BatchLogInserter().insert(batchID,MachineID,orderID,factoryID);
     }
 
@@ -247,5 +248,10 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     @Override
     public void saveBatchReport(int batchID, String factoryID, File batchReport) {
         new BatchReportInserter().insert(batchID, factoryID, batchReport);
+    }
+
+    @Override
+    public List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type) {
+        return new DefectivesByMachineRetriever().getDefectives(machineID, type);
     }
 }

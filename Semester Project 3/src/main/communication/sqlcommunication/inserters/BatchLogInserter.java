@@ -10,6 +10,7 @@ import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +21,26 @@ public class BatchLogInserter {
     private Connection connection;
 
     public BatchLogInserter() {
-        this.values = "(?,?,?,?)";
         this.tables = "batch_log(batchid, machineid, orderid, factoryid)";
+        this.values = "(?,?,?,?)";
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean insert(int batchID, String machineID, int orderID, String factoryID){
+    public boolean insert(int batchID, String machineID, Integer orderID, String factoryID){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, batchID));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.STRING, machineID));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.INT, orderID));
         wildCardInfo.add(new PrepareInfo(4, PrepareType.STRING, factoryID));
 
-        return new Insert().insertion(connection, tables, values, wildCardInfo);
+        boolean success =  new Insert().insertion(connection, tables, values, wildCardInfo);
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 }

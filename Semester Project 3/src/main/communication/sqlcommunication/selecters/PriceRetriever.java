@@ -1,8 +1,6 @@
 package communication.sqlcommunication.selecters;
 
-import acquantiance.IStorage;
 import acquantiance.ProductTypeEnum;
-import communication.sqlcommunication.dataclasses.CommunicationStorage;
 import communication.sqlcommunication.tools.DatabaseConnector;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
@@ -13,41 +11,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class StorageRetriever {
+public class PriceRetriever {
 
     private String selections;
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public StorageRetriever() {
+    public PriceRetriever() {
         this.selections = "*";
-        this.tables = "storage";
-        this.conditions = "factory_id = ?";
+        this.tables = "prices";
+        this.conditions = "product_type = ?";
 
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public IStorage getStorage(String factoryID) {
-        IStorage storage = new CommunicationStorage();
-        storage.setFactoryID(factoryID);
-
+    public double getPrice(ProductTypeEnum productType) {
+        double price = 0;
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, factoryID));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, productType.getType()));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
 
         try {
-            while (results.next()) {
-                storage.setCurrentAmount(results.getInt("current_amount"), ProductTypeEnum.get(results.getString("type")));
-                storage.setTargetAmount(results.getInt("target_amount"), ProductTypeEnum.get(results.getString("type")));
-            }
+            results.next();
+            price = results.getInt(1);
+
+            new DatabaseConnector().closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return storage;
+        return price;
     }
 }

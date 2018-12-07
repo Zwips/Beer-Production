@@ -11,6 +11,7 @@ public enum PrepareType {
     STRING(),
     TIMESTAMP(),
     BYTEARRAY(),
+    DOUBLE(),
     BOOLEAN();
 
 }

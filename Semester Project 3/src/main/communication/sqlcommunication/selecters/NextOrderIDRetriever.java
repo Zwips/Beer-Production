@@ -34,7 +34,6 @@ public class NextOrderIDRetriever {
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
 
-
         try {
             results.next();
             int nextOrderID = results.getInt(1);

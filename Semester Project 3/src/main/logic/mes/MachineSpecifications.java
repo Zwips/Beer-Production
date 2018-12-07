@@ -44,13 +44,13 @@ public class MachineSpecifications implements ISpeedOptimizable, IMachineSpecifi
         allowedCommands.put(2,new String[]{"Reset"});
 
         errorFunctions = new HashMap<>();
-        double[] initialGuessPilsner = {0, 0.27, 0.2};
+        double[] initialGuessPilsner = {0, 0.0013, 0.01};
         errorFunctions.put(ProductTypeEnum.PILSNER, new ErrorFunction(new ExponentialFunction(), initialGuessPilsner,600));
         double[] initialGuessAle = {0, 2, 0.2};
         errorFunctions.put(ProductTypeEnum.ALE, new ErrorFunction(new ExponentialFunction(), initialGuessAle,100));
         double[] initialGuessIPA = {0, 0.23, 0.2};
         errorFunctions.put(ProductTypeEnum.IPA, new ErrorFunction(new ExponentialFunction(), initialGuessIPA,150));
-        double[] initialGuessStout = {0, 700, -0.1};
+        double[] initialGuessStout = {0, 3.78, -0.0165};
         errorFunctions.put(ProductTypeEnum.STOUT, new ErrorFunction(new ExponentialFunction(), initialGuessStout,200));
         double[] initialGuessWheat = {0, 0};
         errorFunctions.put(ProductTypeEnum.WHEAT, new ErrorFunction(new LinearFunction(), initialGuessWheat, 300));
@@ -63,7 +63,7 @@ public class MachineSpecifications implements ISpeedOptimizable, IMachineSpecifi
         productionsSpeeds.put(ProductTypeEnum.IPA, new ProductionSpeeds(this.IPAMAXSPEED, this.IPAMAXSPEED, this.IPAMAXSPEED));
         productionsSpeeds.put(ProductTypeEnum.STOUT, new ProductionSpeeds(this.STOUTMAXSPEED, this.STOUTMAXSPEED, this.STOUTMAXSPEED));
         productionsSpeeds.put(ProductTypeEnum.WHEAT, new ProductionSpeeds(this.WHEATMAXSPEED, this.WHEATMAXSPEED, this.WHEATMAXSPEED));
-        productionsSpeeds.put(ProductTypeEnum.ALE, new ProductionSpeeds(this.ALEMAXSPEED, this.ALEMAXSPEED, this.ALEMAXSPEED));
+        productionsSpeeds.put(ProductTypeEnum.ALCOHOLFREE, new ProductionSpeeds(this.ALCOHOLFREEMAXSPEED, this.ALCOHOLFREEMAXSPEED, this.ALCOHOLFREEMAXSPEED));
     }
 
     int getCommandNumber(String command){

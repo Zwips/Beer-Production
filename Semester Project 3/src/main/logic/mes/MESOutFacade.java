@@ -116,8 +116,8 @@ public class MESOutFacade {
         this.communicationFacade.insertIntoBatch(batchID, product, batchSize, defectives, plantID);
     }
 
-    public void insertIntoBatch_Log(int batchID, String machineID, int completedOrderID, String plantID) {
-        this.communicationFacade.insertIntoBatch_log(batchID, machineID, completedOrderID, machineID);
+    public void insertIntoBatch_Log(int batchID, String machineID, Integer completedOrderID, String plantID) {
+        this.communicationFacade.insertIntoBatch_log(batchID, machineID, completedOrderID, plantID);
     }
 
     public void setOrderCompleted(int completedOrderID) {
@@ -148,5 +148,10 @@ public class MESOutFacade {
 
     public void saveBatchReport(int batchID, String factoryID, File file) {
         communicationFacade.saveBatchReport(batchID, factoryID, file);
+    }
+
+    public List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type) {
+        return this.communicationFacade.getDefectivesByMachine(machineID, type);
+
     }
 }

@@ -1,6 +1,7 @@
 package communication;
 
 import acquantiance.*;
+import acquantiance.IErrorRateDataPoint;
 
 import java.io.File;
 import java.util.*;
@@ -23,7 +24,7 @@ public interface ISQLCommunicationFacade {
 
     void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
 
-    void InsertIntoBatch_log(int batchID, String MachineID, int orderID, String factoryID);
+    void InsertIntoBatch_log(int batchID, String MachineID, Integer orderID, String factoryID);
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID, String factoryID);
     void logVibration(float value, Date timestamp, int batchID, String factoryID);
@@ -59,4 +60,6 @@ public interface ISQLCommunicationFacade {
     IStorage getStorage(String factoryID);
 
     void saveBatchReport(int batchID, String factoryID, File file);
+
+    List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
 }

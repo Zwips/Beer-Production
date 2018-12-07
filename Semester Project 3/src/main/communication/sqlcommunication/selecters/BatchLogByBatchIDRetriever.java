@@ -64,7 +64,4 @@ public class BatchLogByBatchIDRetriever {
         new DatabaseConnector().closeConnection(connection);
         return batchLog;
     }
-
-
-
 }

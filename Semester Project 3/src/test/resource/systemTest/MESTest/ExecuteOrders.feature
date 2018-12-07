@@ -12,6 +12,7 @@ Feature: Machines execute the next order in the queue
     And the batch log is updated
     And batch is updated in the database
     And order status is set
+    And storage is reduced??
 
   Scenario: A machine completes an order and the queue is empty
     Given an order doesn't exist in the factory

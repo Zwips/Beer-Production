@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PendingOrdersRetriever {
+
     private String selections;
     private String tables;
     private String conditions;
@@ -60,7 +61,6 @@ public class PendingOrdersRetriever {
 
                 orders.add(order);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,6 @@ public class PendingOrdersRetriever {
             e.printStackTrace();
         }
 
-        new DatabaseConnector().closeConnection(connection);
         return orders;
     }
     public List<IBusinessOrder> getPendingOrders(){

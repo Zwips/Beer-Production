@@ -19,7 +19,6 @@ public class Storage implements IStorage, IStorageReadable {
         }
     }
 
-
     @Override
     public int getCurrentAmount(ProductTypeEnum type) {
         return storage.get(type)[0];

@@ -1,33 +1,31 @@
 package communication.sqlcommunication.deleters;
-/** Represents an order remover
- * @author Michael P
- * @param OrdersRemoveByOrderID constructor creates the order to be removed from the given orderid
- * @param delete method deletes the order from the order table in the database & returns true if successful.
- */
-import communication.sqlcommunication.tools.*;
+
+import communication.sqlcommunication.tools.DatabaseConnector;
+import acquantiance.ProductTypeEnum;
+import communication.sqlcommunication.tools.Delete;
+import communication.sqlcommunication.tools.PrepareInfo;
+import communication.sqlcommunication.tools.PrepareType;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RemoveOrdersByOrderID {
-    private String values;
+public class RemovePriceByProductType {
     private String tables;
     private String conditions;
     private Connection connection;
 
-    public RemoveOrdersByOrderID() {
-        this.tables = "Orders";
-        this.conditions = "orderid = ?";
+    public RemovePriceByProductType() {
+        this.tables = "prices";
+        this.conditions = "product_type = ?";
 
         connection = new DatabaseConnector().openConnection();
     }
 
-    public boolean delete(int orderID){
-
+    public boolean delete(ProductTypeEnum producttype){
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
-        wildCardInfo.add(new PrepareInfo(1, PrepareType.INT, orderID));
+        wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, producttype));
 
         new Delete().delete(connection, tables,  conditions, wildCardInfo);
 
@@ -39,4 +37,5 @@ public class RemoveOrdersByOrderID {
 
         return true;
     }
+
 }

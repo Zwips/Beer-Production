@@ -46,7 +46,9 @@ public class SimplePID implements PIDType {
         ProductTypeEnum productType = null;
 
         for (ProductTypeEnum typeEnum : ProductTypeEnum.values()) {
-            double storagePercent = storage.getCurrentAmount(typeEnum)/storage.getTargetAmount(typeEnum);
+            double currentAmount = storage.getCurrentAmount(typeEnum);
+            double targetAmount = storage.getTargetAmount(typeEnum);
+            double storagePercent = currentAmount/targetAmount;
 
             double typeWeight = getRelativeSpeed(typeEnum)*(1-storagePercent);
             if( typeWeight>max){

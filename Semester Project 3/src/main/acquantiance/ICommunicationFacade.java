@@ -20,7 +20,8 @@ public interface ICommunicationFacade {
 
     void insertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
 
-    void insertIntoBatch_log(int batchID, String machineID, int orderID, String factoryID);
+    void insertIntoBatch_log(int batchID, String machineID, Integer orderID, String factoryID);
+
     void logDefectives(String machineID, int numberOfDefective, float productsInBatch, float machineSpeed, ProductTypeEnum product);
     void logTemperature(float value, Date timestamp, int batchID, String factoryID);
     void logVibration(float value, Date timestamp, int batchID, String factoryID);
@@ -60,4 +61,6 @@ public interface ICommunicationFacade {
     IStorage getStorage(String factoryID);
 
     void saveBatchReport(int batchID, String factoryID, File file);
+
+    List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
 }
