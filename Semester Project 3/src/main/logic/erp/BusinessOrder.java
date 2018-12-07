@@ -6,13 +6,13 @@ package logic.erp;
  * @param clone Method for cloning everything from productionOrder to a new order.
  */
 
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import java.security.InvalidParameterException;
 import java.util.Date;
 
-public class ProductionOrder implements IProductionOrder, Comparable<ProductionOrder> {
+public class BusinessOrder implements IBusinessOrder, Comparable<BusinessOrder> {
     private int amount;
     private ProductTypeEnum productType;
     private Date earliestDeliveryDate;
@@ -21,7 +21,7 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     private int orderID;
     private boolean status;
 
-    public ProductionOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) throws InvalidParameterException {
+    public BusinessOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority) throws InvalidParameterException {
         this.amount = amount;
         this.productType = productType;
         this.earliestDeliveryDate = earliestDeliveryDate;
@@ -31,6 +31,14 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
 
         if(!validate()){
             throw new InvalidParameterException();
+        }
+    }
+
+    private boolean validate(){
+        if(this.amount > 0 && latestDeliveryDate.after(earliestDeliveryDate)){
+            return true;
+        } else{
+            return false;
         }
     }
 
@@ -46,26 +54,19 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
         this.status = status;
     }
 
-    private boolean validate(){
-        if(this.amount > 0 && latestDeliveryDate.after(earliestDeliveryDate)){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
     @Override
     public int getAmount() {
         return amount;
     }
+
     @Override
     public String toString(){
         return "OrderID: "+orderID;
     }
 
     @Override
-    public IProductionOrder clone() {
-       ProductionOrder order = new ProductionOrder(this.amount, this.productType, this.earliestDeliveryDate, this.latestDeliveryDate, this.priority);
+    public IBusinessOrder clone() {
+       BusinessOrder order = new BusinessOrder(this.amount, this.productType, this.earliestDeliveryDate, this.latestDeliveryDate, this.priority);
        order.setStatus(this.status);
        order.setOrderID(orderID);
        return order;
@@ -106,7 +107,7 @@ public class ProductionOrder implements IProductionOrder, Comparable<ProductionO
     }
 
     @Override
-    public int compareTo(ProductionOrder o) {
+    public int compareTo(BusinessOrder o) {
         return this.getInternalPriority() - o.getInternalPriority();
     }
 

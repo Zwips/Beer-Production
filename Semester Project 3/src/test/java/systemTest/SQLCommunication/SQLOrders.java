@@ -1,6 +1,6 @@
 package systemTest.SQLCommunication;
 
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 import communication.ISQLCommunicationFacade;
 import communication.sqlcommunication.SQLCommunicationFacade;
@@ -8,7 +8,7 @@ import communication.sqlcommunication.tools.DatabaseConnector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import logic.erp.ProductionOrder;
+import logic.erp.BusinessOrder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,9 +28,9 @@ public class SQLOrders {
     private Date earliestDeliveryDate;
     private Date latestDeliveryDate;
     private int priority;
-    private IProductionOrder order;
-    private List<IProductionOrder> pendingOrders;
-    private List<IProductionOrder> completedOrders;
+    private IBusinessOrder order;
+    private List<IBusinessOrder> pendingOrders;
+    private List<IBusinessOrder> completedOrders;
 
     @Given("^a connection to the SQL module, orders$")
     public void aConnectionToTheSQLModuleOrders() throws Throwable {
@@ -56,7 +56,7 @@ public class SQLOrders {
             pStatement.setInt(1,this.orderID);
             pStatement.execute();
 
-            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            BusinessOrder order = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             order.setOrderID(this.orderID);
             this.sqlModule.logOrder(order);
         }
@@ -101,7 +101,7 @@ public class SQLOrders {
             pStatement.setInt(1, this.orderID);
             pStatement.execute();
 
-            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            BusinessOrder order = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             order.setOrderID(this.orderID);
             order.setStatus(false);
             this.sqlModule.logOrder(order);
@@ -115,7 +115,7 @@ public class SQLOrders {
 
     @Then("^a pending order with ID -(\\d+) is retrieved$")
     public void aPendingOrderWithIDIsRetrieved(int orderID) throws Throwable {
-        for (IProductionOrder pendingOrder: this.pendingOrders) {
+        for (IBusinessOrder pendingOrder: this.pendingOrders) {
             if (pendingOrder.getOrderID() < 0){
                 this.order = pendingOrder;
             }
@@ -153,7 +153,7 @@ public class SQLOrders {
             pStatement.setInt(1, this.orderID);
             pStatement.execute();
 
-            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            BusinessOrder order = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             order.setOrderID(this.orderID);
             this.sqlModule.logOrder(order);
             this.sqlModule.setOrderCompleted(this.orderID);
@@ -168,7 +168,7 @@ public class SQLOrders {
     @SuppressWarnings("Duplicates")
     @Then("^the completed orders is retrieved$")
     public void theCompletedOrdersIsRetrieved() throws Throwable {
-        for (IProductionOrder completedOrder: this.completedOrders) {
+        for (IBusinessOrder completedOrder: this.completedOrders) {
             if (completedOrder.getOrderID() < 0){
                 this.order = completedOrder;
             }
@@ -207,7 +207,7 @@ public class SQLOrders {
             pStatement.setInt(1, this.orderID);
             pStatement.execute();
 
-            ProductionOrder order = new ProductionOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
+            BusinessOrder order = new BusinessOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
             order.setOrderID(this.orderID);
             order.setStatus(false);
             this.sqlModule.logOrder(order);

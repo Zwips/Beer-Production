@@ -1,13 +1,13 @@
 package logic.mes.pid;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.mesacquantiance.IOrder;
+import logic.mes.mesacquantiance.IProductionOrder;
 
-public class PIDOrder implements IOrder {
+public class PIDOrder implements IProductionOrder {
+
     private ProductTypeEnum productTypeEnum;
     private int amount;
     private float productionSpeed;
-
 
     public void setAmount(int amount) {
         this.amount = amount;
@@ -21,9 +21,8 @@ public class PIDOrder implements IOrder {
         this.productTypeEnum = productTypeEnum;
     }
 
-
     @Override
-    public ProductTypeEnum getProductTypeEnum() {
+    public ProductTypeEnum getProductType() {
         return productTypeEnum;
     }
 
@@ -37,6 +36,10 @@ public class PIDOrder implements IOrder {
         return productionSpeed;
     }
 
+    @Override
+    public Integer getOrderID() {
+        return null;
+    }
 
 
 }

@@ -1,7 +1,7 @@
 package logic.mes.scheduler;
 
-import acquantiance.IMesMachine;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
+import logic.mes.mesacquantiance.IMesMachine;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,8 +9,7 @@ import java.util.Map;
 
 public interface PlantScheduler {
 
-    public abstract Map<String, List<IProductionOrder>> schedule(IProductionOrder order, Collection<IMesMachine> machines);
-
-    public abstract Map<String, List<IProductionOrder>> reSchedule(List<IProductionOrder> pendingOrders, Collection<IMesMachine> machines);
+    Map<String, List<DeliveryOrder>> schedule(IBusinessOrder order, Collection<IMesMachine> machines);
+    Map<String, List<DeliveryOrder>> reSchedule(List<IBusinessOrder> pendingOrders, Collection<IMesMachine> machines);
 
 }

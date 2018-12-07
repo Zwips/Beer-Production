@@ -76,7 +76,7 @@ public class MESOutFacade {
         return communicationFacade.getNextBatchID(plantID);
     }
 
-    public List<IProductionOrder> getPendingOrders() {
+    public List<IBusinessOrder> getPendingOrders() {
         return communicationFacade.getPendingOrders();
     }
 
@@ -100,11 +100,11 @@ public class MESOutFacade {
         return this.communicationFacade.getPlantIDs();
     }
 
-    public void saveOrders(List<IProductionOrder> orders) {
+    public void saveOrders(List<IBusinessOrder> orders) {
         this.communicationFacade.logOrders(orders);
     }
 
-    public void updateOrders(List<IProductionOrder> orders) {
+    public void updateOrders(List<IBusinessOrder> orders) {
         this.communicationFacade.updateOrders(orders);
     }
 

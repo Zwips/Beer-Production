@@ -14,19 +14,17 @@ package logic.mes;
  * @param uploadBatchInfo Method for all information about a Batch.
  */
 
-import acquantiance.IDataChangeCatcher;
-import acquantiance.IMachineConnection;
-import acquantiance.IProductionOrder;
-import acquantiance.ProductTypeEnum;
+import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IMesMachine;
+import logic.mes.mesacquantiance.IProductionOrder;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static java.lang.Thread.sleep;
 
-public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
+public class Machine implements IMesMachine, IMachine {
 
     private final String factoryID;
     private String name;
@@ -35,7 +33,7 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
     private String password;
     private IMachineConnection machineConnection;
     private MachineSpecifications specs;
-    private int currentOrderID;
+    private Integer currentOrderID;
 
     public Machine(String name, String IPAddress, String userID, String password, String factoryID){
         this.name = name;
@@ -397,8 +395,13 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
     }
 
     @Override
-    public void run() {
+    public int getCurrentOrderID() {
+        return currentOrderID;
+    }
 
+    @Override
+    public ProductTypeEnum getProductType(float productTypeID){
+        return this.specs.getProductType(productTypeID);
     }
 
     void uploadBatchInfo() {
@@ -421,15 +424,5 @@ public class Machine implements IMesMachine, acquantiance.IMesMachine, Runnable{
         ProductTypeEnum product = this.specs.getProductType(currentProduct);
 
         MESOutFacade.getInstance().logDefective(getMachineID(), numberOfDefective, productsInBatch, machineSpeed, product);
-    }
-
-    @Override
-    public int getCurrentOrderID() {
-        return currentOrderID;
-    }
-
-    @Override
-    public ProductTypeEnum getProductType(float productTypeID){
-        return this.specs.getProductType(productTypeID);
     }
 }

@@ -4,11 +4,11 @@ package communication.sqlcommunication.selecters;
  * @param CompletedOrdersRetriever method retrieves the completed orders from the database where status=true.
  * @param getCompletedOrders creates the ArrayList orders containing completed orders and returns it.                     .
  */
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 import acquantiance.ProductTypeEnum;
 
 import communication.sqlcommunication.tools.DatabaseConnector;
-import communication.sqlcommunication.dataclasses.CommunicationProductionOrder;
+import communication.sqlcommunication.dataclasses.CommunicationBusinessOrder;
 import communication.sqlcommunication.tools.PrepareInfo;
 import communication.sqlcommunication.tools.PrepareType;
 import communication.sqlcommunication.tools.Select;
@@ -33,17 +33,17 @@ public class CompletedOrdersRetriever {
         this.connection = new DatabaseConnector().openConnection();
     }
 
-    public List<IProductionOrder> getCompletedOrders(){
+    public List<IBusinessOrder> getCompletedOrders(){
 
         List<PrepareInfo> wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.BOOLEAN, true));
 
         ResultSet results = new Select().query(connection, selections, tables, conditions, wildCardInfo);
-        List<IProductionOrder> orders = new ArrayList<>();
+        List<IBusinessOrder> orders = new ArrayList<>();
 
         try {
             while(results.next()){
-                CommunicationProductionOrder order = new CommunicationProductionOrder();
+                CommunicationBusinessOrder order = new CommunicationBusinessOrder();
 
                 order.setAmount(results.getInt("amount"));
                 order.setOrderID(results.getInt("orderid"));

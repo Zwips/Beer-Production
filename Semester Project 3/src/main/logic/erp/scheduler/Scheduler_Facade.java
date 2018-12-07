@@ -1,7 +1,7 @@
 package logic.erp.scheduler;
 
 import acquantiance.IProcessingCapacity;
-import acquantiance.IProductionOrder;
+import acquantiance.IBusinessOrder;
 
 import logic.erp.IScheduler_Facade;
 
@@ -23,8 +23,8 @@ public class Scheduler_Facade implements IScheduler_Facade {
     }
 
     @Override
-    public Map<String, List<IProductionOrder>> schedule(IProductionOrder order, Map<String, IProcessingCapacity> processingCapacities) {
-        Map<String, List<IProductionOrder>> destinations = this.scheduler.schedule(order, processingCapacities);
+    public Map<String, List<IBusinessOrder>> schedule(IBusinessOrder order, Map<String, IProcessingCapacity> processingCapacities) {
+        Map<String, List<IBusinessOrder>> destinations = this.scheduler.schedule(order, processingCapacities);
 
         this.setOrdersSentTo(destinations);
 
@@ -32,10 +32,10 @@ public class Scheduler_Facade implements IScheduler_Facade {
     }
 
     @Override
-    public Map<String, List<IProductionOrder>> reSchedule(List<IProductionOrder> pendingOrders, Map<String, IProcessingCapacity> processingCapacities) {
+    public Map<String, List<IBusinessOrder>> reSchedule(List<IBusinessOrder> pendingOrders, Map<String, IProcessingCapacity> processingCapacities) {
         this.ordersSentTo.clear();
 
-        Map<String, List<IProductionOrder>> destinations = this.scheduler.reSchedule(pendingOrders, processingCapacities);
+        Map<String, List<IBusinessOrder>> destinations = this.scheduler.reSchedule(pendingOrders, processingCapacities);
 
         this.setOrdersSentTo(destinations);
 
@@ -64,9 +64,9 @@ public class Scheduler_Facade implements IScheduler_Facade {
         }
     }
 
-    private void setOrdersSentTo(Map<String, List<IProductionOrder>> destinations){
-        for (Map.Entry<String, List<IProductionOrder>> destination : destinations.entrySet()) {
-            for (IProductionOrder order : destination.getValue()) {
+    private void setOrdersSentTo(Map<String, List<IBusinessOrder>> destinations){
+        for (Map.Entry<String, List<IBusinessOrder>> destination : destinations.entrySet()) {
+            for (IBusinessOrder order : destination.getValue()) {
                 this.ordersSentTo.put(order.getOrderID(), destination.getKey());
             }
         }

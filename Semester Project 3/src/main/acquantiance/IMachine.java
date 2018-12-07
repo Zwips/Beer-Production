@@ -4,12 +4,12 @@ package acquantiance;
 
 import com.prosysopc.ua.ServiceException;
 
-public interface IMesMachine {
+public interface IMachine {
 
     //<editor-fold desc="commands to machine"
 
     void reconnectMachine();
-    boolean executeOrder(IProductionOrder order, float batchId);
+    //boolean executeOrder(IBusinessOrder order, float batchId);
     boolean abandonOrder();
     String getMachineID();
     boolean isConnected();

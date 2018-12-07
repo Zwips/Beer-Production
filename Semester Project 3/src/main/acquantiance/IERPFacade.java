@@ -14,11 +14,11 @@ public interface IERPFacade {
 
     boolean removeMachine(String processingPantID, String machineName);
     boolean removeMachine(String machineName);
-    List<IProductionOrder> getProductionOrderQueue();
+    List<IBusinessOrder> getProductionOrderQueue();
 
     boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID);
 
-    IProductionOrder getOrder(int orderID);
+    IBusinessOrder getOrder(int orderID);
 
     IOEE getOEEByMachine(String machineID, String factoryID);
 

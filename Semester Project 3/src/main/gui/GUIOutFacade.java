@@ -1,7 +1,9 @@
 package gui;
 
-import acquantiance.*;
-import logic.erp.ERPOutFacade;
+import acquantiance.IERPFacade;
+import acquantiance.IBusinessOrder;
+import acquantiance.IOEEToGUI;
+import acquantiance.ProductTypeEnum;
 
 import java.util.Date;
 import java.util.List;
@@ -32,9 +34,11 @@ public class GUIOutFacade {
         return erpFacade.addOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority);
 
     }
+
     public boolean updateOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
         return erpFacade.updateOrder(amount, productType, earliestDeliveryDate, latestDeliveryDate, priority, orderID);
     }
+
     boolean addMachine(String machineName, String IPaddress, String userID, String password){
         return erpFacade.addMachine(machineName, IPaddress, userID, password);
     }
@@ -55,17 +59,19 @@ public class GUIOutFacade {
         erpFacade.removeProcessingPlant(processingPlantID);
     }
 
-
-    List<IProductionOrder> getProductionOrderQueue(){
+    List<IBusinessOrder> getProductionOrderQueue(){
 
         return erpFacade.getProductionOrderQueue();
     }
+
     public IOEEToGUI getOEEByMachine(String machineID, String factoryID) {
         return erpFacade.getOEE(machineID,factoryID);
     }
+
     public Set<String> getProcessingPlants(){
         return this.erpFacade.getProcessingPlants();
     }
+
     public Set<String> getMachineIDsByFactoryID(String factoryID) {
         return this.erpFacade.getMachineIDsByFactoryID(factoryID);
     }

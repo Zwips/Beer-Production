@@ -1,23 +1,49 @@
 package logic.mes.scheduler;
 
 import acquantiance.ProductTypeEnum;
-import logic.mes.mesacquantiance.IOrder;
+import logic.mes.mesacquantiance.IProductionOrder;
 
-public class DeliveryOrder implements IOrder {
+import java.util.Date;
+
+public class DeliveryOrder implements IProductionOrder {
+
+
+    private Date deliveryTime;
+    private int orderID;
+    private ProductTypeEnum productType;
+    private int amount;
+    private float productionSpeed;
+
+    public DeliveryOrder(Date deliveryTime, int orderID, ProductTypeEnum productType, int amount, float productionSpeed) {
+        this.deliveryTime = deliveryTime;
+        this.orderID = orderID;
+        this.productType = productType;
+        this.amount = amount;
+        this.productionSpeed = productionSpeed;
+    }
+
+    @Override
+    public Integer getOrderID(){
+        return this.orderID;
+    }
+
+    public Date getPlannedStart(){
+        return this.getPlannedStart();
+    }
 
 
     @Override
-    public ProductTypeEnum getProductTypeEnum() {
-        return null; //TODO
+    public ProductTypeEnum getProductType() {
+        return this.productType;
     }
 
     @Override
     public int getAmount() {
-        return 0;//TODO
+        return this.amount;
     }
 
     @Override
     public float getProductionSpeed() {
-        return 0;//TODO
+        return this.productionSpeed;
     }
 }

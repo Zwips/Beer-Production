@@ -1,9 +1,9 @@
 package logic.mes.pid;
 
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
-import logic.mes.mesacquantiance.IOrder;
+import logic.mes.mesacquantiance.IProductionOrder;
 import logic.mes.mesacquantiance.IPIDFacade;
-import logic.mes.mesacquantiance.IStorageReadable;
+import acquantiance.IStorageReadable;
 
 public class PIDFacade implements IPIDFacade {
 
@@ -20,7 +20,7 @@ public class PIDFacade implements IPIDFacade {
 
     private PIDType pid;
 
-    private PIDFacade(){
+    public PIDFacade(){
         this.pid = new SimplePID();
     }
 
@@ -31,7 +31,7 @@ public class PIDFacade implements IPIDFacade {
      * @return IOrder or null if the storage is full
      */
     @Override
-    public IOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification) {
+    public IProductionOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification) {
         return this.pid.getIPIDOrder(storage,machinespecification);
     }
 

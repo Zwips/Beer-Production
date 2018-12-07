@@ -15,10 +15,10 @@ public interface ISQLCommunicationFacade {
     IBatchLog getBatchLogByBatchID(int batchID, String factoryID);
     List<IBatchLog> getBatchLogByMachineID(String machineID);
 
-    IProductionOrder selectFromOrder(int orderID);
-    List<IProductionOrder> getPendingOrders(Date dateFrom, Date dateTo);
-    List<IProductionOrder> getPendingOrders();
-    List<IProductionOrder> getCompletedOrders();
+    IBusinessOrder selectFromOrder(int orderID);
+    List<IBusinessOrder> getPendingOrders(Date dateFrom, Date dateTo);
+    List<IBusinessOrder> getPendingOrders();
+    List<IBusinessOrder> getCompletedOrders();
     void setOrderCompleted(int orderId);
 
     void InsertIntoBatch(int batchID, ProductTypeEnum productType, int amount, int defective, String factoryID);
@@ -28,7 +28,7 @@ public interface ISQLCommunicationFacade {
     void logTemperature(float value, Date timestamp, int batchID, String factoryID);
     void logVibration(float value, Date timestamp, int batchID, String factoryID);
     void logHumidity(float value, Date timestamp, int batchID, String factoryID);
-    void logOrder(IProductionOrder order);
+    void logOrder(IBusinessOrder order);
 
     int getNextOrderID();
     int getNextBatchID();
@@ -48,11 +48,11 @@ public interface ISQLCommunicationFacade {
 
     Set<String> getPlantIDs();
 
-    void logOrders(List<IProductionOrder> orders);
+    void logOrders(List<IBusinessOrder> orders);
 
-    void updateOrders(List<IProductionOrder> orders);
+    void updateOrders(List<IBusinessOrder> orders);
 
-    void updateOrder(IProductionOrder order);
+    void updateOrder(IBusinessOrder order);
 
     void updateStorageCurrentAmount(int currentAmount, String factoryID, ProductTypeEnum type);
     void updateStorageTargetAmount(int targetAmount, String factoryID, ProductTypeEnum type);

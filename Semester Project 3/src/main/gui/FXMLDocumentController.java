@@ -17,19 +17,9 @@ package gui;
  * @param loadProductionOrdersActionHandler load button loads all the pending orders in the database if any & list them in the listview.
  */
 
-import acquantiance.IOEE;
+import acquantiance.IBusinessOrder;
 import acquantiance.IOEEToGUI;
-import acquantiance.IProductionOrder;
 import acquantiance.ProductTypeEnum;
-
-import static java.lang.Thread.sleep;
-
-import java.io.IOException;
-import java.net.URL;
-import java.text.ParseException;
-import java.time.ZoneId;
-import java.util.*;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,9 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -48,7 +36,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
+import java.net.URL;
+import java.text.ParseException;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 
 /**
@@ -138,24 +132,24 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button sendOrderBtn;
 
-    private HashMap<RadioButton, ProductTypeEnum> productToggleMap;
-
-
     @FXML
     private Label orderSucceededLabel;
+
     @FXML
     private Button loadProductionOrdersBtn;
 
     @FXML
     private DatePicker earliestDeliveryDatePicker;
+
     @FXML
     private DatePicker latestDeliveryDatePicker;
 
     @FXML
-    private ListView<IProductionOrder> productionOrderListView;
+    private ListView<IBusinessOrder> productionOrderListView;
+
     @FXML
     private Button changeOrder;
-    private IProductionOrder currentlySelectedOrder;
+
     @FXML
     private ListView<String> factoryListView;
 
@@ -165,28 +159,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField machineStateTextField;
 
-    private String factoryID;
-    @FXML
-    private PieChart pieChartOEE;
-    @FXML
-    private Label oEEpercentLabel;
-
     @FXML
     private StackPane pieChartPane;
 
+    @FXML
+    private PieChart pieChartOEE;
 
+    @FXML
+    private Label oEEpercentLabel;
 
-
-
-
-
-
-
+    private IBusinessOrder currentlySelectedOrder;
+    private String factoryID;
+    private HashMap<RadioButton, ProductTypeEnum> productToggleMap;
 
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         priorityChoiceBox.getItems().removeAll(priorityChoiceBox.getItems());
         priorityChoiceBox.getItems().addAll(1, 2, 3);
         priorityChoiceBox.getSelectionModel().select(1);
@@ -207,13 +195,12 @@ public class FXMLDocumentController implements Initializable {
                         new PieChart.Data("Apples", 30));
         pieChartOEE = new PieChart(pieChartData);
 
-
-        ObservableList<IProductionOrder> data = FXCollections.observableArrayList();
+        ObservableList<IBusinessOrder> data = FXCollections.observableArrayList();
         productionOrderListView.setItems(data);
 
-        productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IProductionOrder>() {
+        productionOrderListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IBusinessOrder>() {
             @Override
-            public void changed(ObservableValue<? extends IProductionOrder> observable, IProductionOrder oldValue, IProductionOrder newValue) {
+            public void changed(ObservableValue<? extends IBusinessOrder> observable, IBusinessOrder oldValue, IBusinessOrder newValue) {
 
                 currentlySelectedOrder = newValue;
                 if (newValue != null) {
@@ -221,7 +208,6 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
         });
-
 
         ObservableList<String> data1 = FXCollections.observableArrayList();
         factoryListView.setItems(data1);
@@ -249,66 +235,6 @@ public class FXMLDocumentController implements Initializable {
         });
     }
 
-    /**
-     * Method for loading information from an IProductionOrder and setting the corresponding fields
-     * @param iProductionOrder
-     */
-    void loadOrderInformationActionHandler(IProductionOrder iProductionOrder) {
-
-        orderAmountTextField.setText(iProductionOrder.getAmount() + "");
-        latestDeliveryDatePicker.setValue(iProductionOrder.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        earliestDeliveryDatePicker.setValue(iProductionOrder.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        priorityChoiceBox.setValue(iProductionOrder.getPriority());
-
-        switch (iProductionOrder.getProductType()) {
-            case ALE:
-                aleRadioBtn.setSelected(true);
-                break;
-            case ALCOHOLFREE:
-                alchoholFreeRadioBtn.setSelected(true);
-                break;
-            case IPA:
-                iPARadioBtn.setSelected(true);
-                break;
-            case STOUT:
-                stoutRadioBtn.setSelected(true);
-                break;
-            case WHEAT:
-                wheatRadioBtn.setSelected(true);
-                break;
-            case PILSNER:
-                pilsnerRadioBtn.setSelected(true);
-                break;
-
-        }
-    }
-
-
-    public boolean parseDate(DatePicker picker) {
-        if (picker.getValue() != null) {
-
-            picker.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
-            return true;
-        }
-
-        picker.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
-        return false;
-    }
-
-    public boolean testInt(TextField field) {
-        if (!field.getText().isEmpty()) {
-            try {
-                Integer.parseInt(field.getText());
-                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
-                return true;
-            }catch(NumberFormatException ex){
-            }
-        }
-
-        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
-        return false;
-    }
-
     @FXML
     void SendOrderHandleActionBtn(ActionEvent event) throws ParseException {
         boolean allTrue = true;
@@ -329,7 +255,6 @@ public class FXMLDocumentController implements Initializable {
         }
 
         if (!this.parseDate(latestDeliveryDatePicker)) {
-
             allTrue = false;
         } else {
             latestDeliveryDate = new Date(latestDeliveryDatePicker.getValue().toEpochDay() * 86400000);
@@ -342,13 +267,10 @@ public class FXMLDocumentController implements Initializable {
         if (allTrue && event.getSource() == sendOrderBtn) {
             GUIOutFacade.getInstance().addOrder(amount, selectedType, earliestDeliveryDate, latestDeliveryDate, priority);
             orderSucceededLabel.setText("Order sent");
-
         }else if (allTrue&&event.getSource()==changeOrder){
             GUIOutFacade.getInstance().updateOrder(amount,selectedType,earliestDeliveryDate,latestDeliveryDate,priority,currentlySelectedOrder.getOrderID());
         }
-
     }
-
 
     @FXML
     void addMachineActionHandler(ActionEvent event) {
@@ -369,14 +291,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-
-    public void TypeBtnHandleAction(ActionEvent actionEvent) {
-    }
-
-    public void MouseClickedActionAction(MouseEvent mouseEvent) {
-
-    }
-
     @FXML
     void loadProductionOrdersActionHandler(ActionEvent event) {
         currentlySelectedOrder = null;
@@ -385,16 +299,76 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     void loadFactioresBtnHandler(ActionEvent event) {
-
         factoryListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getProcessingPlants()));
-
     }
-    void loadMachine(String factoryID){
-    machineListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getMachineIDsByFactoryID(factoryID)));
 
+    public void TypeBtnHandleAction(ActionEvent actionEvent) {
     }
+
+    public void MouseClickedActionAction(MouseEvent mouseEvent) {
+    }
+
+    /**
+     * Method for loading information from an IProductionOrder and setting the corresponding fields
+     * @param iBusinessOrder
+     */
+    private void loadOrderInformationActionHandler(IBusinessOrder iBusinessOrder) {
+        orderAmountTextField.setText(iBusinessOrder.getAmount() + "");
+        latestDeliveryDatePicker.setValue(iBusinessOrder.getLatestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        earliestDeliveryDatePicker.setValue(iBusinessOrder.getEarliestDeliveryDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        priorityChoiceBox.setValue(iBusinessOrder.getPriority());
+
+        switch (iBusinessOrder.getProductType()) {
+            case ALE:
+                aleRadioBtn.setSelected(true);
+                break;
+            case ALCOHOLFREE:
+                alchoholFreeRadioBtn.setSelected(true);
+                break;
+            case IPA:
+                iPARadioBtn.setSelected(true);
+                break;
+            case STOUT:
+                stoutRadioBtn.setSelected(true);
+                break;
+            case WHEAT:
+                wheatRadioBtn.setSelected(true);
+                break;
+            case PILSNER:
+                pilsnerRadioBtn.setSelected(true);
+                break;
+        }
+    }
+
+    private boolean parseDate(DatePicker picker) {
+        if (picker.getValue() != null) {
+            picker.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+            return true;
+        }
+
+        picker.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        return false;
+    }
+
+    private boolean testInt(TextField field) {
+        if (!field.getText().isEmpty()) {
+            try {
+                Integer.parseInt(field.getText());
+                field.setStyle("-fx-border-color: #5aff1e;-fx-border-width: 2;");
+                return true;
+            }catch(NumberFormatException ex){
+            }
+        }
+
+        field.setStyle("-fx-border-color: #ff000e;-fx-border-width: 3;");
+        return false;
+    }
+
+    private void loadMachine(String factoryID){
+        machineListView.setItems(FXCollections.observableArrayList(GUIOutFacade.getInstance().getMachineIDsByFactoryID(factoryID)));
+    }
+
     void loadOEE(String machineID) {
-
             Stage stage = new Stage();
             IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
             oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
@@ -412,24 +386,16 @@ public class FXMLDocumentController implements Initializable {
 
 
 
-            pieChartOEE.setTitle("OEE for " + machineID);
+        pieChartOEE.setTitle("OEE for " + machineID);
 
-            pieChartOEE.setVisible(true);
+        pieChartOEE.setVisible(true);
 
-            pieChartPane = new StackPane(pieChartOEE);
+        pieChartPane = new StackPane(pieChartOEE);
 
             Scene scene = new Scene(pieChartPane, 800, 600);
 
-            stage.setScene(scene);
-            stage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
-
-
-
-
-
-
-
-
