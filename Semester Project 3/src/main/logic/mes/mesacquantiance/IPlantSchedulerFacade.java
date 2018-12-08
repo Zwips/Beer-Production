@@ -25,7 +25,7 @@ public interface IPlantSchedulerFacade {
 
     IBusinessOrder getOrder(int orderID);
 
-    Set<String> changeOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines);
+    Set<String> changeOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines, IBusinessOrder oldOrder);
 
     IProductionOrder getNextOrder(String machineID);
 

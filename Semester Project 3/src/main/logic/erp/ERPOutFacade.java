@@ -98,10 +98,11 @@ public class ERPOutFacade {
         return this.mesFacade.getOrder(plantID, orderID);
     }
 
-    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations) {
+    public Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations, IBusinessOrder oldOrder) {
 
-        return this.mesFacade.changeOrders(destinations);
+        return this.mesFacade.changeOrders(destinations, oldOrder);
     }
+
     public IOEE getOEEByMachine(String machineID, String factoryID) {
         return this.sQLCommunationFacade.getOEEByMachine(machineID, factoryID);
     }

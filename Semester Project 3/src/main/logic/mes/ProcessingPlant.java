@@ -151,9 +151,6 @@ public class ProcessingPlant {
             case 17:
             case 18:
             case 19:
-                toBeRemoved.add(machineName);
-                return true;
-            default:
                 boolean success = this.scheduler.removeQueue(machineName, this.machines.values());
 
                 if (success) {
@@ -163,6 +160,9 @@ public class ProcessingPlant {
                 }
 
                 return success;
+            default:
+                toBeRemoved.add(machineName);
+                return true;
         }
     }
 
@@ -352,9 +352,9 @@ public class ProcessingPlant {
         return this.scheduler.getOrder(orderID);
     }
 
-    public IProcessingCapacity changeOrders(List<IBusinessOrder> orders) {
+    public IProcessingCapacity changeOrders(List<IBusinessOrder> orders, IBusinessOrder oldOrder) {
 
-        Set<String> startMachines = this.scheduler.changeOrders(orders, this.machines.values());
+        Set<String> startMachines = this.scheduler.changeOrders(orders, this.machines.values(), oldOrder);
 
         startMachines.retainAll(this.idleMachines);
         for (String startMachine : startMachines) {

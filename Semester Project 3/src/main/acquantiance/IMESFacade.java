@@ -33,7 +33,7 @@ public interface IMESFacade {
 
     IBusinessOrder getOrder(String plantID, int orderID);
 
-    Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations);
+    Map<String, IProcessingCapacity> changeOrders(Map<String, List<IBusinessOrder>> destinations, IBusinessOrder oldOrder);
 
     Set<String> getMachineIDsByFactoryID(String factoryID);
     IOEEToGUI getOEE(String machineID,String factoryID);

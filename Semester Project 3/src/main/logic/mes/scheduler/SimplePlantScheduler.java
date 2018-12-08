@@ -55,6 +55,7 @@ public class SimplePlantScheduler implements PlantScheduler {
         Date lateDeliveryDate = order.getLatestDeliveryDate();
         long production = (long) (1.1 * 60 * 1000 * amount / speed);
 
+
         TreeSet<DeliveryOrder> queue = machineSchedule.get(machine.getMachineID());
 
         if (queue == null) {
@@ -74,13 +75,14 @@ public class SimplePlantScheduler implements PlantScheduler {
                     checkedOrder1 = iterator.next();
                     onlyFirstValue = false;
 
-                    if ((new Date(new Date().getTime() + production)).before(checkedOrder1.getPlannedStart())
-                            && earlyDeliveryDate.before(checkedOrder1.getPlannedStart())) {
+                    if ((new Date(System.currentTimeMillis() + production)).before(checkedOrder1.getPlannedStart())
+                            && earlyDeliveryDate.before(checkedOrder1.getPlannedStart())
+                            && new Date(System.currentTimeMillis()+production).before(lateDeliveryDate)) { //TODO is susceptible to a long order being in current production
 
                         Date date;
 
-                        if (earlyDeliveryDate.before(new Date())) {
-                            date = new Date();
+                        if (earlyDeliveryDate.before(new Date(System.currentTimeMillis()+production))) {
+                            date = new Date(System.currentTimeMillis()+production);
                         } else {
                             date = earlyDeliveryDate;
                         }
@@ -92,8 +94,12 @@ public class SimplePlantScheduler implements PlantScheduler {
                 } else {
                     checkedOrder2 = iterator.next();
 
-                    if (checkedOrder2.getPlannedStart().getTime() > (checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()) + production) {
-                        deliveryOrder = new DeliveryOrder(new Date(checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()), orderID, type, amount, speed, lateDeliveryDate);
+                    if (checkedOrder2.getPlannedStart().getTime() > (checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()) + production
+                            && new Date(checkedOrder1.getPlannedStart().getTime()+checkedOrder1.getProductionTime()+production).before(lateDeliveryDate)) {
+
+                        Date date = new Date(checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()+production);
+
+                        deliveryOrder = new DeliveryOrder(date, orderID, type, amount, speed, lateDeliveryDate);
                         queue.add(deliveryOrder);
                         return true;
                     }
@@ -103,6 +109,9 @@ public class SimplePlantScheduler implements PlantScheduler {
 
                 if (!iterator.hasNext()) {
                     if (checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime() + production < lateDeliveryDate.getTime()) {
+
+                        Date  date = new Date(checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()+production);
+
                         deliveryOrder = new DeliveryOrder(new Date(checkedOrder1.getPlannedStart().getTime() + checkedOrder1.getProductionTime()), orderID, type, amount, speed, lateDeliveryDate);
                         queue.add(deliveryOrder);
                         return true;
@@ -111,13 +120,12 @@ public class SimplePlantScheduler implements PlantScheduler {
             }
 
             if (onlyFirstValue) {
-                if (earlyDeliveryDate.getTime() + production < lateDeliveryDate.getTime()
-                        && new Date(new Date().getTime() + production).before(lateDeliveryDate)) {
+                if (new Date(System.currentTimeMillis() + production).before(lateDeliveryDate)) {
 
                     Date date;
 
-                    if (earlyDeliveryDate.before(new Date())) {
-                        date = new Date();
+                    if (earlyDeliveryDate.before(new Date(System.currentTimeMillis()+production))) {
+                        date = new Date(System.currentTimeMillis()+production);
                     } else {
                         date = earlyDeliveryDate;
                     }

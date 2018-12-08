@@ -158,8 +158,14 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     }
 
     @Override
-    public Set<String> changeOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines) {
-        return this.addOrders(orders, machines);
+    public Set<String> changeOrders(List<IBusinessOrder> orders, Collection<IMesMachine> machines, IBusinessOrder oldOrder) {
+        Set<String> startMachines = this.addOrders(orders, machines);
+
+        if (this.businessOrders.containsKey(oldOrder.getOrderID())) {
+            MESOutFacade.getInstance().updateOrders(orders);
+        }
+
+        return startMachines;
     }
 
     @Override

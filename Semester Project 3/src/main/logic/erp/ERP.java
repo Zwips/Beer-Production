@@ -189,7 +189,7 @@ public class ERP {
 
         Map<String, List<IBusinessOrder>> destinations = this.scheduler_facade.reSchedule(pendingOrders, processingCapacities);
 
-        this.processingCapacities.putAll(ERPOutFacade.getInstance().changeOrders(destinations));
+        this.processingCapacities.putAll(ERPOutFacade.getInstance().addOrders(destinations));
     }
 
     public boolean changeOrder(int amount, ProductTypeEnum productType, Date earliestDeliveryDate, Date latestDeliveryDate, int priority, int orderID) {
@@ -198,11 +198,12 @@ public class ERP {
             changedOrder.setOrderID(orderID);
 
             String plantID = this.scheduler_facade.getOrderLocations(orderID);
+            IBusinessOrder oldOrder = ERPOutFacade.getInstance().getOrder(plantID, orderID);
             this.processingCapacities.put(plantID, ERPOutFacade.getInstance().removeOrder(plantID, orderID));
 
             Map<String, List<IBusinessOrder>> destinations = this.scheduler_facade.schedule(changedOrder, processingCapacities);
 
-            ERPOutFacade.getInstance().changeOrders(destinations);
+            ERPOutFacade.getInstance().changeOrders(destinations, oldOrder);
 
             return true;
         } catch (InvalidParameterException | NoSuchFieldException |NullPointerException ex) {

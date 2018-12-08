@@ -21,10 +21,13 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
                 plant.uploadBatchData(machineID);
 
                 boolean toBeRemoved = plant.isRemoved(machineID);
+                boolean removed = false;
 
                 if (toBeRemoved) {
-                    plant.removeMachine(machineID);
-                } else {
+                    removed = plant.removeMachine(machineID);
+                }
+
+                if (!removed) {
                     plant.analyseProduction(machineID);
 
                     plant.executeNextOrder(machineID);
