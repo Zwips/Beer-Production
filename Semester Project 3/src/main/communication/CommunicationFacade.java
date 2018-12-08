@@ -231,5 +231,15 @@ public class CommunicationFacade implements ICommunicationFacade {
         return this.sqlFacade.getDefectivesByMachine(machineID, type);
     }
 
+    @Override
+    public Map<ProductTypeEnum, Double> getCosts() {
+        return this.sqlFacade.getCosts();
+    }
+
+    @Override
+    public Map<ProductTypeEnum, Double> getSellPrices() {
+        return this.sqlFacade.getSellPrices();
+    }
+
 
 }

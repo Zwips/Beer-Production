@@ -63,4 +63,8 @@ public interface ICommunicationFacade {
     void saveBatchReport(int batchID, String factoryID, File file);
 
     List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
+
+    Map<ProductTypeEnum, Double> getCosts();
+
+    Map<ProductTypeEnum, Double> getSellPrices();
 }

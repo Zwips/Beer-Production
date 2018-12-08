@@ -1,6 +1,7 @@
 package logic.mes.speedoptimizer;
 
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
+import org.apache.commons.math3.fitting.GaussianCurveFitter;
 import org.apache.commons.math3.fitting.SimpleCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
@@ -41,12 +42,11 @@ public class PriceOptimizer implements Optimizer {
             }
 
             if (profit > 0 && speed>optimalSpeed){
-                highSpeed = optimalSpeed*(speed-optimalSpeed)/4;
+                highSpeed = optimalSpeed+(speed-optimalSpeed)/4;
             }
 
             speed += 1;
         }
-
 
         double squareR = this.squareR(functionType, data, parameters);
 

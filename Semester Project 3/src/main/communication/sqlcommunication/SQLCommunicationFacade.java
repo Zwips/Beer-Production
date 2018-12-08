@@ -254,4 +254,14 @@ public class SQLCommunicationFacade implements ISQLCommunicationFacade {
     public List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type) {
         return new DefectivesByMachineRetriever().getDefectives(machineID, type);
     }
+
+    @Override
+    public Map<ProductTypeEnum, Double> getCosts() {
+        return new CostsRetriever().getCosts();
+    }
+
+    @Override
+    public Map<ProductTypeEnum, Double> getSellPrices() {
+        return new PriceRetriever().getSellPrices();
+    }
 }

@@ -3,10 +3,7 @@ package logic.mes;
 import acquantiance.*;
 
 import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MESOutFacade {
 
@@ -156,4 +153,11 @@ public class MESOutFacade {
     }
 
 
+    public Map<ProductTypeEnum, Double> getCosts() {
+        return this.communicationFacade.getCosts();
+    }
+
+    public Map<ProductTypeEnum, Double> getSellPrices() {
+        return this.communicationFacade.getSellPrices();
+    }
 }

@@ -63,4 +63,7 @@ public interface ISQLCommunicationFacade {
 
     List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
 
+    Map<ProductTypeEnum, Double> getCosts();
+
+    Map<ProductTypeEnum, Double> getSellPrices();
 }

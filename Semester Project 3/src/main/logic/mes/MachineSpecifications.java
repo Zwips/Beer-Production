@@ -7,6 +7,7 @@ package logic.mes;
 import acquantiance.ProductTypeEnum;
 import logic.mes.functions.ExponentialFunction;
 import logic.mes.functions.LinearFunction;
+import logic.mes.functions.ThirdOrderPolynomial;
 import logic.mes.mesacquantiance.IErrorFunction;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.ISpeedOptimizable;
@@ -50,8 +51,8 @@ public class MachineSpecifications implements ISpeedOptimizable, IMachineSpecifi
         errorFunctions.put(ProductTypeEnum.ALE, new ErrorFunction(new ExponentialFunction(), initialGuessAle,100));
         double[] initialGuessIPA = {0, 0.23, 0.2};
         errorFunctions.put(ProductTypeEnum.IPA, new ErrorFunction(new ExponentialFunction(), initialGuessIPA,150));
-        double[] initialGuessStout = {0, 3.78, -0.0165};
-        errorFunctions.put(ProductTypeEnum.STOUT, new ErrorFunction(new ExponentialFunction(), initialGuessStout,200));
+        double[] initialGuessStout = {102, -0.5, 0.005, -0.000022850983427439953};
+        errorFunctions.put(ProductTypeEnum.STOUT, new ErrorFunction(new ThirdOrderPolynomial(), initialGuessStout,200));
         double[] initialGuessWheat = {0, 0};
         errorFunctions.put(ProductTypeEnum.WHEAT, new ErrorFunction(new LinearFunction(), initialGuessWheat, 300));
         double[] initialGuessAlcoholFree= {0, 30, 0.1};

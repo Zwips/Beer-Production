@@ -36,7 +36,11 @@ public class ProcessingPlant {
     private IStorage storage;
 
     private IRelativeMachineSpeeds speedTable;
+
     private Set<String> toBeRemoved;
+
+    private Map<ProductTypeEnum, Double> productionCosts;
+    private Map<ProductTypeEnum, Double> sellPrice;
 
     /**
      * processing plants containing a Map with Machines
@@ -59,9 +63,15 @@ public class ProcessingPlant {
 
         this.initialiseStorage();
         this.initialiseBatchID();
+        this.initialisePrices();
         this.initialiseMachines(machines);
         this.initialiseProcessingCapacity();
         this.startMachines();
+    }
+
+    private void initialisePrices() {
+        this.productionCosts = MESOutFacade.getInstance().getCosts();
+        this.sellPrice = MESOutFacade.getInstance().getSellPrices();
     }
 
     private void startMachines() {
@@ -326,8 +336,6 @@ public class ProcessingPlant {
         }
     }
 
-
-
     ProcessingCapacity addOrders(List<IBusinessOrder> orders){
         Set<String> startMachines = this.scheduler.addOrders(orders, this.machines.values());
         startMachines.retainAll(this.idleMachines);
@@ -366,25 +374,31 @@ public class ProcessingPlant {
 
     private ISpeedOptimizerFacade optimizer;
 
+    @SuppressWarnings("Duplicates")
     public void analyseProduction(String machineID) {
-        //TODO read real cost and sell values
         try {
             float productID = this.machines.get(machineID).readCurrentProductID();
             ProductTypeEnum type = this.machines.get(machineID).getProductType(productID);
             List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
             if (data.size()>0){
-                this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 5, 10,type);
+                ISpeedOptimizable specification = this.machines.get(machineID).getMachineSpecificationOptimizable();
+                Double cost = this.productionCosts.get(type);
+                Double sell = this.sellPrice.get(type);
+                this.optimizer.optimize(specification, data , cost, sell, type);
             }
         } catch (ServiceException e) {
             e.printStackTrace();
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public void analyseProduction(String machineID, ProductTypeEnum type) {
-        //TODO read real cost and sell values
         List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
         if (data.size()>0) {
-            this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 6, 10,type);
+            ISpeedOptimizable specification = this.machines.get(machineID).getMachineSpecificationOptimizable();
+            Double cost = this.productionCosts.get(type);
+            Double sell = this.sellPrice.get(type);
+            this.optimizer.optimize(specification, data , cost, sell, type);
         }
     }
 
