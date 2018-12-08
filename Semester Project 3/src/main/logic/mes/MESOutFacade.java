@@ -88,7 +88,7 @@ public class MESOutFacade {
         return communicationFacade.getMachines(plantID);
     }
 
-    void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
+    void insertMachine(String factoryID, String machineID, String machine_IP, String userID, String password){
         communicationFacade.InsertMachine(factoryID,machineID, machine_IP, userID, password);
     }
 
@@ -154,4 +154,6 @@ public class MESOutFacade {
         return this.communicationFacade.getDefectivesByMachine(machineID, type);
 
     }
+
+
 }

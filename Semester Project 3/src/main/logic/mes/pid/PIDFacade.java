@@ -1,27 +1,32 @@
 package logic.mes.pid;
 
+import logic.mes.ProcessingPlant;
+import logic.mes.SimpleRelativeMachineSpeeds;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IProductionOrder;
 import logic.mes.mesacquantiance.IPIDFacade;
 import acquantiance.IStorageReadable;
+import logic.mes.mesacquantiance.IRelativeMachineSpeeds;
 
 public class PIDFacade implements IPIDFacade {
 
-    private static PIDFacade pidFacade;
+    private static PIDFacade instance;
 
-    public static PIDFacade getInstance(){
-        if(pidFacade == null)
-        {
-            pidFacade = new PIDFacade();
-        }
-
-        return pidFacade;
-    }
-
+    private IRelativeMachineSpeeds speedTable;
     private PIDType pid;
 
-    public PIDFacade(){
-        this.pid = new SimplePID();
+    public PIDFacade(IRelativeMachineSpeeds speedTable){
+        this.speedTable = speedTable;
+        this.pid = new SimplePID(speedTable);
+    }
+
+    public static PIDFacade getInstance() {
+
+        if (instance==null) {
+            instance = new PIDFacade(new SimpleRelativeMachineSpeeds());
+        }
+
+        return instance;
     }
 
     /**
@@ -31,8 +36,8 @@ public class PIDFacade implements IPIDFacade {
      * @return IOrder or null if the storage is full
      */
     @Override
-    public IProductionOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification) {
-        return this.pid.getIPIDOrder(storage,machinespecification);
+    public IProductionOrder getOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification, String machineID) {
+        return this.pid.getIPIDOrder(storage, machinespecification, machineID);
     }
 
     @Override
@@ -40,7 +45,7 @@ public class PIDFacade implements IPIDFacade {
 
         switch (type){
             case SIMPLE:
-                this.pid = new SimplePID();
+                this.pid = new SimplePID(speedTable);
         }
     }
 

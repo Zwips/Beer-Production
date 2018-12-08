@@ -2,7 +2,8 @@ package logic.mes.scheduler;
 
 public enum PlantSchedulerTypesEnum {
 
-    REGULAR();
+    REGULAR(),
+    SIMPLE();
 
     PlantSchedulerTypesEnum() {
     }

@@ -6,5 +6,5 @@ import acquantiance.IStorageReadable;
 
 public interface PIDType {
 
-    IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification);
+    IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machinespecification, String machineID);
 }

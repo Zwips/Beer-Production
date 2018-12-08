@@ -4,16 +4,20 @@ import acquantiance.ProductTypeEnum;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IProductionOrder;
 import acquantiance.IStorageReadable;
+import logic.mes.mesacquantiance.IRelativeMachineSpeeds;
 
 public class SimplePID implements PIDType {
 
-    public SimplePID() {
+    private IRelativeMachineSpeeds speedTable;
+
+    public SimplePID(IRelativeMachineSpeeds speedTable) {
+        this.speedTable = speedTable;
     }
 
     @Override
-    public IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification){
+    public IProductionOrder getIPIDOrder(IStorageReadable storage, IMachineSpecificationReadable machineSpecification, String machineID){
         PIDOrder pidOrder = new PIDOrder();
-        ProductTypeEnum productType = findProductType(storage);
+        ProductTypeEnum productType = findProductType(storage, machineID);
 
         if(productType==null){
             return null;
@@ -41,7 +45,7 @@ public class SimplePID implements PIDType {
         return machineSpecification.getOptimalSpeed(productType);
     }
 
-    private ProductTypeEnum findProductType(IStorageReadable storage){
+    private ProductTypeEnum findProductType(IStorageReadable storage, String machineID){
         double max = 0;
         ProductTypeEnum productType = null;
 
@@ -50,7 +54,7 @@ public class SimplePID implements PIDType {
             double targetAmount = storage.getTargetAmount(typeEnum);
             double storagePercent = currentAmount/targetAmount;
 
-            double typeWeight = getRelativeSpeed(typeEnum)*(1-storagePercent);
+            double typeWeight = getRelativeSpeed(typeEnum, machineID)*Math.pow(1-storagePercent, 4);
             if( typeWeight>max){
                 productType = typeEnum;
                 max = typeWeight;
@@ -60,9 +64,8 @@ public class SimplePID implements PIDType {
         return productType;
     }
 
-    private double getRelativeSpeed(ProductTypeEnum productType){
-        //TODO move to table object in ProcessingPlant
-        return 1.0;
+    private double getRelativeSpeed(ProductTypeEnum productType, String machineID){
+        return this.speedTable.getMostEffectiveProduct(machineID, productType);
     }
 
 

@@ -5,10 +5,9 @@ import logic.mes.MESOutFacade;
 import logic.mes.mesacquantiance.IMesMachine;
 import logic.mes.mesacquantiance.IPlantSchedulerFacade;
 import logic.mes.mesacquantiance.IProductionOrder;
+import logic.mes.mesacquantiance.IRelativeMachineSpeeds;
 
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 
 /**
@@ -20,13 +19,16 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     private Map<String, TreeSet<DeliveryOrder>> machineSchedule;
     private Map<Integer, IBusinessOrder> businessOrders;
     private Set<Integer> startedOrders;
+    private IRelativeMachineSpeeds speedTable;
 
-
-    public PlantSchedulerFacade() {
-        this.scheduler = new RetardedPlantSchedular();
+    public PlantSchedulerFacade(IRelativeMachineSpeeds speedTable) {
         this.machineSchedule = new HashMap<>();
         this.businessOrders = new HashMap<>();
         this.startedOrders = new HashSet<>();
+
+        this.speedTable = speedTable;
+
+        this.scheduler = new SimplePlantScheduler(speedTable);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
             case REGULAR:
                 this.scheduler = new RetardedPlantSchedular();
                 break;
+            case SIMPLE:
+                this.scheduler = new SimplePlantScheduler(this.speedTable);
+            default:
         }
     }
 
@@ -182,6 +187,30 @@ public class PlantSchedulerFacade implements IPlantSchedulerFacade {
     @Override
     public void addQueue(String machineName){
         this.machineSchedule.put(machineName, new TreeSet<>());
+    }
+
+    @Override
+    public boolean removeQueue(String machineName, Collection<IMesMachine> machines) {
+        TreeSet<DeliveryOrder> queue = this.machineSchedule.get(machineName);
+
+        this.machineSchedule.remove(machineName);
+
+        for (DeliveryOrder deliveryOrder : queue) {
+            IBusinessOrder order = this.businessOrders.get(deliveryOrder.getOrderID());
+
+            boolean success = this.schedule(order, machines);
+
+            if (success) {
+                queue.remove(deliveryOrder);
+            }
+        }
+
+        if (queue.isEmpty()) {
+            return true;
+        } else {
+            this.machineSchedule.put(machineName, queue);
+            return false;
+        }
     }
 
 }

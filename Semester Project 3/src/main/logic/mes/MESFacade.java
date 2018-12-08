@@ -47,7 +47,7 @@ public class MESFacade implements IMESFacade {
     @Override
     public void InsertMachine(String factoryID, String machineID, String machine_IP, String userID, String password) {
         this.processingPlants.get(factoryID).addMachine(machineID, machine_IP, userID, password);
-        MESOutFacade.getInstance().InsertMachine(factoryID, machineID, machine_IP, userID, password);
+        MESOutFacade.getInstance().insertMachine(factoryID, machineID, machine_IP, userID, password);
     }
 
     @Override

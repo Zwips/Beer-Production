@@ -23,6 +23,11 @@ public class RetardedPlantSchedular implements PlantScheduler {
             long production = (long)(1.1*60*1000*amount/speed);
 
             TreeSet<DeliveryOrder> queue = machineSchedule.get(machine.getMachineID());
+
+            if (queue==null) {
+                return false;
+            }
+
             synchronized (queue){
 
                 Iterator<DeliveryOrder> iterator = queue.iterator();

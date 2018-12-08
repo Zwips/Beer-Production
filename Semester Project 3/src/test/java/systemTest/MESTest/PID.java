@@ -6,6 +6,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import logic.mes.MESOutFacade;
+import logic.mes.Machine;
+import logic.mes.SimpleRelativeMachineSpeeds;
 import logic.mes.pid.PIDFacade;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,7 +42,11 @@ public class PID {
     @Then("^the product type for the PIDOrder is ([^\"]*)$")
     public void theProductTypeForThePIDOrderIs(String arg0) throws Throwable {
         ProductTypeEnum type = ProductTypeEnum.get("Pilsner");
-        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification).getProductType());
+        SimpleRelativeMachineSpeeds speedTable = new SimpleRelativeMachineSpeeds();
+        Machine machine = new Machine("derp", "127.0.0.1:4840", "sdu", "1234", "theplant");
+
+        speedTable.addMachine(machine);
+        assertEquals(type, PIDFacade.getInstance().getOrder(dummyStorage, machine.getMachineSpecificationReadable(), machine.getMachineID()).getProductType());
     }
 
     @Given("^full storage$")
@@ -53,6 +59,10 @@ public class PID {
 
     @Then("^the PIDorder is null$")
     public void thePIDorderIsNull() throws Throwable {
-        assertNull(PIDFacade.getInstance().getOrder(dummyStorage,dummyMachineSpecification));
+        SimpleRelativeMachineSpeeds speedTable = new SimpleRelativeMachineSpeeds();
+        Machine machine = new Machine("derp", "127.0.0.1:4840", "sdu", "1234", "theplant");
+
+        speedTable.addMachine(machine);
+        assertNull(PIDFacade.getInstance().getOrder(dummyStorage, machine.getMachineSpecificationReadable(), machine.getMachineID()));
     }
 }

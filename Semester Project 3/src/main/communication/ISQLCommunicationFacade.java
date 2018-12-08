@@ -62,4 +62,5 @@ public interface ISQLCommunicationFacade {
     void saveBatchReport(int batchID, String factoryID, File file);
 
     List<IErrorRateDataPoint> getDefectivesByMachine(String machineID, ProductTypeEnum type);
+
 }

@@ -30,4 +30,6 @@ public interface IPlantSchedulerFacade {
     IProductionOrder getNextOrder(String machineID);
 
     void addQueue(String machineName);
+
+    boolean removeQueue(String machineName, Collection<IMesMachine> machines);
 }

@@ -15,8 +15,10 @@ import logic.mes.scheduler.DeliveryOrder;
 import logic.mes.scheduler.PlantSchedulerFacade;
 import logic.mes.speedoptimizer.SpeedOptimizerFacade;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class ProcessingPlant {
 
@@ -33,6 +35,9 @@ public class ProcessingPlant {
     private ProcessingCapacity capacity;
     private IStorage storage;
 
+    private IRelativeMachineSpeeds speedTable;
+    private Set<String> toBeRemoved;
+
     /**
      * processing plants containing a Map with Machines
      * @param plantID the String identifier for the plant
@@ -44,10 +49,13 @@ public class ProcessingPlant {
     ProcessingPlant(String plantID, List<IMachineConnectionInformation> machines) {
         this.plantID = plantID;
         this.machines = new HashMap<>();
-        this.scheduler = new PlantSchedulerFacade();
         this.idleMachines = new HashSet<>();
-        this.pidFacade = new PIDFacade();
         this.optimizer = new SpeedOptimizerFacade();
+
+        this.speedTable = new SimpleRelativeMachineSpeeds();
+        this.pidFacade = new PIDFacade(speedTable);
+        this.scheduler = new PlantSchedulerFacade(this.speedTable);
+        this.toBeRemoved = new HashSet<>();
 
         this.initialiseStorage();
         this.initialiseBatchID();
@@ -93,10 +101,11 @@ public class ProcessingPlant {
             return false;
         }
 
-
         if(machine.isConnected()) {
             machines.put(machineName, machine);
             this.scheduler.addQueue(machineName);
+            this.speedTable.addMachine(machine);
+            MESOutFacade.getInstance().insertMachine(plantID, machineName, IPAddress, userID, password);
 
             //TODO change to specifications
             switch ((int) machine.readCurrentState()) {
@@ -106,7 +115,7 @@ public class ProcessingPlant {
                 case 11:
                     break;
                 default:
-                    this.idleMachines.add(machineName);
+                        this.idleMachines.add(machineName);
             }
             for (ProductTypeEnum type : ProductTypeEnum.values()) {
                 this.analyseProduction(machineName, type);
@@ -122,7 +131,39 @@ public class ProcessingPlant {
     }
 
     boolean removeMachine(String machineName) {
-        return machines.remove(machineName, machines.get(machineName));
+
+        int state = -1;
+        try {
+            state = (int)this.machines.get(machineName).readCurrentState();
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
+        switch (state){
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+            case 7:
+            case 8:
+            case 9:
+            case 15:
+            case 17:
+            case 18:
+            case 19:
+                toBeRemoved.add(machineName);
+                return true;
+            default:
+                boolean success = this.scheduler.removeQueue(machineName, this.machines.values());
+
+                if (success) {
+                    machines.remove(machineName, machines.get(machineName));
+                    this.speedTable.removeMachine(machineName);
+                    MESOutFacade.getInstance().deleteMachine(machineName);
+                }
+
+                return success;
+        }
     }
 
     public ProcessingCapacity getCapacity() {
@@ -239,7 +280,7 @@ public class ProcessingPlant {
             order = this.scheduler.getNextOrder(machineID);
 
             if (order == null) {
-                order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable());
+                order = this.pidFacade.getOrder(this.storage, this.machines.get(machineID).getMachineSpecificationReadable(), machineID);
                 anotherOrder = false;
             } else {
                 int productAmount = order.getAmount();
@@ -345,5 +386,9 @@ public class ProcessingPlant {
         if (data.size()>0) {
             this.optimizer.optimize(this.machines.get(machineID).getMachineSpecificationOptimizable(), data , 6, 10,type);
         }
+    }
+
+    public boolean isRemoved(String machineID) {
+        return this.toBeRemoved.contains(machineID);
     }
 }
