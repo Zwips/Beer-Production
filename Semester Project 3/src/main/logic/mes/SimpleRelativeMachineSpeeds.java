@@ -103,8 +103,8 @@ public class SimpleRelativeMachineSpeeds implements IRelativeMachineSpeeds {
                 float value = productSpeed.getValue();
                 float relativeValue;
 
-                if (denominator > 2*value){
-                    relativeValue = value/(denominator-2*value);
+                if (denominator > value){
+                    relativeValue = value/(denominator-value);
                 } else {
                     relativeValue = 1;
                 }
