@@ -380,7 +380,7 @@ public class ProcessingPlant {
             float productID = this.machines.get(machineID).readCurrentProductID();
             ProductTypeEnum type = this.machines.get(machineID).getProductType(productID);
             List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
-            if (data.size()>0){
+            if (data.size()>10){
                 ISpeedOptimizable specification = this.machines.get(machineID).getMachineSpecificationOptimizable();
                 Double cost = this.productionCosts.get(type);
                 Double sell = this.sellPrice.get(type);
@@ -394,7 +394,7 @@ public class ProcessingPlant {
     @SuppressWarnings("Duplicates")
     public void analyseProduction(String machineID, ProductTypeEnum type) {
         List<IErrorRateDataPoint> data = MESOutFacade.getInstance().getDefectivesByMachine(machineID,type);
-        if (data.size()>0) {
+        if (data.size()>10) {
             ISpeedOptimizable specification = this.machines.get(machineID).getMachineSpecificationOptimizable();
             Double cost = this.productionCosts.get(type);
             Double sell = this.sellPrice.get(type);

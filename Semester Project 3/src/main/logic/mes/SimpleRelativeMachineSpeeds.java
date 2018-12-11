@@ -86,8 +86,34 @@ public class SimpleRelativeMachineSpeeds implements IRelativeMachineSpeeds {
     }
 
     private void calculateRelativeSpeeds() {
+        Map<ProductTypeEnum, Float> totalProductSpeed = new HashMap<>();
 
         for (Map.Entry<String, Map<ProductTypeEnum, Float>> machine : this.speeds.entrySet()) {
+            for (Map.Entry<ProductTypeEnum, Float> typeSpeed : machine.getValue().entrySet()) {
+                if (totalProductSpeed.get(typeSpeed.getKey())!=null) {
+                    Float semiTotal = totalProductSpeed.get(typeSpeed.getKey());
+                    totalProductSpeed.put(typeSpeed.getKey(), semiTotal+typeSpeed.getValue());
+                } else {
+                    totalProductSpeed.put(typeSpeed.getKey(), typeSpeed.getValue());
+                }
+            }
+        }
+
+        for (Map.Entry<String, Map<ProductTypeEnum, Float>> machine : this.speeds.entrySet()) {
+            for (Map.Entry<ProductTypeEnum, Float> productSpeed : machine.getValue().entrySet()) {
+                Float value = (productSpeed.getValue()/totalProductSpeed.get(productSpeed.getKey()));
+                if (this.relativeSpeeds.containsKey(machine.getKey())) {
+                    this.relativeSpeeds.get(machine.getKey()).put(productSpeed.getKey(), value);
+                } else {
+                    this.relativeSpeeds.put(machine.getKey(), new HashMap<>());
+                    this.relativeSpeeds.get(machine.getKey()).put(productSpeed.getKey(), value);
+                }
+            }
+        }
+
+
+        //<editor-fold desc="Old Table">
+        /*for (Map.Entry<String, Map<ProductTypeEnum, Float>> machine : this.speeds.entrySet()) {
             for (Map.Entry<ProductTypeEnum, Float> productSpeed : machine.getValue().entrySet()) {
 
                 float denominator = 0;
@@ -116,6 +142,8 @@ public class SimpleRelativeMachineSpeeds implements IRelativeMachineSpeeds {
                     this.relativeSpeeds.get(machine.getKey()).put(productSpeed.getKey(), relativeValue);
                 }
             }
-        }
+        }*/
+        //</editor-fold>
+
     }
 }
