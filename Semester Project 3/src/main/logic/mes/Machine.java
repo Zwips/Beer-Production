@@ -17,6 +17,7 @@ package logic.mes;
 import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
+import logic.mes.Subscribers.*;
 import logic.mes.mesacquantiance.IMachineSpecificationReadable;
 import logic.mes.mesacquantiance.IMesMachine;
 import logic.mes.mesacquantiance.IProductionOrder;

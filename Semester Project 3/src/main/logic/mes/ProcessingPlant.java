@@ -9,13 +9,13 @@ package logic.mes;
 
 import acquantiance.*;
 import com.prosysopc.ua.ServiceException;
+import logic.mes.Subscribers.MachinestateCompleteSubscriber;
 import logic.mes.mesacquantiance.*;
 import logic.mes.pid.PIDFacade;
 import logic.mes.scheduler.DeliveryOrder;
 import logic.mes.scheduler.PlantSchedulerFacade;
 import logic.mes.speedoptimizer.SpeedOptimizerFacade;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -140,7 +140,7 @@ public class ProcessingPlant {
         return machines.containsKey(machineName);
     }
 
-    boolean removeMachine(String machineName) {
+    public boolean removeMachine(String machineName) {
 
         int state = -1;
         try {
@@ -281,7 +281,7 @@ public class ProcessingPlant {
         return oee;
     }
 
-    boolean executeNextOrder(String machineID){
+    public boolean executeNextOrder(String machineID){
         IProductionOrder order;
         boolean anotherOrder = false;
         boolean delivery = false;

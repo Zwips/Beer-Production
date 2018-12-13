@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.Subscribers;
 
 /** Represents a machine reporter for vibration.
  * @author Asmus
@@ -7,6 +7,8 @@ package logic.mes;
 
 import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
+import logic.mes.MESOutFacade;
+import logic.mes.Machine;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.DateTime;
 
@@ -16,7 +18,7 @@ public class MachineVibrationReporter implements IDataChangeCatcher {
     private Machine machine;
     private String factoryID;
 
-    MachineVibrationReporter(Machine machine, String factoryID)
+    public MachineVibrationReporter(Machine machine, String factoryID)
     {
         this.machine = machine;
         this.factoryID = factoryID;

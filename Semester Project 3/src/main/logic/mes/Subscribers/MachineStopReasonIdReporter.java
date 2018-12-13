@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.Subscribers;
 
 /** Represents a machine reporter for stopReasonID.
  * @author Asmus
@@ -6,6 +6,8 @@ package logic.mes;
  */
 
 import acquantiance.IDataChangeCatcher;
+import logic.mes.MESOutFacade;
+import logic.mes.Machine;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 

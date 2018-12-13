@@ -1,6 +1,7 @@
-package logic.mes;
+package logic.mes.Subscribers;
 
 import acquantiance.IDataChangeCatcher;
+import logic.mes.ProcessingPlant;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
@@ -8,7 +9,7 @@ public class MachinestateCompleteSubscriber  implements IDataChangeCatcher  {
     private String machineID;
     private ProcessingPlant plant;
 
-    MachinestateCompleteSubscriber(String machineID, ProcessingPlant plant) {
+    public MachinestateCompleteSubscriber(String machineID, ProcessingPlant plant) {
         this.machineID = machineID;
         this.plant = plant;
     }

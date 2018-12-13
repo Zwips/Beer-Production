@@ -1,4 +1,4 @@
-package logic.mes;
+package logic.mes.Subscribers;
 
 /** Represents a machine reporter for state change
  * @author Asmus
@@ -7,12 +7,13 @@ package logic.mes;
  */
 
 import acquantiance.IDataChangeCatcher;
+import logic.mes.Machine;
 import org.opcfoundation.ua.builtintypes.DataValue;
 
 public class MachineCurrentMachineStateReporter implements IDataChangeCatcher {
     private Machine machine;
 
-    MachineCurrentMachineStateReporter(Machine machine)
+    public MachineCurrentMachineStateReporter(Machine machine)
     {
         this.machine = machine;
     }
