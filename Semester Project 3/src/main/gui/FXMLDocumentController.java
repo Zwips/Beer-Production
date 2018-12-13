@@ -369,16 +369,17 @@ public class FXMLDocumentController implements Initializable {
     }
 
     void loadOEE(String machineID) {
+        if  (machineID != null){
             Stage stage = new Stage();
             IOEEToGUI oee = GUIOutFacade.getInstance().getOEEByMachine(machineID,factoryID);
             oEEpercentLabel.setText(oee.getOEEValue()*100+"%");
             pieChartOEE = new PieChart();
             HashMap<String, Double> relativeStatistics = new HashMap<>();
             double totalTime = 0;
-        for (Map.Entry<String, Long> longEntry : oee.getStatistics().entrySet()) {
-            totalTime += longEntry.getValue();
+            for (Map.Entry<String, Long> longEntry : oee.getStatistics().entrySet()) {
+                totalTime += longEntry.getValue();
 
-        }
+            }
 
             for (Map.Entry<String, Long> entry : oee.getStatistics().entrySet()) {
                 pieChartOEE.getData().add(new PieChart.Data(entry.getKey()+": "+String.format("%.3g",entry.getValue()/totalTime*100)+"%",entry.getValue()/totalTime));
@@ -386,16 +387,17 @@ public class FXMLDocumentController implements Initializable {
 
 
 
-        pieChartOEE.setTitle("OEE for " + machineID);
+            pieChartOEE.setTitle("OEE for " + machineID);
 
-        pieChartOEE.setVisible(true);
+            pieChartOEE.setVisible(true);
 
-        pieChartPane = new StackPane(pieChartOEE);
+            pieChartPane = new StackPane(pieChartOEE);
 
             Scene scene = new Scene(pieChartPane, 800, 600);
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
 }

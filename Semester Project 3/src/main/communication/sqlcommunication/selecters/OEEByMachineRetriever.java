@@ -48,57 +48,63 @@ public class OEEByMachineRetriever {
         boolean isProducing = false;
 
         try {
-            results.next();
-            factory = results.getString("factoryid");
-            machine = results.getString("machineid");
-            startTime = new Date(results.getTimestamp("timeofchange").getTime()).getTime();
-            Date date = new Date(results.getTimestamp("timeofchange").getTime());
+            if (results.isBeforeFirst()) {
+                try {
 
-            long dateLong = date.getTime();
+                    results.next();
+                    factory = results.getString("factoryid");
+                    machine = results.getString("machineid");
+                    startTime = new Date(results.getTimestamp("timeofchange").getTime()).getTime();
+                    Date date = new Date(results.getTimestamp("timeofchange").getTime());
 
-            stateChangeMap.put(date,results.getString("state"));
-            isProducing = results.getBoolean("isproducing");
-            downTimeMap.put(date, isProducing);
+                    long dateLong = date.getTime();
 
-            while(results.next()){
-                date = new Date(results.getTimestamp("timeofchange").getTime());
-                stateChangeMap.put(date,results.getString("state"));
-                downTimeMap.put(date, results.getBoolean("isproducing"));
+                    stateChangeMap.put(date, results.getString("state"));
+                    isProducing = results.getBoolean("isproducing");
+                    downTimeMap.put(date, isProducing);
+
+                    while (results.next()) {
+                        date = new Date(results.getTimestamp("timeofchange").getTime());
+                        stateChangeMap.put(date, results.getString("state"));
+                        downTimeMap.put(date, results.getBoolean("isproducing"));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                double totalUptime = 0;
+                double totalDowntime = 1;
+                for (Map.Entry<Date, Boolean> entry : downTimeMap.entrySet()) {
+                    if (isProducing) {
+                        long newTime = entry.getKey().getTime();
+                        long startTimeAgain = startTime;
+                        long timeAdded = newTime - startTime;
+
+                        totalUptime += entry.getKey().getTime() - startTime;
+
+                        startTime = entry.getKey().getTime();
+                        isProducing = entry.getValue();
+                    } else {
+                        long newTime = entry.getKey().getTime();
+                        long startTimeAgain = startTime;
+                        long timeAdded = newTime - startTime;
+
+                        totalDowntime += entry.getKey().getTime() - startTime;
+
+                        startTime = entry.getKey().getTime();
+                        isProducing = entry.getValue();
+                    }
+                }
+                oeePercent = totalUptime / (totalUptime + totalDowntime);
+
+                oee.setFactoryID(factory);
+                oee.setMachineID(machine);
+                oee.setOee((float) oeePercent);
+                oee.setStateChangeMap(stateChangeMap);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        double totalUptime = 0;
-        double totalDowntime = 1;
-        for (Map.Entry<Date, Boolean> entry : downTimeMap.entrySet()) {
-            if (isProducing) {
-                long newTime = entry.getKey().getTime();
-                long startTimeAgain = startTime;
-                long timeAdded = newTime - startTime;
-
-                totalUptime += entry.getKey().getTime() - startTime;
-
-                startTime = entry.getKey().getTime();
-                isProducing = entry.getValue();
-            } else {
-                long newTime = entry.getKey().getTime();
-                long startTimeAgain = startTime;
-                long timeAdded = newTime - startTime;
-
-                totalDowntime += entry.getKey().getTime() - startTime;
-
-                startTime = entry.getKey().getTime();
-                isProducing = entry.getValue();
-            }
-        }
-        oeePercent = totalUptime  / (totalUptime + totalDowntime);
-
-        oee.setFactoryID(factory);
-        oee.setMachineID(machine);
-        oee.setOee((float)oeePercent);
-        oee.setStateChangeMap(stateChangeMap);
-
         try {
             connection.close();
         } catch (SQLException e) {
