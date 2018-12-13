@@ -22,7 +22,7 @@ public class MESFacade implements IMESFacade {
         Set<String> plantIDs = allMachines.keySet();
 
         for (String plantID : plantIDs) {
-            if (plantID.equals("theplant")){
+            if (plantID.equals("beerplant")){
                 continue;
             }
             processingPlants.put(plantID, new ProcessingPlant(plantID, allMachines.get(plantID)));
