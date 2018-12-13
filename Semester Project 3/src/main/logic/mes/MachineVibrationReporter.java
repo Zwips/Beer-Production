@@ -8,6 +8,7 @@ package logic.mes;
 import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import org.opcfoundation.ua.builtintypes.DataValue;
+import org.opcfoundation.ua.builtintypes.DateTime;
 
 import java.util.Date;
 
@@ -22,9 +23,8 @@ public class MachineVibrationReporter implements IDataChangeCatcher {
     }
     @Override
     public void report(DataValue newData) {
-        if(newData.getValue().floatValue() < -2 || newData.getValue().floatValue() >2)
-        {
-            Date date = new Date(newData.getServerTimestamp().getValue());
+        if (newData.getValue().floatValue() < -2 || newData.getValue().floatValue() > 2) {
+            Date date = new Date();
 
             try {
                 MESOutFacade.getInstance().logVibration(newData.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);

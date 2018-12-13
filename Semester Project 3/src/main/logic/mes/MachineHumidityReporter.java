@@ -8,6 +8,7 @@ package logic.mes;
 import acquantiance.IDataChangeCatcher;
 import com.prosysopc.ua.ServiceException;
 import org.opcfoundation.ua.builtintypes.DataValue;
+import org.opcfoundation.ua.builtintypes.DateTime;
 
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class MachineHumidityReporter implements IDataChangeCatcher {
 
     @Override
     public void report(DataValue newData) {
-        Date date = new Date(newData.getServerTimestamp().getValue());
+        Date date = new Date();
 
         try {
             MESOutFacade.getInstance().logHumidity(newData.getValue().floatValue(), date, (int)machine.readBatchIDCurrent(), factoryID);
