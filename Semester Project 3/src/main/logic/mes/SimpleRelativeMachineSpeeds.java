@@ -80,7 +80,7 @@ public class SimpleRelativeMachineSpeeds implements IRelativeMachineSpeeds {
 
         this.speeds.get(machineName).put(type, speed);
 
-        if (numberOfUpdates%100==0){
+        if (numberOfUpdates%1==0){
             this.calculateRelativeSpeeds();
         }
     }
